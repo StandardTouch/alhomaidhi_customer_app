@@ -1,16 +1,22 @@
 # alhomaidhi_customer_app
 
-A new Flutter project.
+Official E Commerce Application for Alhomaidhi group
+
+## Pre Requisites
+
+- Flutter
+- Android Studio
+- Android or IOS Emulator
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+- Clone the repository
 
-A few resources to get you started if this is your first Flutter project:
+```
+git clone https://github.com/StandardTouch0/alhomaidhi_customer_app.git
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Open in Visual Studio Code
+- Open main.dart
+- Select Device to run the code
+- Run the code
