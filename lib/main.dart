@@ -1,4 +1,4 @@
-import 'package:alhomaidhi_customer_app/src/shared/theme/theme.dart';
+import 'package:alhomaidhi_customer_app/src/utils/theme/theme.dart';
 import 'package:alhomaidhi_customer_app/src/utils/router/routes.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +8,7 @@ void main() {
   runApp(
     ProviderScope(
       child: EasyDynamicThemeWidget(
+        initialThemeMode: ThemeMode.system,
         child: MyApp(),
       ),
     ),
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Alhomaidhi Customer App',
       theme: lightThemeData,
       darkTheme: darkThemeData,
       themeMode: EasyDynamicTheme.of(context).themeMode,

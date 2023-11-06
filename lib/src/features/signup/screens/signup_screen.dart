@@ -1,4 +1,5 @@
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/widgets/form_input.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -32,22 +33,13 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(20),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color.fromARGB(255, 218, 241, 253),
-                Color.fromARGB(255, 218, 241, 253),
-                Color.fromARGB(255, 218, 241, 253),
-              ],
-            ),
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,19 +50,20 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 40, horizontal: 15),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).highlightColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
                     boxShadow: [
                       BoxShadow(
-                          color: Color.fromARGB(255, 123, 151, 166),
-                          blurRadius: 1.0),
+                          color: Colors.black38,
+                          blurRadius: 0.5,
+                          spreadRadius: 1),
                     ],
                   ),
                   child: Column(
                     children: [
                       const Image(
-                        image: AssetImage('assets/images/alhomaidhi.png'),
+                        image: AssetImage(Assets.logoLight),
                         width: 250,
                       ),
                       const Gap(30),
@@ -124,11 +117,6 @@ class _SignupScreenState extends State<SignupScreen> {
               const Gap(30),
               ElevatedButton(
                 onPressed: _registerUser,
-                style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsetsDirectional.symmetric(
-                        vertical: 18, horizontal: 60),
-                    elevation: 0.2,
-                    backgroundColor: Theme.of(context).primaryColor),
                 child: const Text(
                   "Register",
                   style: TextStyle(color: Colors.white),
