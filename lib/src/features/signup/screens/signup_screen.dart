@@ -1,4 +1,4 @@
-import 'package:alhomaidhi_customer_app/src/features/signup/screens/widgets/form_input.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
