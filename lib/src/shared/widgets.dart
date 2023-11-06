@@ -6,13 +6,15 @@ class FormInput extends StatelessWidget {
       required this.label,
       required this.type,
       required this.validator,
-      required this.onSaved});
+      required this.onSaved,
+      this.prefix});
 
   final String label;
   final TextInputType type;
 
   final Function(String? value) validator;
   final Function(String? value) onSaved;
+  final String? prefix;
 
   @override
   Widget build(context) {
@@ -20,6 +22,7 @@ class FormInput extends StatelessWidget {
       keyboardType: type,
       decoration: InputDecoration(
         label: Text(label),
+        prefix: (prefix != null) ? Text(prefix.toString()) : const Text(""),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey, width: 1.0),
