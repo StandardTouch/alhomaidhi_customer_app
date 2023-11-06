@@ -1,6 +1,7 @@
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/widgets/form_input.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
+import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -23,7 +24,7 @@ class _SignupScreenState extends State<SignupScreen> {
     }
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print(_enterFirstName);
+      print(Theme.of(context).brightness);
       print(_enterLastName);
       print(_enterMobileNo);
       print(_enterEmailAdd);
@@ -62,8 +63,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   child: Column(
                     children: [
-                      const Image(
-                        image: AssetImage(Assets.logoLight),
+                      Image(
+                        image: AssetImage(
+                            (Theme.of(context).brightness == Brightness.dark)
+                                ? Assets.logoDark
+                                : Assets.logoLight),
                         width: 250,
                       ),
                       const Gap(30),
