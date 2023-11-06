@@ -53,7 +53,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   decoration: BoxDecoration(
                     color: Theme.of(context).highlightColor,
                     borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                           color: Colors.black38,
                           blurRadius: 0.5,
