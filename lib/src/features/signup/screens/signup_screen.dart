@@ -1,4 +1,5 @@
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/widgets/form_input.dart';
+import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -15,7 +16,10 @@ class _SignupScreenState extends State<SignupScreen> {
   var _enterLastName = '';
   var _enterMobileNo = '';
   var _enterEmailAdd = '';
-  void _regiterUser() {
+  void _registerUser() {
+    if (_formKey.currentState == null) {
+      return;
+    }
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       print(_enterFirstName);
@@ -74,16 +78,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "First Name",
                         type: TextInputType.name,
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              value.trim().length <= 1 ||
-                              value.trim().length > 50) {
-                            return 'Must be between 1 and 50 characters long';
-                          }
-                          return null;
+                          return firstNameValidator(value);
                         },
                         onSaved: (value) {
-                          _enterFirstName = value.toString();
+                          _enterFirstName = value!;
                         },
                       ),
                       const Gap(20),
@@ -91,16 +89,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "Last Name",
                         type: TextInputType.name,
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              value.trim().length <= 1 ||
-                              value.trim().length > 20) {
-                            return 'Must be between 1 and 20 characters long';
-                          }
-                          return null;
+                          return lastNameValidator(value);
                         },
                         onSaved: (value) {
-                          _enterLastName = value.toString();
+                          _enterLastName = value!;
                         },
                       ),
                       const Gap(20),
@@ -108,15 +100,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "Mobile Number",
                         type: TextInputType.number,
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              value.trim().length != 10) {
-                            return 'Mobile number should be 9 digits long';
-                          }
-                          return null;
+                          return mobileNumberValidator(value);
                         },
                         onSaved: (value) {
-                          _enterMobileNo = value.toString();
+                          _enterMobileNo = value!;
                         },
                       ),
                       const Gap(20),
@@ -124,14 +111,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "Email Address",
                         type: TextInputType.emailAddress,
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              !value.contains('@') ||
-                              !value.contains('.') ||
-                              value.trim().length >= 100) {
-                            return 'Email address validated failed';
-                          }
-                          return null;
+                          return emailValidator(value);
                         },
                         onSaved: (value) {
                           _enterEmailAdd = value.toString();
@@ -143,7 +123,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               const Gap(30),
               ElevatedButton(
-                onPressed: _regiterUser,
+                onPressed: _registerUser,
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsetsDirectional.symmetric(
                         vertical: 18, horizontal: 60),
