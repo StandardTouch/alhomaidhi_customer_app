@@ -27,7 +27,7 @@ class FormInput extends StatelessWidget {
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey, width: 1.0),
         ),
-        errorBorder: UnderlineInputBorder(
+        errorBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 width: 1,
                 color: Theme.of(context).colorScheme.error,
