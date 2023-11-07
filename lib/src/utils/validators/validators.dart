@@ -31,7 +31,7 @@ String? emailValidator(String? value) {
   } else if (!value.contains('@')) {
     return "Email must contain @";
   } else if (!value.contains('.')) {
-    return "EMail must contain .";
+    return "Email must contain .";
   } else {
     return null;
   }

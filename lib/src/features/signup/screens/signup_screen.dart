@@ -1,6 +1,7 @@
 import 'package:alhomaidhi_customer_app/src/shared/widgets/form_input.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -68,13 +69,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "First Name",
                         type: TextInputType.name,
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              value.trim().length <= 1 ||
-                              value.trim().length > 50) {
-                            return 'Must be between 1 and 50 characters long';
-                          }
-                          return null;
+                          firstNameValidator(value);
                         },
                         onSaved: (value) {
                           _enterFirstName = value.toString();
@@ -85,13 +80,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "Last Name",
                         type: TextInputType.name,
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              value.trim().length <= 1 ||
-                              value.trim().length > 20) {
-                            return 'Must be between 1 and 20 characters long';
-                          }
-                          return null;
+                          lastNameValidator(value);
                         },
                         onSaved: (value) {
                           _enterLastName = value.toString();
@@ -102,12 +91,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "Mobile Number",
                         type: TextInputType.number,
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              value.trim().length != 10) {
-                            return 'Mobile number should be 9 digits long';
-                          }
-                          return null;
+                          mobileNumberValidator(value);
                         },
                         onSaved: (value) {
                           _enterMobileNo = value.toString();
@@ -118,14 +102,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "Email Address",
                         type: TextInputType.emailAddress,
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              !value.contains('@') ||
-                              !value.contains('.') ||
-                              value.trim().length >= 100) {
-                            return 'Email address validated failed';
-                          }
-                          return null;
+                          emailValidator(value);
                         },
                         onSaved: (value) {
                           _enterEmailAdd = value.toString();
