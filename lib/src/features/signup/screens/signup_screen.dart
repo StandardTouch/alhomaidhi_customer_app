@@ -38,7 +38,7 @@ class _SignupScreenState extends State<SignupScreen> {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(20),
-          height: DeviceInfo.getDeviceHeight(context),
+          height: double.infinity,
           width: DeviceInfo.getDeviceWidth(context),
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
