@@ -69,7 +69,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "First Name",
                         type: TextInputType.name,
                         validator: (value) {
-                          firstNameValidator(value);
+                          return firstNameValidator(value);
                         },
                         onSaved: (value) {
                           _enterFirstName = value.toString();
@@ -80,7 +80,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "Last Name",
                         type: TextInputType.name,
                         validator: (value) {
-                          lastNameValidator(value);
+                          return lastNameValidator(value);
                         },
                         onSaved: (value) {
                           _enterLastName = value.toString();
@@ -91,7 +91,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "Mobile Number",
                         type: TextInputType.number,
                         validator: (value) {
-                          mobileNumberValidator(value);
+                          return mobileNumberValidator(value);
                         },
                         onSaved: (value) {
                           _enterMobileNo = value.toString();
@@ -102,7 +102,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "Email Address",
                         type: TextInputType.emailAddress,
                         validator: (value) {
-                          emailValidator(value);
+                          return emailValidator(value);
                         },
                         onSaved: (value) {
                           _enterEmailAdd = value.toString();

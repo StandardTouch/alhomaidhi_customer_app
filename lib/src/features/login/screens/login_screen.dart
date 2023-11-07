@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Login",
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
-                        Gap(20),
+                        const Gap(20),
                         FormInput(
                           maxLength: 9,
                           label: "Phone Number",
