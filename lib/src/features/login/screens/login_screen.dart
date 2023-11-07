@@ -3,6 +3,7 @@ import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -83,7 +84,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text("Don't have an account?"),
                         const Gap(10),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            context.push("/signup");
+                          },
                           child: const Text(
                             "Sign Up",
                             style: TextStyle(
