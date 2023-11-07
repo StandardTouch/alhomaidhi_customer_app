@@ -1,6 +1,5 @@
-import 'package:alhomaidhi_customer_app/src/features/signup/screens/widgets/form_input.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets/form_input.dart';
+import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -18,10 +17,7 @@ class _SignupScreenState extends State<SignupScreen> {
   var _enterLastName = '';
   var _enterMobileNo = '';
   var _enterEmailAdd = '';
-  void _registerUser() {
-    if (_formKey.currentState == null) {
-      return;
-    }
+  void _regiterUser() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       print(Theme.of(context).brightness);
@@ -34,13 +30,25 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+      ),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(20),
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor,
+          height: DeviceInfo.getDeviceHeight(context),
+          width: DeviceInfo.getDeviceWidth(context),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color.fromARGB(255, 218, 241, 253),
+                Color.fromARGB(255, 218, 241, 253),
+                Color.fromARGB(255, 218, 241, 253),
+              ],
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,14 +59,13 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 40, horizontal: 15),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).highlightColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    boxShadow: const [
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    boxShadow: [
                       BoxShadow(
-                          color: Colors.black38,
-                          blurRadius: 0.5,
-                          spreadRadius: 1),
+                          color: Color.fromARGB(255, 123, 151, 166),
+                          blurRadius: 1.0),
                     ],
                   ),
                   child: Column(
@@ -75,10 +82,16 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "First Name",
                         type: TextInputType.name,
                         validator: (value) {
-                          return firstNameValidator(value);
+                          if (value == null ||
+                              value.isEmpty ||
+                              value.trim().length <= 1 ||
+                              value.trim().length > 50) {
+                            return 'Must be between 1 and 50 characters long';
+                          }
+                          return null;
                         },
                         onSaved: (value) {
-                          _enterFirstName = value!;
+                          _enterFirstName = value.toString();
                         },
                       ),
                       const Gap(20),
@@ -86,10 +99,16 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "Last Name",
                         type: TextInputType.name,
                         validator: (value) {
-                          return lastNameValidator(value);
+                          if (value == null ||
+                              value.isEmpty ||
+                              value.trim().length <= 1 ||
+                              value.trim().length > 20) {
+                            return 'Must be between 1 and 20 characters long';
+                          }
+                          return null;
                         },
                         onSaved: (value) {
-                          _enterLastName = value!;
+                          _enterLastName = value.toString();
                         },
                       ),
                       const Gap(20),
@@ -97,10 +116,15 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "Mobile Number",
                         type: TextInputType.number,
                         validator: (value) {
-                          return mobileNumberValidator(value);
+                          if (value == null ||
+                              value.isEmpty ||
+                              value.trim().length != 10) {
+                            return 'Mobile number should be 9 digits long';
+                          }
+                          return null;
                         },
                         onSaved: (value) {
-                          _enterMobileNo = value!;
+                          _enterMobileNo = value.toString();
                         },
                       ),
                       const Gap(20),
@@ -108,7 +132,14 @@ class _SignupScreenState extends State<SignupScreen> {
                         label: "Email Address",
                         type: TextInputType.emailAddress,
                         validator: (value) {
-                          return emailValidator(value);
+                          if (value == null ||
+                              value.isEmpty ||
+                              !value.contains('@') ||
+                              !value.contains('.') ||
+                              value.trim().length >= 100) {
+                            return 'Email address validated failed';
+                          }
+                          return null;
                         },
                         onSaved: (value) {
                           _enterEmailAdd = value.toString();
@@ -120,7 +151,12 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               const Gap(30),
               ElevatedButton(
-                onPressed: _registerUser,
+                onPressed: _regiterUser,
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsetsDirectional.symmetric(
+                        vertical: 18, horizontal: 60),
+                    elevation: 0.2,
+                    backgroundColor: Theme.of(context).primaryColor),
                 child: const Text(
                   "Register",
                   style: TextStyle(color: Colors.white),

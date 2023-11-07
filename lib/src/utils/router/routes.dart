@@ -3,7 +3,7 @@ import 'package:alhomaidhi_customer_app/src/features/signup/screens/signup_scree
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
-  initialLocation: "/signup",
+  initialLocation: "/login",
   routes: [
     GoRoute(
       path: "/login",
