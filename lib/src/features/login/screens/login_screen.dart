@@ -1,5 +1,6 @@
 import 'package:alhomaidhi_customer_app/src/shared/widgets/form_input.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
+import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -30,13 +31,15 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const Image(
-                  image: AssetImage(Assets.logoLight),
+                Image(
+                  image: AssetImage(DeviceInfo.isDarkMode(context)
+                      ? Assets.logoDark
+                      : Assets.logoLight),
                   width: 250,
                 ),
                 const Gap(30),

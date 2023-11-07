@@ -13,6 +13,6 @@ class DeviceInfo {
 
 // returns true if dark mode is enabled
   static bool isDarkMode(BuildContext context) {
-    return MediaQuery.of(context).platformBrightness == Brightness.dark;
+    return Theme.of(context).brightness == Brightness.dark;
   }
 }

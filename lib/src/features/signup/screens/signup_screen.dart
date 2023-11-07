@@ -1,6 +1,6 @@
 import 'package:alhomaidhi_customer_app/src/shared/widgets/form_input.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
-import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -17,10 +17,10 @@ class _SignupScreenState extends State<SignupScreen> {
   var _enterLastName = '';
   var _enterMobileNo = '';
   var _enterEmailAdd = '';
-  void _regiterUser() {
+  void _registerUser() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print(Theme.of(context).brightness);
+      print(_enterFirstName);
       print(_enterLastName);
       print(_enterMobileNo);
       print(_enterEmailAdd);
@@ -39,16 +39,8 @@ class _SignupScreenState extends State<SignupScreen> {
           padding: const EdgeInsets.all(20),
           height: DeviceInfo.getDeviceHeight(context),
           width: DeviceInfo.getDeviceWidth(context),
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color.fromARGB(255, 218, 241, 253),
-                Color.fromARGB(255, 218, 241, 253),
-                Color.fromARGB(255, 218, 241, 253),
-              ],
-            ),
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,22 +51,16 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 40, horizontal: 15),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Color.fromARGB(255, 123, 151, 166),
-                          blurRadius: 1.0),
-                    ],
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).highlightColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
                   ),
                   child: Column(
                     children: [
                       Image(
-                        image: AssetImage(
-                            (Theme.of(context).brightness == Brightness.dark)
-                                ? Assets.logoDark
-                                : Assets.logoLight),
+                        image: AssetImage(DeviceInfo.isDarkMode(context)
+                            ? Assets.logoDark
+                            : Assets.logoLight),
                         width: 250,
                       ),
                       const Gap(30),
@@ -151,12 +137,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               const Gap(30),
               ElevatedButton(
-                onPressed: _regiterUser,
-                style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsetsDirectional.symmetric(
-                        vertical: 18, horizontal: 60),
-                    elevation: 0.2,
-                    backgroundColor: Theme.of(context).primaryColor),
+                onPressed: _registerUser,
                 child: const Text(
                   "Register",
                   style: TextStyle(color: Colors.white),
