@@ -7,6 +7,7 @@ class FormInput extends StatelessWidget {
       required this.type,
       required this.validator,
       required this.onSaved,
+      this.maxLength,
       this.prefix});
 
   final String label;
@@ -15,10 +16,12 @@ class FormInput extends StatelessWidget {
   final Function(String? value) validator;
   final Function(String? value) onSaved;
   final String? prefix;
+  final int? maxLength;
 
   @override
   Widget build(context) {
     return TextFormField(
+      maxLength: maxLength,
       keyboardType: type,
       decoration: InputDecoration(
         label: Text(label),

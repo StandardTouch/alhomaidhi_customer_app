@@ -1,4 +1,4 @@
-import 'package:alhomaidhi_customer_app/src/shared/widgets.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets/form_input.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         const Gap(30),
                         FormInput(
+                          maxLength: 9,
                           label: "Phone Number",
                           type: TextInputType.number,
                           prefix: "+966",

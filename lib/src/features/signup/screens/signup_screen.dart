@@ -1,4 +1,5 @@
-import 'package:alhomaidhi_customer_app/src/shared/widgets.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets/form_input.dart';
+import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -32,8 +33,8 @@ class _SignupScreenState extends State<SignupScreen> {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(20),
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: DeviceInfo.getDeviceHeight(context),
+          width: DeviceInfo.getDeviceWidth(context),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
