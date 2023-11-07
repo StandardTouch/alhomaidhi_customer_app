@@ -31,7 +31,7 @@ var lightThemeData = ThemeData(
 var darkThemeData = ThemeData(
   primaryColor: COLOR_PRIMARY,
   brightness: Brightness.dark,
-  highlightColor: Colors.black12,
+  highlightColor: Colors.black,
   useMaterial3: true,
   scaffoldBackgroundColor: Colors.black,
   elevatedButtonTheme: elevatedButtonThemeData,
