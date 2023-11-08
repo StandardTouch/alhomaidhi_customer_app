@@ -1,10 +1,12 @@
 import 'package:alhomaidhi_customer_app/src/utils/theme/theme.dart';
-import 'package:alhomaidhi_customer_app/src/utils/router/routes.dart';
+import 'package:alhomaidhi_customer_app/src/utils/config/router/routes.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
   runApp(
     ProviderScope(
       child: EasyDynamicThemeWidget(
