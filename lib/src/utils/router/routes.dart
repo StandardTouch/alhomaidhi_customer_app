@@ -1,5 +1,4 @@
-import 'dart:js';
-
+import 'package:alhomaidhi_customer_app/src/features/address/screens/billing_address.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/screens/shopping_cart.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/screens/home_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
@@ -36,7 +35,7 @@ CustomTransitionPage buildPageWithDefaultTransition(
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: "/home",
+  initialLocation: "/address",
   routes: [
     GoRoute(
       path: "/login",
@@ -59,7 +58,15 @@ final router = GoRouter(
       },
       pageBuilder: (context, state, innerChild) =>
           buildPageWithDefaultTransition(
-              context: context, state: state, child: innerChild),
+              context: context,
+              state: state,
+              child: Scaffold(
+                appBar: AppBar(
+                  forceMaterialTransparency: true,
+                ),
+                body: innerChild,
+                bottomNavigationBar: HomaidhiBottomBar(),
+              )),
       routes: [
         GoRoute(
           path: "/home",
@@ -75,6 +82,11 @@ final router = GoRouter(
           path: "/profile",
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context, state: state, child: MyProfileScreen()),
+        ),
+        GoRoute(
+          path: "/address",
+          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context, state: state, child: BillingAddress()),
         ),
       ],
     )
