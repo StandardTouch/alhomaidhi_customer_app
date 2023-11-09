@@ -1,36 +1,24 @@
+import 'package:alhomaidhi_customer_app/src/features/login/providers/login_provider.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/form_input.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/top_snackbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:alhomaidhi_customer_app/src/utils/theme/theme.dart';
 import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pinput/pinput.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
+class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
   @override
-  ConsumerState<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends ConsumerState<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-  var _enterMobileNo = '';
-
-  void _loginUser() {
-    if (_formKey.currentState == null) {
-      return;
-    }
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      print(_enterMobileNo);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    String? enteredOtp;
+    final formKey = GlobalKey<FormState>();
+    final loginNotifier = ref.read(loginProvider.notifier);
+    final loginRef = ref.watch(loginProvider);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -39,14 +27,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             child: Column(
               children: [
                 Image(
-                  image: AssetImage(DeviceInfo.isDarkMode(context)
-                      ? Assets.logoDark
-                      : Assets.logoLight),
+                  image: AssetImage(
+                    DeviceInfo.isDarkMode(context)
+                        ? Assets.logoDark
+                        : Assets.logoLight,
+                  ),
                   width: 250,
                 ),
                 const Gap(30),
                 Form(
-                  key: _formKey,
+                  key: formKey,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         vertical: 40, horizontal: 30),
@@ -68,7 +58,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                         const Gap(20),
                         FormInput(
-                          maxLength: 9,
+                          value: loginRef.getPhoneNumber,
+                          // todo - change max length to 9 before production
+                          maxLength: 10,
                           label: "Phone Number",
                           type: TextInputType.number,
                           prefix: "+966",
@@ -76,18 +68,48 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             return mobileNumberValidator(value);
                           },
                           onSaved: (value) {
-                            _enterMobileNo = value!;
+                            loginNotifier.updatephoneNumber(value);
                           },
                         ),
                         const Gap(30),
+                        if (loginRef.isOTPVisible == true)
+                          Pinput(
+                              length: 6,
+                              defaultPinTheme: getDefaultPinTheme(context),
+                              submittedPinTheme: getSubmittedPinTheme(context),
+                              onCompleted: (value) {
+                                enteredOtp = value;
+                                loginNotifier.verifyOtp(context, value);
+                                // todo - implement login api functionality
+                              }),
+                        if (loginRef.isOTPVisible == true) const Gap(30),
                         ElevatedButton.icon(
-                          onPressed: _loginUser,
-                          icon: const Icon(Icons.arrow_circle_right_sharp,
-                              color: Colors.white),
-                          label: const Text(
-                            "Send OTP",
-                            style: TextStyle(color: Colors.white),
-                          ),
+                          onPressed: loginRef.isButtonLoading
+                              ? null
+                              : (loginRef.isOTPVisible ==
+                                      true) // set to false if it is null
+                                  ? () {
+                                      loginNotifier.verifyOtp(
+                                          context, enteredOtp);
+                                    }
+                                  : () {
+                                      loginNotifier.sendOtp(formKey, context);
+                                    },
+                          icon: loginRef.isButtonLoading
+                              ? const Icon(
+                                  // what icon you give doesn't matter over here
+                                  Icons.safety_check,
+                                  size: 0,
+                                )
+                              : const Icon(Icons.arrow_circle_right_sharp,
+                                  color: Colors.white),
+                          label: loginRef.isButtonLoading
+                              ? const CircularProgressIndicator()
+                              : (loginRef.isOTPVisible == true)
+                                  ? const Text("Login")
+                                  : const Text(
+                                      "Send OTP",
+                                    ),
                         ),
                         const Gap(50),
                         const Text("Don't have an account?"),

@@ -38,12 +38,13 @@ class _SignupScreenState extends State<SignupScreen> {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(20),
-          height: double.infinity,
+          height: DeviceInfo.getDeviceHeight(context),
           width: DeviceInfo.getDeviceWidth(context),
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -57,6 +58,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     borderRadius: const BorderRadius.all(Radius.circular(15)),
                   ),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Image(
                         image: AssetImage(DeviceInfo.isDarkMode(context)

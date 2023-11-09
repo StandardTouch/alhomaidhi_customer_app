@@ -4,6 +4,7 @@ import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/screens/my_profile_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/signup_screen.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/bottom_bar.dart';
+import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -34,12 +35,31 @@ CustomTransitionPage buildPageWithDefaultTransition(
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: "/login",
+  initialLocation: "/",
   routes: [
+    GoRoute(
+      path: "/",
+      // builder: (context, state) => const Scaffold(
+      //   body: Center(
+      //     child: Text("Loading"),
+      //   ),
+      // ),
+      redirect: (context, state) async {
+        bool isLoggedIn = await AuthHelper.isUserLoggedIn();
+        if (!context.mounted) {
+          return null;
+        }
+        if (isLoggedIn) {
+          return "/login";
+        } else {
+          return "/home";
+        }
+      },
+    ),
     GoRoute(
       path: "/login",
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
-          context: context, state: state, child: LoginScreen()),
+          context: context, state: state, child: const LoginScreen()),
     ),
     GoRoute(
       path: "/signup",
@@ -67,17 +87,19 @@ final router = GoRouter(
         GoRoute(
           path: "/home",
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: HomeScreen()),
+              context: context, state: state, child: const HomeScreen()),
         ),
         GoRoute(
           path: "/cart",
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: ShoppingCartScreen()),
+              context: context,
+              state: state,
+              child: const ShoppingCartScreen()),
         ),
         GoRoute(
           path: "/profile",
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: MyProfileScreen()),
+              context: context, state: state, child: const MyProfileScreen()),
         ),
       ],
     )

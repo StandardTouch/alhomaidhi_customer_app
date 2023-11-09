@@ -1,10 +1,10 @@
-class SendOtpResponseModel {
+class AuthResponseModel {
   String? message;
   String? status;
 
-  SendOtpResponseModel({this.message, this.status});
+  AuthResponseModel({this.message, this.status});
 
-  SendOtpResponseModel.fromJson(Map<String, dynamic> json) {
+  AuthResponseModel.fromJson(Map<String, dynamic> json) {
     if (json["message"] is String) {
       message = json["message"];
     }
