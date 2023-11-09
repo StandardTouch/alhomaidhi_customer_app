@@ -95,6 +95,9 @@ class LoginScreen extends ConsumerWidget {
                                   : () {
                                       loginNotifier.sendOtp(formKey, context);
                                     },
+                          // onPressed: () {
+                          //   loginNotifier.startTimer();
+                          // },
                           icon: loginRef.isButtonLoading
                               ? const Icon(
                                   // what icon you give doesn't matter over here
@@ -111,6 +114,35 @@ class LoginScreen extends ConsumerWidget {
                                       "Send OTP",
                                     ),
                         ),
+                        if (loginRef.isOTPVisible == true) const Gap(10),
+                        if (loginRef.isOTPVisible == true)
+                          InkWell(
+                            onTap: loginRef.isResendLoading ||
+                                    (loginRef.timerDuration != 0)
+                                ? null
+                                : () {
+                                    loginNotifier.resendOtp(context);
+                                  },
+                            child: loginRef.isResendLoading
+                                ? const CircularProgressIndicator()
+                                : (loginRef.timerDuration != 0)
+                                    ? Text(
+                                        "Resend in ${loginRef.timerDuration}",
+                                        style: const TextStyle(
+                                          color: Colors.redAccent,
+                                          decoration: TextDecoration.underline,
+                                          decorationColor: Colors.red,
+                                        ),
+                                      )
+                                    : const Text(
+                                        "Resend OTP",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            decorationColor: Colors.red),
+                                      ),
+                          ),
                         const Gap(50),
                         const Text("Don't have an account?"),
                         const Gap(10),

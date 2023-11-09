@@ -1,3 +1,5 @@
+// send otp response model
+// uses the same model for resend otp
 class SendOtpResponseModel {
   String? message;
   String? status;

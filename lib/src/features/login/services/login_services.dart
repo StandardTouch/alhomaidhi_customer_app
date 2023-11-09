@@ -13,7 +13,7 @@ Future<SendOtpResponseModel> sendLoginOtp(String phoneNumber) async {
     final response = SendOtpResponseModel.fromJson(jsonResponse.data);
     return response;
   } catch (err) {
-    logger.e("Error from login_services.dart: $err");
+    logger.e("Error from sendLoginOtp: $err");
     throw Exception("$err");
   }
 }
@@ -32,7 +32,22 @@ Future<VerifyOtpResponseModel> verifyLoginOtp(
     final response = VerifyOtpResponseModel.fromJson(jsonResponse.data);
     return response;
   } catch (err) {
-    logger.e("Error from login_services.dart: $err");
+    logger.e("Error from verifyLoginOtp: $err");
+    throw Exception("$err");
+  }
+}
+
+// resend login otp
+Future<SendOtpResponseModel> resendLoginOtp(String phoneNumber) async {
+  try {
+    final jsonResponse = await dioClient.post(
+      APIEndpoints.loginResendOtp,
+      data: {"phone_number": phoneNumber},
+    );
+    final response = SendOtpResponseModel.fromJson(jsonResponse.data);
+    return response;
+  } catch (err) {
+    logger.e("Error from resendLoginOtp: $err");
     throw Exception("$err");
   }
 }

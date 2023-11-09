@@ -3,11 +3,14 @@ class LoginModel {
   bool isButtonLoading;
   bool isResendLoading;
   bool? isOTPVisible;
+  int? timerDuration = 30;
+
   LoginModel({
     this.phoneNumber,
     this.isButtonLoading = false,
     this.isResendLoading = false,
     this.isOTPVisible,
+    this.timerDuration,
   });
 
   set setPhoneNumber(String phoneNumber) {
@@ -31,12 +34,14 @@ class LoginModel {
       {String? phoneNumber,
       bool? isButtonLoading,
       bool? isResendLoading,
-      bool? isOTPVisible}) {
+      bool? isOTPVisible,
+      int? timerDuration}) {
     return LoginModel(
       phoneNumber: phoneNumber ?? this.phoneNumber,
       isButtonLoading: isButtonLoading ?? false,
       isResendLoading: isResendLoading ?? false,
       isOTPVisible: isOTPVisible ?? this.isOTPVisible,
+      timerDuration: timerDuration ?? this.timerDuration,
     );
   }
 }

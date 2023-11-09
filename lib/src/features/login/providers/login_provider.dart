@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:alhomaidhi_customer_app/src/features/login/models/login_model.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/models/login_response.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/services/login_services.dart';
@@ -16,18 +18,19 @@ class LoginNotifier extends StateNotifier<LoginModel> {
   }
 
 // send otp start
-  void sendOtp(GlobalKey<FormState> _formKey, BuildContext context) async {
-    if (_formKey.currentState == null) {
+  void sendOtp(GlobalKey<FormState> formKey, BuildContext context) async {
+    if (formKey.currentState == null) {
       return;
     }
     try {
-      if (_formKey.currentState!.validate()) {
-        _formKey.currentState!.save();
+      if (formKey.currentState!.validate()) {
+        formKey.currentState!.save();
         state = state.copyWith(isButtonLoading: true);
         SendOtpResponseModel response =
             await sendLoginOtp(state.getPhoneNumber!);
         if (response.status == "DELAPP00") {
-          state = state.copyWith(isOTPVisible: true);
+          state = state.copyWith(isOTPVisible: true, timerDuration: 10);
+          startTimer();
         } else {
           if (!context.mounted) {
             return;
@@ -89,6 +92,60 @@ class LoginNotifier extends StateNotifier<LoginModel> {
     }
   }
   // verify otp end
+
+  void startTimer() {
+    const duration = Duration(seconds: 1);
+    Timer.periodic(duration, (timer) {
+      if (state.timerDuration == 0) {
+        timer.cancel();
+      } else {
+        state = state.copyWith(timerDuration: (state.timerDuration! - 1));
+        // timerDuration = timerDuration - 1;
+      }
+    });
+  }
+
+  // resend otp start
+  void resendOtp(BuildContext context) async {
+    try {
+      state = state.copyWith(isResendLoading: true);
+      SendOtpResponseModel response = await sendLoginOtp(state.getPhoneNumber!);
+      if (response.status == "DELAPP00") {
+        if (!context.mounted) {
+          return;
+        }
+        getSnackBar(
+          context: context,
+          message: "OTP is sent",
+          type: SNACKBARTYPE.success,
+        );
+        // start timer for resending otp
+        state = state.copyWith(timerDuration: 30);
+        startTimer();
+      } else {
+        if (!context.mounted) {
+          return;
+        }
+        getSnackBar(
+          context: context,
+          message: "Uh Oh. An error occurred: ${response.message}",
+          type: SNACKBARTYPE.error,
+        );
+      }
+      state = state.copyWith(isResendLoading: false);
+    } catch (err) {
+      if (!context.mounted) {
+        return;
+      }
+      getSnackBar(
+        context: context,
+        message: "Server Error: Please try again later",
+        type: SNACKBARTYPE.error,
+      );
+      state = state.copyWith(isResendLoading: false);
+    }
+  }
+  // resend otp end
 }
 
 final loginProvider = StateNotifierProvider<LoginNotifier, LoginModel>((ref) {
