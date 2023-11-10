@@ -61,9 +61,6 @@ final router = GoRouter(
               context: context,
               state: state,
               child: Scaffold(
-                appBar: AppBar(
-                  forceMaterialTransparency: true,
-                ),
                 body: innerChild,
                 bottomNavigationBar: HomaidhiBottomBar(),
               )),
