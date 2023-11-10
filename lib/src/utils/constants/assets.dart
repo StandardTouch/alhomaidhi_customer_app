@@ -4,4 +4,5 @@ class Assets {
   static const profile = "assets/images/profile.png";
   static const myOrders = "assets/images/my_orders.png";
   static const themeMode = "assets/images/theme_mode.png";
+  static const delete = "assets/images/delete.png";
 }

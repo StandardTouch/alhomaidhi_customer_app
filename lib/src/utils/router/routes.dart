@@ -35,7 +35,7 @@ CustomTransitionPage buildPageWithDefaultTransition(
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: "/address",
+  initialLocation: "/profile",
   routes: [
     GoRoute(
       path: "/login",
@@ -61,6 +61,9 @@ final router = GoRouter(
               context: context,
               state: state,
               child: Scaffold(
+                appBar: AppBar(
+                  forceMaterialTransparency: true,
+                ),
                 body: innerChild,
                 bottomNavigationBar: HomaidhiBottomBar(),
               )),

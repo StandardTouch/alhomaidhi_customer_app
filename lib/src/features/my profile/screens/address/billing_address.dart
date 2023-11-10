@@ -24,7 +24,6 @@ class _BillingAddress extends State<BillingAddress> {
 
   final cityData = ["Riyadh", "Jedha"];
 
-  var _width, _height;
   var themeMode = false;
   var _enterFullName = '';
   var _enterMobileNo = '';
@@ -49,58 +48,51 @@ class _BillingAddress extends State<BillingAddress> {
 
   @override
   Widget build(context) {
-    _height = DeviceInfo.getDeviceHeight(context);
-    _width = DeviceInfo.getDeviceWidth(context);
     ThemeMode themeModeValue = EasyDynamicTheme.of(context).themeMode!;
-    return SingleChildScrollView(
-      child: Container(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        height: _height,
-        width: _width,
-        child: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(),
-              height: _height * 0.10,
-              width: _width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Billing Details",
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                ],
+    return Column(
+      children: [
+        Container(
+          decoration: const BoxDecoration(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Billing Details",
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
+            ],
+          ),
+        ),
+        const Gap(30),
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.only(
+              top: 50,
+              left: 50,
+              right: 50,
+              bottom: 0,
             ),
-            Container(
-              height: _height * 0.90,
-              padding: const EdgeInsets.only(
-                top: 50,
-                left: 50,
-                right: 50,
-                bottom: 0,
+            decoration: BoxDecoration(
+              color: (themeModeValue == ThemeMode.dark)
+                  ? Colors.black
+                  : Colors.white,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(50),
+                topRight: Radius.circular(50),
               ),
-              decoration: BoxDecoration(
-                color: (themeModeValue == ThemeMode.dark)
-                    ? Colors.black
-                    : Colors.white,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
-                ),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.black38, blurRadius: 0.5, spreadRadius: 1),
-                ],
-              ),
-              width: _width,
+              boxShadow: const [
+                BoxShadow(
+                    color: Colors.black38, blurRadius: 0.5, spreadRadius: 1),
+              ],
+            ),
+            child: SingleChildScrollView(
               child: Column(
                 children: [
                   Form(
                     key: _formKey,
                     child: Column(
                       children: [
+                        const Gap(10),
                         FormInput(
                           label: "First Name",
                           type: TextInputType.name,
@@ -211,21 +203,22 @@ class _BillingAddress extends State<BillingAddress> {
                         ),
                         const Gap(30),
                         SizedBox(
-                          width: _width,
+                          width: DeviceInfo.getDeviceWidth(context),
                           child: ElevatedButton(
                             onPressed: _saveBillingDetails,
                             child: const Text("Save Address"),
                           ),
                         ),
+                        const Gap(30),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

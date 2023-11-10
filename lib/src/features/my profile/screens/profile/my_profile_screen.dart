@@ -1,9 +1,9 @@
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/screens/profile/widgets/my_profile_menu_item.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({super.key});
@@ -18,34 +18,31 @@ class MyProfileScreen extends StatefulWidget {
 // Add list tile widget for billing address to my orders and delete account
 
 class _MyProfileScreen extends State<MyProfileScreen> {
-  var themeMode = false;
+  ThemeMode themeMode = ThemeMode.system;
 
   @override
   Widget build(context) {
-    final height = DeviceInfo.getDeviceHeight(context);
-    final width = DeviceInfo.getDeviceWidth(context);
-    ThemeMode themeModeValue = EasyDynamicTheme.of(context).themeMode!;
-    return Container(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      // height: height * 0.8,
-      width: width,
-      child: Column(
-        children: [
-          Container(
-            decoration: const BoxDecoration(),
-            height: height * 0.10,
-            width: width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "My Account",
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ],
-            ),
+    // ThemeMode themeModeValue = EasyDynamicTheme.of(context).themeMode!;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
           ),
-          Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "My Account",
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ],
+          ),
+        ),
+        const Gap(30),
+        Expanded(
+          child: Container(
             padding: const EdgeInsets.only(
               top: 50,
               left: 50,
@@ -53,9 +50,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
               bottom: 0,
             ),
             decoration: BoxDecoration(
-              color: (themeModeValue == ThemeMode.dark)
-                  ? Colors.black
-                  : Colors.white,
+              color: isDarkMode ? Colors.black : Colors.white,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(50),
                 topRight: Radius.circular(50),
@@ -65,8 +60,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                     color: Colors.black38, blurRadius: 0.5, spreadRadius: 1),
               ],
             ),
-            height: height * 0.82,
-            width: width,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -74,16 +67,18 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                   const Gap(20),
                   const Text("Hey, User Name"),
                   const Gap(20),
-                  const MyAccountMenuItems(
+                  const MyProfiletMenuItem(
                     menuItemLink: '/address',
                     menuitemName: "Billing Address",
                     menuItemImage: Assets.profile,
+                    additionalWidget: Icon(Icons.keyboard_arrow_right_rounded),
                   ),
                   const Gap(20),
-                  const MyAccountMenuItems(
+                  const MyProfiletMenuItem(
                     menuItemLink: 'my_orders',
                     menuitemName: "My Orders",
                     menuItemImage: Assets.myOrders,
+                    additionalWidget: Icon(Icons.keyboard_arrow_right_rounded),
                   ),
                   const Gap(20),
                   Container(
@@ -103,122 +98,47 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                         image: AssetImage(Assets.themeMode),
                         width: 33,
                       ),
-                      title: Text("Theme"),
+                      title: const Text("Theme"),
                       trailing: Transform.scale(
                         scale: 0.8,
                         child: Switch(
-                          value: themeMode,
+                          value: isDarkMode,
                           onChanged: (value) {
                             setState(() {
-                              themeMode = value;
-                              if (themeMode) {
-                                EasyDynamicTheme.of(context)
-                                    .changeTheme(dynamic: false, dark: true);
-                              } else {
-                                EasyDynamicTheme.of(context)
-                                    .changeTheme(dynamic: true, dark: false);
-                              }
+                              value
+                                  ? EasyDynamicTheme.of(context)
+                                      .changeTheme(dynamic: false, dark: true)
+                                  : EasyDynamicTheme.of(context)
+                                      .changeTheme(dynamic: true, dark: false);
                             });
                           },
                           activeColor: Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
-                    // child: Row(
-                    //   children: [
-                    //     const Image(
-                    //       image: AssetImage(Assets.themeMode),
-                    //       width: 33,
-                    //     ),
-                    //     const Gap(20),
-                    //     const Text("Theme"),
-                    //     const Gap(30),
-                    // Transform.scale(
-                    //   scale: 0.8,
-                    //   child: Switch(
-                    //     value: themeMode,
-                    //     onChanged: (value) {
-                    //       setState(() {
-                    //         themeMode = value;
-                    //         if (themeMode) {
-                    //           EasyDynamicTheme.of(context)
-                    //               .changeTheme(dynamic: false, dark: true);
-                    //         } else {
-                    //           EasyDynamicTheme.of(context)
-                    //               .changeTheme(dynamic: true, dark: false);
-                    //         }
-                    //       });
-                    //     },
-                    //     activeColor: Theme.of(context).primaryColor,
-                    //   ),
-                    // ),
-                    //   ],
-                    // ),
                   ),
                   const Gap(20),
-                  const MyAccountMenuItems(
+                  const MyProfiletMenuItem(
                     menuItemLink: 'delete_account',
                     menuitemName: "Delete Account",
-                    menuItemImage: Assets.myOrders,
+                    menuItemImage: Assets.delete,
+                    additionalWidget: Icon(Icons.keyboard_arrow_right_rounded),
                   ),
-                  const Gap(50),
+                  const Gap(30),
                   SizedBox(
-                    width: width,
+                    width: DeviceInfo.getDeviceWidth(context),
                     child: ElevatedButton(
                       onPressed: () {},
                       child: const Text("Logout"),
                     ),
                   ),
+                  const Gap(30),
                 ],
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class MyAccountMenuItems extends StatelessWidget {
-  const MyAccountMenuItems(
-      {super.key,
-      required this.menuItemLink,
-      required this.menuitemName,
-      required this.menuItemImage});
-
-  final String menuItemLink;
-  final String menuitemName;
-  final String menuItemImage;
-
-  @override
-  Widget build(context) {
-    return InkWell(
-      onTap: () {
-        context.push(menuItemLink);
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 25,
-          vertical: 20,
         ),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.grey,
-            width: 1,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          children: [
-            Image(
-              image: AssetImage(menuItemImage),
-              width: 33,
-            ),
-            const Gap(20),
-            Text(menuitemName),
-          ],
-        ),
-      ),
+      ],
     );
   }
 }
