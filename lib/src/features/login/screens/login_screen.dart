@@ -76,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onSaved: (value) {
                             _enterMobileNo = value!;
                           },
+                          readOnly: false,
                         ),
                         const Gap(30),
                         ElevatedButton.icon(

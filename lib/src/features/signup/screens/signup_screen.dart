@@ -74,6 +74,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         onSaved: (value) {
                           _enterFirstName = value.toString();
                         },
+                        readOnly: false,
                       ),
                       const Gap(20),
                       FormInput(
@@ -85,6 +86,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         onSaved: (value) {
                           _enterLastName = value.toString();
                         },
+                        readOnly: false,
                       ),
                       const Gap(20),
                       FormInput(
@@ -96,6 +98,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         onSaved: (value) {
                           _enterMobileNo = value.toString();
                         },
+                        readOnly: false,
                       ),
                       const Gap(20),
                       FormInput(
@@ -107,6 +110,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         onSaved: (value) {
                           _enterEmailAdd = value.toString();
                         },
+                        readOnly: false,
                       ),
                     ],
                   ),

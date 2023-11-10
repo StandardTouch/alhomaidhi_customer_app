@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 // defining colors
 const COLOR_PRIMARY = Color(0XFF12519B);
 const COLOR_ACCENT = Color(0XFFDCECFF);
-final BoxShadow cardBoxShadow =
-    BoxShadow(color: Colors.black38, blurRadius: 0.1, spreadRadius: 1);
 
 // elevated button theme
 ElevatedButtonThemeData setElevatedButtonThemeData({required bool isDark}) {

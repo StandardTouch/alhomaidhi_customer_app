@@ -39,6 +39,7 @@ dependencies:
   easy_dynamic_theme: ^2.3.1
   gap: ^3.0.1
   google_nav_bar: ^5.0.6
+  searchfield: ^0.8.7
 
 dev_dependencies:
   flutter_test:

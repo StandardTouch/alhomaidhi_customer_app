@@ -8,7 +8,8 @@ class FormInput extends StatelessWidget {
       required this.validator,
       required this.onSaved,
       this.maxLength,
-      this.prefix});
+      this.prefix,
+      this.readOnly});
 
   final String label;
   final TextInputType type;
@@ -17,10 +18,12 @@ class FormInput extends StatelessWidget {
   final Function(String? value) onSaved;
   final String? prefix;
   final int? maxLength;
+  final bool? readOnly;
 
   @override
   Widget build(context) {
     return TextFormField(
+      readOnly: readOnly!,
       maxLength: maxLength,
       keyboardType: type,
       decoration: InputDecoration(

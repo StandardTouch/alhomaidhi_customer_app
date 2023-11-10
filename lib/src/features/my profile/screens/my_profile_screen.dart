@@ -1,94 +1,127 @@
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/theme/theme.dart';
+import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
-class MyProfileScreen extends StatelessWidget {
+class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<StatefulWidget> createState() {
+    return _MyProfileScreen();
+  }
+}
+
+class _MyProfileScreen extends State<MyProfileScreen> {
+  var _width, _height;
+
+  var themeMode = false;
+
+  @override
+  Widget build(context) {
+    _height = DeviceInfo.getDeviceHeight(context);
+    _width = DeviceInfo.getDeviceWidth(context);
+    ThemeMode themeModeValue = EasyDynamicTheme.of(context).themeMode!;
     return SingleChildScrollView(
       child: Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        height: _height,
+        width: _width,
         child: Column(
           children: [
-            Text(
-              "My Account",
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const Gap(20),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Theme.of(context).highlightColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
-                boxShadow: [cardBoxShadow],
+              decoration: const BoxDecoration(),
+              height: _height * 0.10,
+              width: _width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "My Account",
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                ],
               ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(
+                top: 50,
+                left: 50,
+                right: 50,
+                bottom: 0,
+              ),
+              decoration: BoxDecoration(
+                color: (themeModeValue == ThemeMode.dark)
+                    ? Colors.black
+                    : Colors.white,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50),
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                      color: Colors.black38, blurRadius: 0.5, spreadRadius: 1),
+                ],
+              ),
+              height: _height * 0.90,
+              width: _width,
               child: Column(
                 children: [
                   const Image(image: AssetImage(Assets.profile), width: 100),
-                  const Gap(10),
-                  Text("Hey, User Name"),
                   const Gap(20),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25, vertical: 10),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 1),
-                    ),
-                    child: Row(
-                      children: [
-                        Image(
-                          image: AssetImage(Assets.myOrders),
-                        ),
-                        const Gap(20),
-                        Text("My Orders")
-                      ],
-                    ),
+                  const Text("Hey, User Name"),
+                  const Gap(20),
+                  const MyAccountMenuItems(
+                    menuItemLink: '/address',
+                    menuitemName: "Billing Address",
+                    menuItemImage: Assets.profile,
+                  ),
+                  const Gap(20),
+                  const MyAccountMenuItems(
+                    menuItemLink: 'my_orders',
+                    menuitemName: "My Orders",
+                    menuItemImage: Assets.myOrders,
                   ),
                   const Gap(20),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 25, vertical: 10),
+                      horizontal: 25,
+                      vertical: 10,
+                    ),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 1),
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
                       children: [
-                        Image(
-                          image: AssetImage(Assets.profile),
-                          width: 33,
-                        ),
-                        const Gap(20),
-                        Text("Saved Addresses"),
-                      ],
-                    ),
-                  ),
-                  const Gap(20),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 1),
-                    ),
-                    child: Row(
-                      children: [
-                        Image(
+                        const Image(
                           image: AssetImage(Assets.themeMode),
                           width: 33,
                         ),
                         const Gap(20),
-                        Text("Theme"),
+                        const Text("Theme"),
                         const Gap(30),
                         Transform.scale(
                           scale: 0.8,
                           child: Switch(
-                            value: true,
-                            onChanged: (value) {},
+                            value: themeMode,
+                            onChanged: (value) {
+                              setState(() {
+                                themeMode = value;
+                                if (themeMode) {
+                                  EasyDynamicTheme.of(context)
+                                      .changeTheme(dynamic: false, dark: true);
+                                } else {
+                                  EasyDynamicTheme.of(context)
+                                      .changeTheme(dynamic: true, dark: false);
+                                }
+                              });
+                            },
                             activeColor: Theme.of(context).primaryColor,
                           ),
                         ),
@@ -96,19 +129,66 @@ class MyProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const Gap(20),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text("Logout"),
+                  const MyAccountMenuItems(
+                    menuItemLink: 'delete_account',
+                    menuitemName: "Delete Account",
+                    menuItemImage: Assets.myOrders,
                   ),
-                  const Gap(20),
-                  const Text(
-                    "Delete My Account",
-                    style: TextStyle(color: Colors.red),
+                  const Gap(50),
+                  SizedBox(
+                    width: _width,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: const Text("Logout"),
+                    ),
                   ),
-                  const Gap(20)
                 ],
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MyAccountMenuItems extends StatelessWidget {
+  const MyAccountMenuItems(
+      {super.key,
+      required this.menuItemLink,
+      required this.menuitemName,
+      required this.menuItemImage});
+
+  final String menuItemLink;
+  final String menuitemName;
+  final String menuItemImage;
+
+  @override
+  Widget build(context) {
+    return InkWell(
+      onTap: () {
+        context.push(menuItemLink);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 25,
+          vertical: 20,
+        ),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.grey,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            Image(
+              image: AssetImage(menuItemImage),
+              width: 33,
+            ),
+            const Gap(20),
+            Text(menuitemName),
           ],
         ),
       ),
