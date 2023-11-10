@@ -81,7 +81,8 @@ class LoginNotifier extends StateNotifier<LoginModel> {
         }
         getSnackBar(
           context: context,
-          message: "Uh Oh. An error occurred: ${response.message}",
+          // storing error message ion username variable
+          message: "Uh Oh. An error occurred: ${response.message!.username}",
           type: SNACKBARTYPE.error,
         );
       }

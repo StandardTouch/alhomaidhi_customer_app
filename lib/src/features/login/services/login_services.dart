@@ -29,7 +29,14 @@ Future<VerifyOtpResponseModel> verifyLoginOtp(
         "otp_code": otp,
       },
     );
+    if (jsonResponse.data['message'] is String) {
+      final response = VerifyOtpResponseModel(
+          message: Message(username: jsonResponse.data['message']),
+          status: jsonResponse.data['status']);
+      return response;
+    }
     final response = VerifyOtpResponseModel.fromJson(jsonResponse.data);
+
     return response;
   } catch (err) {
     logger.e("Error from verifyLoginOtp: $err");
