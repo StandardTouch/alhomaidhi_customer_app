@@ -132,20 +132,29 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     : (loginRef.timerDuration != 0)
                                         ? Text(
                                             "Resend in ${loginRef.timerDuration}",
-                                            style: const TextStyle(
-                                              color: Colors.redAccent,
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .error,
                                               decoration:
                                                   TextDecoration.underline,
-                                              decorationColor: Colors.red,
+                                              decorationColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .error,
                                             ),
                                           )
-                                        : const Text(
+                                        : Text(
                                             "Resend OTP",
                                             style: TextStyle(
-                                                color: Colors.red,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .error,
                                                 decoration:
                                                     TextDecoration.underline,
-                                                decorationColor: Colors.red),
+                                                decorationColor:
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .error),
                                           ),
                               ),
                             const Gap(50),
@@ -155,12 +164,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               onTap: () {
                                 context.push("/signup");
                               },
-                              child: const Text(
+                              child: Text(
                                 "Sign Up",
                                 style: TextStyle(
-                                    color: Colors.red,
+                                    color: Theme.of(context).colorScheme.error,
                                     decoration: TextDecoration.underline,
-                                    decorationColor: Colors.red),
+                                    decorationColor:
+                                        Theme.of(context).colorScheme.error),
                               ),
                             ),
                           ],

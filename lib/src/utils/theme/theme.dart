@@ -60,6 +60,7 @@ PinTheme getSubmittedPinTheme(BuildContext context) {
 }
 
 var lightThemeData = ThemeData(
+  colorScheme: const ColorScheme.light(error: Colors.red),
   primaryColor: COLOR_PRIMARY,
   brightness: Brightness.light,
   highlightColor: Colors.white,
@@ -70,6 +71,7 @@ var lightThemeData = ThemeData(
 );
 
 var darkThemeData = ThemeData(
+  colorScheme: const ColorScheme.dark(error: Colors.red),
   primaryColor: COLOR_PRIMARY,
   brightness: Brightness.dark,
   highlightColor: Colors.black,
