@@ -17,6 +17,10 @@ class LoginNotifier extends StateNotifier<LoginModel> {
     state = state.copyWith(phoneNumber: value);
   }
 
+  void updateOtp(String? value) {
+    state = state.copyWith(otp: value);
+  }
+
 // send otp start
   void sendOtp(GlobalKey<FormState> formKey, BuildContext context) async {
     if (formKey.currentState == null) {
@@ -59,11 +63,11 @@ class LoginNotifier extends StateNotifier<LoginModel> {
 // send otp end
 
 // verify otp start
-  void verifyOtp(BuildContext context, String? otp) async {
+  void verifyOtp(BuildContext context) async {
     try {
-      state = state.copyWith(isButtonLoading: true);
+      state = state.copyWith(isVerificationLoading: true);
       VerifyOtpResponseModel response =
-          await verifyLoginOtp(state.getPhoneNumber!, otp!);
+          await verifyLoginOtp(state.getPhoneNumber!, state.otp!);
       if (response.status == "DELAPP00") {
         storage.write(key: "token", value: response.message!.token);
         storage.write(key: "userId", value: response.message!.userId);
@@ -81,14 +85,15 @@ class LoginNotifier extends StateNotifier<LoginModel> {
           type: SNACKBARTYPE.error,
         );
       }
-      state = state.copyWith(isButtonLoading: false);
+
+      state = state.copyWith(isVerificationLoading: false);
     } catch (err) {
       getSnackBar(
         context: context,
         message: "$err",
         type: SNACKBARTYPE.error,
       );
-      state = state.copyWith(isButtonLoading: false);
+      state = state.copyWith(isVerificationLoading: false);
     }
   }
   // verify otp end
