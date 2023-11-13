@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 class FormInput extends StatelessWidget {
-  const FormInput(
-      {super.key,
-      required this.label,
-      required this.type,
-      required this.validator,
-      required this.onSaved,
-      this.maxLength,
-      this.value,
-      this.prefix,
-      this.readOnly});
+  const FormInput({
+    super.key,
+    required this.label,
+    required this.type,
+    required this.validator,
+    required this.onSaved,
+    this.maxLength,
+    this.value,
+    this.prefix,
+    this.readOnly = false,
+  });
 
   final String label;
   final TextInputType type;
@@ -25,7 +26,7 @@ class FormInput extends StatelessWidget {
   @override
   Widget build(context) {
     return TextFormField(
-      readOnly: readOnly!,
+      readOnly: readOnly ?? false,
       initialValue: value,
       maxLength: maxLength,
       keyboardType: type,
