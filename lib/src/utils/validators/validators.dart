@@ -37,3 +37,10 @@ String? emailValidator(String? value) {
     return null;
   }
 }
+
+String? pinCodeValidator(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter a valid pincode';
+  }
+  return null;
+}

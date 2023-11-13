@@ -26,6 +26,7 @@ class _HomaidhiBottomBarState extends State<HomaidhiBottomBar> {
   @override
   Widget build(BuildContext context) {
     return GNav(
+      padding: EdgeInsets.all(15),
       selectedIndex: _index,
       onTabChange: (currentIndex) {
         setState(() {
@@ -44,13 +45,16 @@ class _HomaidhiBottomBarState extends State<HomaidhiBottomBar> {
         GButton(
           icon: Icons.home,
           text: "Home",
+          borderRadius: BorderRadius.zero,
         ),
         GButton(
           icon: Icons.shop,
           text: "Cart",
+          borderRadius: BorderRadius.zero,
         ),
         GButton(
           icon: Icons.person_3_outlined,
+          borderRadius: BorderRadius.zero,
           text: "Profile",
         )
       ],
