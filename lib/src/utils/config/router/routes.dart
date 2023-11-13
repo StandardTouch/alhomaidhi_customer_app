@@ -35,24 +35,16 @@ CustomTransitionPage buildPageWithDefaultTransition(
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: "/login",
+  initialLocation: "/",
   routes: [
     GoRoute(
       path: "/",
-      // builder: (context, state) => const Scaffold(
-      //   body: Center(
-      //     child: Text("Loading"),
-      //   ),
-      // ),
       redirect: (context, state) async {
         bool isLoggedIn = await AuthHelper.isUserLoggedIn();
-        if (!context.mounted) {
-          return null;
-        }
         if (isLoggedIn) {
-          return "/login";
-        } else {
           return "/home";
+        } else {
+          return "/login";
         }
       },
     ),
