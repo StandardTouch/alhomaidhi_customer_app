@@ -117,18 +117,13 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                           const Gap(30),
                           ElevatedButton(
-                            onPressed: signUpRef.isButtonLoading
-                                ? null
-                                : () {
-                                    signUpNotifer.registerUser(
-                                        formKey, context);
-                                  },
-                            child: signUpRef.isButtonLoading
-                                ? const CircularProgressIndicator()
-                                : const Text(
-                                    "Register",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
+                            onPressed: () {
+                              signUpNotifer.registerUser(formKey, context);
+                            },
+                            child: const Text(
+                              "Register",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                           const Gap(50),
                           const Text("Already have an account?"),

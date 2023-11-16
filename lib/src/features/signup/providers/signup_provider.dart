@@ -64,7 +64,7 @@ class SignUpNotifer extends StateNotifier<SignupModel> {
             type: SNACKBARTYPE.error,
           );
         }
-        state = state.copyWith(isButtonLoading: false);
+
         state = state.copyWith(isVerificationLoading: false);
       }
     } catch (err) {
@@ -76,7 +76,7 @@ class SignUpNotifer extends StateNotifier<SignupModel> {
         message: "Server Error: Please try again later",
         type: SNACKBARTYPE.error,
       );
-      state = state.copyWith(isButtonLoading: false);
+      state = state.copyWith(isVerificationLoading: false);
     }
   }
 }
