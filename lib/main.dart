@@ -10,7 +10,7 @@ void main() async {
   runApp(
     ProviderScope(
       child: EasyDynamicThemeWidget(
-        initialThemeMode: ThemeMode.system,
+        initialThemeMode: ThemeMode.light,
         child: MyApp(),
       ),
     ),

@@ -1,6 +1,7 @@
 import 'package:alhomaidhi_customer_app/src/features/home/models/query_model.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/widgets/product_card.dart';
+import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,12 +19,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final products = ref.watch(allProductsProvider(allProductsQuery));
     return products.when(data: (data) {
       if (data.status == "APP00") {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ProductCard(),
-          ],
-        );
+        return GridView.builder(
+            padding: const EdgeInsets.all(8),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 6,
+              mainAxisSpacing: 10,
+              // mainAxisExtent: DeviceInfo.getDeviceHeight(context) * 0.35,
+            ),
+            itemCount: data.message!.length,
+            itemBuilder: (context, index) {
+              return ProductCard(
+                  imageUrl: data.message![index].images![0].src!);
+            });
       } else {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,

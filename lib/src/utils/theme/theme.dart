@@ -5,6 +5,7 @@ import 'package:pinput/pinput.dart';
 // defining colors
 const COLOR_PRIMARY = Color(0XFF12519B);
 const COLOR_ACCENT = Color(0XFFDCECFF);
+const COLOR_SECONDARY = Color(0XFFFFB800);
 
 // elevated button theme
 ElevatedButtonThemeData getElevatedButtonThemeData({required isDark}) {
@@ -60,7 +61,8 @@ PinTheme getSubmittedPinTheme(BuildContext context) {
 }
 
 var lightThemeData = ThemeData(
-  colorScheme: const ColorScheme.light(error: Colors.red),
+  colorScheme:
+      const ColorScheme.light(error: Colors.red, onSecondary: COLOR_SECONDARY),
   primaryColor: COLOR_PRIMARY,
   brightness: Brightness.light,
   highlightColor: Colors.white,
@@ -71,7 +73,8 @@ var lightThemeData = ThemeData(
 );
 
 var darkThemeData = ThemeData(
-  colorScheme: const ColorScheme.dark(error: Colors.red),
+  colorScheme:
+      const ColorScheme.dark(error: Colors.red, onSecondary: COLOR_SECONDARY),
   primaryColor: COLOR_PRIMARY,
   brightness: Brightness.dark,
   highlightColor: Colors.black,
