@@ -11,7 +11,7 @@ class ProductCard extends StatelessWidget {
     required this.priceNow,
   });
   final String imageUrl;
-  final String title;
+  final int title;
   final String priceBefore;
   final String priceNow;
 
