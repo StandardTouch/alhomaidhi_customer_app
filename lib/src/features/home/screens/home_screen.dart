@@ -21,16 +21,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       if (data.status == "APP00") {
         return GridView.builder(
             padding: const EdgeInsets.all(8),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 6,
-              mainAxisSpacing: 10,
-              // mainAxisExtent: DeviceInfo.getDeviceHeight(context) * 0.35,
-            ),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 6,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.7
+                // mainAxisExtent: DeviceInfo.getDeviceHeight(context) * 0.35,
+                ),
             itemCount: data.message!.length,
             itemBuilder: (context, index) {
               return ProductCard(
-                  imageUrl: data.message![index].images![0].src!);
+                imageUrl: data.message![index].images![0].src!,
+                title: data.message![index].productDetails!.productId!,
+                priceBefore: data.message![index].productDetails!.regularPrice!,
+                priceNow: data.message![index].productDetails!.salePrice!,
+              );
             });
       } else {
         return Column(
