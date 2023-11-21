@@ -1,3 +1,4 @@
+import 'package:alhomaidhi_customer_app/src/utils/helpers/conversion.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -11,7 +12,7 @@ class ProductCard extends StatelessWidget {
     required this.priceNow,
   });
   final String imageUrl;
-  final int title;
+  final String title;
   final String priceBefore;
   final String priceNow;
 
@@ -53,7 +54,7 @@ class ProductCard extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  "Product Title",
+                  ConversionHelper.getEnglishPart(title),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 Text(

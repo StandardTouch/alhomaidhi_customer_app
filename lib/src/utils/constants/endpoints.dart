@@ -12,6 +12,8 @@ class APIEndpoints {
       required int productsPerPage}) {
     return "/wp-json/alhomaidhiapp/v2/list_products?sort_by=$sortBy&search=$search&page=$pageNo&per_page=$productsPerPage";
   }
+
+  static const getBrands = "/wp-json/alhomaidhiapp/v2/retrieve_brands";
 }
 
 // logger is used for error handling
