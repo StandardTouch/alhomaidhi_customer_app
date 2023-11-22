@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BrandsWidget extends ConsumerWidget {
-  const BrandsWidget({super.key});
+  const BrandsWidget({super.key, required this.height});
+  final double height;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -12,27 +13,53 @@ class BrandsWidget extends ConsumerWidget {
       data: (data) {
         if (data.status == "APP00") {
           return Container(
-            height: 300,
+            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+            decoration: BoxDecoration(
+                color: Theme.of(context).highlightColor,
+                borderRadius: BorderRadius.circular(10)),
+            padding: const EdgeInsets.all(10),
+            height: height,
             width: double.infinity,
             child: GridView.builder(
                 scrollDirection: Axis.horizontal,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 0,
-                  childAspectRatio: 1,
-                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 0.8,
+                  mainAxisSpacing: 20,
                 ),
                 itemCount: data.message!.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.network(data.message![index].img!),
-                        Text(data.message![index].name!),
-                      ],
-                    ),
+                  return Stack(
+                    children: [
+                      Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(data.message![index].img!),
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                      ),
+                      // add text with brand name below container
+                      // Positioned(
+                      //   bottom: 0,
+                      //   left: 0,
+                      //   right: 0,
+                      //   child: Text(
+                      //     data.message![index].name!,
+                      //     textAlign: TextAlign.center,
+                      //     style: Theme.of(context)
+                      //         .textTheme
+                      //         .bodyMedium!
+                      //         .copyWith(
+                      //           color: Colors.white,
+                      //         ),
+                      //   ),
+                      // ),
+                      // Image.network(),
+                    ],
                   );
                 }),
           );
@@ -40,7 +67,7 @@ class BrandsWidget extends ConsumerWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("An Error Occurred!"),
+              const Text("An Error Occurred!"),
               Text(data.errorMessage!),
             ],
           );
