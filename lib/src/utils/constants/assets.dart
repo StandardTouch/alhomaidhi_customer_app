@@ -5,4 +5,5 @@ class Assets {
   static const myOrders = "assets/images/my_orders.png";
   static const themeMode = "assets/images/theme_mode.png";
   static const delete = "assets/images/delete.png";
+  static const sort = "assets/images/sort_icon.png";
 }

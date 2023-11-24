@@ -3,9 +3,11 @@ import 'package:alhomaidhi_customer_app/src/features/home/providers/brands_provi
 import 'package:alhomaidhi_customer_app/src/features/home/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/widgets/brands_widget.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/widgets/product_card.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -30,6 +32,41 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             slivers: [
               // add search widget
               // add brands widget
+              SliverAppBar(
+                actions: [
+                  // IconButton(
+                  //   onPressed: () {},
+                  //   icon: ImageIcon(
+                  //     const AssetImage(Assets.sort),
+                  //     color: Theme.of(context).primaryColor,
+                  //   ),
+                  // ),
+
+                  DropdownButton(
+                    value: "test",
+                    icon: ImageIcon(
+                      const AssetImage(Assets.sort),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    selectedItemBuilder: (context) {
+                      return [];
+                    },
+                    items: const [
+                      DropdownMenuItem(
+                        value: "test",
+                        child: Text("test"),
+                      ),
+                      DropdownMenuItem(
+                        value: "testtt",
+                        child: Text("testtt"),
+                      ),
+                    ],
+                    onChanged: (val) {},
+                  ),
+                  const Gap(20)
+                ],
+                pinned: true,
+              ),
 
               SliverToBoxAdapter(
                 child: BrandsWidget(
