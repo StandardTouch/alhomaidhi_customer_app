@@ -5,6 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class MyOrderScreen extends ConsumerWidget {
   const MyOrderScreen({super.key});
   // @Zaid - add your code here
+  // @Zaid - Create screens if required
+  // @Zaid - add API integration for my order details screen
+  // @Zaid - Assign widget design to maaz if required
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final myOrders = ref.watch(MyOrdersProvider);
