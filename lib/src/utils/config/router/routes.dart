@@ -1,8 +1,8 @@
 import 'package:alhomaidhi_customer_app/src/features/cart/screens/shopping_cart.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/screens/home_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/address/screens/billing_address.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/profile/screens/my_profile_screen.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/screens/billing_address.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/profile/screens/my_profile_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/signup_screen.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/bottom_bar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
