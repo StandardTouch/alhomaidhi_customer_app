@@ -75,7 +75,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                   ),
                   const Gap(20),
                   const MyProfiletMenuItem(
-                    menuItemLink: 'my_orders',
+                    menuItemLink: '/my_orders',
                     menuitemName: "My Orders",
                     menuItemImage: Assets.myOrders,
                     additionalWidget: Icon(Icons.keyboard_arrow_right_rounded),

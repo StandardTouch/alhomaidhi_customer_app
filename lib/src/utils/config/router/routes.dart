@@ -2,6 +2,7 @@ import 'package:alhomaidhi_customer_app/src/features/cart/screens/shopping_cart.
 import 'package:alhomaidhi_customer_app/src/features/home/screens/home_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/screens/billing_address.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/profile/screens/my_profile_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/signup_screen.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/bottom_bar.dart';
@@ -62,7 +63,18 @@ final router = GoRouter(
     GoRoute(
       path: "/address",
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
-          context: context, state: state, child: const BillingAddress()),
+        context: context,
+        state: state,
+        child: const BillingAddress(),
+      ),
+    ),
+    GoRoute(
+      path: "/my_orders",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const MyOrderScreen(),
+      ),
     ),
     // for main routes
     ShellRoute(
