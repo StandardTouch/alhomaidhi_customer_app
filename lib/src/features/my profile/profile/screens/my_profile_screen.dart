@@ -1,4 +1,4 @@
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/screens/profile/widgets/my_profile_menu_item.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/profile/widgets/my_profile_menu_item.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
