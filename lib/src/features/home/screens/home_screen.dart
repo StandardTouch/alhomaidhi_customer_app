@@ -25,90 +25,41 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ref.watch(brandsProvider);
     return products.when(data: (data) {
       if (data.status == "APP00") {
-        return SizedBox(
-          height: height,
-          width: DeviceInfo.getDeviceWidth(context),
-          child: CustomScrollView(
-            slivers: [
-              // add search widget
-              // add brands widget
-              SliverAppBar(
-                actions: [
-                  // IconButton(
-                  //   onPressed: () {},
-                  //   icon: ImageIcon(
-                  //     const AssetImage(Assets.sort),
-                  //     color: Theme.of(context).primaryColor,
-                  //   ),
-                  // ),
+        return
+            // add search widget
+            // add brands widget
 
-                  DropdownButton(
-                    value: "test",
-                    icon: ImageIcon(
-                      const AssetImage(Assets.sort),
-                      color: Theme.of(context).primaryColor,
+            ListView(
+          children: [
+            BrandsWidget(height: height * 0.2),
+            GridView.builder(
+                shrinkWrap: true,
+                physics: const ScrollPhysics(),
+                padding: const EdgeInsets.all(8),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 6,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 0.7
+                    // mainAxisExtent: DeviceInfo.getDeviceHeight(context) * 0.35,
                     ),
-                    selectedItemBuilder: (context) {
-                      return [];
-                    },
-                    items: const [
-                      DropdownMenuItem(
-                        value: "test",
-                        child: Text("test"),
-                      ),
-                      DropdownMenuItem(
-                        value: "testtt",
-                        child: Text("testtt"),
-                      ),
-                    ],
-                    onChanged: (val) {},
-                  ),
-                  const Gap(20)
-                ],
-                pinned: true,
-              ),
-
-              SliverToBoxAdapter(
-                child: BrandsWidget(
-                  height: height * 0.25,
-                ),
-              ),
-
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: height * 0.8,
-                  child: GridView.builder(
-                      shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
-                      padding: const EdgeInsets.all(8),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 6,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 0.7
-                          // mainAxisExtent: DeviceInfo.getDeviceHeight(context) * 0.35,
-                          ),
-                      itemCount: data.message!.length,
-                      itemBuilder: (context, index) {
-                        return ProductCard(
-                          imageUrl: data.message![index].images![0].src!,
-                          title: data.message![index].productDetails!.name!,
-                          priceBefore: data
-                              .message![index].productDetails!.regularPrice!,
-                          priceNow:
-                              data.message![index].productDetails!.salePrice!,
-                        );
-                      }),
-                ),
-              ),
-            ],
-          ),
+                itemCount: data.message!.length,
+                itemBuilder: (context, index) {
+                  return ProductCard(
+                    imageUrl: data.message![index].images![0].src!,
+                    title: data.message![index].productDetails!.name!,
+                    priceBefore:
+                        data.message![index].productDetails!.regularPrice!,
+                    priceNow: data.message![index].productDetails!.salePrice!,
+                  );
+                }),
+          ],
         );
       } else {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("An Error Occurred!"),
+            const Text("An Error Occurred!"),
             Text(data.errorMessage!),
           ],
         );
