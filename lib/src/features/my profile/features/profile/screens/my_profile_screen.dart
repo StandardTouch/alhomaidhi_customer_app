@@ -80,43 +80,45 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                     menuItemImage: Assets.myOrders,
                     additionalWidget: Icon(Icons.keyboard_arrow_right_rounded),
                   ),
-                  const Gap(20),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 0,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ListTile(
-                      leading: const Image(
-                        image: AssetImage(Assets.themeMode),
-                        width: 33,
-                      ),
-                      title: const Text("Theme"),
-                      trailing: Transform.scale(
-                        scale: 0.8,
-                        child: Switch(
-                          value: isDarkMode,
-                          onChanged: (value) {
-                            setState(() {
-                              value
-                                  ? EasyDynamicTheme.of(context)
-                                      .changeTheme(dynamic: false, dark: true)
-                                  : EasyDynamicTheme.of(context)
-                                      .changeTheme(dynamic: true, dark: false);
-                            });
-                          },
-                          activeColor: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // commented theme switcher
+
+                  // const Gap(20),
+                  // Container(
+                  //   padding: const EdgeInsets.symmetric(
+                  //     horizontal: 0,
+                  //     vertical: 10,
+                  //   ),
+                  //   decoration: BoxDecoration(
+                  //     border: Border.all(
+                  //       color: Colors.grey,
+                  //       width: 1,
+                  //     ),
+                  //     borderRadius: BorderRadius.circular(10),
+                  //   ),
+                  //   child: ListTile(
+                  //     leading: const Image(
+                  //       image: AssetImage(Assets.themeMode),
+                  //       width: 33,
+                  //     ),
+                  //     title: const Text("Theme"),
+                  //     trailing: Transform.scale(
+                  //       scale: 0.8,
+                  //       child: Switch(
+                  //         value: isDarkMode,
+                  //         onChanged: (value) {
+                  //           setState(() {
+                  //             value
+                  //                 ? EasyDynamicTheme.of(context)
+                  //                     .changeTheme(dynamic: false, dark: true)
+                  //                 : EasyDynamicTheme.of(context)
+                  //                     .changeTheme(dynamic: true, dark: false);
+                  //           });
+                  //         },
+                  //         activeColor: Theme.of(context).primaryColor,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   const Gap(20),
                   const MyProfiletMenuItem(
                     menuItemLink: 'delete_account',
