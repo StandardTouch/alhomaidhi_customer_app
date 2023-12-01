@@ -55,7 +55,7 @@ class _HomaidhiBottomBarState extends State<HomaidhiBottomBar> {
           borderRadius: BorderRadius.zero,
         ),
         GButton(
-          icon: Icons.shop,
+          icon: Icons.shopping_cart_outlined,
           text: "Cart",
           borderRadius: BorderRadius.zero,
         ),
