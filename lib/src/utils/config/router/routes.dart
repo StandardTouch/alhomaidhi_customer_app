@@ -3,6 +3,7 @@ import 'package:alhomaidhi_customer_app/src/features/home/screens/home_screen.da
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/screens/address/billing_address.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/screens/profile/my_profile_screen.dart';
+import 'package:alhomaidhi_customer_app/src/features/search/screens/search_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/signup_screen.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/bottom_bar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
@@ -86,6 +87,11 @@ final router = GoRouter(
           path: "/home",
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context, state: state, child: const HomeScreen()),
+        ),
+        GoRoute(
+          path: "/search",
+          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context, state: state, child: const SearchScreen()),
         ),
         GoRoute(
           path: "/cart",

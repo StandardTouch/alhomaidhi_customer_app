@@ -15,8 +15,10 @@ class _HomaidhiBottomBarState extends State<HomaidhiBottomBar> {
     if (index == 0) {
       context.go("/home");
     } else if (index == 1) {
-      context.go("/cart");
+      context.go("/search");
     } else if (index == 2) {
+      context.go("/cart");
+    } else if (index == 3) {
       context.go("/profile");
     } else {
       return;
@@ -48,6 +50,11 @@ class _HomaidhiBottomBarState extends State<HomaidhiBottomBar> {
           borderRadius: BorderRadius.zero,
         ),
         GButton(
+          icon: Icons.search,
+          text: "Search",
+          borderRadius: BorderRadius.zero,
+        ),
+        GButton(
           icon: Icons.shop,
           text: "Cart",
           borderRadius: BorderRadius.zero,
@@ -56,7 +63,7 @@ class _HomaidhiBottomBarState extends State<HomaidhiBottomBar> {
           icon: Icons.person_3_outlined,
           borderRadius: BorderRadius.zero,
           text: "Profile",
-        )
+        ),
       ],
     );
   }
