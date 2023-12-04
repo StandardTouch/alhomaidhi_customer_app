@@ -1,4 +1,6 @@
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/widgets/single_order.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,8 +17,15 @@ class MyOrderScreen extends ConsumerWidget {
     return myOrders.when(data: (data) {
       if (data.status == "APP00") {
         return Center(
-          child: Text(data.message![0].productDetails!.catalogVisibility!),
-        );
+            child: SingleOrderCard(
+          title: "string1",
+          subtitle: "string2",
+          imageUrl:
+              "https://alhomaidhigroup.com/wp-content/uploads/2023/11/dStvdWIxbkFadEYvNHJQem94SktpQT09.png",
+          onPressed: () {
+            logger.i("Button Test");
+          },
+        ));
       } else {
         return Center(
           child: Text(data.errorMessage!),
