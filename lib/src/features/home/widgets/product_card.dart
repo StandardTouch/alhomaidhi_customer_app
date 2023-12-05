@@ -1,5 +1,4 @@
 import 'package:alhomaidhi_customer_app/src/utils/helpers/conversion.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

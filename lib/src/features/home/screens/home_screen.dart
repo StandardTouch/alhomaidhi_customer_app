@@ -16,7 +16,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  final _controller = ScrollController();
   bool noMoreProducts = false;
 
   void pageNavigator({required bool isPrev}) {
