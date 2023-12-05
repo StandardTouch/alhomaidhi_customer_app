@@ -11,8 +11,10 @@ const COLOR_SECONDARY = Color(0XFFFFB800);
 ElevatedButtonThemeData getElevatedButtonThemeData({required isDark}) {
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-        padding:
-            const EdgeInsetsDirectional.symmetric(vertical: 18, horizontal: 60),
+        padding: const EdgeInsetsDirectional.symmetric(
+          vertical: 18,
+          horizontal: 60,
+        ),
         elevation: 0.2,
         backgroundColor: COLOR_PRIMARY,
         // can change accordingly if asked.
