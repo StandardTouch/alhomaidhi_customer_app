@@ -21,7 +21,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
   @override
   Widget build(context) {
-    // ThemeMode themeModeValue = EasyDynamicTheme.of(context).themeMode!;
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [

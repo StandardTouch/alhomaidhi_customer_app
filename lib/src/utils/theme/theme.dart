@@ -60,6 +60,11 @@ PinTheme getSubmittedPinTheme(BuildContext context) {
   );
 }
 
+TextButtonThemeData textButtonThemeData = TextButtonThemeData(
+    style: IconButton.styleFrom(
+  foregroundColor: COLOR_SECONDARY,
+));
+
 var lightThemeData = ThemeData(
   colorScheme:
       const ColorScheme.light(error: Colors.red, onSecondary: COLOR_SECONDARY),
@@ -70,6 +75,7 @@ var lightThemeData = ThemeData(
   scaffoldBackgroundColor: COLOR_ACCENT,
   elevatedButtonTheme: getElevatedButtonThemeData(isDark: false),
   textTheme: getTextTheme(isDark: false),
+  textButtonTheme: textButtonThemeData,
 );
 
 var darkThemeData = ThemeData(
@@ -82,4 +88,5 @@ var darkThemeData = ThemeData(
   scaffoldBackgroundColor: Colors.black,
   elevatedButtonTheme: getElevatedButtonThemeData(isDark: true),
   textTheme: getTextTheme(isDark: true),
+  textButtonTheme: textButtonThemeData,
 );
