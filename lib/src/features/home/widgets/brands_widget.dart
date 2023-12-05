@@ -1,4 +1,5 @@
 import 'package:alhomaidhi_customer_app/src/features/home/providers/brands_provider.dart';
+import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,25 +21,19 @@ class BrandsWidget extends ConsumerWidget {
             padding: const EdgeInsets.all(10),
             height: height,
             width: double.infinity,
-            child: GridView.builder(
+            child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  childAspectRatio: 0.8,
-                  mainAxisSpacing: 20,
-                ),
                 itemCount: data.message!.length,
                 itemBuilder: (context, index) {
                   return Stack(
                     children: [
                       Container(
-                        height: double.infinity,
-                        width: double.infinity,
+                        height: height,
+                        width: DeviceInfo.getDeviceWidth(context) * 0.25,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(data.message![index].img!),
-                            fit: BoxFit.fitWidth,
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),
