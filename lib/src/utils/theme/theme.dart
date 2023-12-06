@@ -64,7 +64,7 @@ PinTheme getSubmittedPinTheme(BuildContext context) {
 
 TextButtonThemeData textButtonThemeData = TextButtonThemeData(
     style: IconButton.styleFrom(
-  foregroundColor: COLOR_SECONDARY,
+  foregroundColor: Colors.black,
 ));
 
 var lightThemeData = ThemeData(

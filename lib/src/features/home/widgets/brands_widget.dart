@@ -1,60 +1,99 @@
+import 'dart:async';
+
 import 'package:alhomaidhi_customer_app/src/features/home/providers/brands_provider.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BrandsWidget extends ConsumerWidget {
+class BrandsWidget extends ConsumerStatefulWidget {
   const BrandsWidget({super.key, required this.height});
   final double height;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<BrandsWidget> createState() => _BrandsWidgetState();
+}
+
+class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
+  final ScrollController brandScrollController = ScrollController();
+  Timer? _timer;
+  int? selectedIndex;
+
+  @override
+  void initState() {
+    _startAutoScroll();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    brandScrollController.dispose();
+    super.dispose();
+  }
+
+  void updateSelectedItem(index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+  void _startAutoScroll() {
+    const duration = Duration(milliseconds: 50);
+    _timer = Timer.periodic(duration, (timer) {
+      double currentPosition = brandScrollController.position.pixels;
+      double maxScrollExtent = brandScrollController.position.maxScrollExtent;
+
+      // Check if the current position is at the end of the list
+      if (currentPosition < maxScrollExtent) {
+        brandScrollController.jumpTo(
+            currentPosition + 1.0); // Adjust the value to control step size
+      } else {
+        brandScrollController.jumpTo(0.0); // Go back to the start of the list
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final brands = ref.watch(brandsProvider);
     return brands.when(
       data: (data) {
         if (data.status == "APP00") {
-          return Container(
-            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-            decoration: BoxDecoration(
-                color: Theme.of(context).highlightColor,
-                borderRadius: BorderRadius.circular(10)),
-            padding: const EdgeInsets.all(10),
-            height: height,
+          return SizedBox(
+            height: widget.height,
             width: double.infinity,
             child: ListView.builder(
+                controller: brandScrollController,
                 scrollDirection: Axis.horizontal,
                 itemCount: data.message!.length,
                 itemBuilder: (context, index) {
-                  return Stack(
-                    children: [
-                      Container(
-                        height: height,
-                        width: DeviceInfo.getDeviceWidth(context) * 0.25,
-                        decoration: BoxDecoration(
+                  final itemIndex = index % data.message!.length;
+                  return GestureDetector(
+                    onTap: () {
+                      updateSelectedItem(itemIndex);
+                    },
+                    child: Container(
+                      height: widget.height,
+                      width: DeviceInfo.getDeviceWidth(context) * 0.25,
+                      decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(data.message![index].img!),
+                            image: NetworkImage(data.message![itemIndex].img!),
                             fit: BoxFit.contain,
                           ),
-                        ),
-                      ),
-                      // add text with brand name below container
-                      // Positioned(
-                      //   bottom: 0,
-                      //   left: 0,
-                      //   right: 0,
-                      //   child: Text(
-                      //     data.message![index].name!,
-                      //     textAlign: TextAlign.center,
-                      //     style: Theme.of(context)
-                      //         .textTheme
-                      //         .bodyMedium!
-                      //         .copyWith(
-                      //           color: Colors.white,
-                      //         ),
-                      //   ),
-                      // ),
-                      // Image.network(),
-                    ],
+                          borderRadius: BorderRadius.circular(8),
+                          color: Theme.of(context).highlightColor,
+                          boxShadow: selectedIndex == itemIndex
+                              ? [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      offset: Offset.fromDirection(360),
+                                      spreadRadius: 2,
+                                      blurRadius: 4)
+                                ]
+                              : []),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 8),
+                    ),
                   );
                 }),
           );

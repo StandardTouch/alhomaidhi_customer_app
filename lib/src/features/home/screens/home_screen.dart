@@ -40,8 +40,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         } else {
           noMoreProducts = false;
         }
-
-        logger.e(data.message!.length);
         return ListView(
           children: [
             BrandsWidget(height: height * 0.1),
