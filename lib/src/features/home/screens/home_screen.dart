@@ -76,8 +76,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       : () {
                           pageNavigator(isPrev: true);
                         },
-                  icon: Icon(Icons.arrow_circle_left),
-                  label: Text("previous"),
+                  icon: const Icon(Icons.arrow_circle_left),
+                  label: const Text("previous"),
                 ),
                 TextButton.icon(
                   onPressed: noMoreProducts

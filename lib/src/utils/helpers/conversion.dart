@@ -10,7 +10,7 @@ class ConversionHelper {
     }
   }
 
-  String formatPrice(String inputString) {
+  static String formatPrice(String inputString) {
     try {
       double value = double.parse(inputString);
       return value.toStringAsFixed(2);

@@ -65,20 +65,20 @@ class ProductCard extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          priceBefore,
+                          "$priceNow ريال",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        const Gap(4),
+                        Text(
+                          ConversionHelper.formatPrice(priceBefore),
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.lineThrough,
                                   ),
-                        ),
-                        const Gap(4),
-                        Text(
-                          priceNow,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
