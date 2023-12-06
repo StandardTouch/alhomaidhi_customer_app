@@ -72,6 +72,10 @@ TextButtonThemeData textButtonThemeData = TextButtonThemeData(
   foregroundColor: Colors.black,
 ));
 
+const PopupMenuThemeData popupMenuTheme = PopupMenuThemeData(
+  surfaceTintColor: Colors.white,
+);
+
 var lightThemeData = ThemeData(
   colorScheme:
       const ColorScheme.light(error: Colors.red, onSecondary: COLOR_SECONDARY),
@@ -84,6 +88,7 @@ var lightThemeData = ThemeData(
   textTheme: getTextTheme(isDark: false),
   textButtonTheme: textButtonThemeData,
   appBarTheme: appBarTheme,
+  popupMenuTheme: popupMenuTheme,
 );
 
 var darkThemeData = ThemeData(
@@ -98,4 +103,5 @@ var darkThemeData = ThemeData(
   textTheme: getTextTheme(isDark: true),
   textButtonTheme: textButtonThemeData,
   appBarTheme: appBarTheme,
+  popupMenuTheme: popupMenuTheme,
 );
