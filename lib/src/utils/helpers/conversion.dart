@@ -9,4 +9,14 @@ class ConversionHelper {
       return inputString.trim();
     }
   }
+
+  String formatPrice(String inputString) {
+    try {
+      double value = double.parse(inputString);
+      return value.toStringAsFixed(2);
+    } catch (e) {
+      // Handle the exception if the input is not a valid number
+      return inputString;
+    }
+  }
 }
