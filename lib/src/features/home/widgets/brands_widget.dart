@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:alhomaidhi_customer_app/src/features/home/models/brand_response.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/providers/brands_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';

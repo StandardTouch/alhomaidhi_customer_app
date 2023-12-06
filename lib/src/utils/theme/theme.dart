@@ -62,6 +62,11 @@ PinTheme getSubmittedPinTheme(BuildContext context) {
   );
 }
 
+const AppBarTheme appBarTheme = AppBarTheme(
+  backgroundColor: Colors.white,
+  surfaceTintColor: Colors.white,
+);
+
 TextButtonThemeData textButtonThemeData = TextButtonThemeData(
     style: IconButton.styleFrom(
   foregroundColor: Colors.black,
@@ -78,6 +83,7 @@ var lightThemeData = ThemeData(
   elevatedButtonTheme: getElevatedButtonThemeData(isDark: false),
   textTheme: getTextTheme(isDark: false),
   textButtonTheme: textButtonThemeData,
+  appBarTheme: appBarTheme,
 );
 
 var darkThemeData = ThemeData(
@@ -91,4 +97,5 @@ var darkThemeData = ThemeData(
   elevatedButtonTheme: getElevatedButtonThemeData(isDark: true),
   textTheme: getTextTheme(isDark: true),
   textButtonTheme: textButtonThemeData,
+  appBarTheme: appBarTheme,
 );

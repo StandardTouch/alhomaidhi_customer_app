@@ -34,6 +34,12 @@ class ProductsQueryNotifier extends StateNotifier<AllProductsQuery> {
       brandId: newBrandId,
     );
   }
+
+  void updateSort(String sort) {
+    state = state.copyWith(
+      sortBy: sort,
+    );
+  }
 }
 
 final productQueryProvider =
