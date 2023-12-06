@@ -30,10 +30,10 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Align(
-              alignment: Alignment.center,
-              child: Expanded(
-                flex: 2,
+            Expanded(
+              flex: 2,
+              child: Align(
+                alignment: Alignment.center,
                 child: Image.network(
                   imageUrl,
                   fit: BoxFit.contain,
@@ -42,7 +42,7 @@ class ProductCard extends StatelessWidget {
             ),
             // details
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Column(
                 children: [
                   Expanded(

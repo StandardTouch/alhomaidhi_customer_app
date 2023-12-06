@@ -94,17 +94,36 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         );
       } else {
         return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("An Error Occurred!"),
-            Text(data.errorMessage!),
+            BrandsWidget(height: height * 0.1),
+            const Spacer(),
+            Container(
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Center(
+                child: Column(
+                  children: [
+                    const Text("An Error Occurred!"),
+                    Text(data.errorMessage!),
+                  ],
+                ),
+              ),
+            ),
+            const Spacer(),
           ],
         );
       }
     }, error: (err, stackTrace) {
       return Center(child: Text("Server Error Occurred: $err"));
     }, loading: () {
-      return const Center(child: CircularProgressIndicator());
+      return Column(
+        children: [
+          BrandsWidget(height: height * 0.1),
+          const Spacer(),
+          const CircularProgressIndicator(),
+          const Spacer(),
+        ],
+      );
     });
   }
 }

@@ -10,13 +10,14 @@ final allProductsProvider = FutureProvider<AllProductsResponse>((ref) async {
     pageNo: query.pageNo,
     search: query.search,
     sortBy: query.sortBy,
+    brandId: query.brandId,
   );
   return response;
 });
 
 class ProductsQueryNotifier extends StateNotifier<AllProductsQuery> {
   ProductsQueryNotifier()
-      : super(AllProductsQuery(pageNo: 1, search: "", sortBy: ""));
+      : super(AllProductsQuery(pageNo: 1, search: "", sortBy: "", brandId: 0));
 
   void incrementPage() {
     final currentPage = state.pageNo;
@@ -26,6 +27,12 @@ class ProductsQueryNotifier extends StateNotifier<AllProductsQuery> {
   void decrementPage() {
     final currentPage = state.pageNo;
     state = state.copyWith(pageNo: currentPage - 1);
+  }
+
+  void updateBrand(int newBrandId) {
+    state = state.copyWith(
+      brandId: newBrandId,
+    );
   }
 }
 

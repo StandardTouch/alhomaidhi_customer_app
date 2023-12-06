@@ -8,20 +8,32 @@ Future<AllProductsResponse> getAllProducts({
   required int pageNo,
   String? search,
   String? sortBy,
+  int? brandId,
 }) async {
   try {
     final userDetails = await AuthHelper.getAuthDetails();
     final jsonResponse = await dioClient.get(
-        APIEndpoints.getProducts(
-          sortBy: sortBy,
-          search: search,
-          pageNo: pageNo,
-          productsPerPage: 100,
+        // APIEndpoints.getProducts(
+        //   sortBy: sortBy,
+        //   search: search,
+        //   pageNo: pageNo,
+        //   productsPerPage: 100,
+        //   brandFilter: brandId,
+        // ),
+        APIEndpoints.getProducts,
+        options: Options(
+          headers: {
+            "Authorization": userDetails.token,
+            "user_id": userDetails.userId,
+          },
         ),
-        options: Options(headers: {
-          "Authorization": userDetails.token,
-          "user_id": userDetails.userId,
-        }));
+        queryParameters: {
+          "sort_by": sortBy,
+          "search": search,
+          "page": pageNo,
+          "per_page": 100,
+          "brand_filter": brandId,
+        });
     final response = AllProductsResponse.fromJson(jsonResponse.data);
     return response;
   } catch (err) {

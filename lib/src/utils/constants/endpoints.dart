@@ -5,13 +5,16 @@ class APIEndpoints {
   static const loginVerifyOtp = "/wp-json/alhomaidhiapp/v2/otp_verification";
   static const verifyToken = "/wp-json/alhomaidhiapp/v2/token_verification";
   static const loginResendOtp = "/wp-json/alhomaidhiapp/v2/resend_otp_request";
-  static getProducts(
-      {required String? sortBy,
-      required String? search,
-      required int pageNo,
-      required int productsPerPage}) {
-    return "/wp-json/alhomaidhiapp/v2/list_products?sort_by=$sortBy&search=$search&page=$pageNo&per_page=$productsPerPage";
-  }
+  // static getProducts({
+  //   required String? sortBy,
+  //   required String? search,
+  //   required int pageNo,
+  //   required int productsPerPage,
+  //   required String? brandFilter,
+  // }) {
+  //   return "/wp-json/alhomaidhiapp/v2/list_products?sort_by=$sortBy&search=$search&page=$pageNo&per_page=$productsPerPage&brand_filter=$brandFilter";
+  // }
+  static const getProducts = "/wp-json/alhomaidhiapp/v2/list_products";
 
   static const getBrands = "/wp-json/alhomaidhiapp/v2/retrieve_brands";
 }

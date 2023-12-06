@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:alhomaidhi_customer_app/src/features/home/models/brand_response.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/providers/brands_provider.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/providers/products_provider.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,10 +34,12 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
     super.dispose();
   }
 
-  void updateSelectedItem(index) {
+  void updateSelectedItem(int index, int brandId) {
     setState(() {
       selectedIndex = index;
     });
+    logger.d("the brand id is $brandId");
+    ref.read(productQueryProvider.notifier).updateBrand(brandId);
   }
 
   void _startAutoScroll() {
@@ -70,7 +75,8 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
                   final itemIndex = index % data.message!.length;
                   return GestureDetector(
                     onTap: () {
-                      updateSelectedItem(itemIndex);
+                      updateSelectedItem(
+                          itemIndex, data.message![itemIndex].id!);
                     },
                     child: Container(
                       height: widget.height,
@@ -111,7 +117,7 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
         return Center(child: Text("Server Error Occurred: $err"));
       },
       loading: () {
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: LinearProgressIndicator());
       },
     );
   }
