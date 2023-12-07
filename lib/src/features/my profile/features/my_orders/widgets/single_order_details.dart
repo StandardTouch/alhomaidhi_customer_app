@@ -74,7 +74,7 @@ class SingleOrderDetails extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           height: DeviceInfo.getDeviceHeight(context) * 0.2,
           width: DeviceInfo.getDeviceHeight(context) * 0.5,
-          padding: const EdgeInsets.only(left: 4),
+          padding: const EdgeInsets.only(left: 8),
           decoration: BoxDecoration(
               borderRadius: borderRadius,
               border: Border.all(color: Colors.grey)),
@@ -112,35 +112,46 @@ class SingleOrderDetails extends StatelessWidget {
             ],
           ),
         ),
-        Gap(DeviceInfo.getDeviceHeight(context) * 0.02),
+        Gap(DeviceInfo.getDeviceHeight(context) * 0.01),
         Text('Shipping Information'),
-        Gap(DeviceInfo.getDeviceHeight(context) * 0.02),
+        Gap(DeviceInfo.getDeviceHeight(context) * 0.01),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           height: DeviceInfo.getDeviceHeight(context) * 0.24,
           width: DeviceInfo.getDeviceHeight(context) * 0.5,
-          padding: const EdgeInsets.only(left: 4),
+          padding: const EdgeInsets.only(left: 8),
           decoration: BoxDecoration(
               borderRadius: borderRadius,
               border: Border.all(color: Colors.grey)),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Name'),
+              Text(
+                'Name:',
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
               Text('Order Confirmation'),
-              Text('Phone'),
+              Text(
+                'Phone:',
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
               Text('+91 ******4800'),
-              Text('Address'),
+              Text(
+                'Address:',
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
               Text(
                   'Lorem ipsum dolor sit amet consectetur. Sed cras egestas aenean porttitor eu leo morbi nibh. At condimentum urna cursus eu.'),
             ],
           ),
         ),
         Container(
+          alignment: Alignment.center,
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          height: DeviceInfo.getDeviceHeight(context) * 0.04,
+          height: DeviceInfo.getDeviceHeight(context) * 0.045,
           width: DeviceInfo.getDeviceHeight(context) * 0.5,
-          padding: const EdgeInsets.only(left: 4),
+          padding: const EdgeInsets.only(left: 8),
           decoration: BoxDecoration(
               borderRadius: borderRadius,
               border: Border.all(color: Colors.grey)),
