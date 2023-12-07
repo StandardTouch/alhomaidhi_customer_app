@@ -30,7 +30,8 @@ TextTheme getTextTheme({required bool isDark}) {
         fontWeight: FontWeight.bold,
         fontSize: 16,
         color: isDark ? Colors.white : Colors.black,
-      ));
+      ),
+      labelLarge: const TextStyle(color: Colors.grey, fontSize: 16));
 }
 
 // pinput themes

@@ -7,6 +7,8 @@ class APIEndpoints {
   static const loginResendOtp = "/wp-json/alhomaidhiapp/v2/resend_otp_request";
   static const registerUser = "/wp-json/alhomaidhiapp/v2/alhomapp_signup";
   static const myOrders = "/wp-json/alhomaidhiapp/v2/list_products";
+  static const getSingleOrder = "/wp-json/alhomaidhiapp/v2/retrieve_order";
+
 }
 
 // logger is used for error handling

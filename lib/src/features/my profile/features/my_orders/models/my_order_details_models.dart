@@ -1,16 +1,20 @@
-class MyOrderDetailsModel {
+class MyOrderDetailsModels {
   String? status;
   Message? message;
+  String? errorMessage;
 
-  MyOrderDetailsModel({this.status, this.message});
+  MyOrderDetailsModels({this.status, this.message});
 
-  MyOrderDetailsModel.fromJson(Map<String, dynamic> json) {
+  MyOrderDetailsModels.fromJson(Map<String, dynamic> json) {
     if (json["status"] is String) {
       status = json["status"];
     }
     if (json["message"] is Map) {
       message =
           json["message"] == null ? null : Message.fromJson(json["message"]);
+    } else if (json["message"] is String) {
+      status = json["status"];
+      errorMessage = json["message"];
     }
   }
 
@@ -28,7 +32,7 @@ class Message {
   OrderDetails? orderDetails;
   BillingDetails? billingDetails;
   PaymentDetails? paymentDetails;
-  List<List<Items>>? items;
+  List<Items>? items;
 
   Message(
       {this.orderDetails,
@@ -53,14 +57,9 @@ class Message {
           : PaymentDetails.fromJson(json["payment_details"]);
     }
     if (json["items"] is List) {
-      items = (json["items"] == null
-              ? null
-              : (json["items"] as List)
-                  .map((e) => e == null
-                      ? []
-                      : (e as List).map((e) => Items.fromJson(e)).toList())
-                  .toList())
-          ?.cast<List<Items>>();
+      items = json["items"] == null
+          ? null
+          : (json["items"] as List).map((e) => Items.fromJson(e)).toList();
     }
   }
 
@@ -76,8 +75,7 @@ class Message {
       _data["payment_details"] = paymentDetails?.toJson();
     }
     if (items != null) {
-      _data["items"] =
-          items?.map((e) => e?.map((e) => e.toJson())?.toList() ?? []).toList();
+      _data["items"] = items?.map((e) => e.toJson()).toList();
     }
     return _data;
   }
