@@ -77,6 +77,14 @@ final router = GoRouter(
         child: const MyOrderScreen(),
       ),
     ),
+    GoRoute(
+      path: "/my_order_details",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const MyOrderDetailsScreen(),
+      ),
+    ), //define here
     // for main routes
     ShellRoute(
       navigatorKey: _shellNavigatorKey,

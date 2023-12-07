@@ -3,6 +3,7 @@ import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_or
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 import 'package:intl/intl.dart';
 
@@ -49,7 +50,7 @@ class MyOrderScreen extends ConsumerWidget {
             ),
             backgroundColor: Colors.transparent,
             body: Container(
-              margin: const EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.only(top: 40),
               padding: const EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -87,7 +88,9 @@ class MyOrderScreen extends ConsumerWidget {
                           subtitle: item.itemName ?? 'No Title',
                           orderStatus:
                               data.message![index].orderDetails!.orderStatus,
-                          onPressed: () {},
+                          onPressed: () {
+                            context.push('/my_order_details');
+                          },
                         );
                       },
                     );
@@ -103,7 +106,7 @@ class MyOrderScreen extends ConsumerWidget {
         }
       },
       error: (err, stk) => Center(child: Text("$err")),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => const Center(child: const CircularProgressIndicator()),
     );
   }
 }

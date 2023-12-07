@@ -12,13 +12,12 @@ Future<MyOrdersListModel> getMyOrders() async {
     final jsonResponse = await dioClient.get(APIEndpoints.myOrders,
         options: Options(headers: {
           "Authorization":
-              "1592276139jRzNFQLTqUScUiI2m9qpjeYkLxzjVlKFVXxzkQWmqDN6t4iQJc",
+              "1424570133UktdEGrQXrA0hhAIxUrHSpH11Uyt5T6SnI4aFdRAgDVhAHjBSp",
           "user_id": 40,
         }));
     final response = MyOrdersListModel.fromJson(
       jsonResponse.data,
     );
-    logger.i(jsonResponse.data);
     return response;
   } catch (err) {
     logger.e("Error from getMyOrders: $err");
