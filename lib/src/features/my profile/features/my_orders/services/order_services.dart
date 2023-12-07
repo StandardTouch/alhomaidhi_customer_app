@@ -12,7 +12,7 @@ Future<MyOrdersListModel> getMyOrders() async {
     final jsonResponse = await dioClient.get(APIEndpoints.myOrders,
         options: Options(headers: {
           "Authorization":
-              "1592276139jRzNFQLTqUScUiI2m9qpjeYkLxzjVlKFVXxzkQWmqDN6t4iQJc",
+              "1459697664xEKlwLYXR2wY8YIRO2fgADDSu87DtdzVfDDvSXiJmVUVWGyNFh",
           "user_id": 40,
         }));
     final response = MyOrdersListModel.fromJson(
