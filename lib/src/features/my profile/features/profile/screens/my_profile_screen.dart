@@ -1,8 +1,11 @@
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/profile/widgets/my_profile_menu_item.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
+import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({super.key});
@@ -13,16 +16,16 @@ class MyProfileScreen extends StatefulWidget {
   }
 }
 
-// @kahkashan
-// Add list tile widget for billing address to my orders and delete account
-
 class _MyProfileScreen extends State<MyProfileScreen> {
-  ThemeMode themeMode = ThemeMode.system;
+  void logout() async {
+    const storage = FlutterSecureStorage();
+    storage.delete(key: "token");
+    storage.delete(key: "userId");
+    context.go("/login");
+  }
 
   @override
   Widget build(context) {
-    // ThemeMode themeModeValue = EasyDynamicTheme.of(context).themeMode!;
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         Container(
@@ -48,13 +51,13 @@ class _MyProfileScreen extends State<MyProfileScreen> {
               right: 50,
               bottom: 0,
             ),
-            decoration: BoxDecoration(
-              color: isDarkMode ? Colors.black : Colors.white,
-              borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(50),
                 topRight: Radius.circular(50),
               ),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
                     color: Colors.black38, blurRadius: 0.5, spreadRadius: 1),
               ],
@@ -79,45 +82,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                     menuItemImage: Assets.myOrders,
                     additionalWidget: Icon(Icons.keyboard_arrow_right_rounded),
                   ),
-                  // commented theme switcher
-
-                  // const Gap(20),
-                  // Container(
-                  //   padding: const EdgeInsets.symmetric(
-                  //     horizontal: 0,
-                  //     vertical: 10,
-                  //   ),
-                  //   decoration: BoxDecoration(
-                  //     border: Border.all(
-                  //       color: Colors.grey,
-                  //       width: 1,
-                  //     ),
-                  //     borderRadius: BorderRadius.circular(10),
-                  //   ),
-                  //   child: ListTile(
-                  //     leading: const Image(
-                  //       image: AssetImage(Assets.themeMode),
-                  //       width: 33,
-                  //     ),
-                  //     title: const Text("Theme"),
-                  //     trailing: Transform.scale(
-                  //       scale: 0.8,
-                  //       child: Switch(
-                  //         value: isDarkMode,
-                  //         onChanged: (value) {
-                  //           setState(() {
-                  //             value
-                  //                 ? EasyDynamicTheme.of(context)
-                  //                     .changeTheme(dynamic: false, dark: true)
-                  //                 : EasyDynamicTheme.of(context)
-                  //                     .changeTheme(dynamic: true, dark: false);
-                  //           });
-                  //         },
-                  //         activeColor: Theme.of(context).primaryColor,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   const Gap(20),
                   const MyProfiletMenuItem(
                     menuItemLink: 'delete_account',
@@ -129,7 +93,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                   SizedBox(
                     width: DeviceInfo.getDeviceWidth(context),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: logout,
                       child: const Text("Logout"),
                     ),
                   ),
