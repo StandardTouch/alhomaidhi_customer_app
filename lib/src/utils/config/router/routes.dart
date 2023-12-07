@@ -74,7 +74,7 @@ final router = GoRouter(
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
         context: context,
         state: state,
-        child: const MyOrderDetailsScreen(),
+        child: const MyOrderScreen(),
       ),
     ),
     // for main routes
