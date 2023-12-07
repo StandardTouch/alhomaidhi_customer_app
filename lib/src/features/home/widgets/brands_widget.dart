@@ -18,7 +18,6 @@ class BrandsWidget extends ConsumerStatefulWidget {
 class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
   final ScrollController brandScrollController = ScrollController();
   Timer? _timer;
-  int? selectedIndex;
 
   @override
   void initState() {
@@ -34,9 +33,6 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
   }
 
   void updateSelectedItem(int index, int brandId) {
-    setState(() {
-      selectedIndex = index;
-    });
     logger.d("the brand id is $brandId");
     ref.read(productQueryProvider.notifier).updateBrand(brandId);
   }
@@ -60,6 +56,7 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
   @override
   Widget build(BuildContext context) {
     final brands = ref.watch(brandsProvider);
+    final query = ref.watch(productQueryProvider);
     return brands.when(
       data: (data) {
         if (data.status == "APP00") {
@@ -87,15 +84,16 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
                           ),
                           borderRadius: BorderRadius.circular(8),
                           color: Theme.of(context).highlightColor,
-                          boxShadow: selectedIndex == itemIndex
-                              ? [
-                                  BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      offset: Offset.fromDirection(360),
-                                      spreadRadius: 2,
-                                      blurRadius: 4)
-                                ]
-                              : []),
+                          boxShadow:
+                              query.brandId == data.message![itemIndex].id!
+                                  ? [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          offset: Offset.fromDirection(360),
+                                          spreadRadius: 2,
+                                          blurRadius: 4)
+                                    ]
+                                  : []),
                       margin: const EdgeInsets.symmetric(
                           horizontal: 5, vertical: 8),
                     ),

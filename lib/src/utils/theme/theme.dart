@@ -76,6 +76,12 @@ const PopupMenuThemeData popupMenuTheme = PopupMenuThemeData(
   surfaceTintColor: Colors.white,
 );
 
+const FloatingActionButtonThemeData floatingButtonTheme =
+    FloatingActionButtonThemeData(
+  backgroundColor: COLOR_PRIMARY,
+  foregroundColor: Colors.white,
+);
+
 var lightThemeData = ThemeData(
   colorScheme:
       const ColorScheme.light(error: Colors.red, onSecondary: COLOR_SECONDARY),
@@ -89,6 +95,7 @@ var lightThemeData = ThemeData(
   textButtonTheme: textButtonThemeData,
   appBarTheme: appBarTheme,
   popupMenuTheme: popupMenuTheme,
+  floatingActionButtonTheme: floatingButtonTheme,
 );
 
 var darkThemeData = ThemeData(
@@ -104,4 +111,5 @@ var darkThemeData = ThemeData(
   textButtonTheme: textButtonThemeData,
   appBarTheme: appBarTheme,
   popupMenuTheme: popupMenuTheme,
+  floatingActionButtonTheme: floatingButtonTheme,
 );
