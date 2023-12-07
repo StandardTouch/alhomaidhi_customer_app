@@ -21,44 +21,48 @@ class SingleOrderDetails extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Text(
             'Order ID - ST023536464',
-            style: Theme.of(context).textTheme.labelLarge,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
         ),
         Container(
             margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-            height: DeviceInfo.getDeviceHeight(context) * 0.16,
+            height: DeviceInfo.getDeviceHeight(context) * 0.13,
             width: DeviceInfo.getDeviceHeight(context) * 0.5,
             padding: const EdgeInsets.only(left: 4),
             decoration: BoxDecoration(
                 borderRadius: borderRadius,
                 border: Border.all(color: Colors.grey)),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      child: Column(
-                        children: [
-                          Container(
-                              height: DeviceInfo.getDeviceWidth(context) * 0.2,
-                              width: DeviceInfo.getDeviceWidth(context) * 0.65,
-                              child: Text(
-                                  'Calvin Klein Watches / ساعات كلفين كلاين')),
-                          Text('ر.س1,196.00')
-                        ],
+                    Expanded(
+                      flex: 4,
+                      child: Container(
+                        // height: DeviceInfo.getDeviceWidth(context) * 0.1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                                width:
+                                    DeviceInfo.getDeviceWidth(context) * 0.73,
+                                child: Text(
+                                    'Calvin Klein Watches / ساعات كلفين كلاين')),
+                            Text('ر.س1,196.00')
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            height: DeviceInfo.getDeviceWidth(context) * 0.2,
-                            width: DeviceInfo.getDeviceWidth(context) * 0.1,
-                            child: Image.network(
-                              'https://alhomdelivery.standardtouch.com/wp-content/uploads/2023/09/cmenet-industry.png',
-                            ),
-                          )
-                        ],
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: DeviceInfo.getDeviceWidth(context) * 0.2,
+                        child: Image.network(
+                          'https://alhomdelivery.standardtouch.com/wp-content/uploads/2023/09/cmenet-industry.png',
+                        ),
                       ),
                     )
                   ],
