@@ -62,7 +62,7 @@ class SingleOrderCard extends StatelessWidget {
                   ),
                   Text(
                     subtitle!,
-                    style: Theme.of(context).textTheme.labelLarge,
+                    style: Theme.of(context).textTheme.labelMedium,
                     overflow: TextOverflow.ellipsis,
                   )
                 ],

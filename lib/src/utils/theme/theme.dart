@@ -25,16 +25,18 @@ ElevatedButtonThemeData getElevatedButtonThemeData({required isDark}) {
 // add text theme
 TextTheme getTextTheme({required bool isDark}) {
   return TextTheme(
-      headlineMedium: TextStyle(
-        fontWeight: FontWeight.bold,
-        color: isDark ? Colors.white : Colors.black,
-      ),
-      bodyMedium: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 16,
-        color: isDark ? Colors.white : Colors.black,
-      ),
-      labelLarge: const TextStyle(color: Colors.grey, fontSize: 16));
+    headlineMedium: TextStyle(
+      fontWeight: FontWeight.bold,
+      color: isDark ? Colors.white : Colors.black,
+    ),
+    bodyMedium: TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 16,
+      color: isDark ? Colors.white : Colors.black,
+    ),
+    labelLarge: const TextStyle(color: Colors.black, fontSize: 16),
+    labelMedium: const TextStyle(color: Colors.grey, fontSize: 16),
+  );
 }
 
 // pinput themes
