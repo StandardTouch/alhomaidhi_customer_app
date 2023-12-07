@@ -7,14 +7,14 @@ class SingleOrderCard extends StatelessWidget {
   final String? imageUrl;
   final Function() onPressed;
   final String? orderStatus;
-  var borderRadius = const BorderRadius.only(
+  final borderRadius = const BorderRadius.only(
     topRight: Radius.circular(10),
     bottomRight: Radius.circular(10),
     bottomLeft: Radius.circular(10),
     topLeft: Radius.circular(10),
   );
 
-  SingleOrderCard(
+  const SingleOrderCard(
       {super.key,
       required this.title,
       required this.subtitle,
@@ -62,7 +62,7 @@ class SingleOrderCard extends StatelessWidget {
                   ),
                   Text(
                     subtitle!,
-                    style: Theme.of(context).textTheme.labelLarge,
+                    style: Theme.of(context).textTheme.labelMedium,
                     overflow: TextOverflow.ellipsis,
                   )
                 ],
