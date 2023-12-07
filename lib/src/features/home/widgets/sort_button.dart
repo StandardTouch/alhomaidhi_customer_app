@@ -14,11 +14,11 @@ class _SortByButtonState extends ConsumerState<SortByButton> {
   List<PopupMenuEntry<String>> menuItems = const [
     PopupMenuItem(
       value: 'asc',
-      child: Text('Ascending(A-Z)'),
+      child: Text('Earliest first'),
     ),
     PopupMenuItem(
       value: 'desc',
-      child: Text('Descending(Z-A)'),
+      child: Text('Latest Release'),
     ),
   ];
   @override

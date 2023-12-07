@@ -41,6 +41,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {},
+            icon: Image.asset(
+              Assets.brandsButton,
+              width: 60,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
             icon: Icon(
               Icons.notification_important_outlined,
               color: Theme.of(context).primaryColor,
