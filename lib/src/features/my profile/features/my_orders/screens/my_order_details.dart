@@ -5,13 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MyOrderDetailsScreen extends ConsumerWidget {
-  const MyOrderDetailsScreen({super.key});
+  const MyOrderDetailsScreen({super.key, this.orderId});
+  final String? orderId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final myOrderDetail = ref.watch(MyOrderDetailsProvider);
+    final myOrderDetail = ref.watch(myOrderDetailsProvider(orderId!));
     return myOrderDetail.when(data: (data) {
       if (data.status == "APP00") {
         // logger.i(data.message!.toString());
+        final String? orderStatus = data.message!.orderDetails!.orderStatus;
+        final String? productName = data.message!.items![0].itemName;
+        final String? productUrl = data.message!.items![0].image;
+        final String? productPrice = data.message!.items![0].total;
+        final String? cusName = data.message!.billingDetails!.firstName;
+        final String? deliveryAddress = data.message!.billingDetails!.address1;
 
         return Scaffold(
             appBar: AppBar(
@@ -38,7 +45,14 @@ class MyOrderDetailsScreen extends ConsumerWidget {
                     ),
                   ],
                 ),
-                child: SingleOrderDetails()));
+                child: SingleOrderDetails(
+                    orderId: orderId,
+                    productName: productName,
+                    productUrl: productUrl,
+                    productPrice: productPrice,
+                    orderStatus: orderStatus,
+                    cusName: cusName,
+                    deliveryAddress: deliveryAddress)));
       } else {
         return const Center(
           child: Text("data.errorMessage!"),

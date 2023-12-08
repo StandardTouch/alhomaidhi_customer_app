@@ -5,7 +5,7 @@ import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-Future<MyOrderDetailsModels> getMyOrderDetails() async {
+Future<MyOrderDetailsModels> getMyOrderDetails(String? orderId) async {
   final authDetails = await AuthHelper.getAuthDetails();
   try {
     final jsonResponse = await dioClient.get(APIEndpoints.getSingleOrder,
@@ -13,7 +13,7 @@ Future<MyOrderDetailsModels> getMyOrderDetails() async {
           "Authorization": authDetails.token,
           "user_id": authDetails.userId,
         }),
-        queryParameters: {'order_id': 100});
+        queryParameters: {'order_id': orderId});
     final response = MyOrderDetailsModels.fromJson(
       jsonResponse.data,
     );

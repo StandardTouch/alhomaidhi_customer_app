@@ -9,8 +9,7 @@ final MyOrdersListProvider = FutureProvider<MyOrdersListModel>((ref) async {
   return response;
 });
 
-final MyOrderDetailsProvider =
-    FutureProvider<MyOrderDetailsModels>((ref) async {
-  MyOrderDetailsModels response = await getMyOrderDetails();
-  return response;
+final myOrderDetailsProvider =
+    FutureProvider.family<MyOrderDetailsModels, String>((ref, orderId) async {
+  return await getMyOrderDetails(orderId);
 });

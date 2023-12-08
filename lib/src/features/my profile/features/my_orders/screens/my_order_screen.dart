@@ -1,4 +1,5 @@
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/services/my_order_details_services.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/widgets/single_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -73,6 +74,8 @@ class MyOrderScreen extends ConsumerWidget {
                         data.message![index].orderDetails!.orderPlacedDate,
                         data.message![index].orderDetails!.orderDateModified,
                         data.message![index].orderDetails!.orderStatus);
+                    String? orderId =
+                        data.message![index].orderDetails!.orderId;
 
                     return ListView.builder(
                       shrinkWrap: true,
@@ -87,6 +90,7 @@ class MyOrderScreen extends ConsumerWidget {
                           orderStatus:
                               data.message![index].orderDetails!.orderStatus,
                           onPressed: () {
+                            getMyOrderDetails(orderId);
                             context.push('/my_order_details');
                           },
                         );

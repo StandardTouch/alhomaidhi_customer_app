@@ -3,7 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class SingleOrderDetails extends StatelessWidget {
-  SingleOrderDetails({super.key});
+  SingleOrderDetails(
+      {super.key,
+      required this.orderId,
+      required this.productName,
+      required this.productUrl,
+      required this.productPrice,
+      required this.orderStatus,
+      required this.cusName,
+      required this.deliveryAddress});
+  final orderId;
+  final productName;
+  final productUrl;
+  final productPrice;
+  final orderStatus;
+  final cusName;
+  final deliveryAddress;
+
   final borderRadius = const BorderRadius.only(
     topRight: Radius.circular(10),
     bottomRight: Radius.circular(10),
