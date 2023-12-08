@@ -7,16 +7,26 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 Future<MyOrderDetailsModels> getMyOrderDetails(String? orderId) async {
   final authDetails = await AuthHelper.getAuthDetails();
+  print('this is orderid $orderId');
+  String cleanOrderId(String? orderId) {
+    return orderId!.replaceFirst(
+        '#', ''); // Removes the first occurrence of '#' from the string
+  }
+
+  String? cleanedOrderId = cleanOrderId(orderId);
+  print('this is cleanedorderid $cleanedOrderId');
   try {
     final jsonResponse = await dioClient.get(APIEndpoints.getSingleOrder,
         options: Options(headers: {
           "Authorization": authDetails.token,
           "user_id": authDetails.userId,
         }),
-        queryParameters: {'order_id': orderId});
+        queryParameters: {'order_id': cleanedOrderId});
     final response = MyOrderDetailsModels.fromJson(
       jsonResponse.data,
     );
+
+    print(jsonResponse);
     return response;
   } catch (err) {
     logger.e("Error from getMyOrders: $err");

@@ -79,11 +79,11 @@ final router = GoRouter(
       ),
     ),
     GoRoute(
-      path: "/my_order_details",
-      pageBuilder: (context, state) => buildPageWithDefaultTransition(
-        context: context,
-        state: state,
-        child: const MyOrderDetailsScreen(),
+      path: "/my_order_details/:orderId/:productIndex",
+      name: "my_order_details",
+      builder: (context, state) => MyOrderDetailsScreen(
+        orderId: state.pathParameters["orderId"]!,
+        productIndex: int.parse(state.pathParameters["productIndex"]!),
       ),
     ), //define here
     // for main routes

@@ -91,7 +91,11 @@ class MyOrderScreen extends ConsumerWidget {
                               data.message![index].orderDetails!.orderStatus,
                           onPressed: () {
                             getMyOrderDetails(orderId);
-                            context.push('/my_order_details');
+                            context
+                                .pushNamed("my_order_details", pathParameters: {
+                              "orderId": orderId!,
+                              "productIndex": "$indexItem",
+                            });
                           },
                         );
                       },

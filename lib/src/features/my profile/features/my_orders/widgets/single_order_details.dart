@@ -11,24 +11,48 @@ class SingleOrderDetails extends StatelessWidget {
       required this.productPrice,
       required this.orderStatus,
       required this.cusName,
-      required this.deliveryAddress});
-  final orderId;
-  final productName;
-  final productUrl;
-  final productPrice;
-  final orderStatus;
-  final cusName;
-  final deliveryAddress;
-
+      required this.deliveryAddress,
+      required this.phoneNumber});
+  final String orderId;
+  final String productName;
+  final String productUrl;
+  final String productPrice;
+  final String orderStatus;
+  final String cusName;
+  final String deliveryAddress;
+  final String phoneNumber;
   final borderRadius = const BorderRadius.only(
     topRight: Radius.circular(10),
     bottomRight: Radius.circular(10),
     bottomLeft: Radius.circular(10),
     topLeft: Radius.circular(10),
   );
+
+  List<Color> getOrderStatusColors(String status) {
+    const defaultColor = Colors.grey;
+    const activeColor = Colors.black;
+
+    List<Color> colors = List.filled(4, defaultColor);
+
+    switch (status) {
+      case 'wc-processing':
+        colors[0] = activeColor;
+        break;
+
+      case 'wc-shipped':
+        colors[0] = activeColor;
+        colors[1] = activeColor;
+        break;
+      case 'wc-completed':
+        colors.fillRange(0, colors.length, activeColor); // All stages completed
+        break;
+    }
+    return colors;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    List<Color> statusColors = getOrderStatusColors(orderStatus);
     return ListView(
       children: [
         Gap(20),
@@ -36,15 +60,15 @@ class SingleOrderDetails extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 12),
           alignment: Alignment.centerLeft,
           child: Text(
-            'Order ID - ST023536464',
+            orderId,
             style: Theme.of(context).textTheme.labelMedium,
           ),
         ),
         Container(
-            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+            margin: const EdgeInsets.symmetric(vertical: 5),
             height: DeviceInfo.getDeviceHeight(context) * 0.13,
             width: DeviceInfo.getDeviceHeight(context) * 0.5,
-            padding: const EdgeInsets.only(left: 4),
+            padding: const EdgeInsets.only(left: 8),
             decoration: BoxDecoration(
                 borderRadius: borderRadius,
                 border: Border.all(color: Colors.grey)),
@@ -64,9 +88,8 @@ class SingleOrderDetails extends StatelessWidget {
                             Container(
                                 width:
                                     DeviceInfo.getDeviceWidth(context) * 0.73,
-                                child: Text(
-                                    'Calvin Klein Watches / ساعات كلفين كلاين')),
-                            Text('ر.س1,196.00')
+                                child: Text(productName)),
+                            Text(productPrice)
                           ],
                         ),
                       ),
@@ -77,7 +100,7 @@ class SingleOrderDetails extends StatelessWidget {
                         alignment: Alignment.center,
                         width: DeviceInfo.getDeviceWidth(context) * 0.2,
                         child: Image.network(
-                          'https://alhomdelivery.standardtouch.com/wp-content/uploads/2023/09/cmenet-industry.png',
+                          productUrl,
                         ),
                       ),
                     )
@@ -94,42 +117,54 @@ class SingleOrderDetails extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: borderRadius,
               border: Border.all(color: Colors.grey)),
-          child: const Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Row(
                 children: [
-                  Icon(Icons.check_circle),
+                  Icon(
+                    Icons.check_circle,
+                    color: statusColors[0],
+                  ),
                   Gap(8),
-                  Text('Order Placed')
+                  Text(
+                    'Order Placed',
+                    style: TextStyle(color: statusColors[0]),
+                  )
                 ],
               ),
               Row(
                 children: [
-                  Icon(Icons.check_circle),
+                  Icon(Icons.check_circle, color: statusColors[1]),
                   Gap(8),
-                  Text('Order Confrimation')
+                  Text('Order Confrimation',
+                      style: TextStyle(color: statusColors[1]))
                 ],
               ),
               Row(
                 children: [
-                  Icon(Icons.check_circle),
+                  Icon(Icons.check_circle, color: statusColors[2]),
                   Gap(8),
-                  Text('Order Shipped')
+                  Text('Order Shipped',
+                      style: TextStyle(color: statusColors[2]))
                 ],
               ),
               Row(
                 children: [
-                  Icon(Icons.check_circle),
+                  Icon(Icons.check_circle, color: statusColors[3]),
                   Gap(8),
-                  Text('Order Delivered')
+                  Text('Order Delivered',
+                      style: TextStyle(color: statusColors[3]))
                 ],
               )
             ],
           ),
         ),
         Gap(DeviceInfo.getDeviceHeight(context) * 0.01),
-        Text('Shipping Information'),
+        Padding(
+          padding: const EdgeInsets.only(left: 14),
+          child: Text('Shipping Information'),
+        ),
         Gap(DeviceInfo.getDeviceHeight(context) * 0.01),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
@@ -147,36 +182,41 @@ class SingleOrderDetails extends StatelessWidget {
                 'Name:',
                 style: Theme.of(context).textTheme.labelMedium,
               ),
-              Text('Order Confirmation'),
+              Text(cusName),
               Text(
                 'Phone:',
                 style: Theme.of(context).textTheme.labelMedium,
               ),
-              Text('+91 ******4800'),
+              Text(phoneNumber),
               Text(
                 'Address:',
                 style: Theme.of(context).textTheme.labelMedium,
               ),
-              Text(
-                  'Lorem ipsum dolor sit amet consectetur. Sed cras egestas aenean porttitor eu leo morbi nibh. At condimentum urna cursus eu.'),
+              Text(deliveryAddress)
             ],
           ),
         ),
-        Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          height: DeviceInfo.getDeviceHeight(context) * 0.045,
-          width: DeviceInfo.getDeviceHeight(context) * 0.5,
-          padding: const EdgeInsets.only(left: 8),
-          decoration: BoxDecoration(
-              borderRadius: borderRadius,
-              border: Border.all(color: Colors.grey)),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(Icons.receipt),
-              Text('Invoice Download'),
-            ],
+        Material(
+          child: InkWell(
+            onTap: () {},
+            child: Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              height: DeviceInfo.getDeviceHeight(context) * 0.045,
+              width: DeviceInfo.getDeviceHeight(context) * 0.5,
+              padding: const EdgeInsets.only(left: 8),
+              decoration: BoxDecoration(
+                  borderRadius: borderRadius,
+                  border: Border.all(color: Colors.grey)),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.receipt),
+                  Gap(8),
+                  Text('Invoice Download'),
+                ],
+              ),
+            ),
           ),
         ),
       ],
