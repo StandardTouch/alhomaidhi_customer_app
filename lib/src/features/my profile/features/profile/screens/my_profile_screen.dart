@@ -44,13 +44,13 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                 right: 50,
                 bottom: 0,
               ),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
+              decoration: BoxDecoration(
+                color: Theme.of(context).highlightColor,
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(25),
+                  topLeft: Radius.circular(25),
                 ),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       color: Colors.black38, blurRadius: 0.5, spreadRadius: 1),
                 ],

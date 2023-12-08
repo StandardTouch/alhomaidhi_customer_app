@@ -1,3 +1,5 @@
+import 'package:alhomaidhi_customer_app/src/features/brands/screens/all_brands_screen.dart';
+import 'package:alhomaidhi_customer_app/src/features/brands/screens/brand_products.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/screens/shopping_cart.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/screens/home_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
@@ -75,6 +77,26 @@ final router = GoRouter(
         context: context,
         state: state,
         child: const MyOrderScreen(),
+      ),
+    ),
+    GoRoute(
+      path: "/all_brands",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const AllBrandScreen(),
+      ),
+    ),
+    GoRoute(
+      path: "/brand_products/:brandName",
+      name: "brand_products",
+      // pageBuilder: (context, state) => buildPageWithDefaultTransition(
+      //   context: context,
+      //   state: state,
+      //   child: const BrandProducts(),
+      // ),
+      builder: (context, state) => BrandProducts(
+        brandName: state.pathParameters["brandName"]!,
       ),
     ),
     // for main routes

@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BrandsWidget extends ConsumerStatefulWidget {
-  const BrandsWidget({super.key, required this.height});
-  final double height;
+  const BrandsWidget({super.key});
 
   @override
   ConsumerState<BrandsWidget> createState() => _BrandsWidgetState();
@@ -61,7 +60,6 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
       data: (data) {
         if (data.status == "APP00") {
           return SizedBox(
-            height: widget.height,
             width: double.infinity,
             child: ListView.builder(
                 controller: brandScrollController,
@@ -75,7 +73,6 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
                           itemIndex, data.message![itemIndex].id!);
                     },
                     child: Container(
-                      height: widget.height,
                       width: DeviceInfo.getDeviceWidth(context) * 0.25,
                       decoration: BoxDecoration(
                           image: DecorationImage(
