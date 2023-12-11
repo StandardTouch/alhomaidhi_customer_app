@@ -49,7 +49,7 @@ class MyOrderScreen extends ConsumerWidget {
             ),
             backgroundColor: Colors.transparent,
             body: Container(
-              margin: const EdgeInsets.only(top: 40),
+              margin: const EdgeInsets.only(top: 20),
               padding: const EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
                 color: Colors.white,

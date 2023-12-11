@@ -56,7 +56,7 @@ class SingleOrderCard extends StatelessWidget {
                     title,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: orderStatus == 'wc-processing'
-                            ? Colors.green
+                            ? Color.fromARGB(255, 3, 104, 45)
                             : Colors.black),
                     overflow: TextOverflow.ellipsis,
                   ),

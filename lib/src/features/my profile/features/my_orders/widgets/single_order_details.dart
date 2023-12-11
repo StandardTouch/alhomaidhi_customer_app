@@ -1,8 +1,9 @@
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:alhomaidhi_customer_app/src/utils/helpers/invoice_downloader.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-class SingleOrderDetails extends StatelessWidget {
+class SingleOrderDetails extends StatefulWidget {
   SingleOrderDetails(
       {super.key,
       required this.orderId,
@@ -21,6 +22,13 @@ class SingleOrderDetails extends StatelessWidget {
   final String cusName;
   final String deliveryAddress;
   final String phoneNumber;
+
+  @override
+  State<SingleOrderDetails> createState() => _SingleOrderDetailsState();
+}
+
+class _SingleOrderDetailsState extends State<SingleOrderDetails>
+    with SingleTickerProviderStateMixin {
   final borderRadius = const BorderRadius.only(
     topRight: Radius.circular(10),
     bottomRight: Radius.circular(10),
@@ -28,9 +36,28 @@ class SingleOrderDetails extends StatelessWidget {
     topLeft: Radius.circular(10),
   );
 
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(seconds: 1), // Blinking speed
+      vsync: this,
+    )..repeat(reverse: true);
+    _animation =
+        Tween<double>(begin: 1.0, end: 0.0).animate(_animationController);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   List<Color> getOrderStatusColors(String status) {
     const defaultColor = Colors.grey;
-    const activeColor = Colors.black;
+    const activeColor = Color.fromARGB(255, 3, 104, 45);
 
     List<Color> colors = List.filled(4, defaultColor);
 
@@ -39,9 +66,15 @@ class SingleOrderDetails extends StatelessWidget {
         colors[0] = activeColor;
         break;
 
+      case 'wc-confrimation':
+        colors[0] = activeColor;
+        colors[1] = activeColor;
+        break;
+
       case 'wc-shipped':
         colors[0] = activeColor;
         colors[1] = activeColor;
+        colors[2] = activeColor;
         break;
       case 'wc-completed':
         colors.fillRange(0, colors.length, activeColor); // All stages completed
@@ -52,7 +85,7 @@ class SingleOrderDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Color> statusColors = getOrderStatusColors(orderStatus);
+    List<Color> statusColors = getOrderStatusColors(widget.orderStatus);
     return ListView(
       children: [
         Gap(20),
@@ -60,12 +93,12 @@ class SingleOrderDetails extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 12),
           alignment: Alignment.centerLeft,
           child: Text(
-            orderId,
+            widget.orderId,
             style: Theme.of(context).textTheme.labelMedium,
           ),
         ),
         Container(
-            margin: const EdgeInsets.symmetric(vertical: 5),
+            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
             height: DeviceInfo.getDeviceHeight(context) * 0.13,
             width: DeviceInfo.getDeviceHeight(context) * 0.5,
             padding: const EdgeInsets.only(left: 8),
@@ -88,8 +121,8 @@ class SingleOrderDetails extends StatelessWidget {
                             Container(
                                 width:
                                     DeviceInfo.getDeviceWidth(context) * 0.73,
-                                child: Text(productName)),
-                            Text(productPrice)
+                                child: Text(widget.productName)),
+                            Text(widget.productPrice)
                           ],
                         ),
                       ),
@@ -100,7 +133,7 @@ class SingleOrderDetails extends StatelessWidget {
                         alignment: Alignment.center,
                         width: DeviceInfo.getDeviceWidth(context) * 0.2,
                         child: Image.network(
-                          productUrl,
+                          widget.productUrl,
                         ),
                       ),
                     )
@@ -122,9 +155,14 @@ class SingleOrderDetails extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.check_circle,
-                    color: statusColors[0],
+                  FadeTransition(
+                    opacity: widget.orderStatus == 'wc-processing'
+                        ? _animation
+                        : AlwaysStoppedAnimation(2),
+                    child: Icon(
+                      Icons.check_circle,
+                      color: statusColors[0],
+                    ),
                   ),
                   Gap(8),
                   Text(
@@ -135,7 +173,12 @@ class SingleOrderDetails extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon(Icons.check_circle, color: statusColors[1]),
+                  FadeTransition(
+                    opacity: widget.orderStatus == 'wc-confrimation'
+                        ? _animation
+                        : AlwaysStoppedAnimation(2),
+                    child: Icon(Icons.check_circle, color: statusColors[1]),
+                  ),
                   Gap(8),
                   Text('Order Confrimation',
                       style: TextStyle(color: statusColors[1]))
@@ -143,7 +186,11 @@ class SingleOrderDetails extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon(Icons.check_circle, color: statusColors[2]),
+                  FadeTransition(
+                      opacity: widget.orderStatus == 'wc-shipped'
+                          ? _animation
+                          : AlwaysStoppedAnimation(2),
+                      child: Icon(Icons.check_circle, color: statusColors[2])),
                   Gap(8),
                   Text('Order Shipped',
                       style: TextStyle(color: statusColors[2]))
@@ -151,7 +198,11 @@ class SingleOrderDetails extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon(Icons.check_circle, color: statusColors[3]),
+                  FadeTransition(
+                      opacity: widget.orderStatus == 'wc-completed'
+                          ? _animation
+                          : AlwaysStoppedAnimation(2),
+                      child: Icon(Icons.check_circle, color: statusColors[3])),
                   Gap(8),
                   Text('Order Delivered',
                       style: TextStyle(color: statusColors[3]))
@@ -182,41 +233,18 @@ class SingleOrderDetails extends StatelessWidget {
                 'Name:',
                 style: Theme.of(context).textTheme.labelMedium,
               ),
-              Text(cusName),
+              Text(widget.cusName),
               Text(
                 'Phone:',
                 style: Theme.of(context).textTheme.labelMedium,
               ),
-              Text(phoneNumber),
+              Text(widget.phoneNumber),
               Text(
                 'Address:',
                 style: Theme.of(context).textTheme.labelMedium,
               ),
-              Text(deliveryAddress)
+              Text(widget.deliveryAddress)
             ],
-          ),
-        ),
-        Material(
-          child: InkWell(
-            onTap: () {},
-            child: Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-              height: DeviceInfo.getDeviceHeight(context) * 0.045,
-              width: DeviceInfo.getDeviceHeight(context) * 0.5,
-              padding: const EdgeInsets.only(left: 8),
-              decoration: BoxDecoration(
-                  borderRadius: borderRadius,
-                  border: Border.all(color: Colors.grey)),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.receipt),
-                  Gap(8),
-                  Text('Invoice Download'),
-                ],
-              ),
-            ),
           ),
         ),
       ],
