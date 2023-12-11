@@ -18,6 +18,7 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
       ref.read(productQueryProvider.notifier).updateSearch("");
       context.go("/home");
     } else if (index == 1) {
+      ref.read(productQueryProvider.notifier).updateSearch("st");
       context.go("/search");
     } else if (index == 2) {
       context.go("/cart");
