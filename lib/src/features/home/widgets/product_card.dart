@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
-              flex: 2,
+              flex: 4,
               child: Align(
                 alignment: Alignment.center,
                 child: FadeInImage.assetNetwork(
@@ -42,83 +42,73 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
             ),
-            // details
+            // heading
             Expanded(
               flex: 1,
-              child: Column(
+              child: FittedBox(
+                child: Text(
+                  ConversionHelper.getEnglishPart(title),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ),
+            ),
+            // subheading
+            Expanded(
+              flex: 1,
+              child: Text(
+                title,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
+            // price before and after
+            Expanded(
+              flex: 1,
+              child: Row(
                 children: [
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      ConversionHelper.getEnglishPart(title),
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
+                  Text(
+                    "$priceNow ريال",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      title,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ),
-                  // price before and after
-                  Expanded(
-                    flex: 2,
-                    child: Row(
-                      children: [
-                        Text(
-                          "$priceNow ريال",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(fontWeight: FontWeight.bold),
+                  const Gap(4),
+                  Text(
+                    ConversionHelper.formatPrice(priceBefore),
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.lineThrough,
                         ),
-                        const Gap(4),
-                        Text(
-                          ConversionHelper.formatPrice(priceBefore),
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.lineThrough,
-                                  ),
-                        ),
-                      ],
-                    ),
                   ),
                 ],
               ),
             ),
-            // const Spacer(),
             Expanded(
               flex: 1,
               child: Row(
                 children: [
                   const Spacer(),
-                  SizedBox(
-                    height: 40,
-                    width: 70,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 2,
-                            horizontal: 2,
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 2,
+                          horizontal: 2,
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onSecondary),
+                    child: Text(
+                      "Buy Now",
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.bold,
                           ),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                          backgroundColor:
-                              Theme.of(context).colorScheme.onSecondary),
-                      child: Text(
-                        "Buy Now",
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
                     ),
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
