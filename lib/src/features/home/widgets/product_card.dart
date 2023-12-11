@@ -86,8 +86,15 @@ class ProductCard extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Spacer(),
+                  Text(
+                    "${ConversionHelper.calculateDiscountPercentage(priceBefore, priceNow)}% off",
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: const Color.fromARGB(255, 40, 122, 43),
+                        ),
+                  ),
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
