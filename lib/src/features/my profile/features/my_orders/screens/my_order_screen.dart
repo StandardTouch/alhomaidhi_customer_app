@@ -66,42 +66,39 @@ class MyOrderScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-              child: Expanded(
-                child: ListView.builder(
-                  itemCount: data.message!.length,
-                  itemBuilder: (context, index) {
-                    String? orderStatusDate = getDeliveryDate(
-                        data.message![index].orderDetails!.orderPlacedDate,
-                        data.message![index].orderDetails!.orderDateModified,
-                        data.message![index].orderDetails!.orderStatus);
-                    String? orderId =
-                        data.message![index].orderDetails!.orderId;
+              child: ListView.builder(
+                itemCount: data.message!.length,
+                itemBuilder: (context, index) {
+                  String? orderStatusDate = getDeliveryDate(
+                      data.message![index].orderDetails!.orderPlacedDate,
+                      data.message![index].orderDetails!.orderDateModified,
+                      data.message![index].orderDetails!.orderStatus);
+                  String? orderId = data.message![index].orderDetails!.orderId;
 
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: data.message![index].items!.length,
-                      itemBuilder: (context, indexItem) {
-                        var item = data.message![index].items![indexItem];
-                        return SingleOrderCard(
-                          imageUrl: item.image,
-                          title: orderStatusDate,
-                          subtitle: item.itemName ?? 'No Title',
-                          orderStatus:
-                              data.message![index].orderDetails!.orderStatus,
-                          onPressed: () {
-                            getMyOrderDetails(orderId);
-                            context
-                                .pushNamed("my_order_details", pathParameters: {
-                              "orderId": orderId!,
-                              "productIndex": "$indexItem",
-                            });
-                          },
-                        );
-                      },
-                    );
-                  },
-                ),
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: data.message![index].items!.length,
+                    itemBuilder: (context, indexItem) {
+                      var item = data.message![index].items![indexItem];
+                      return SingleOrderCard(
+                        imageUrl: item.image,
+                        title: orderStatusDate,
+                        subtitle: item.itemName ?? 'No Title',
+                        orderStatus:
+                            data.message![index].orderDetails!.orderStatus,
+                        onPressed: () {
+                          getMyOrderDetails(orderId);
+                          context
+                              .pushNamed("my_order_details", pathParameters: {
+                            "orderId": orderId!,
+                            "productIndex": "$indexItem",
+                          });
+                        },
+                      );
+                    },
+                  );
+                },
               ),
             ),
           );
