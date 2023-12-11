@@ -64,12 +64,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                child: SearchField(
+                child: TextField(
                   controller: searchController,
-                  suggestions: [],
                   enabled: true,
-                  searchInputDecoration: searchInputDecoration(),
-                  onSubmit: (search) {
+                  autofocus: true,
+                  decoration: searchInputDecoration(),
+                  onSubmitted: (search) {
                     query.updateSearch(search);
                   },
                 ),

@@ -50,7 +50,7 @@ class ProductCard extends StatelessWidget {
               child: isSearch
                   ? Text(
                       ConversionHelper.getEnglishPart(title),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
                       ),
