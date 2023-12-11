@@ -40,6 +40,12 @@ class ProductsQueryNotifier extends StateNotifier<AllProductsQuery> {
       sortBy: sort,
     );
   }
+
+  void updateSearch(String search) {
+    state = state.copyWith(
+      search: search,
+    );
+  }
 }
 
 final productQueryProvider =

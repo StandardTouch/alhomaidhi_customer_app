@@ -30,29 +30,29 @@ class BrandProducts extends ConsumerWidget {
       body: products.when(data: (data) {
         if (data.status == "APP00") {
           return GridView.builder(
-              shrinkWrap: true,
-              physics: const ScrollPhysics(),
-              padding: const EdgeInsets.all(8),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 6,
-                mainAxisSpacing: 10,
-                childAspectRatio: DeviceInfo.getDeviceWidth(context) /
-                    (DeviceInfo.getDeviceHeight(context) / 1.5),
-                // mainAxisExtent: DeviceInfo.getDeviceHeight(context) * 0.35,
-              ),
-              itemCount: data.message!.length,
-              itemBuilder: (context, index) {
-                return ProductCard(
-                  imageUrl: data.message![index].images!.isEmpty
-                      ? Assets.fallBackProductImage
-                      : data.message![index].images![0].src!,
-                  title: data.message![index].productDetails!.name!,
-                  priceBefore:
-                      data.message![index].productDetails!.regularPrice!,
-                  priceNow: data.message![index].productDetails!.salePrice!,
-                );
-              });
+            shrinkWrap: true,
+            physics: const ScrollPhysics(),
+            padding: const EdgeInsets.all(8),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 6,
+              mainAxisSpacing: 10,
+              childAspectRatio: DeviceInfo.getDeviceWidth(context) /
+                  (DeviceInfo.getDeviceHeight(context) / 1.5),
+              // mainAxisExtent: DeviceInfo.getDeviceHeight(context) * 0.35,
+            ),
+            itemCount: data.message!.length,
+            itemBuilder: (context, index) {
+              return ProductCard(
+                imageUrl: data.message![index].images!.isEmpty
+                    ? Assets.fallBackProductImage
+                    : data.message![index].images![0].src!,
+                title: data.message![index].productDetails!.name!,
+                priceBefore: data.message![index].productDetails!.regularPrice!,
+                priceNow: data.message![index].productDetails!.salePrice!,
+              );
+            },
+          );
         } else {
           return Center(
             child: Text("An Error Occurred ${data.errorMessage}"),

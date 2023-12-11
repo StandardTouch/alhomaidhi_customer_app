@@ -1,3 +1,4 @@
+import 'package:alhomaidhi_customer_app/src/features/home/models/brand_response.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/providers/brands_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/providers/products_provider.dart';
 import 'package:flutter/material.dart';
@@ -58,21 +59,9 @@ class _AllBrandScreenState extends ConsumerState<AllBrandScreen> {
                         data.message![index].name!,
                       );
                     },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              offset: Offset.fromDirection(360),
-                              spreadRadius: 2,
-                              blurRadius: 4),
-                        ],
-                        borderRadius: BorderRadius.circular(15),
-                        color: Theme.of(context).highlightColor,
-                      ),
-                      child: Image.network(
-                        data.message![index].img!,
-                      ),
+                    child: BrandCard(
+                      data: data,
+                      index: index,
                     ),
                   );
                 }),
@@ -91,6 +80,32 @@ class _AllBrandScreenState extends ConsumerState<AllBrandScreen> {
           child: CircularProgressIndicator(),
         );
       }),
+    );
+  }
+}
+
+class BrandCard extends StatelessWidget {
+  const BrandCard({super.key, required this.data, required this.index});
+  final BrandResponse data;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              offset: Offset.fromDirection(360),
+              spreadRadius: 2,
+              blurRadius: 4),
+        ],
+        borderRadius: BorderRadius.circular(15),
+        color: Theme.of(context).highlightColor,
+      ),
+      child: Image.network(
+        data.message![index].img!,
+      ),
     );
   }
 }

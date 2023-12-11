@@ -10,11 +10,13 @@ class ProductCard extends StatelessWidget {
     required this.title,
     required this.priceBefore,
     required this.priceNow,
+    this.isSearch = false,
   });
   final String imageUrl;
   final String title;
   final String priceBefore;
   final String priceNow;
+  final bool isSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -53,48 +55,54 @@ class ProductCard extends StatelessWidget {
               ),
             ),
             // subheading
-            Expanded(
-              flex: 1,
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ),
+            isSearch
+                ? const SizedBox.shrink()
+                : Expanded(
+                    flex: 1,
+                    child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
             // price before and after
-            Expanded(
-              flex: 1,
-              child: Row(
-                children: [
-                  Text(
-                    "$priceNow ريال",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  const Gap(4),
-                  Text(
-                    ConversionHelper.formatPrice(priceBefore),
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.lineThrough,
-                        ),
-                  ),
-                ],
+            if (!isSearch)
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: [
+                    Text(
+                      "$priceNow ريال",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const Gap(4),
+                    Text(
+                      ConversionHelper.formatPrice(priceBefore),
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                    ),
+                  ],
+                ),
               ),
-            ),
             Expanded(
               flex: 1,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: isSearch
+                    ? MainAxisAlignment.center
+                    : MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "${ConversionHelper.calculateDiscountPercentage(priceBefore, priceNow)}% off",
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 40, 122, 43),
-                        ),
-                  ),
+                  if (!isSearch)
+                    Text(
+                      "${ConversionHelper.calculateDiscountPercentage(priceBefore, priceNow)}% off",
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(255, 40, 122, 43),
+                          ),
+                    ),
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
