@@ -1,7 +1,9 @@
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/services/my_order_details_services.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/widgets/single_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class MyOrderScreen extends ConsumerWidget {
@@ -68,6 +70,8 @@ class MyOrderScreen extends ConsumerWidget {
                         data.message![index].orderDetails!.orderPlacedDate,
                         data.message![index].orderDetails!.orderDateModified,
                         data.message![index].orderDetails!.orderStatus);
+                    String? orderId =
+                        data.message![index].orderDetails!.orderId;
 
                     return ListView.builder(
                       shrinkWrap: true,
@@ -81,7 +85,14 @@ class MyOrderScreen extends ConsumerWidget {
                           subtitle: item.itemName ?? 'No Title',
                           orderStatus:
                               data.message![index].orderDetails!.orderStatus,
-                          onPressed: () {},
+                          onPressed: () {
+                            getMyOrderDetails(orderId);
+                            context
+                                .pushNamed("my_order_details", pathParameters: {
+                              "orderId": orderId!,
+                              "productIndex": "$indexItem",
+                            });
+                          },
                         );
                       },
                     );
@@ -97,7 +108,7 @@ class MyOrderScreen extends ConsumerWidget {
         }
       },
       error: (err, stk) => Center(child: Text("$err")),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => const Center(child: const CircularProgressIndicator()),
     );
   }
 }

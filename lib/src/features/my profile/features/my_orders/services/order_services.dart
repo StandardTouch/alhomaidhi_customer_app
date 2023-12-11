@@ -15,7 +15,6 @@ Future<MyOrdersListModel> getMyOrders() async {
     final response = MyOrdersListModel.fromJson(
       jsonResponse.data,
     );
-    logger.i(jsonResponse.data);
     return response;
   } catch (err) {
     logger.e("Error from getMyOrders: $err");

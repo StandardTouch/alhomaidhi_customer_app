@@ -4,6 +4,7 @@ import 'package:alhomaidhi_customer_app/src/features/cart/screens/shopping_cart.
 import 'package:alhomaidhi_customer_app/src/features/home/screens/home_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/screens/billing_address.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_details.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/profile/screens/my_profile_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/search/screens/search_screen.dart';
@@ -79,6 +80,14 @@ final router = GoRouter(
         child: const MyOrderScreen(),
       ),
     ),
+    GoRoute(
+      path: "/my_order_details/:orderId/:productIndex",
+      name: "my_order_details",
+      builder: (context, state) => MyOrderDetailsScreen(
+        orderId: state.pathParameters["orderId"]!,
+        productIndex: int.parse(state.pathParameters["productIndex"]!),
+      ),
+    ), //define here
     GoRoute(
       path: "/all_brands",
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
