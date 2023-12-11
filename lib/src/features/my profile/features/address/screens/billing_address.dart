@@ -72,8 +72,8 @@ class _BillingAddress extends State<BillingAddress> {
                     ? Colors.black
                     : Colors.white,
                 borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
+                  topRight: Radius.circular(25),
+                  topLeft: Radius.circular(25),
                 ),
                 boxShadow: const [
                   BoxShadow(
