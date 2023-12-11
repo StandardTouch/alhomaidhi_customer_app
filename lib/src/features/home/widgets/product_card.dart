@@ -46,13 +46,23 @@ class ProductCard extends StatelessWidget {
             ),
             // heading
             Expanded(
-              flex: 1,
-              child: FittedBox(
-                child: Text(
-                  ConversionHelper.getEnglishPart(title),
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              ),
+              flex: isSearch ? 2 : 1,
+              child: isSearch
+                  ? Text(
+                      ConversionHelper.getEnglishPart(title),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                    )
+                  : FittedBox(
+                      child: Text(
+                        ConversionHelper.getEnglishPart(title),
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
             ),
             // subheading
             isSearch
