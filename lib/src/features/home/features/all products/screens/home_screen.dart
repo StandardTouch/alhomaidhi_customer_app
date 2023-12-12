@@ -1,7 +1,7 @@
-import 'package:alhomaidhi_customer_app/src/features/home/providers/products_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/widgets/brands_widget.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/widgets/sort_button.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/widgets/product_card.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/brands_widget.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/product_card.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/sort_button.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
