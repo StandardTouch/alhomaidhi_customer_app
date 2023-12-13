@@ -34,6 +34,9 @@ TextTheme getTextTheme({required bool isDark}) {
       fontSize: 16,
       color: isDark ? Colors.white : Colors.black,
     ),
+    bodyLarge: const TextStyle(
+      fontWeight: FontWeight.bold,
+    ),
     labelLarge: const TextStyle(color: Colors.black, fontSize: 16),
     labelMedium: const TextStyle(color: Colors.grey, fontSize: 16),
   );

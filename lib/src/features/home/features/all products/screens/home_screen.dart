@@ -1,11 +1,12 @@
-import 'package:alhomaidhi_customer_app/src/features/home/providers/products_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/widgets/brands_widget.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/widgets/sort_button.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/widgets/product_card.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/brands_widget.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/product_card.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/sort_button.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -40,7 +41,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.push("/all_brands");
+            },
             icon: Image.asset(
               Assets.brandsButton,
               width: 60,
@@ -59,7 +62,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: ListView(
         shrinkWrap: true,
         children: [
-          BrandsWidget(height: height * 0.1),
+          SizedBox(
+            height: height * 0.1,
+            child: BrandsWidget(),
+          ),
           products.when(data: (data) {
             if (data.status == "APP00") {
               if (data.message!.length < 100) {
@@ -89,6 +95,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       priceBefore:
                           data.message![index].productDetails!.regularPrice!,
                       priceNow: data.message![index].productDetails!.salePrice!,
+                      onButtonPress: () {
+                        context.pushNamed("product_details_screen",
+                            pathParameters: {
+                              "productId":
+                                  "${data.message![index].productDetails!.productId!}"
+                            });
+                      },
                     );
                   });
             } else {
@@ -142,15 +155,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     : () {
                         pageNavigator(isPrev: false);
                       },
-                icon: Icon(Icons.arrow_circle_right),
-                label: Text("next"),
+                icon: const Icon(Icons.arrow_circle_right),
+                label: const Text("next"),
               ),
             ],
           )
         ],
       ),
       floatingActionButton: (query.brandId == 0)
-          ? SizedBox.shrink()
+          ? const SizedBox.shrink()
           : FloatingActionButton(
               onPressed: () {
                 ref.read(productQueryProvider.notifier).updateBrand(0);
