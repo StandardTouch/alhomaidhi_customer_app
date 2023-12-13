@@ -85,7 +85,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   ),
                   itemBuilder: (ctx, index) {
                     return ProductCard(
-                      imageUrl: data.message![index].images![0].src!,
+                      imageUrl: data.message![index].images!.isEmpty
+                          ? Assets.fallBackProductImage
+                          : data.message![index].images![0].src!,
                       title: data.message![index].productDetails!.name!,
                       priceBefore:
                           data.message![index].productDetails!.regularPrice!,

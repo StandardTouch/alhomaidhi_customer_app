@@ -22,6 +22,14 @@ class _AllBrandScreenState extends ConsumerState<AllBrandScreen> {
   }
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(productQueryProvider.notifier).updateSearch("");
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final brands = ref.watch(brandsProvider);
 
