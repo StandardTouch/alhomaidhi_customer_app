@@ -17,13 +17,13 @@ class MyOrderScreen extends ConsumerWidget {
       return DateFormat('EEE MMM d').format(dateTime);
     }
 
+    DateTime deliveryDate = placedDate.add(const Duration(days: 5));
     if (status == 'wc-processing') {
-      DateTime deliveryDate = placedDate.add(const Duration(days: 5));
       return "To be delivered on, ${formatDate(deliveryDate)}";
     } else if (status == 'wc-completed') {
       return "Delivered on, ${formatDate(modifiedDate)}";
     } else {
-      return "Order status: $status";
+      return "To be delivered on, ${formatDate(deliveryDate)}";
     }
   }
 
@@ -33,7 +33,7 @@ class MyOrderScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final myOrders = ref.watch(MyOrdersListProvider);
+    final myOrders = ref.watch(myOrdersListProvider);
 
     return myOrders.when(
       data: (data) {
@@ -105,7 +105,7 @@ class MyOrderScreen extends ConsumerWidget {
         }
       },
       error: (err, stk) => Center(child: Text("$err")),
-      loading: () => const Center(child: const CircularProgressIndicator()),
+      loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
 }

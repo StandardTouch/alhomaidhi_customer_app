@@ -4,7 +4,7 @@ import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_or
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/services/order_services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final MyOrdersListProvider = FutureProvider<MyOrdersListModel>((ref) async {
+final myOrdersListProvider = FutureProvider<MyOrdersListModel>((ref) async {
   MyOrdersListModel response = await getMyOrders();
   return response;
 });

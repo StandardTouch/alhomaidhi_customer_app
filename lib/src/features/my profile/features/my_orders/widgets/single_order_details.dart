@@ -66,12 +66,12 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
         colors[0] = activeColor;
         break;
 
-      case 'wc-confrimation':
+      case 'wc-order-approve':
         colors[0] = activeColor;
         colors[1] = activeColor;
         break;
 
-      case 'wc-shipped':
+      case 'wc-out-for-delivery':
         colors[0] = activeColor;
         colors[1] = activeColor;
         colors[2] = activeColor;
@@ -88,9 +88,9 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
     List<Color> statusColors = getOrderStatusColors(widget.orderStatus);
     return ListView(
       children: [
-        Gap(20),
+        const Gap(20),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 12),
+          margin: const EdgeInsets.symmetric(horizontal: 12),
           alignment: Alignment.centerLeft,
           child: Text(
             widget.orderId,
@@ -98,7 +98,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
           ),
         ),
         Container(
-            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
             height: DeviceInfo.getDeviceHeight(context) * 0.13,
             width: DeviceInfo.getDeviceHeight(context) * 0.5,
             padding: const EdgeInsets.only(left: 8),
@@ -113,18 +113,17 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
                   children: [
                     Expanded(
                       flex: 4,
-                      child: Container(
-                        // height: DeviceInfo.getDeviceWidth(context) * 0.1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                width:
-                                    DeviceInfo.getDeviceWidth(context) * 0.73,
-                                child: Text(widget.productName)),
-                            Text(widget.productPrice)
-                          ],
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                              width: DeviceInfo.getDeviceWidth(context) * 0.73,
+                              child: Text(widget.productName)),
+                          SizedBox(
+                            height: DeviceInfo.getDeviceHeight(context) * 0.02,
+                          ),
+                          Text(widget.productPrice)
+                        ],
                       ),
                     ),
                     Expanded(
@@ -143,7 +142,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
               ],
             )),
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
           height: DeviceInfo.getDeviceHeight(context) * 0.2,
           width: DeviceInfo.getDeviceHeight(context) * 0.5,
           padding: const EdgeInsets.only(left: 8),
@@ -158,15 +157,15 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
                   FadeTransition(
                     opacity: widget.orderStatus == 'wc-processing'
                         ? _animation
-                        : AlwaysStoppedAnimation(2),
+                        : const AlwaysStoppedAnimation(2),
                     child: Icon(
                       Icons.check_circle,
                       color: statusColors[0],
                     ),
                   ),
-                  Gap(8),
+                  const Gap(8),
                   Text(
-                    'Order Placed',
+                    'Order Processing',
                     style: TextStyle(color: statusColors[0]),
                   )
                 ],
@@ -174,24 +173,24 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
               Row(
                 children: [
                   FadeTransition(
-                    opacity: widget.orderStatus == 'wc-confrimation'
+                    opacity: widget.orderStatus == 'wc-order-approve'
                         ? _animation
-                        : AlwaysStoppedAnimation(2),
+                        : const AlwaysStoppedAnimation(2),
                     child: Icon(Icons.check_circle, color: statusColors[1]),
                   ),
-                  Gap(8),
-                  Text('Order Confrimation',
+                  const Gap(8),
+                  Text('Order Confirmation',
                       style: TextStyle(color: statusColors[1]))
                 ],
               ),
               Row(
                 children: [
                   FadeTransition(
-                      opacity: widget.orderStatus == 'wc-shipped'
+                      opacity: widget.orderStatus == 'wc-out-for-delivery'
                           ? _animation
-                          : AlwaysStoppedAnimation(2),
+                          : const AlwaysStoppedAnimation(2),
                       child: Icon(Icons.check_circle, color: statusColors[2])),
-                  Gap(8),
+                  const Gap(8),
                   Text('Order Shipped',
                       style: TextStyle(color: statusColors[2]))
                 ],
@@ -201,9 +200,9 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
                   FadeTransition(
                       opacity: widget.orderStatus == 'wc-completed'
                           ? _animation
-                          : AlwaysStoppedAnimation(2),
+                          : const AlwaysStoppedAnimation(2),
                       child: Icon(Icons.check_circle, color: statusColors[3])),
-                  Gap(8),
+                  const Gap(8),
                   Text('Order Delivered',
                       style: TextStyle(color: statusColors[3]))
                 ],
@@ -212,13 +211,13 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
           ),
         ),
         Gap(DeviceInfo.getDeviceHeight(context) * 0.01),
-        Padding(
-          padding: const EdgeInsets.only(left: 14),
+        const Padding(
+          padding: EdgeInsets.only(left: 14),
           child: Text('Shipping Information'),
         ),
         Gap(DeviceInfo.getDeviceHeight(context) * 0.01),
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
           height: DeviceInfo.getDeviceHeight(context) * 0.24,
           width: DeviceInfo.getDeviceHeight(context) * 0.5,
           padding: const EdgeInsets.only(left: 8),
