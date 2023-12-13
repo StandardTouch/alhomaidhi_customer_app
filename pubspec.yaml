@@ -48,6 +48,7 @@ dependencies:
   searchfield: ^0.8.7
   intl: ^0.18.1 
   permission_handler: ^11.1.0
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

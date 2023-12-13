@@ -3,6 +3,7 @@ import 'package:alhomaidhi_customer_app/src/features/home/features/product%20det
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -51,7 +52,27 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
         ],
       ),
       body: productDetails.when(
-        data: (data) {},
+        data: (data) {
+          return ListView(
+            children: [
+              CarouselSlider(
+                options: CarouselOptions(
+                    height: DeviceInfo.getDeviceHeight(context) * 0.3,
+                    viewportFraction: 1),
+                items: [1, 2, 3, 4, 5].map((i) {
+                  return Container(
+                      width: DeviceInfo.getDeviceWidth(context),
+                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      decoration: BoxDecoration(color: Colors.amber),
+                      child: Text(
+                        'text $i',
+                        style: TextStyle(fontSize: 16.0),
+                      ));
+                }).toList(),
+              )
+            ],
+          );
+        },
         error: (err, stk) {
           return Center(
             child: (err is HomaidhiException)
