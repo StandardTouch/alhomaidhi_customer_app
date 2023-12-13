@@ -2,6 +2,8 @@ import 'package:alhomaidhi_customer_app/src/features/brands/screens/all_brands_s
 import 'package:alhomaidhi_customer_app/src/features/brands/screens/brand_products.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/screens/shopping_cart.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/screens/home_screen.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/models/single_product_model.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/screens/product_details_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/screens/billing_address.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_details.dart';
@@ -18,7 +20,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>();
 
-// add custom default transition
+// this is custom default transition
 CustomTransitionPage buildPageWithDefaultTransition(
     {required BuildContext context,
     required GoRouterState state,
@@ -97,13 +99,15 @@ final router = GoRouter(
       ),
     ),
     GoRoute(
+      path: "/product_details/:productId",
+      name: "product_details_screen",
+      builder: (context, state) => ProductDetailsScreen(
+        productId: state.pathParameters["productId"]!,
+      ),
+    ),
+    GoRoute(
       path: "/brand_products/:brandName",
       name: "brand_products",
-      // pageBuilder: (context, state) => buildPageWithDefaultTransition(
-      //   context: context,
-      //   state: state,
-      //   child: const BrandProducts(),
-      // ),
       builder: (context, state) => BrandProducts(
         brandName: state.pathParameters["brandName"]!,
       ),

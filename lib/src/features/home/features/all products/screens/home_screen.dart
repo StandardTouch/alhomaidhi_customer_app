@@ -95,6 +95,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       priceBefore:
                           data.message![index].productDetails!.regularPrice!,
                       priceNow: data.message![index].productDetails!.salePrice!,
+                      onButtonPress: () {
+                        context.pushNamed("product_details_screen",
+                            pathParameters: {
+                              "productId":
+                                  "${data.message![index].productDetails!.productId!}"
+                            });
+                      },
                     );
                   });
             } else {

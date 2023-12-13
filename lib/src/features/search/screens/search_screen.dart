@@ -91,6 +91,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           data.message![index].productDetails!.regularPrice!,
                       priceNow: data.message![index].productDetails!.price!,
                       isSearch: true,
+                      onButtonPress: () {
+                        context.pushNamed(
+                          "product_details_screen",
+                          pathParameters: {
+                            "productId":
+                                "${data.message![index].productDetails!.productId!}"
+                          },
+                        );
+                      },
                     );
                   }),
             ],

@@ -50,6 +50,15 @@ class BrandProducts extends ConsumerWidget {
                 title: data.message![index].productDetails!.name!,
                 priceBefore: data.message![index].productDetails!.regularPrice!,
                 priceNow: data.message![index].productDetails!.salePrice!,
+                onButtonPress: () {
+                  context.pushNamed(
+                    "product_details_screen",
+                    pathParameters: {
+                      "productId":
+                          "${data.message![index].productDetails!.productId!}"
+                    },
+                  );
+                },
               );
             },
           );

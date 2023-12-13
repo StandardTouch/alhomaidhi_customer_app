@@ -11,12 +11,14 @@ class ProductCard extends StatelessWidget {
     required this.priceBefore,
     required this.priceNow,
     this.isSearch = false,
+    required this.onButtonPress,
   });
   final String imageUrl;
   final String title;
   final String priceBefore;
   final String priceNow;
   final bool isSearch;
+  final Function() onButtonPress;
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +116,7 @@ class ProductCard extends StatelessWidget {
                           ),
                     ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: onButtonPress,
                     style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           vertical: 2,
