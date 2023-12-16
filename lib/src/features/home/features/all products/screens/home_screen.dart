@@ -64,7 +64,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         children: [
           SizedBox(
             height: height * 0.1,
-            child: BrandsWidget(),
+            child: const BrandsWidget(),
           ),
           products.when(data: (data) {
             if (data.status == "APP00") {
