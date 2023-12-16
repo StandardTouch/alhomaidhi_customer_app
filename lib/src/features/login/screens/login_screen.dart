@@ -82,6 +82,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             const Gap(30),
                             if (loginRef.isOTPVisible == true)
                               Pinput(
+                                  autofocus: true,
                                   length: 6,
                                   defaultPinTheme: getDefaultPinTheme(context),
                                   submittedPinTheme:
