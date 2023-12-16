@@ -112,6 +112,7 @@ final router = GoRouter(
         brandName: state.pathParameters["brandName"]!,
       ),
     ),
+
     // for main routes
     ShellRoute(
       navigatorKey: _shellNavigatorKey,

@@ -22,16 +22,10 @@ class ProductCarousel extends StatelessWidget {
       items: images.map((image) {
         return Container(
           width: DeviceInfo.getDeviceWidth(context),
-          margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 20),
+          margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: Colors.white,
-              // image: DecorationImage(
-              //   image: NetworkImage(
-              //     image.src ?? Assets.fallBackProductImage,
-              //   ),
-              //   fit: BoxFit.contain,
-              // ),
               boxShadow: [
                 BoxShadow(
                     offset: Offset.fromDirection(360),
@@ -39,9 +33,6 @@ class ProductCarousel extends StatelessWidget {
                     spreadRadius: 2,
                     color: Colors.black.withOpacity(0.2))
               ]),
-          // child: Image.network(
-          //   image.src ?? Assets.fallBackProductImage,
-          // ),
           child: Column(
             children: [
               Expanded(
@@ -58,7 +49,7 @@ class ProductCarousel extends StatelessWidget {
                     Container(
                       width: 10,
                       height: 10,
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                         horizontal: 3,
                       ),
                       decoration: BoxDecoration(

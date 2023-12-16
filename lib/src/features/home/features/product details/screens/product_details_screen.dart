@@ -1,10 +1,13 @@
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/sort_button.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/models/single_product_model.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/providers/product_details_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_carousel.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_widget_1.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_widget_2.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_widget_3.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -56,7 +59,28 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
       body: productDetails.when(
         data: (data) {
           return ListView(
-            children: [ProductCarousel(images: data.message!.images ?? [])],
+            children: [
+              ProductCarousel(
+                images: data.message!.images ??
+                    [
+                      Images(
+                        id: 1,
+                        name: "no-image-404",
+                        src: Assets.fallBackProductImage,
+                      )
+                    ],
+              ),
+              ProductWidget1(
+                productName: data.message!.productDetails!.name!,
+                priceAfter: data.message!.productDetails!.price!,
+                priceBefore: data.message!.productDetails!.regularPrice!,
+                skuNumber: data.message!.productDetails!.sku!,
+              ),
+              const Gap(10),
+              const ProductWidget2(),
+              const Gap(10),
+              const ProductWidget3()
+            ],
           );
         },
         error: (err, stk) {
