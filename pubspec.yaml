@@ -49,6 +49,7 @@ dependencies:
   intl: ^0.18.1 
   permission_handler: ^11.1.0
   carousel_slider: ^4.2.1
+  input_quantity: ^2.2.0
 
 dev_dependencies:
   flutter_test:
