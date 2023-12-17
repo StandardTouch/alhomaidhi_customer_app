@@ -79,7 +79,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
               const Gap(10),
               const ProductWidget2(),
               const Gap(10),
-              const ProductWidget3()
+              const ProductWidget3(),
             ],
           );
         },
@@ -99,6 +99,29 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
             child: CircularProgressIndicator(),
           );
         },
+      ),
+      bottomNavigationBar: FittedBox(
+        child: Row(
+          children: [
+            ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.add_shopping_cart),
+              label: const Text("Add to cart"),
+              style: ElevatedButton.styleFrom(
+                  shape: const BeveledRectangleBorder()),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {},
+              icon: Icon(Icons.credit_card),
+              label: Text("Buy Now"),
+              style: ElevatedButton.styleFrom(
+                shape: const BeveledRectangleBorder(),
+                backgroundColor: Theme.of(context).colorScheme.onSecondary,
+                foregroundColor: Colors.black,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
