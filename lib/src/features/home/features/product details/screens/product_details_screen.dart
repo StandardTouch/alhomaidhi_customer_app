@@ -5,6 +5,7 @@ import 'package:alhomaidhi_customer_app/src/features/home/features/product%20det
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_widget_1.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_widget_2.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_widget_3.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
@@ -30,32 +31,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
   Widget build(BuildContext context) {
     final productDetails = ref.watch(productDetailsProvider(widget.productId));
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset(
-          Assets.logoLight,
-          fit: BoxFit.contain,
-          width: DeviceInfo.getDeviceWidth(context) * 0.35,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.push("/all_brands");
-            },
-            icon: Image.asset(
-              Assets.brandsButton,
-              width: 60,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notification_important_outlined,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          const SortByButton(),
-        ],
-      ),
+      appBar: const HomaidhiAppbar(),
       body: productDetails.when(
         data: (data) {
           return ListView(
