@@ -59,7 +59,10 @@ final router = GoRouter(
     GoRoute(
       path: "/login",
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
-          context: context, state: state, child: const LoginScreen()),
+        context: context,
+        state: state,
+        child: const LoginScreen(),
+      ),
     ),
     GoRoute(
       path: "/signup",
@@ -104,6 +107,7 @@ final router = GoRouter(
       builder: (context, state) => ProductDetailsScreen(
         productId: state.pathParameters["productId"]!,
       ),
+      parentNavigatorKey: _rootNavigatorKey,
     ),
     GoRoute(
       path: "/brand_products/:brandName",
@@ -138,11 +142,16 @@ final router = GoRouter(
           path: "/home",
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context, state: state, child: const HomeScreen()),
+          parentNavigatorKey: _shellNavigatorKey,
         ),
         GoRoute(
           path: "/search",
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const SearchScreen()),
+            context: context,
+            state: state,
+            child: const SearchScreen(),
+          ),
+          parentNavigatorKey: _shellNavigatorKey,
         ),
         GoRoute(
           path: "/cart",
@@ -150,11 +159,13 @@ final router = GoRouter(
               context: context,
               state: state,
               child: const ShoppingCartScreen()),
+          parentNavigatorKey: _shellNavigatorKey,
         ),
         GoRoute(
           path: "/profile",
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context, state: state, child: const MyProfileScreen()),
+          parentNavigatorKey: _shellNavigatorKey,
         ),
       ],
     )
