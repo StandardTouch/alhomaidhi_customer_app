@@ -14,6 +14,8 @@ class APIEndpoints {
   static const getSingleOrder = "/wp-json/alhomaidhiapp/v2/retrieve_order";
   static const getSingleProduct = "/wp-json/alhomaidhiapp/v2/retrieve_product";
   static const getCart = "/wp-json/alhomaidhiapp/v2/retrieve_cart";
+  static const getProfile = "/wp-json/alhomaidhiapp/v2/get_profile";
+  static const updateProfile = "/wp-json/alhomaidhiapp/v2/update_profile";
 }
 
 // logger is used for error handling
