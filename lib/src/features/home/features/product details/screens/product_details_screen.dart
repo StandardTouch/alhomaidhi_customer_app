@@ -1,4 +1,3 @@
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/sort_button.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/models/single_product_model.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/providers/product_details_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_carousel.dart';
@@ -8,11 +7,9 @@ import 'package:alhomaidhi_customer_app/src/features/home/features/product%20det
 import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
 class ProductDetailsScreen extends ConsumerStatefulWidget {
   const ProductDetailsScreen({

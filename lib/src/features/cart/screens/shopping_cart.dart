@@ -1,9 +1,11 @@
 import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
+import 'package:alhomaidhi_customer_app/src/features/cart/widgets/single_cart_item.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:input_quantity/input_quantity.dart';
+import 'package:intl/intl.dart';
 
 class ShoppingCartScreen extends ConsumerStatefulWidget {
   const ShoppingCartScreen({super.key});
@@ -23,7 +25,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
       ),
       body: cart.when(data: (data) {
         return ListView(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           shrinkWrap: true,
           children: [
             Text(
@@ -39,86 +41,19 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                   ),
             ),
             const Gap(5),
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                border: Border.fromBorderSide(
-                  BorderSide(color: Colors.black),
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Image.network(data
-                            .message!.cart![0].productDetails!.images![0].src!),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            FittedBox(
-                              child: Text(
-                                  data.message!.cart![0].productDetails!.name!),
-                            ),
-                            const Gap(5),
-                            // quantity field
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                InputQty(
-                                  initVal: data.message!.cart![0].quantity!,
-                                  qtyFormProps:
-                                      const QtyFormProps(enableTyping: false),
-
-                                  maxVal:
-                                      10, // todo - addd stock quantity as max value
-                                  steps: 1,
-                                  minVal: 1,
-                                  onQtyChanged: (value) {
-                                    // todo - implement update cart API
-                                  },
-                                  decoration: QtyDecorationProps(
-                                    btnColor: Theme.of(context).primaryColor,
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                      color: Colors.black,
-                                    )),
-                                    // borderShape: BorderShapeBtn.circle,
-                                    contentPadding: const EdgeInsets.all(2),
-                                  ),
-                                ),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.delete,
-                                      color: Colors.grey,
-                                    ))
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  const Gap(10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Delivered by date",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      Text("${data.message!.cart![0].lineTotal!} ريال")
-                    ],
-                  ),
-                ],
-              ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const ScrollPhysics(),
+              itemCount: data.message!.cart!.length,
+              itemBuilder: (ctx, index) {
+                return SingleCartItem(
+                  productImage: data
+                      .message!.cart![index].productDetails!.images![0].src!,
+                  productName: data.message!.cart![index].productDetails!.name!,
+                  productQuantity: data.message!.cart![index].quantity!,
+                  itemTotal: data.message!.cart![index].lineTotal!,
+                );
+              },
             )
           ],
         );
