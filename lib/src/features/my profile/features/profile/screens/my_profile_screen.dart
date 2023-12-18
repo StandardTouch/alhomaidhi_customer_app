@@ -83,6 +83,13 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                   ),
                   const Gap(20),
                   const MyProfiletMenuItem(
+                    menuItemLink: '/my_invoices',
+                    menuitemName: "My Invoices",
+                    menuItemImage: Assets.invoice,
+                    additionalWidget: Icon(Icons.keyboard_arrow_right_rounded),
+                  ),
+                  const Gap(20),
+                  const MyProfiletMenuItem(
                     menuItemLink: 'delete_account',
                     menuitemName: "Delete Account",
                     menuItemImage: Assets.delete,
