@@ -20,6 +20,8 @@ class APIEndpoints {
   static const registerUser = "/wp-json/alhomaidhiapp/v2/alhomapp_signup";
   static const myOrders = "/wp-json/alhomaidhiapp/v2/list_orders";
   static const getSingleOrder = "/wp-json/alhomaidhiapp/v2/retrieve_order";
+  static const getProfile = "/wp-json/alhomaidhiapp/v2/get_profile";
+  static const updateProfile = "/wp-json/alhomaidhiapp/v2/update_profile";
 }
 
 // logger is used for error handling

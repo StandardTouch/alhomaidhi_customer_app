@@ -47,7 +47,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   searchfield: ^0.8.7
   intl: ^0.18.1 
-  permission_handler: ^11.1.0
+  permission_handler: 11.0.1
 
 dev_dependencies:
   flutter_test:
