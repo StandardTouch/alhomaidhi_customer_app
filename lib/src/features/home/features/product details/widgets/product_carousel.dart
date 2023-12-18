@@ -16,7 +16,7 @@ class ProductCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        height: DeviceInfo.getDeviceHeight(context) * 0.3,
+        height: DeviceInfo.getDeviceHeight(context) * 0.4,
         viewportFraction: 1,
       ),
       items: images.map((image) {
@@ -31,14 +31,17 @@ class ProductCarousel extends StatelessWidget {
                     offset: Offset.fromDirection(360),
                     blurRadius: 4,
                     spreadRadius: 2,
-                    color: Colors.black.withOpacity(0.2))
+                    color: Colors.black.withOpacity(0.3))
               ]),
           child: Column(
             children: [
               Expanded(
-                child: Image.network(
-                  image.src ?? Assets.fallBackProductImage,
-                  fit: BoxFit.contain,
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Image.network(
+                    image.src ?? Assets.fallBackProductImage,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
               const Gap(5),

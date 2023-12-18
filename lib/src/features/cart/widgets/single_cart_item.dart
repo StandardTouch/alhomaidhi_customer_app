@@ -26,6 +26,7 @@ class SingleCartItem extends StatelessWidget {
     }
 
     return Container(
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: const BoxDecoration(
         color: Colors.white,
         border: Border.fromBorderSide(
