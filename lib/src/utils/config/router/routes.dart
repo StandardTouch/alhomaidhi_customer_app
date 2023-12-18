@@ -1,7 +1,7 @@
 import 'package:alhomaidhi_customer_app/src/features/brands/screens/all_brands_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/brands/screens/brand_products.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/screens/shopping_cart.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/screens/home_screen.dart';
+import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/screens/home_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/screens/billing_address.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_details.dart';
