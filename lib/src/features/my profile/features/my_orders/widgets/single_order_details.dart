@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class SingleOrderDetails extends StatefulWidget {
-  const SingleOrderDetails(
-      {super.key,
-      required this.orderId,
-      required this.productName,
-      required this.productUrl,
-      required this.productPrice,
-      required this.orderStatus,
-      required this.cusName,
-      required this.deliveryAddress,
-      required this.phoneNumber});
+  SingleOrderDetails({
+    super.key,
+    required this.orderId,
+    required this.productName,
+    required this.productUrl,
+    required this.productPrice,
+    required this.orderStatus,
+    required this.cusName,
+    required this.deliveryAddress,
+    required this.phoneNumber,
+  });
   final String orderId;
   final String productName;
   final String productUrl;

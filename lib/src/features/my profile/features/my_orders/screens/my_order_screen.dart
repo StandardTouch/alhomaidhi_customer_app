@@ -8,10 +8,6 @@ import 'package:intl/intl.dart';
 
 class MyOrderScreen extends ConsumerWidget {
   const MyOrderScreen({super.key});
-  // @Zaid - add your code here
-  // @Zaid - Create screens if required
-  // @Zaid - add API integration for my order details screen
-  // @Zaid - Assign widget design to maaz if required
   String getDeliveryDate(orderPlaceDate, orderModifiedDate, orderStatus) {
     DateTime placedDate = DateTime.parse(orderPlaceDate);
     DateTime modifiedDate = DateTime.parse(orderModifiedDate);
@@ -45,14 +41,14 @@ class MyOrderScreen extends ConsumerWidget {
           return Scaffold(
             appBar: AppBar(
               title: const Text('My Orders'),
-              backgroundColor: Colors.transparent,
+              forceMaterialTransparency: true,
             ),
             backgroundColor: Colors.transparent,
             body: Container(
               margin: const EdgeInsets.only(top: 20),
               padding: const EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).highlightColor,
                 borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(25),
                   topLeft: Radius.circular(25),

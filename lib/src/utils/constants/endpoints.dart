@@ -21,6 +21,7 @@ class APIEndpoints {
   static const myOrders = "/wp-json/alhomaidhiapp/v2/list_orders";
   static const getSingleOrder = "/wp-json/alhomaidhiapp/v2/retrieve_order";
   static const getMyInvoice = "/api/runReport/26";
+  static const getSingleProduct = "wp-json/alhomaidhiapp/v2/retrieve_product";
 }
 
 // logger is used for error handling
