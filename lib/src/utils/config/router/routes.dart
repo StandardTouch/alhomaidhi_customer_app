@@ -6,6 +6,7 @@ import 'package:alhomaidhi_customer_app/src/features/home/features/product%20det
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/screens/product_details_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/screens/billing_address.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_invoices/screens/my_invoices_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_details.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/profile/screens/my_profile_screen.dart';
@@ -83,6 +84,14 @@ final router = GoRouter(
         context: context,
         state: state,
         child: const MyOrderScreen(),
+      ),
+    ),
+    GoRoute(
+      path: "/my_invoices",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: MyInvoicesScreen(),
       ),
     ),
     GoRoute(
