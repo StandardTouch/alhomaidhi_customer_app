@@ -16,9 +16,12 @@ class _AllBrandScreenState extends ConsumerState<AllBrandScreen> {
   void OnBrandClick(int newBrandId, String brandName) {
     final query = ref.read(productQueryProvider.notifier);
     query.updateBrand(newBrandId);
-    context.pushNamed("brand_products", pathParameters: {
-      "brandName": brandName,
-    });
+    context.pushNamed(
+      "brand_products",
+      pathParameters: {
+        "brandName": brandName,
+      },
+    );
   }
 
   @override

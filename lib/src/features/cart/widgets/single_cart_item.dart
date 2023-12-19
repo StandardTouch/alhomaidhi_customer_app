@@ -92,11 +92,8 @@ class SingleCartItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Delivery by ${getDeliveryDate()}",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              Text("$itemTotal ريال")
+              const Spacer(),
+              Text("$itemTotal ريال"),
             ],
           ),
         ],
