@@ -91,7 +91,6 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
           "whatsapp_number": state.whatsAppNumber,
         };
         AddressRequestResponseModel response = await updateProfileDetails(data);
-        logger.e(response);
         if (response.status == "APP00") {
           if (!context.mounted) {
             return;

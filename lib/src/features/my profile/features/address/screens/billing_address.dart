@@ -20,6 +20,13 @@ class BillingAddress extends ConsumerStatefulWidget {
 class _BillingAddress extends ConsumerState<BillingAddress> {
   final formkey = GlobalKey<FormState>();
 
+  dynamic checkCityName(String city) {
+    if (city != "") {
+      return SearchFieldListItem(city);
+    }
+    return null;
+  }
+
   @override
   Widget build(context) {
     final addressGetProvider = ref.watch(addressProvider);
@@ -70,9 +77,33 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                 children: [
                                   const Gap(10),
                                   FormInput(
+                                    value: data.message!.email,
+                                    label: "Email Address",
+                                    type: TextInputType.emailAddress,
+                                    validator: (value) {
+                                      return null;
+                                    },
+                                    onSaved: (value) {},
+                                    readOnly: true,
+                                  ),
+                                  const Gap(30),
+                                  FormInput(
+                                    value: data.message!.phone,
+                                    label: "Mobile Number",
+                                    type: TextInputType.number,
+                                    prefix: "+966 ",
+                                    validator: (value) {
+                                      return null;
+                                    },
+                                    onSaved: (value) {},
+                                    readOnly: true,
+                                  ),
+                                  const Gap(30),
+                                  FormInput(
                                     value: data.message!.firstName,
                                     label: "First Name",
                                     type: TextInputType.name,
+                                    isRequired: true,
                                     validator: (value) {
                                       return firstNameValidator(value);
                                     },
@@ -86,6 +117,7 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   FormInput(
                                     value: data.message!.lastName,
                                     label: "Last Name",
+                                    isRequired: true,
                                     type: TextInputType.name,
                                     validator: (value) {
                                       return lastNameValidator(value);
@@ -97,31 +129,9 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                     readOnly: false,
                                   ),
                                   const Gap(30),
-                                  FormInput(
-                                    value: data.message!.phone,
-                                    label: "Mobile Number",
-                                    type: TextInputType.number,
-                                    validator: (value) {
-                                      return null;
-                                    },
-                                    onSaved: (value) {},
-                                    readOnly: true,
-                                  ),
-                                  const Gap(30),
-                                  FormInput(
-                                    value: data.message!.email,
-                                    label: "Email Address",
-                                    type: TextInputType.emailAddress,
-                                    validator: (value) {
-                                      return null;
-                                    },
-                                    onSaved: (value) {},
-                                    readOnly: true,
-                                  ),
-                                  const Gap(30),
                                   SearchField(
-                                    initialValue: SearchFieldListItem(
-                                        (data.message!.city).toString()),
+                                    initialValue: checkCityName(
+                                        data.message!.city.toString()),
                                     suggestions: cities
                                         .map((e) => SearchFieldListItem(e))
                                         .toList(),
@@ -130,29 +140,31 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                     hint: 'City/State',
                                     searchStyle:
                                         Theme.of(context).textTheme.labelMedium,
-                                    validator: (x) {
-                                      if (!cities.contains(x) || x!.isEmpty) {
+                                    validator: (value) {
+                                      if (!cities.contains(value) ||
+                                          value!.isEmpty) {
                                         return 'Please Enter a valid State';
                                       }
                                       return null;
                                     },
                                     suggestionsDecoration: SuggestionDecoration(
                                       padding: const EdgeInsets.only(left: 20),
-                                      border: Border.all(
-                                          color: Colors.black.withOpacity(0.4)),
+                                      border: Border.all(color: Colors.grey),
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(5)),
                                     ),
-                                    searchInputDecoration: InputDecoration(
+                                    searchInputDecoration:
+                                        const InputDecoration(
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Colors.black.withOpacity(0.5),
+                                          color: Colors.grey,
+                                          width: 1.0,
                                         ),
                                       ),
                                       border: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                            color:
-                                                Colors.black.withOpacity(0.2)),
+                                          color: Colors.grey,
+                                        ),
                                       ),
                                     ),
                                     maxSuggestionsInViewPort: 4,
@@ -166,6 +178,7 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   FormInput(
                                     value: data.message!.postcode,
                                     label: "Post Code",
+                                    isRequired: true,
                                     type: TextInputType.text,
                                     validator: (value) {
                                       return pinCodeValidator(value.toString());
@@ -180,6 +193,7 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   FormInput(
                                     value: data.message!.address1,
                                     label: "House No. Building Name",
+                                    isRequired: true,
                                     type: TextInputType.text,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
@@ -197,6 +211,7 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   FormInput(
                                     value: data.message!.address2,
                                     label: "Road Name, Area, Colony",
+                                    isRequired: true,
                                     type: TextInputType.text,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
@@ -216,9 +231,6 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                     label: "National ID",
                                     type: TextInputType.text,
                                     validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Please enter National ID";
-                                      }
                                       return null;
                                     },
                                     onSaved: (value) {
@@ -233,9 +245,6 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                     label: "CR Number",
                                     type: TextInputType.text,
                                     validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Please enter CR Number";
-                                      }
                                       return null;
                                     },
                                     onSaved: (value) {
@@ -250,9 +259,6 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                     label: "VAT Number",
                                     type: TextInputType.text,
                                     validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Please enter VAT Number";
-                                      }
                                       return null;
                                     },
                                     onSaved: (value) {
@@ -279,16 +285,19 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                               value.toString());
                                     },
                                     readOnly: false,
-                                    prefix: "966",
+                                    prefix: "+966 ",
                                   ),
                                   const Gap(30),
                                   SizedBox(
                                     width: DeviceInfo.getDeviceWidth(context),
                                     child: ElevatedButton(
-                                      onPressed: () {
-                                        addressUpdateNotifier.updateAddress(
-                                            formkey, context);
-                                      },
+                                      onPressed: addressWatcher.isBtnDisable
+                                          ? null
+                                          : () {
+                                              addressUpdateNotifier
+                                                  .updateAddress(
+                                                      formkey, context);
+                                            },
                                       child: addressWatcher.isBtnDisable
                                           ? const CircularProgressIndicator()
                                           : const Text("Save Address"),

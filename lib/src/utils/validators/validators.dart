@@ -1,3 +1,5 @@
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
+
 String? firstNameValidator(String? value) {
   if (value == null ||
       value.isEmpty ||
@@ -27,12 +29,14 @@ String? mobileNumberValidator(String? value) {
 }
 
 String? emailValidator(String? value) {
-  if (value == null || value.isEmpty || value.trim().length >= 100) {
+  final bool isEmailValid = RegExp(
+          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+      .hasMatch(value!);
+  if (value == null ||
+      value.isEmpty ||
+      value.trim().length >= 100 ||
+      isEmailValid == false) {
     return 'Please enter a valid email address';
-  } else if (!value.contains('@')) {
-    return "Email must contain @";
-  } else if (!value.contains('.')) {
-    return "Email must contain .";
   } else {
     return null;
   }
