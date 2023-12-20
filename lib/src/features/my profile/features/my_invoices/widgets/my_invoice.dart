@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:isolate';
 import 'dart:ui';
 
@@ -6,10 +5,10 @@ import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 
@@ -27,6 +26,8 @@ class MyInvoice extends StatefulWidget {
 }
 
 class _MyInvoiceState extends State<MyInvoice> {
+  bool _isDownloading = false;
+  final ReceivePort _port = ReceivePort();
   final borderRadius = const BorderRadius.only(
     topRight: Radius.circular(10),
     bottomRight: Radius.circular(10),
@@ -34,7 +35,15 @@ class _MyInvoiceState extends State<MyInvoice> {
     topLeft: Radius.circular(10),
   );
 
+// downloads pdf
   Future<void> getMyInvoicePdf(String url, String fileName) async {
+    if (_isDownloading) {
+      // A download is already in progress
+      return;
+    }
+    setState(() {
+      _isDownloading = true;
+    });
     final plugin = DeviceInfoPlugin();
     final android = await plugin.androidInfo;
     try {
@@ -81,14 +90,23 @@ class _MyInvoiceState extends State<MyInvoice> {
         final PermissionStatus status = await Permission.notification.request();
 
         if (status.isGranted) {
-          await FlutterDownloader.enqueue(
-              url: url,
-              savedDir: filePath,
-              fileName: pdfname,
-              showNotification: true,
-              saveInPublicStorage: true,
-              openFileFromNotification: true);
-          logger.i('Downloaded file path: $filePath');
+          try {
+            await FlutterDownloader.enqueue(
+                url: url,
+                savedDir: filePath,
+                fileName: pdfname,
+                showNotification: true,
+                saveInPublicStorage: true,
+                openFileFromNotification: true,
+                timeout: 90000);
+
+            logger.i('Downloaded file path: $filePath');
+          } catch (err) {
+            setState(() {
+              _isDownloading = false;
+            });
+            logger.e(err);
+          }
         }
       } else {
         logger.e('No storage permission granted.');
@@ -98,7 +116,21 @@ class _MyInvoiceState extends State<MyInvoice> {
     }
   }
 
-  ReceivePort _port = ReceivePort();
+  @pragma('vm:entry-point')
+  static void downloadCallback(String id, int status, int progress) {
+    final SendPort? send =
+        IsolateNameServer.lookupPortByName('downloader_send_port');
+    send!.send([id, status, progress]);
+  }
+
+  void _updateDownloadState(DownloadTaskStatus status) {
+    logger.d("status from function $status");
+    if (status == DownloadTaskStatus.complete) {
+      setState(() {
+        _isDownloading = false;
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -106,12 +138,30 @@ class _MyInvoiceState extends State<MyInvoice> {
 
     IsolateNameServer.registerPortWithName(
         _port.sendPort, 'downloader_send_port');
-    _port.listen((dynamic data) {
-      String id = data[0];
-      DownloadTaskStatus status = data[1];
-      int progress = data[2];
-      setState(() {});
-    });
+    _port.listen(
+      (dynamic data) {
+        String id = data[0];
+        DownloadTaskStatus status = DownloadTaskStatus.fromInt(data[1]);
+
+        int progress = data[2];
+
+        logger.e(status);
+        _updateDownloadState(status);
+
+        // setState(() {
+
+        // });
+      },
+      onDone: () {
+        logger.e("completed");
+        setState(
+          () {
+            _isDownloading = false;
+          },
+        );
+      },
+    );
+    logger.e("called outside function");
 
     FlutterDownloader.registerCallback(downloadCallback);
   }
@@ -122,18 +172,13 @@ class _MyInvoiceState extends State<MyInvoice> {
     super.dispose();
   }
 
-  @pragma('vm:entry-point')
-  static void downloadCallback(String id, int status, int progress) {
-    final SendPort? send =
-        IsolateNameServer.lookupPortByName('downloader_send_port');
-    send!.send([id, status, progress]);
-  }
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        getMyInvoicePdf(widget.invoicePdf!, widget.invoiceId!);
+        if (!_isDownloading) {
+          getMyInvoicePdf(widget.invoicePdf!, widget.invoiceId!);
+        }
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
@@ -142,50 +187,52 @@ class _MyInvoiceState extends State<MyInvoice> {
           border: Border.all(color: Colors.grey),
           borderRadius: borderRadius,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Icon(
-                Icons.receipt,
-                size: 40,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            Expanded(
-              flex: 4,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Invoice No : ${widget.invoiceId}',
-                      style: Theme.of(context).textTheme.bodyMedium!,
-                      overflow: TextOverflow.ellipsis,
+        child: _isDownloading
+            ? CircularProgressIndicator()
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Icon(
+                      Icons.receipt,
+                      size: 40,
+                      color: Theme.of(context).primaryColor,
                     ),
-                    //  FittedBox(
-                    //     child: Text(
-                    //        'Calvin Klein  /  كلفين كلاين',
-                    //       style: Theme.of(context).textTheme.labelMedium,
-                    //       // overflow: TextOverflow.ellipsis,
-                    //       maxLines: 2,
-                    //     ),
-                    //   )
-                  ],
-                ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Invoice No : ${widget.invoiceId}',
+                            style: Theme.of(context).textTheme.bodyMedium!,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          //  FittedBox(
+                          //     child: Text(
+                          //        'Calvin Klein  /  كلفين كلاين',
+                          //       style: Theme.of(context).textTheme.labelMedium,
+                          //       // overflow: TextOverflow.ellipsis,
+                          //       maxLines: 2,
+                          //     ),
+                          //   )
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Theme.of(context).primaryColor,
+                  )
+                ],
               ),
-            ),
-            const Spacer(),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: Theme.of(context).primaryColor,
-            )
-          ],
-        ),
       ),
     );
   }
