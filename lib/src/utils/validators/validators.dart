@@ -1,5 +1,3 @@
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
-
 String? firstNameValidator(String? value) {
   if (value == null ||
       value.isEmpty ||
