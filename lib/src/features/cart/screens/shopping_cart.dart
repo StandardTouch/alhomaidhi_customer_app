@@ -2,9 +2,8 @@ import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_prov
 import 'package:alhomaidhi_customer_app/src/features/cart/widgets/cart_placeholder.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/widgets/price_widget.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/widgets/single_cart_item.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/address_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -17,22 +16,10 @@ class ShoppingCartScreen extends ConsumerStatefulWidget {
 }
 
 class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
-  late Map<String, String>? address;
-
-  void fetchAddress() async {
-    address = await getAddressData(ref);
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    fetchAddress();
-  }
-
   @override
   Widget build(BuildContext context) {
     final cart = ref.watch(myCartProvider);
+    final address = ref.watch(addressProvider);
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
@@ -43,43 +30,71 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
           padding: const EdgeInsets.all(10),
           shrinkWrap: true,
           children: [
-            if (address != null)
-              Text(
-                "Delivered to: ${address!["name"]}",
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            if (address != null) const Gap(5),
-            if (address != null)
-              Text(
-                "${address!["address"]}",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.normal,
+            address.when(
+                data: (data) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        (data.message!.firstName != "" &&
+                                data.message!.lastName != "")
+                            ? "Delivered to: ${data.message!.firstName!} ${data.message!.lastName!}"
+                            : "Delivered to User",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      const Gap(5),
+                    ],
+                  );
+                },
+                error: (err, stk) => Text(
+                      "An error occurred $err",
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
-              ),
-            // if (address != null) const Gap(5),
-            if (address != null)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${address!["city"]}, ${address!["country"]}",
+                loading: () => const LinearProgressIndicator()),
+            address.when(
+                data: (data) {
+                  return Text(
+                    (data.message!.address1 != "" &&
+                            data.message!.address2 != "")
+                        ? "${data.message!.address1}, ${data.message!.address2}}"
+                        : "Please add address",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: Colors.grey[600],
                           fontWeight: FontWeight.normal,
                         ),
-                  ),
-                  TextButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.change_circle),
-                      label: Text(
-                        "Change",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ))
-                ],
-              ),
+                  );
+                },
+                error: (err, stk) => SizedBox.shrink(),
+                loading: () => LinearProgressIndicator()),
+            address.when(
+              data: (data) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      (data.message!.city != "" && data.message!.country != "")
+                          ? "${data.message!.city}, ${data.message!.country!}"
+                          : "",
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.normal,
+                          ),
+                    ),
+                    TextButton.icon(
+                        onPressed: () {},
+                        icon: const Icon(Icons.change_circle),
+                        label: Text(
+                          "Change",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ))
+                  ],
+                );
+              },
+              error: (err, stk) => const Text("error occurred"),
+              loading: () => const LinearProgressIndicator(),
+            ),
             ListView.builder(
               shrinkWrap: true,
               physics: const ScrollPhysics(),
