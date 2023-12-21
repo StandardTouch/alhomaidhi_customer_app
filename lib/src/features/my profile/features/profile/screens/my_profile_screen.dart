@@ -90,7 +90,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                   ),
                   const Gap(20),
                   const MyProfiletMenuItem(
-                    menuItemLink: 'delete_account',
+                    menuItemLink: '/delete_profile',
                     menuitemName: "Delete Account",
                     menuItemImage: Assets.delete,
                     additionalWidget: Icon(Icons.keyboard_arrow_right_rounded),
