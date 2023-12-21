@@ -28,6 +28,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final productDetails = ref.watch(productDetailsProvider(widget.productId));
+
     ref.watch(addressProvider);
     return Scaffold(
       appBar: const HomaidhiAppbar(),
@@ -81,9 +82,10 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
             ElevatedButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.add_shopping_cart),
-              label: const Text("Add to cart"),
+              label: Text("Add to cart"),
               style: ElevatedButton.styleFrom(
-                  shape: const BeveledRectangleBorder()),
+                shape: const BeveledRectangleBorder(),
+              ),
             ),
             ElevatedButton.icon(
               onPressed: () {},
