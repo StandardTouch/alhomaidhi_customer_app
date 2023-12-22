@@ -6,12 +6,14 @@ import 'package:alhomaidhi_customer_app/src/features/home/features/product%20det
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/screens/product_details_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/screens/billing_address.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_invoices/screens/my_invoices_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_details.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/profile/screens/my_profile_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/search/screens/search_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/signup_screen.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/bottom_bar.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -49,12 +51,22 @@ final router = GoRouter(
       path: "/",
       redirect: (context, state) async {
         bool isLoggedIn = await AuthHelper.isUserLoggedIn();
+        logger.d(isLoggedIn);
         if (isLoggedIn) {
           return "/home";
         } else {
           return "/login";
         }
       },
+      pageBuilder: (ctx, state) => buildPageWithDefaultTransition(
+        context: ctx,
+        state: state,
+        child: const Scaffold(
+          body: Center(
+            child: Text("Navigating"),
+          ),
+        ),
+      ),
     ),
     GoRoute(
       path: "/login",
@@ -83,6 +95,14 @@ final router = GoRouter(
         context: context,
         state: state,
         child: const MyOrderScreen(),
+      ),
+    ),
+    GoRoute(
+      path: "/my_invoices",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: MyInvoicesScreen(),
       ),
     ),
     GoRoute(

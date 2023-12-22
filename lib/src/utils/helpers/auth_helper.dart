@@ -5,7 +5,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class AuthDetails {
   final String? token;
   final String? userId;
-  AuthDetails({required this.token, required this.userId});
+  final String? masterCustomerId;
+  AuthDetails(
+      {required this.token,
+      required this.userId,
+      required this.masterCustomerId});
 }
 
 class AuthHelper {
@@ -13,6 +17,7 @@ class AuthHelper {
     const storage = FlutterSecureStorage();
     final token = await storage.read(key: "token");
     final userId = await storage.read(key: "userId");
+
     AuthResponseModel response =
         await verifyToken(token ?? "notoken", userId ?? "0");
     if (response.status == "DELAPP00") {
@@ -26,7 +31,9 @@ class AuthHelper {
     const storage = FlutterSecureStorage();
     final token = await storage.read(key: "token");
     final userId = await storage.read(key: "userId");
-    AuthDetails authDetails = AuthDetails(token: token, userId: userId);
+    final masterCustomerId = await storage.read(key: 'masterCustomerId');
+    AuthDetails authDetails = AuthDetails(
+        token: token, userId: userId, masterCustomerId: masterCustomerId);
     return authDetails;
   }
 }

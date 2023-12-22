@@ -12,6 +12,7 @@ Future<AuthResponseModel> verifyToken(String token, String userId) async {
       },
     );
     final response = AuthResponseModel.fromJson(jsonResponse.data);
+    logger.d(response);
     return response;
   } catch (err) {
     logger.e("Error from auth_service.dart: $err");

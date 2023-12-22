@@ -71,6 +71,8 @@ class LoginNotifier extends StateNotifier<LoginModel> {
       if (response.status == "DELAPP00") {
         storage.write(key: "token", value: response.message!.token);
         storage.write(key: "userId", value: response.message!.userId);
+        storage.write(
+            key: "masterCustomerId", value: response.message!.masterCustomerId);
         if (!context.mounted) {
           return;
         }

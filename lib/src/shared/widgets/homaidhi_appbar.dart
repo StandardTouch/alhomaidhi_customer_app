@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 class HomaidhiAppbar extends StatelessWidget implements PreferredSizeWidget {
   const HomaidhiAppbar(
       {super.key, this.preferredSize = const Size.fromHeight(kToolbarHeight)});
+  @override
   final Size preferredSize;
 
   @override

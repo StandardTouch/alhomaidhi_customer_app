@@ -285,10 +285,13 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   SizedBox(
                                     width: DeviceInfo.getDeviceWidth(context),
                                     child: ElevatedButton(
-                                      onPressed: () {
-                                        addressUpdateNotifier.updateAddress(
-                                            formkey, context);
-                                      },
+                                      onPressed: addressWatcher.isBtnDisable
+                                          ? null
+                                          : () {
+                                              addressUpdateNotifier
+                                                  .updateAddress(
+                                                      formkey, context, ref);
+                                            },
                                       child: addressWatcher.isBtnDisable
                                           ? const CircularProgressIndicator()
                                           : const Text("Save Address"),

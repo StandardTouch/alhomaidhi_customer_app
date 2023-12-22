@@ -25,82 +25,91 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
   @override
   Widget build(context) {
-    return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        centerTitle: true,
-        title: Text(
-          "My Account",
-          style: Theme.of(context).textTheme.headlineMedium,
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "My Account",
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ],
+          ),
         ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(
-                top: 50,
-                left: 50,
-                right: 50,
-                bottom: 0,
+        const Gap(30),
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.only(
+              top: 50,
+              left: 50,
+              right: 50,
+              bottom: 0,
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50),
+                topRight: Radius.circular(50),
               ),
-              decoration: BoxDecoration(
-                color: Theme.of(context).highlightColor,
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(25),
-                  topLeft: Radius.circular(25),
-                ),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.black38, blurRadius: 0.5, spreadRadius: 1),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black38, blurRadius: 0.5, spreadRadius: 1),
+              ],
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const Image(image: AssetImage(Assets.profile), width: 100),
+                  const Gap(20),
+                  const Text("Hey, User Name"),
+                  const Gap(20),
+                  const MyProfiletMenuItem(
+                    menuItemLink: '/address',
+                    menuitemName: "Billing Address",
+                    menuItemImage: Assets.profile,
+                    additionalWidget: Icon(Icons.keyboard_arrow_right_rounded),
+                  ),
+                  const Gap(20),
+                  const MyProfiletMenuItem(
+                    menuItemLink: '/my_orders',
+                    menuitemName: "My Orders",
+                    menuItemImage: Assets.myOrders,
+                    additionalWidget: Icon(Icons.keyboard_arrow_right_rounded),
+                  ),
+                  const Gap(20),
+                  const MyProfiletMenuItem(
+                    menuItemLink: '/my_invoices',
+                    menuitemName: "My Invoices",
+                    menuItemImage: Assets.invoice,
+                    additionalWidget: Icon(Icons.keyboard_arrow_right_rounded),
+                  ),
+                  const Gap(20),
+                  const MyProfiletMenuItem(
+                    menuItemLink: 'delete_account',
+                    menuitemName: "Delete Account",
+                    menuItemImage: Assets.delete,
+                    additionalWidget: Icon(Icons.keyboard_arrow_right_rounded),
+                  ),
+                  const Gap(30),
+                  SizedBox(
+                    width: DeviceInfo.getDeviceWidth(context),
+                    child: ElevatedButton(
+                      onPressed: logout,
+                      child: const Text("Logout"),
+                    ),
+                  ),
+                  const Gap(30),
                 ],
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const Image(image: AssetImage(Assets.profile), width: 100),
-                    const Gap(20),
-                    const Text("Hey, User Name"),
-                    const Gap(20),
-                    const MyProfiletMenuItem(
-                      menuItemLink: '/address',
-                      menuitemName: "Billing Address",
-                      menuItemImage: Assets.profile,
-                      additionalWidget:
-                          Icon(Icons.keyboard_arrow_right_rounded),
-                    ),
-                    const Gap(20),
-                    const MyProfiletMenuItem(
-                      menuItemLink: '/my_orders',
-                      menuitemName: "My Orders",
-                      menuItemImage: Assets.myOrders,
-                      additionalWidget:
-                          Icon(Icons.keyboard_arrow_right_rounded),
-                    ),
-                    const Gap(20),
-                    const MyProfiletMenuItem(
-                      menuItemLink: 'delete_account',
-                      menuitemName: "Delete Account",
-                      menuItemImage: Assets.delete,
-                      additionalWidget:
-                          Icon(Icons.keyboard_arrow_right_rounded),
-                    ),
-                    const Gap(30),
-                    SizedBox(
-                      width: DeviceInfo.getDeviceWidth(context),
-                      child: ElevatedButton(
-                        onPressed: logout,
-                        child: const Text("Logout"),
-                      ),
-                    ),
-                    const Gap(30),
-                  ],
-                ),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -69,7 +69,8 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
     state = state.copyWith(whatsAppNumber: value);
   }
 
-  void updateAddress(GlobalKey<FormState> formkey, BuildContext context) async {
+  void updateAddress(
+      GlobalKey<FormState> formkey, BuildContext context, WidgetRef ref) async {
     if (formkey.currentState == null) {
       return;
     }
@@ -96,6 +97,8 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
           if (!context.mounted) {
             return;
           }
+          ref.invalidate(addressProvider);
+
           getSnackBar(
             context: context,
             message: "Address Details successfully Updated",

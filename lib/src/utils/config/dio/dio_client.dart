@@ -6,3 +6,9 @@ final dioClient = Dio(
     baseUrl: dotenv.env["BASE_URL"]!,
   ),
 );
+
+final dioClientErp = Dio(
+  BaseOptions(
+    baseUrl: dotenv.env["ERP_URL"]!,
+  ),
+);

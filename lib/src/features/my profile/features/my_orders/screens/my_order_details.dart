@@ -13,7 +13,7 @@ class MyOrderDetailsScreen extends ConsumerWidget {
   final int productIndex;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final myOrderDetail = ref.watch(myOrderDetailsProvider(orderId!));
+    final myOrderDetail = ref.watch(myOrderDetailsProvider(orderId));
     return myOrderDetail.when(data: (data) {
       if (data.status == "APP00") {
         // logger.i(data.message!.toString());
