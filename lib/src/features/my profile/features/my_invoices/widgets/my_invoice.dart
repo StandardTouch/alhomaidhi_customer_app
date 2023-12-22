@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:isolate';
 import 'dart:ui';
 
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 
@@ -17,7 +15,8 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 class MyInvoice extends StatefulWidget {
-  MyInvoice({super.key, required this.invoiceId, required this.invoicePdf});
+  const MyInvoice(
+      {super.key, required this.invoiceId, required this.invoicePdf});
 
   final String? invoiceId;
   final String? invoicePdf;
@@ -52,16 +51,16 @@ class _MyInvoiceState extends State<MyInvoice> {
         for (int x = 1; x < paths.length; x++) {
           String folder = paths[x];
           if (folder != "Android") {
-            newPath += "/" + folder;
+            newPath += "/$folder";
           } else {
             break;
           }
         }
-        newPath = newPath + "/Download";
+        newPath = "$newPath/Download";
         directory = Directory(newPath);
 
         // The file's path where it will be saved
-        final filePath = '${directory.path}';
+        final filePath = directory.path;
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
           url = 'https:' + url;
         }

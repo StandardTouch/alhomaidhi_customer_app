@@ -13,6 +13,7 @@ import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/profi
 import 'package:alhomaidhi_customer_app/src/features/search/screens/search_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/signup_screen.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/bottom_bar.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -50,12 +51,22 @@ final router = GoRouter(
       path: "/",
       redirect: (context, state) async {
         bool isLoggedIn = await AuthHelper.isUserLoggedIn();
+        logger.d(isLoggedIn);
         if (isLoggedIn) {
           return "/home";
         } else {
           return "/login";
         }
       },
+      pageBuilder: (ctx, state) => buildPageWithDefaultTransition(
+        context: ctx,
+        state: state,
+        child: const Scaffold(
+          body: Center(
+            child: Text("Navigating"),
+          ),
+        ),
+      ),
     ),
     GoRoute(
       path: "/login",
