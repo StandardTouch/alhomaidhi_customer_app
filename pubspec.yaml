@@ -53,6 +53,7 @@ dependencies:
   device_info_plus: ^9.1.1
   flutter_downloader: ^1.11.5
   path_provider: ^2.1.1
+  background_downloader: ^8.0.2
 
 dev_dependencies:
   flutter_test:
