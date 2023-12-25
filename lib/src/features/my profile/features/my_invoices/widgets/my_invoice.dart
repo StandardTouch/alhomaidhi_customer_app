@@ -1,98 +1,133 @@
 import 'dart:isolate';
 import 'dart:ui';
-import 'package:flutter_file_downloader/flutter_file_downloader.dart';
-import 'package:background_downloader/src/permissions.dart';
+import 'dart:async';
+import 'package:background_downloader/background_downloader.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart' as Permissions;
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 class MyInvoice extends StatefulWidget {
-  MyInvoice({key, required this.invoiceId, required this.invoicePdf});
-  final String? invoiceId;
-  final String? invoicePdf;
+  final String invoiceId;
+  final String invoicePdf;
+
+  const MyInvoice({Key? key, required this.invoiceId, required this.invoicePdf})
+      : super(key: key);
 
   @override
-  State<MyInvoice> createState() => _MyInvoiceState();
+  _MyInvoiceState createState() => _MyInvoiceState();
 }
 
 class _MyInvoiceState extends State<MyInvoice> {
-  double fileProgress = 0;
-  bool isDownloading = false;
-  final borderRadius = const BorderRadius.all(Radius.circular(10));
+  bool _isDownloading = false;
+  String? _taskId;
+  final ReceivePort _port = ReceivePort();
+  Timer? _timer;
 
-  Future<void> getMyInvoicePdf(String url, String fileName) async {
-    final storageStatus = await checkStoragePermission();
-    if (storageStatus != Permissions.PermissionStatus.granted) {
-      return;
-    }
+  @override
+  void initState() {
+    super.initState();
+    FlutterDownloader.registerCallback(downloadCallback);
+    IsolateNameServer.registerPortWithName(
+        _port.sendPort, 'downloader_send_port');
+    _port.listen((dynamic data) {
+      String id = data[0];
+      DownloadTaskStatus status = DownloadTaskStatus.fromInt(data[1]);
+      int progress = data[2];
 
-    DownloadDestinations filePath = DownloadDestinations.publicDownloads;
-    final pdfname = '${widget.invoiceId}.pdf';
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      url = 'https:' + url;
-    }
-    //Also, you can enable or disable the log, this will help you track your download batches
+      // Debugging logs
+      logger.e('Download Task ID: $id, Status: $status, Progress: $progress');
 
-    setState(() => isDownloading = true);
-
-    await FileDownloader.downloadFile(
-        url: url.trim(),
-        downloadDestination: DownloadDestinations.publicDownloads,
-        name: pdfname.trim(),
-        onProgress: (fileName, progress) {
-          setState(() {
-            fileProgress = progress;
-          });
-        },
-        onDownloadError: (errorMessage) {
-          logger.e(errorMessage);
-          setState(() => isDownloading = false);
-        },
-        notificationType: NotificationType.all);
-    FileDownloader.setLogEnabled(true);
-    setState(() => isDownloading = false);
+      if (id == _taskId && status == DownloadTaskStatus.complete) {
+        setState(() {
+          _isDownloading = false;
+        });
+        logger.e('Download completed for task ID: $id');
+      }
+    });
   }
 
-  Future<Permissions.PermissionStatus> checkStoragePermission() async {
+  @override
+  void dispose() {
+    _timer?.cancel();
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+    super.dispose();
+  }
+
+  Future<void> downloadInvoice(String url, String fileName) async {
     final plugin = DeviceInfoPlugin();
     final android = await plugin.androidInfo;
-    return android.version.sdkInt < 33
+    final storageStatus = android.version.sdkInt < 33
         ? await Permissions.Permission.storage.request()
-        : Permissions.PermissionStatus.granted;
+        : PermissionStatus.granted;
+    logger.e(storageStatus == Permissions.PermissionStatus.granted);
+    if (storageStatus == Permissions.PermissionStatus.granted) {
+      Directory? directory = await getExternalStorageDirectory();
+      String newPath = "${directory!.path}/Download";
+      Directory downloadDirectory = Directory(newPath);
+      if (!await downloadDirectory.exists()) {
+        await downloadDirectory.create(recursive: true);
+      }
+      final filePath = "$newPath/";
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https:$url';
+      }
+      final taskId = await FlutterDownloader.enqueue(
+        url: url,
+        savedDir: filePath,
+        fileName: 'Invoice-${widget.invoiceId}.pdf',
+        showNotification: true,
+        openFileFromNotification: true,
+      );
+      setState(() {
+        _isDownloading = true;
+        _taskId = taskId;
+      });
+      _timer = Timer(const Duration(seconds: 15), () {
+        // Hide the progress indicator after 10 seconds
+        setState(() {
+          _isDownloading = false;
+        });
+      });
+    } else {
+      // Handle the scenario when user denies the storage permission
+      print('Storage permission denied');
+    }
+  }
+
+  static void downloadCallback(String id, int status, int progress) {
+    final SendPort? sendPort =
+        IsolateNameServer.lookupPortByName('downloader_send_port');
+    sendPort?.send([id, status, progress]);
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: !isDownloading
-          ? () => getMyInvoicePdf(widget.invoicePdf!, widget.invoiceId!)
+      onTap: !_isDownloading
+          ? () => downloadInvoice(widget.invoicePdf, widget.invoiceId)
           : null,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
         height: DeviceInfo.getDeviceHeight(context) * 0.1,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
-          borderRadius: borderRadius,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
-        child: isDownloading
-            ? Center(
+        child: _isDownloading
+            ? const Center(
                 child: SizedBox(
                   width: 50.0,
                   height: 50.0,
-                  child: CircularProgressIndicator(
-                    value: fileProgress / 100,
-                  ),
+                  child: CircularProgressIndicator(),
                 ),
               )
             : Row(
