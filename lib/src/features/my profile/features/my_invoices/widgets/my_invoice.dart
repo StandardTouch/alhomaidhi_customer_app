@@ -1,8 +1,6 @@
 import 'dart:isolate';
 import 'dart:ui';
-import 'package:background_downloader/background_downloader.dart'
-    as BackgroundDownloader;
-
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:background_downloader/src/permissions.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
@@ -14,7 +12,7 @@ import 'package:permission_handler/permission_handler.dart' as Permissions;
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
+// import 'package:flutter_downloader/flutter_downloader.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -29,141 +27,75 @@ class MyInvoice extends StatefulWidget {
 }
 
 class _MyInvoiceState extends State<MyInvoice> {
-  bool _isDownloading = false;
-  String? _currentTaskId;
-  final ReceivePort _port = ReceivePort();
+  double fileProgress = 0;
+  bool isDownloading = false;
   final borderRadius = const BorderRadius.all(Radius.circular(10));
 
-  @override
-  void initState() {
-    super.initState();
-    FlutterDownloader.registerCallback(downloadCallback);
-  }
-
-  bool _initDownloaderListener() {
-    bool _isSuccess = false;
-    logger.e('inside the iniit dowmloader');
-    IsolateNameServer.registerPortWithName(
-        _port.sendPort, 'downloader_send_port');
-    _port.listen((dynamic data) {
-      String id = data[0];
-      Enum status = DownloadTaskStatus.fromInt(data[1]);
-      logger.e(status);
-      logger.i(status == DownloadTaskStatus.complete);
-      if (status == DownloadTaskStatus.complete) {
-        logger.e('from checking status $_isDownloading');
-        _isSuccess = true;
-      } else {
-        _isSuccess = false;
-      }
-    });
-    return _isSuccess;
-  }
-
-  @override
-  void dispose() {
-    IsolateNameServer.removePortNameMapping('downloader_send_port');
-    super.dispose();
-  }
-
   Future<void> getMyInvoicePdf(String url, String fileName) async {
-    logger.e('from get my invoice function $_isDownloading');
-    setState(() => _isDownloading = true);
+    final storageStatus = await checkStoragePermission();
+    if (storageStatus != Permissions.PermissionStatus.granted) {
+      return;
+    }
 
+    DownloadDestinations filePath = DownloadDestinations.publicDownloads;
+    final pdfname = '${widget.invoiceId}.pdf';
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      url = 'https:' + url;
+    }
+    //Also, you can enable or disable the log, this will help you track your download batches
+
+    setState(() => isDownloading = true);
+
+    await FileDownloader.downloadFile(
+        url: url.trim(),
+        downloadDestination: DownloadDestinations.publicDownloads,
+        name: pdfname.trim(),
+        onProgress: (fileName, progress) {
+          setState(() {
+            fileProgress = progress;
+          });
+        },
+        onDownloadError: (errorMessage) {
+          logger.e(errorMessage);
+          setState(() => isDownloading = false);
+        },
+        notificationType: NotificationType.all);
+    FileDownloader.setLogEnabled(true);
+    setState(() => isDownloading = false);
+  }
+
+  Future<Permissions.PermissionStatus> checkStoragePermission() async {
     final plugin = DeviceInfoPlugin();
     final android = await plugin.androidInfo;
-    try {
-      final Enum storageStatus = android.version.sdkInt < 33
-          ? await Permissions.Permission.storage.request()
-          : PermissionStatus.granted;
-      logger.i(storageStatus);
-      logger.i(PermissionStatus.granted);
-      logger.i(storageStatus == Permissions.PermissionStatus.granted);
-      if (storageStatus == Permissions.PermissionStatus.granted) {
-        Directory? directory = await getExternalStorageDirectory();
-        String newPath = "${directory!.path}/Download";
-        Directory downloadDirectory = Directory(newPath);
-        if (!await downloadDirectory.exists()) {
-          await downloadDirectory.create(recursive: true);
-        }
-        final filePath = "$newPath/";
-        if (!url.startsWith('http://') && !url.startsWith('https://')) {
-          url = 'https:' + url;
-        }
-        final pdfname = '${widget.invoiceId}.pdf';
-        final Permissions.PermissionStatus status =
-            await Permissions.Permission.notification.request();
-        if (status.isDenied) {
-          return;
-        }
-        final taskId = await FlutterDownloader.enqueue(
-            url: url,
-            savedDir: filePath,
-            fileName: pdfname,
-            showNotification: true,
-            openFileFromNotification: true,
-            saveInPublicStorage: true);
-        _currentTaskId = taskId;
-        final isSuccess = _initDownloaderListener();
-        if (isSuccess) {
-          setState(() {
-            _isDownloading = false;
-          });
-        } else {
-          setState(() {
-            _isDownloading = true;
-          });
-        }
-      } else {
-        setState(
-          () => _isDownloading = false,
-        );
-        // Consider showing an alert to the user that the permission is not granted
-        logger.e('No storage permission granted.');
-        return;
-      }
-    } catch (e) {
-      logger.e('Error downloading file: $e');
-      setState(
-        () => _isDownloading = false,
-      );
-    }
-  }
-
-  @pragma('vm:entry-point')
-  static void downloadCallback(String id, int status, int progress) async {
-    final SendPort? send =
-        IsolateNameServer.lookupPortByName('downloader_send_port');
-    send?.send([id, status, progress]);
+    return android.version.sdkInt < 33
+        ? await Permissions.Permission.storage.request()
+        : Permissions.PermissionStatus.granted;
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: _isDownloading
-          ? null
-          : () {
-              logger.i('inside ontop function $_isDownloading');
-              getMyInvoicePdf(widget.invoicePdf!, widget.invoiceId!);
-            },
+      onTap: !isDownloading
+          ? () => getMyInvoicePdf(widget.invoicePdf!, widget.invoiceId!)
+          : null,
       child: Container(
-        key: ValueKey(_isDownloading),
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
         height: DeviceInfo.getDeviceHeight(context) * 0.1,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
           borderRadius: borderRadius,
         ),
-        child: _isDownloading
+        child: isDownloading
             ? Center(
-                key: ValueKey(_isDownloading),
                 child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator()),
+                  width: 50.0,
+                  height: 50.0,
+                  child: CircularProgressIndicator(
+                    value: fileProgress / 100,
+                  ),
+                ),
               )
             : Row(
-                key: ValueKey(_isDownloading),
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
