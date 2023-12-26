@@ -3,7 +3,11 @@ class SingleProductModel {
   Message? message;
   String? errorMessage;
 
-  SingleProductModel({this.status, this.message});
+  SingleProductModel({
+    this.status,
+    this.message,
+    this.errorMessage,
+  });
 
   SingleProductModel.fromJson(Map<String, dynamic> json) {
     if (json["status"] is String) {

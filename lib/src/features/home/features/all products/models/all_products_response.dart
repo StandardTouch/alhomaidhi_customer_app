@@ -5,7 +5,13 @@ class AllProductsResponse {
   String? errorCode;
   String? errorMessage;
 
-  AllProductsResponse({this.status, this.message, this.totCount});
+  AllProductsResponse({
+    this.status,
+    this.message,
+    this.totCount,
+    this.errorCode,
+    this.errorMessage,
+  });
 
   AllProductsResponse.fromJson(Map<String, dynamic> json) {
     if (json["status"] is String) {
