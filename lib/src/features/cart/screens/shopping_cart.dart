@@ -106,6 +106,8 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                   productName: data.message!.cart![index].productDetails!.name!,
                   productQuantity: data.message!.cart![index].quantity!,
                   itemTotal: data.message!.cart![index].lineTotal!,
+                  stockQty:
+                      data.message!.cart![index].productDetails!.stockQuantity!,
                 );
               },
             ),
