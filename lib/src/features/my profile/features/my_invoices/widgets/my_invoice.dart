@@ -1,7 +1,6 @@
 import 'dart:isolate';
 import 'dart:ui';
 import 'dart:async';
-import 'package:background_downloader/background_downloader.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -11,13 +10,14 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 class MyInvoice extends StatefulWidget {
-  const MyInvoice(
-      {super.key, required this.invoiceId, required this.invoicePdf});
+  final String invoiceId;
+  final String invoicePdf;
 
   const MyInvoice({Key? key, required this.invoiceId, required this.invoicePdf})
       : super(key: key);
@@ -27,78 +27,10 @@ class MyInvoice extends StatefulWidget {
 }
 
 class _MyInvoiceState extends State<MyInvoice> {
-  final borderRadius = const BorderRadius.only(
-    topRight: Radius.circular(10),
-    bottomRight: Radius.circular(10),
-    bottomLeft: Radius.circular(10),
-    topLeft: Radius.circular(10),
-  );
-
-  Future<void> getMyInvoicePdf(String url, String fileName) async {
-    final plugin = DeviceInfoPlugin();
-    final android = await plugin.androidInfo;
-    try {
-      final storageStatus = android.version.sdkInt < 33
-          ? await Permission.storage.request()
-          : PermissionStatus.granted;
-      // Requesting storage permission
-      // var status = await Permission.storage.request();
-      logger.i(storageStatus);
-      if (storageStatus == PermissionStatus.granted) {
-        // Getting the external storage directory
-        Directory? directory = await getExternalStorageDirectory();
-        String newPath = "";
-        List<String> paths = directory!.path.split("/");
-        for (int x = 1; x < paths.length; x++) {
-          String folder = paths[x];
-          if (folder != "Android") {
-            newPath += "/$folder";
-          } else {
-            break;
-          }
-        }
-        newPath = "$newPath/Download";
-        directory = Directory(newPath);
-
-        // The file's path where it will be saved
-        final filePath = directory.path;
-        if (!url.startsWith('http://') && !url.startsWith('https://')) {
-          url = 'https:' + url;
-        }
-        // Downloading using Dio
-        // var dio = Dio();
-        // await dio.download(url, filePath, onReceiveProgress: (received, total) {
-        //   if (total != -1) {
-        //     // Calculate the progress percentage
-        //     int progress = ((received / total) * 100).toInt();
-        //     // Call a function to update the notification with the current progress
-        //     showDownloadNotification(progress, false);
-        //   }
-        // });
-
-        final pdfname = '${widget.invoiceId}.pdf';
-        logger.i(url);
-        final PermissionStatus status = await Permission.notification.request();
-
-        if (status.isGranted) {
-          await FlutterDownloader.enqueue(
-              url: url,
-              savedDir: filePath,
-              fileName: pdfname,
-              showNotification: true,
-              saveInPublicStorage: true,
-              openFileFromNotification: true);
-          logger.i('Downloaded file path: $filePath');
-        }
-      } else {
-        logger.e('No storage permission granted.');
-      }
-    } catch (e) {
-      logger.e('Error downloading file: $e');
-    }
-  }
-
-  ReceivePort _port = ReceivePort();
+  bool _isDownloading = false;
+  String? _taskId;
+  final ReceivePort _port = ReceivePort();
+  Timer? _timer;
 
   @override
   void initState() {
