@@ -76,10 +76,11 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(
-                              (data.message![itemIndex].img != "")
-                                  ? data.message![itemIndex].img ??
-                                      Assets.fallBackProductImage
-                                  : Assets.fallBackProductImage),
+                            (data.message![itemIndex].img != "")
+                                ? data.message![itemIndex].img ??
+                                    Assets.fallBackProductImage
+                                : Assets.fallBackProductImage,
+                          ),
                           fit: BoxFit.contain,
                         ),
                         borderRadius: BorderRadius.circular(8),
@@ -87,10 +88,11 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
                         boxShadow: query.brandId == data.message![itemIndex].id!
                             ? [
                                 BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    offset: Offset.fromDirection(360),
-                                    spreadRadius: 2,
-                                    blurRadius: 4)
+                                  color: Colors.black.withOpacity(0.2),
+                                  offset: Offset.fromDirection(360),
+                                  spreadRadius: 2,
+                                  blurRadius: 4,
+                                )
                               ]
                             : []),
                     margin:

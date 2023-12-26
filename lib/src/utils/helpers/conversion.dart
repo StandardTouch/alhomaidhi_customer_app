@@ -1,5 +1,3 @@
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
-
 class ConversionHelper {
   static String getEnglishPart(String inputString) {
     int slashIndex = inputString.indexOf('/');
@@ -19,21 +17,6 @@ class ConversionHelper {
     } catch (e) {
       // Handle the exception if the input is not a valid number
       return inputString;
-    }
-  }
-
-  static int calculateDiscountPercentage(
-      String priceBeforeStr, String priceAfterStr) {
-    try {
-      double priceBefore = double.parse(priceBeforeStr);
-      double priceAfter = double.parse(priceAfterStr);
-
-      double discountAmount = priceBefore - priceAfter;
-      double discountPercentage = (discountAmount / priceBefore) * 100;
-      return discountPercentage.round();
-    } on FormatException {
-      logger.e('Invalid input: please enter valid numbers.');
-      return 0;
     }
   }
 }

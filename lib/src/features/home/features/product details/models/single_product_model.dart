@@ -152,11 +152,12 @@ class ProductDetails {
   String? price;
   String? regularPrice;
   String? salePrice;
+  String? discountPercentage;
   bool? onSale;
   int? totalSales;
   int? ratingCount;
   String? stockStatus;
-  dynamic stockQuantity;
+  int? stockQuantity;
 
   ProductDetails(
       {this.productId,
@@ -172,6 +173,7 @@ class ProductDetails {
       this.price,
       this.regularPrice,
       this.salePrice,
+      this.discountPercentage,
       this.onSale,
       this.totalSales,
       this.ratingCount,
@@ -218,6 +220,9 @@ class ProductDetails {
     if (json["sale_price"] is String) {
       salePrice = json["sale_price"];
     }
+    if (json["discount_percentage"] is String) {
+      discountPercentage = json["discount_percentage"];
+    }
     if (json["on_sale"] is bool) {
       onSale = json["on_sale"];
     }
@@ -230,7 +235,9 @@ class ProductDetails {
     if (json["stock_status"] is String) {
       stockStatus = json["stock_status"];
     }
-    stockQuantity = json["stock_quantity"];
+    if (json["stock_quantity"] is int) {
+      stockQuantity = json["stock_quantity"];
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -248,6 +255,7 @@ class ProductDetails {
     _data["price"] = price;
     _data["regular_price"] = regularPrice;
     _data["sale_price"] = salePrice;
+    _data["discount_percentage"] = discountPercentage;
     _data["on_sale"] = onSale;
     _data["total_sales"] = totalSales;
     _data["rating_count"] = ratingCount;
