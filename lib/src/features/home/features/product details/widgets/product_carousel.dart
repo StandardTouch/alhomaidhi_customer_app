@@ -27,15 +27,17 @@ class ProductCarousel extends StatelessWidget {
           width: DeviceInfo.getDeviceWidth(context),
           margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset.fromDirection(360),
-                    blurRadius: 4,
-                    spreadRadius: 2,
-                    color: Colors.black.withOpacity(0.3))
-              ]),
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                offset: Offset.fromDirection(360),
+                blurRadius: 4,
+                spreadRadius: 2,
+                color: Colors.black.withOpacity(0.3),
+              ),
+            ],
+          ),
           child: Column(
             children: [
               Expanded(

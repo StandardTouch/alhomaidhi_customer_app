@@ -50,6 +50,8 @@ class BrandProducts extends ConsumerWidget {
                 title: data.message![index].productDetails!.name!,
                 priceBefore: data.message![index].productDetails!.regularPrice!,
                 priceNow: data.message![index].productDetails!.salePrice!,
+                discountPercentage:
+                    data.message![index].productDetails!.discountPercentage!,
                 onButtonPress: () {
                   context.pushNamed(
                     "product_details_screen",

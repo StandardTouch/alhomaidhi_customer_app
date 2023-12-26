@@ -12,7 +12,7 @@ class ProductCard extends StatelessWidget {
     required this.priceNow,
     this.isSearch = false,
     required this.onButtonPress,
-    this.discountPercentage = "0%",
+    this.discountPercentage = "0",
   });
   final String imageUrl;
   final String title;
