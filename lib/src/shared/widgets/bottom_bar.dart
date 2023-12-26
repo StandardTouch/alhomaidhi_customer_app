@@ -1,3 +1,4 @@
+import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,6 +22,7 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
       ref.read(productQueryProvider.notifier).updateSearch("st");
       context.go("/search");
     } else if (index == 2) {
+      ref.invalidate(myCartProvider);
       context.go("/cart");
     } else if (index == 3) {
       context.go("/profile");

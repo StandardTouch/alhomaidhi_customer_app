@@ -1,7 +1,5 @@
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_invoices/providers/my_invoices_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_invoices/widgets/my_invoice.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_screen.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/profile/screens/my_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,6 +1,7 @@
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/product_card.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/sort_button.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
@@ -28,32 +29,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     final products = ref.watch(allProductsProvider);
     final query = ref.read(productQueryProvider.notifier);
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset(
-          Assets.logoLight,
-          fit: BoxFit.contain,
-          width: DeviceInfo.getDeviceWidth(context) * 0.35,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.push("/all_brands");
-            },
-            icon: Image.asset(
-              Assets.brandsButton,
-              width: 60,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notification_important_outlined,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          const SortByButton(),
-        ],
-      ),
+      appBar: const HomaidhiAppbar(),
       body: products.when(data: (data) {
         if (data.status == "APP00") {
           return ListView(
@@ -85,7 +61,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   ),
                   itemBuilder: (ctx, index) {
                     return ProductCard(
-                      imageUrl: data.message![index].images![0].src!,
+                      imageUrl: data.message![index].images!.isEmpty
+                          ? Assets.fallBackProductImage
+                          : data.message![index].images![0].src!,
                       title: data.message![index].productDetails!.name!,
                       priceBefore:
                           data.message![index].productDetails!.regularPrice!,

@@ -1,7 +1,7 @@
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/brands_widget.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/product_card.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/sort_button.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
@@ -33,38 +33,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final products = ref.watch(allProductsProvider);
     final query = ref.watch(productQueryProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset(
-          Assets.logoLight,
-          fit: BoxFit.contain,
-          width: DeviceInfo.getDeviceWidth(context) * 0.35,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.push("/all_brands");
-            },
-            icon: Image.asset(
-              Assets.brandsButton,
-              width: 60,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notification_important_outlined,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          const SortByButton(),
-        ],
-      ),
+      appBar: const HomaidhiAppbar(),
       body: ListView(
         shrinkWrap: true,
         children: [
           SizedBox(
             height: height * 0.1,
-            child: BrandsWidget(),
+            child: const BrandsWidget(),
           ),
           products.when(data: (data) {
             if (data.status == "APP00") {
@@ -130,8 +105,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           }, loading: () {
             return SizedBox(
               height: DeviceInfo.getDeviceHeight(context) * 0.7,
-              child: Center(
-                child: const CircularProgressIndicator(),
+              child: const Center(
+                child: CircularProgressIndicator(),
               ),
             );
           }, error: (err, stk) {
@@ -168,7 +143,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               onPressed: () {
                 ref.read(productQueryProvider.notifier).updateBrand(0);
               },
-              child: Icon(
+              child: const Icon(
                 Icons.clear,
               ),
             ),

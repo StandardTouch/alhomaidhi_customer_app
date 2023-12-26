@@ -6,6 +6,7 @@ import 'package:alhomaidhi_customer_app/src/features/home/features/product%20det
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/screens/product_details_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/screens/billing_address.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/delete_profile/screens/delete_profile_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_invoices/screens/my_invoices_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_details.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_screen.dart';
@@ -13,6 +14,7 @@ import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/profi
 import 'package:alhomaidhi_customer_app/src/features/search/screens/search_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/signup_screen.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/bottom_bar.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -50,17 +52,30 @@ final router = GoRouter(
       path: "/",
       redirect: (context, state) async {
         bool isLoggedIn = await AuthHelper.isUserLoggedIn();
+        logger.d(isLoggedIn);
         if (isLoggedIn) {
           return "/home";
         } else {
           return "/login";
         }
       },
+      pageBuilder: (ctx, state) => buildPageWithDefaultTransition(
+        context: ctx,
+        state: state,
+        child: const Scaffold(
+          body: Center(
+            child: Text("Navigating"),
+          ),
+        ),
+      ),
     ),
     GoRoute(
       path: "/login",
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
-          context: context, state: state, child: const LoginScreen()),
+        context: context,
+        state: state,
+        child: const LoginScreen(),
+      ),
     ),
     GoRoute(
       path: "/signup",
@@ -73,6 +88,14 @@ final router = GoRouter(
         context: context,
         state: state,
         child: const BillingAddress(),
+      ),
+    ),
+    GoRoute(
+      path: "/delete_profile",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const DeleteProfileScreen(),
       ),
     ),
     GoRoute(
@@ -113,6 +136,7 @@ final router = GoRouter(
       builder: (context, state) => ProductDetailsScreen(
         productId: state.pathParameters["productId"]!,
       ),
+      parentNavigatorKey: _rootNavigatorKey,
     ),
     GoRoute(
       path: "/brand_products/:brandName",
@@ -121,6 +145,7 @@ final router = GoRouter(
         brandName: state.pathParameters["brandName"]!,
       ),
     ),
+
     // for main routes
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
@@ -146,11 +171,16 @@ final router = GoRouter(
           path: "/home",
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context, state: state, child: const HomeScreen()),
+          parentNavigatorKey: _shellNavigatorKey,
         ),
         GoRoute(
           path: "/search",
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const SearchScreen()),
+            context: context,
+            state: state,
+            child: const SearchScreen(),
+          ),
+          parentNavigatorKey: _shellNavigatorKey,
         ),
         GoRoute(
           path: "/cart",
@@ -158,11 +188,13 @@ final router = GoRouter(
               context: context,
               state: state,
               child: const ShoppingCartScreen()),
+          parentNavigatorKey: _shellNavigatorKey,
         ),
         GoRoute(
           path: "/profile",
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context, state: state, child: const MyProfileScreen()),
+          parentNavigatorKey: _shellNavigatorKey,
         ),
       ],
     )

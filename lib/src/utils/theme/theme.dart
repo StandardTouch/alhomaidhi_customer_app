@@ -53,7 +53,7 @@ PinTheme getDefaultPinTheme(BuildContext context) {
       ),
     ),
     padding: const EdgeInsets.all(8),
-    textStyle: getTextTheme(isDark: DeviceInfo.isDarkMode(context)).bodyMedium,
+    textStyle: getTextTheme(isDark: true).bodyMedium!,
     width: 50,
     height: 50,
   );

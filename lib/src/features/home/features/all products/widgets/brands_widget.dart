@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/brands_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,32 +14,34 @@ class BrandsWidget extends ConsumerStatefulWidget {
 }
 
 class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
-  final ScrollController brandScrollController = ScrollController();
-  Timer? _timer;
+  late ScrollController brandScrollController;
+  late Timer _timer;
 
   @override
   void initState() {
-    _startAutoScroll();
     super.initState();
+
+    brandScrollController = ScrollController(onAttach: (pos) {
+      _startAutoScroll(pos);
+    });
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _timer.cancel();
     brandScrollController.dispose();
     super.dispose();
   }
 
   void updateSelectedItem(int index, int brandId) {
-    logger.d("the brand id is $brandId");
     ref.read(productQueryProvider.notifier).updateBrand(brandId);
   }
 
-  void _startAutoScroll() {
-    const duration = Duration(milliseconds: 50);
+  void _startAutoScroll(ScrollPosition pos) {
+    const duration = Duration(milliseconds: 20);
     _timer = Timer.periodic(duration, (timer) {
-      double currentPosition = brandScrollController.position.pixels;
-      double maxScrollExtent = brandScrollController.position.maxScrollExtent;
+      double currentPosition = pos.pixels;
+      double maxScrollExtent = pos.maxScrollExtent;
 
       // Check if the current position is at the end of the list
       if (currentPosition < maxScrollExtent) {
@@ -59,44 +60,39 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
     return brands.when(
       data: (data) {
         if (data.status == "APP00") {
-          return SizedBox(
-            width: double.infinity,
-            child: ListView.builder(
-                controller: brandScrollController,
-                scrollDirection: Axis.horizontal,
-                itemCount: data.message!.length,
-                itemBuilder: (context, index) {
-                  final itemIndex = index % data.message!.length;
-                  return GestureDetector(
-                    onTap: () {
-                      updateSelectedItem(
-                          itemIndex, data.message![itemIndex].id!);
-                    },
-                    child: Container(
-                      width: DeviceInfo.getDeviceWidth(context) * 0.25,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(data.message![itemIndex].img!),
-                            fit: BoxFit.contain,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                          color: Theme.of(context).highlightColor,
-                          boxShadow:
-                              query.brandId == data.message![itemIndex].id!
-                                  ? [
-                                      BoxShadow(
-                                          color: Colors.black.withOpacity(0.2),
-                                          offset: Offset.fromDirection(360),
-                                          spreadRadius: 2,
-                                          blurRadius: 4)
-                                    ]
-                                  : []),
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 8),
-                    ),
-                  );
-                }),
-          );
+          return ListView.builder(
+              controller: brandScrollController,
+              scrollDirection: Axis.horizontal,
+              itemCount: data.message!.length,
+              itemBuilder: (context, index) {
+                final itemIndex = index % data.message!.length;
+                return GestureDetector(
+                  onTap: () {
+                    updateSelectedItem(itemIndex, data.message![itemIndex].id!);
+                  },
+                  child: Container(
+                    width: DeviceInfo.getDeviceWidth(context) * 0.25,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(data.message![itemIndex].img!),
+                          fit: BoxFit.contain,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                        color: Theme.of(context).highlightColor,
+                        boxShadow: query.brandId == data.message![itemIndex].id!
+                            ? [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    offset: Offset.fromDirection(360),
+                                    spreadRadius: 2,
+                                    blurRadius: 4)
+                              ]
+                            : []),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+                  ),
+                );
+              });
         } else {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,

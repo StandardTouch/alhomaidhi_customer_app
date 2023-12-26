@@ -19,6 +19,14 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final formKey = GlobalKey<FormState>();
+  final FocusNode pinputFocus = FocusNode();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    pinputFocus.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +85,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               },
                               onSaved: (value) {
                                 loginNotifier.updatephoneNumber(value);
+                                FocusScope.of(context).unfocus();
+                                pinputFocus.requestFocus();
                               },
                             ),
                             const Gap(30),
                             if (loginRef.isOTPVisible == true)
                               Pinput(
+                                  focusNode: pinputFocus,
+                                  autofocus: true,
                                   length: 6,
                                   defaultPinTheme: getDefaultPinTheme(context),
                                   submittedPinTheme:

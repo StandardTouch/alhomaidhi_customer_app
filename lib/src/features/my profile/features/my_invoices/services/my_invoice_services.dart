@@ -1,6 +1,4 @@
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_invoices/models/my_invoices_model.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/models/my_order_details_models.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/models/my_orders_list_model.dart';
 import 'package:alhomaidhi_customer_app/src/utils/config/dio/dio_client.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
