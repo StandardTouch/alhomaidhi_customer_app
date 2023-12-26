@@ -111,7 +111,7 @@ class ProductCard extends StatelessWidget {
                 children: [
                   if (!isSearch)
                     Text(
-                      "$discountPercentage off",
+                      "${discountPercentage.substring(0, 2)}% off",
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: const Color.fromARGB(255, 40, 122, 43),

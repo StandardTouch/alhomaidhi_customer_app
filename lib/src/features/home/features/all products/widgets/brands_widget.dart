@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/brands_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -74,7 +75,11 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
                     width: DeviceInfo.getDeviceWidth(context) * 0.25,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: NetworkImage(data.message![itemIndex].img!),
+                          image: NetworkImage(
+                              (data.message![itemIndex].img != "")
+                                  ? data.message![itemIndex].img ??
+                                      Assets.fallBackProductImage
+                                  : Assets.fallBackProductImage),
                           fit: BoxFit.contain,
                         ),
                         borderRadius: BorderRadius.circular(8),
