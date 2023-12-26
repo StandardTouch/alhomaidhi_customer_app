@@ -16,6 +16,9 @@ class ProductCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
+        enlargeCenterPage: true,
+        // enlargeFactor: 0.5,
+        autoPlay: true,
         height: DeviceInfo.getDeviceHeight(context) * 0.4,
         viewportFraction: 1,
       ),
@@ -38,8 +41,9 @@ class ProductCarousel extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(15),
-                  child: Image.network(
-                    image.src ?? Assets.fallBackProductImage,
+                  child: FadeInImage.assetNetwork(
+                    placeholder: Assets.placeHolderImage,
+                    image: image.src ?? Assets.fallBackProductImage,
                     fit: BoxFit.contain,
                   ),
                 ),

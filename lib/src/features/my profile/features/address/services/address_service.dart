@@ -13,7 +13,6 @@ Future<AddressResponseModel> getProfileDetails() async {
           "Authorization": authDetails.token,
           "user_id": authDetails.userId,
         }));
-    logger.i(jsonResponse);
     final response = AddressResponseModel.fromJson(jsonResponse.data);
     return response;
   } catch (err) {

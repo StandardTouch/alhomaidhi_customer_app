@@ -9,11 +9,13 @@ class ProductWidget1 extends StatelessWidget {
     required this.priceAfter,
     required this.priceBefore,
     required this.skuNumber,
+    required this.discountPercentage,
   });
   final String productName;
   final String skuNumber;
   final String priceBefore;
   final String priceAfter;
+  final String discountPercentage;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +67,7 @@ class ProductWidget1 extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "-${ConversionHelper.calculateDiscountPercentage(priceBefore, priceAfter)}% off",
+                  "${discountPercentage.substring(0, 2)}% off",
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: const Color.fromARGB(255, 40, 122, 43),

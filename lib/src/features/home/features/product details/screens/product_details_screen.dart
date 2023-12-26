@@ -51,6 +51,8 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
                 priceAfter: data.message!.productDetails!.price!,
                 priceBefore: data.message!.productDetails!.regularPrice!,
                 skuNumber: data.message!.productDetails!.sku!,
+                discountPercentage:
+                    data.message!.productDetails!.discountPercentage!,
               ),
               const Gap(10),
               const ProductWidget2(),

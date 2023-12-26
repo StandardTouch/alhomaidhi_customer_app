@@ -3,7 +3,11 @@ class MyCartResponseModel {
   Message? message;
   String? errorMessage;
 
-  MyCartResponseModel({this.status, this.message, this.errorMessage});
+  MyCartResponseModel({
+    this.status,
+    this.message,
+    this.errorMessage,
+  });
 
   MyCartResponseModel.fromJson(Map<String, dynamic> json) {
     if (json["status"] is String) {
@@ -122,6 +126,7 @@ class ProductDetails {
   String? name;
   String? description;
   String? shortDescription;
+  int? stockQuantity;
   List<Images>? images;
 
   ProductDetails(
@@ -129,6 +134,7 @@ class ProductDetails {
       this.name,
       this.description,
       this.shortDescription,
+      this.stockQuantity,
       this.images});
 
   ProductDetails.fromJson(Map<String, dynamic> json) {
@@ -144,6 +150,9 @@ class ProductDetails {
     if (json["short_description"] is String) {
       shortDescription = json["short_description"];
     }
+    if (json["stock_quantity"] is int) {
+      stockQuantity = json["stock_quantity"];
+    }
     if (json["images"] is List) {
       images = json["images"] == null
           ? null
@@ -157,6 +166,7 @@ class ProductDetails {
     _data["name"] = name;
     _data["description"] = description;
     _data["short_description"] = shortDescription;
+    _data["stock_quantity"] = stockQuantity;
     if (images != null) {
       _data["images"] = images?.map((e) => e.toJson()).toList();
     }

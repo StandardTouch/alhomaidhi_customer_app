@@ -10,11 +10,13 @@ class SingleCartItem extends StatelessWidget {
     required this.productName,
     required this.productQuantity,
     required this.itemTotal,
+    required this.stockQty,
   });
   final String productImage;
   final String productName;
   final int productQuantity;
   final int itemTotal;
+  final int stockQty;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,8 @@ class SingleCartItem extends StatelessWidget {
                           initVal: productQuantity,
                           qtyFormProps: const QtyFormProps(enableTyping: false),
 
-                          maxVal: 10, // todo - add stock quantity as max value
+                          maxVal: stockQty -
+                              1, // todo - add stock quantity as max value
                           steps: 1,
                           minVal: 1,
                           onQtyChanged: (value) {
