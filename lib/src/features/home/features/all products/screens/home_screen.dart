@@ -70,6 +70,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       priceBefore:
                           data.message![index].productDetails!.regularPrice!,
                       priceNow: data.message![index].productDetails!.salePrice!,
+                      discountPercentage: data
+                          .message![index].productDetails!.discountPercentage!,
                       onButtonPress: () {
                         context.pushNamed("product_details_screen",
                             pathParameters: {

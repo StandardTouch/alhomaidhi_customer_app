@@ -1,15 +1,11 @@
 class AllProductsResponse {
   String? status;
   List<Message>? message;
+  int? totCount;
   String? errorCode;
   String? errorMessage;
 
-  AllProductsResponse({
-    this.status,
-    this.message,
-    this.errorCode,
-    this.errorMessage,
-  });
+  AllProductsResponse({this.status, this.message, this.totCount});
 
   AllProductsResponse.fromJson(Map<String, dynamic> json) {
     if (json["status"] is String) {
@@ -23,6 +19,9 @@ class AllProductsResponse {
       errorCode = json["status"];
       errorMessage = json["message"];
     }
+    if (json["tot_count"] is int) {
+      totCount = json["tot_count"];
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +30,7 @@ class AllProductsResponse {
     if (message != null) {
       _data["message"] = message?.map((e) => e.toJson()).toList();
     }
+    _data["tot_count"] = totCount;
     return _data;
   }
 }
@@ -160,10 +160,12 @@ class ProductDetails {
   String? price;
   String? regularPrice;
   String? salePrice;
+  String? discountPercentage;
   bool? onSale;
   int? totalSales;
   int? ratingCount;
   String? stockStatus;
+  int? stockQuantity;
 
   ProductDetails(
       {this.productId,
@@ -179,10 +181,12 @@ class ProductDetails {
       this.price,
       this.regularPrice,
       this.salePrice,
+      this.discountPercentage,
       this.onSale,
       this.totalSales,
       this.ratingCount,
-      this.stockStatus});
+      this.stockStatus,
+      this.stockQuantity});
 
   ProductDetails.fromJson(Map<String, dynamic> json) {
     if (json["product_id"] is int) {
@@ -224,6 +228,9 @@ class ProductDetails {
     if (json["sale_price"] is String) {
       salePrice = json["sale_price"];
     }
+    if (json["discount_percentage"] is String) {
+      discountPercentage = json["discount_percentage"];
+    }
     if (json["on_sale"] is bool) {
       onSale = json["on_sale"];
     }
@@ -235,6 +242,9 @@ class ProductDetails {
     }
     if (json["stock_status"] is String) {
       stockStatus = json["stock_status"];
+    }
+    if (json["stock_quantity"] is int) {
+      stockQuantity = json["stock_quantity"];
     }
   }
 
@@ -253,10 +263,12 @@ class ProductDetails {
     _data["price"] = price;
     _data["regular_price"] = regularPrice;
     _data["sale_price"] = salePrice;
+    _data["discount_percentage"] = discountPercentage;
     _data["on_sale"] = onSale;
     _data["total_sales"] = totalSales;
     _data["rating_count"] = ratingCount;
     _data["stock_status"] = stockStatus;
+    _data["stock_quantity"] = stockQuantity;
     return _data;
   }
 }

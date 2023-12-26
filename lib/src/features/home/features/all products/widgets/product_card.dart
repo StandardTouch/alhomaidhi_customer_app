@@ -12,12 +12,14 @@ class ProductCard extends StatelessWidget {
     required this.priceNow,
     this.isSearch = false,
     required this.onButtonPress,
+    this.discountPercentage = "0%",
   });
   final String imageUrl;
   final String title;
   final String priceBefore;
   final String priceNow;
   final bool isSearch;
+  final String discountPercentage;
   final Function() onButtonPress;
 
   @override
@@ -109,7 +111,7 @@ class ProductCard extends StatelessWidget {
                 children: [
                   if (!isSearch)
                     Text(
-                      "${ConversionHelper.calculateDiscountPercentage(priceBefore, priceNow)}% off",
+                      "$discountPercentage off",
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: const Color.fromARGB(255, 40, 122, 43),
