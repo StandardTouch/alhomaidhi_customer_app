@@ -18,7 +18,6 @@ class ProductCarousel extends StatelessWidget {
       options: CarouselOptions(
         enlargeCenterPage: true,
         // enlargeFactor: 0.5,
-        autoPlay: true,
         height: DeviceInfo.getDeviceHeight(context) * 0.4,
         viewportFraction: 1,
       ),

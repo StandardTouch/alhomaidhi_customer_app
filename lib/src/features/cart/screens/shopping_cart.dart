@@ -7,6 +7,7 @@ import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class ShoppingCartScreen extends ConsumerStatefulWidget {
   const ShoppingCartScreen({super.key});
@@ -83,7 +84,9 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                           ),
                     ),
                     TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.push("/address");
+                        },
                         icon: const Icon(Icons.change_circle),
                         label: Text(
                           "Change",

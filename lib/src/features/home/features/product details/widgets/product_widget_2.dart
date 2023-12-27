@@ -2,6 +2,7 @@ import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/addre
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductWidget2 extends ConsumerWidget {
   const ProductWidget2({
@@ -68,7 +69,9 @@ class ProductWidget2 extends ConsumerWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(10),
                   splashColor: Theme.of(context).primaryColor.withOpacity(0.2),
-                  onTap: () {},
+                  onTap: () {
+                    context.push("/address");
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -79,7 +82,7 @@ class ProductWidget2 extends ConsumerWidget {
                     alignment: Alignment.center,
                     height: 40,
                     width: 100,
-                    child: Text("Change"),
+                    child: const Text("Change"),
                   ),
                 ),
               ),

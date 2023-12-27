@@ -76,11 +76,13 @@ final router = GoRouter(
         state: state,
         child: const LoginScreen(),
       ),
+      parentNavigatorKey: _rootNavigatorKey,
     ),
     GoRoute(
       path: "/signup",
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
           context: context, state: state, child: SignupScreen()),
+      parentNavigatorKey: _rootNavigatorKey,
     ),
     GoRoute(
       path: "/address",
@@ -89,6 +91,7 @@ final router = GoRouter(
         state: state,
         child: const BillingAddress(),
       ),
+      parentNavigatorKey: _rootNavigatorKey,
     ),
     GoRoute(
       path: "/delete_profile",
@@ -97,6 +100,7 @@ final router = GoRouter(
         state: state,
         child: const DeleteProfileScreen(),
       ),
+      parentNavigatorKey: _rootNavigatorKey,
     ),
     GoRoute(
       path: "/my_orders",
@@ -105,6 +109,7 @@ final router = GoRouter(
         state: state,
         child: const MyOrderScreen(),
       ),
+      parentNavigatorKey: _rootNavigatorKey,
     ),
     GoRoute(
       path: "/my_invoices",
@@ -113,6 +118,7 @@ final router = GoRouter(
         state: state,
         child: MyInvoicesScreen(),
       ),
+      parentNavigatorKey: _rootNavigatorKey,
     ),
     GoRoute(
       path: "/my_order_details/:orderId/:productIndex",
@@ -121,6 +127,7 @@ final router = GoRouter(
         orderId: state.pathParameters["orderId"]!,
         productIndex: int.parse(state.pathParameters["productIndex"]!),
       ),
+      parentNavigatorKey: _rootNavigatorKey,
     ), //define here
     GoRoute(
       path: "/all_brands",
@@ -129,6 +136,7 @@ final router = GoRouter(
         state: state,
         child: const AllBrandScreen(),
       ),
+      parentNavigatorKey: _rootNavigatorKey,
     ),
     GoRoute(
       path: "/product_details/:productId",
@@ -144,6 +152,7 @@ final router = GoRouter(
       builder: (context, state) => BrandProducts(
         brandName: state.pathParameters["brandName"]!,
       ),
+      parentNavigatorKey: _rootNavigatorKey,
     ),
 
     // for main routes
