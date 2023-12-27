@@ -1,9 +1,10 @@
+import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:input_quantity/input_quantity.dart';
-import 'package:intl/intl.dart';
 
-class SingleCartItem extends StatelessWidget {
+class SingleCartItem extends ConsumerWidget {
   const SingleCartItem({
     super.key,
     required this.productImage,
@@ -11,21 +12,19 @@ class SingleCartItem extends StatelessWidget {
     required this.productQuantity,
     required this.itemTotal,
     required this.stockQty,
+    required this.productId,
   });
   final String productImage;
   final String productName;
-  final int productQuantity;
+  final String productQuantity;
   final int itemTotal;
   final int stockQty;
+  final int productId;
 
   @override
-  Widget build(BuildContext context) {
-    String getDeliveryDate() {
-      DateTime currentDate = DateTime.now();
-      DateTime futureDate = currentDate.add(const Duration(days: 5));
-
-      return DateFormat('EEEE MMM dd yyyy').format(futureDate);
-    }
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(cartDetailsProvider);
+    final cartOperations = ref.read(cartDetailsProvider.notifier);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -59,14 +58,17 @@ class SingleCartItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InputQty(
-                          initVal: productQuantity,
+                          initVal: int.parse(productQuantity),
                           qtyFormProps: const QtyFormProps(enableTyping: false),
 
-                          maxVal: stockQty -
-                              1, // todo - add stock quantity as max value
+                          maxVal: 100, // todo - add stock quantity as max value
                           steps: 1,
                           minVal: 1,
                           onQtyChanged: (value) {
+                            cartOperations.updateCartItem(
+                              productId,
+                              value as int,
+                            );
                             // todo - implement update cart API
                           },
                           decoration: QtyDecorationProps(

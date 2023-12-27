@@ -38,3 +38,42 @@ Future<MyCartResponseModel> getCart() async {
     }
   }
 }
+
+Future<MyCartResponseModel> updateCart(
+    String productId, String quantity) async {
+  try {
+    final authDetails = await AuthHelper.getAuthDetails();
+    final jsonResponse = await dioClient.post(
+      APIEndpoints.updateCartItems,
+      data: [
+        {
+          "product_id": productId,
+          "quantity": quantity,
+        }
+      ],
+      options: Options(
+        headers: {
+          "Authorization": authDetails.token,
+          "user_id": authDetails.userId,
+        },
+      ),
+    );
+    final response = MyCartResponseModel.fromJson(jsonResponse.data);
+    if (response.status != "APP00") {
+      throw HomaidhiException(
+          status: response.status!, message: response.errorMessage!);
+    } else {
+      return response;
+    }
+  } catch (err) {
+    if (err is HomaidhiException) {
+      logger.e("Error from my cart services. ${err.message}");
+      throw HomaidhiException(
+        status: err.status,
+        message: err.message,
+      );
+    } else {
+      throw Exception(err);
+    }
+  }
+}
