@@ -116,7 +116,7 @@ final router = GoRouter(
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
         context: context,
         state: state,
-        child: MyInvoicesScreen(),
+        child: const MyInvoicesScreen(),
       ),
       parentNavigatorKey: _rootNavigatorKey,
     ),

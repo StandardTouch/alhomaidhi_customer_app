@@ -1,3 +1,4 @@
+import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/models/single_product_model.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/providers/product_details_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_carousel.dart';
@@ -28,8 +29,10 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final productDetails = ref.watch(productDetailsProvider(widget.productId));
-
+    final cart = ref.watch(cartDetailsProvider);
+    final cartOperations = ref.read(cartDetailsProvider.notifier);
     ref.watch(addressProvider);
+
     return Scaffold(
       appBar: const HomaidhiAppbar(),
       body: productDetails.when(
@@ -82,17 +85,23 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
         child: Row(
           children: [
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: (cart.isLoading ?? false)
+                  ? null
+                  : () {
+                      cartOperations.updateCartItem(
+                          int.parse(widget.productId), 1, ref);
+                    },
               icon: const Icon(Icons.add_shopping_cart),
-              label: Text("Add to cart"),
+              label: Text(
+                  (cart.isLoading ?? false) ? "Item Added" : "Add to cart"),
               style: ElevatedButton.styleFrom(
                 shape: const BeveledRectangleBorder(),
               ),
             ),
             ElevatedButton.icon(
               onPressed: () {},
-              icon: Icon(Icons.credit_card),
-              label: Text("Buy Now"),
+              icon: const Icon(Icons.credit_card),
+              label: const Text("Buy Now"),
               style: ElevatedButton.styleFrom(
                 shape: const BeveledRectangleBorder(),
                 backgroundColor: Theme.of(context).colorScheme.onSecondary,
