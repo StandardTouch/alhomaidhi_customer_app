@@ -20,6 +20,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
   @override
   Widget build(BuildContext context) {
     final cart = ref.watch(myCartProvider);
+    final cartDetails = ref.watch(cartDetailsProvider);
     final address = ref.watch(addressProvider);
     return Scaffold(
       appBar: AppBar(
@@ -151,9 +152,11 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
             const CartPlaceHolder(),
             const Gap(10),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: (cartDetails.isLoading ?? false) ? null : () {},
               icon: const Icon(Icons.wallet),
-              label: const Text("Checkout"),
+              label: Text((cartDetails.isLoading ?? false)
+                  ? "Updating Cart"
+                  : "Checkout"),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.onSecondary,
                 foregroundColor: Colors.black,

@@ -208,15 +208,15 @@ class Images {
 }
 
 class CartTotals {
-  int? subtotal;
+  String? subtotal;
   double? subtotalTax;
   String? shippingTotal;
   int? shippingTax;
   int? discountTotal;
   int? discountTax;
-  int? cartContentsTotal;
+  String? cartContentsTotal;
   double? cartContentsTax;
-  double? total;
+  String? total;
   double? totalTax;
 
   CartTotals(
@@ -232,7 +232,7 @@ class CartTotals {
       this.totalTax});
 
   CartTotals.fromJson(Map<String, dynamic> json) {
-    if (json["subtotal"] is int) {
+    if (json["subtotal"] is String) {
       subtotal = json["subtotal"];
     }
     if (json["subtotal_tax"] is double) {
@@ -250,13 +250,13 @@ class CartTotals {
     if (json["discount_tax"] is int) {
       discountTax = json["discount_tax"];
     }
-    if (json["cart_contents_total"] is int) {
+    if (json["cart_contents_total"] is String) {
       cartContentsTotal = json["cart_contents_total"];
     }
     if (json["cart_contents_tax"] is double) {
       cartContentsTax = json["cart_contents_tax"];
     }
-    if (json["total"] is double) {
+    if (json["total"] is String) {
       total = json["total"];
     }
     if (json["total_tax"] is double) {

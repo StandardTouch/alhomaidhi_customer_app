@@ -57,7 +57,7 @@ class SingleCartItem extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        InputQty(
+                        InputQty.int(
                           initVal: int.parse(productQuantity),
                           qtyFormProps: const QtyFormProps(enableTyping: false),
 
@@ -67,7 +67,8 @@ class SingleCartItem extends ConsumerWidget {
                           onQtyChanged: (value) {
                             cartOperations.updateCartItem(
                               productId,
-                              value as int,
+                              value,
+                              ref,
                             );
                             // todo - implement update cart API
                           },

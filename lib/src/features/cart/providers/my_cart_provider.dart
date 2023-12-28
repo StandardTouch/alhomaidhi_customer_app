@@ -4,14 +4,24 @@ import 'package:alhomaidhi_customer_app/src/features/cart/services/cart_services
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
-  CartDetailsNotifier() : super(CartDetailsModel(quantity: 0));
+  CartDetailsNotifier() : super(CartDetailsModel(isLoading: false));
 
-  void updateCartItem(int productId, int quantity) async {
+  void updateCartItem(int productId, int quantity, WidgetRef ref) async {
     state = state.copyWith(isLoading: true);
     await updateCart(productId.toString(), quantity.toString());
-    state = state.copyWith(
-      quantity: quantity,
-      isLoading: false,
+    final cart = ref.refresh(myCartProvider);
+    cart.whenData(
+      (value) {
+        Future.delayed(
+          const Duration(seconds: 4),
+          () {
+            state = state.copyWith(
+              quantity: quantity,
+              isLoading: false,
+            );
+          },
+        );
+      },
     );
   }
 }
