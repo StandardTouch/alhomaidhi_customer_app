@@ -16,7 +16,6 @@ class MyInvoicesScreen extends ConsumerWidget {
               title: const Text('My Invoices'),
               backgroundColor: Colors.transparent,
             ),
-            backgroundColor: Colors.transparent,
             body: Container(
                 margin: const EdgeInsets.only(top: 20),
                 padding: const EdgeInsets.only(top: 10),

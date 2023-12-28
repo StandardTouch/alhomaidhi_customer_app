@@ -50,7 +50,7 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
       iconSize: 20,
       color: Theme.of(context).highlightColor,
       activeColor: Theme.of(context).colorScheme.onBackground,
-      tabs: [
+      tabs: const [
         GButton(
           icon: FontAwesomeIcons.house,
           text: "Home",

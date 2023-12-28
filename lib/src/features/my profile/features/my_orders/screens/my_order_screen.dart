@@ -43,7 +43,6 @@ class MyOrderScreen extends ConsumerWidget {
               title: const Text('My Orders'),
               forceMaterialTransparency: true,
             ),
-            backgroundColor: Colors.transparent,
             body: Container(
               margin: const EdgeInsets.only(top: 20),
               padding: const EdgeInsets.only(top: 10),
@@ -99,8 +98,13 @@ class MyOrderScreen extends ConsumerWidget {
             ),
           );
         } else {
-          return Center(
-            child: Text(data.errorMessage ?? 'Unknown error'),
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text("No Orders"),
+            ),
+            body: Center(
+              child: Text(data.errorMessage ?? 'Unknown error'),
+            ),
           );
         }
       },
