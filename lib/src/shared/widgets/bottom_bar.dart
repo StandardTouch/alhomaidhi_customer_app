@@ -51,7 +51,7 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
       activeColor: Theme.of(context).colorScheme.onBackground,
       tabs: const [
         GButton(
-          icon: Icons.home,
+          icon: Icons.home_rounded,
           text: "Home",
           borderRadius: BorderRadius.zero,
         ),

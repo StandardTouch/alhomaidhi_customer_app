@@ -1,5 +1,6 @@
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/conversion.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -41,10 +42,11 @@ class ProductCard extends StatelessWidget {
               flex: 4,
               child: Align(
                 alignment: Alignment.center,
-                child: FadeInImage.assetNetwork(
-                  placeholder: Assets.placeHolderImage,
-                  image: imageUrl,
-                  fit: BoxFit.contain,
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  placeholder: (context, url) =>
+                      Image.asset(Assets.placeHolderImage),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
             ),
