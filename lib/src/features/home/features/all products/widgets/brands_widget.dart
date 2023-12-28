@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/brands_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,6 +44,11 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
     _timer = Timer.periodic(duration, (timer) {
       double currentPosition = pos.pixels;
       double maxScrollExtent = pos.maxScrollExtent;
+      logger.d("User scroll direction: ${pos.userScrollDirection.name}");
+      if (pos.userScrollDirection.name != "idle") {
+        _timer.cancel();
+        return;
+      }
 
       // Check if the current position is at the end of the list
       if (currentPosition < maxScrollExtent) {
