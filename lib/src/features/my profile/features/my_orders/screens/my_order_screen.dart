@@ -108,8 +108,9 @@ class MyOrderScreen extends ConsumerWidget {
           );
         }
       },
-      error: (err, stk) => Center(child: Text("$err")),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (err, stk) => Scaffold(body: Center(child: Text("$err"))),
+      loading: () =>
+          Scaffold(body: const Center(child: CircularProgressIndicator())),
     );
   }
 }

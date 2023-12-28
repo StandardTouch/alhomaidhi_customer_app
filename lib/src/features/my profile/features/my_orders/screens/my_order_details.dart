@@ -61,17 +61,23 @@ class MyOrderDetailsScreen extends ConsumerWidget {
                   phoneNumber: phoneNumber,
                 )));
       } else {
-        return Center(
-          child: Text(data.errorMessage!),
+        return Scaffold(
+          body: Center(
+            child: Text(data.errorMessage!),
+          ),
         );
       }
     }, error: (err, stk) {
-      return Center(
-        child: Text("$err"),
+      return Scaffold(
+        body: Center(
+          child: Text("$err"),
+        ),
       );
     }, loading: () {
-      return const Center(
-        child: CircularProgressIndicator(),
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
       );
     });
   }
