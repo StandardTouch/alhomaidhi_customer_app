@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
-class PriceWidget extends StatelessWidget {
+import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class PriceWidget extends ConsumerWidget {
   const PriceWidget({
     super.key,
     required this.value,
@@ -12,7 +16,8 @@ class PriceWidget extends StatelessWidget {
   final bool isDiscount;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cartDetails = ref.watch(cartDetailsProvider);
     return Row(
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -28,12 +33,17 @@ class PriceWidget extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: Text(
-            "SAR $value",
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.normal,
-                  color: isDiscount ? Colors.green[800] : null,
-                ),
+          child: ImageFiltered(
+            imageFilter: (cartDetails.isLoading)
+                ? ImageFilter.blur(sigmaX: 2, sigmaY: 2)
+                : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+            child: Text(
+              "SAR $value",
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.normal,
+                    color: isDiscount ? Colors.green[800] : null,
+                  ),
+            ),
           ),
         ),
       ],

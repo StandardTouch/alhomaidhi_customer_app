@@ -33,82 +33,85 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
     final cartOperations = ref.read(cartDetailsProvider.notifier);
     ref.watch(addressProvider);
 
-    return Scaffold(
-      appBar: const HomaidhiAppbar(),
-      body: productDetails.when(
-        data: (data) {
-          return ListView(
+    return PopScope(
+      canPop: (cart.isLoading ?? false) ? false : true,
+      child: Scaffold(
+        appBar: const HomaidhiAppbar(),
+        body: productDetails.when(
+          data: (data) {
+            return ListView(
+              children: [
+                ProductCarousel(
+                  images: data.message!.images ??
+                      [
+                        Images(
+                          id: 1,
+                          name: "no-image-404",
+                          src: Assets.fallBackProductImage,
+                        )
+                      ],
+                ),
+                ProductWidget1(
+                  productName: data.message!.productDetails!.name!,
+                  priceAfter: data.message!.productDetails!.price!,
+                  priceBefore: data.message!.productDetails!.regularPrice!,
+                  skuNumber: data.message!.productDetails!.sku!,
+                  discountPercentage:
+                      data.message!.productDetails!.discountPercentage!,
+                ),
+                const Gap(10),
+                const ProductWidget2(),
+                const Gap(10),
+                const ProductWidget3(),
+              ],
+            );
+          },
+          error: (err, stk) {
+            return Center(
+              child: (err is HomaidhiException)
+                  ? Text(
+                      "An error Occurred: " + err.message,
+                    )
+                  : Text(
+                      err.toString(),
+                    ),
+            );
+          },
+          loading: () {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
+        bottomNavigationBar: FittedBox(
+          child: Row(
             children: [
-              ProductCarousel(
-                images: data.message!.images ??
-                    [
-                      Images(
-                        id: 1,
-                        name: "no-image-404",
-                        src: Assets.fallBackProductImage,
-                      )
-                    ],
+              ElevatedButton.icon(
+                onPressed: (cart.isLoading ?? false)
+                    ? null
+                    : () {
+                        cartOperations.additemToCart(
+                            int.parse(widget.productId), ref);
+                      },
+                icon: const Icon(Icons.add_shopping_cart),
+                label: Text(
+                    (cart.isLoading ?? false) ? "Item Added" : "Add to cart"),
+                style: ElevatedButton.styleFrom(
+                  shape: const BeveledRectangleBorder(),
+                ),
               ),
-              ProductWidget1(
-                productName: data.message!.productDetails!.name!,
-                priceAfter: data.message!.productDetails!.price!,
-                priceBefore: data.message!.productDetails!.regularPrice!,
-                skuNumber: data.message!.productDetails!.sku!,
-                discountPercentage:
-                    data.message!.productDetails!.discountPercentage!,
+              ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.credit_card),
+                label: const Text("Buy Now"),
+                style: ElevatedButton.styleFrom(
+                  shape: const BeveledRectangleBorder(),
+                  backgroundColor: Theme.of(context).colorScheme.onSecondary,
+                  foregroundColor: Colors.black,
+                ),
               ),
-              const Gap(10),
-              const ProductWidget2(),
-              const Gap(10),
-              const ProductWidget3(),
             ],
-          );
-        },
-        error: (err, stk) {
-          return Center(
-            child: (err is HomaidhiException)
-                ? Text(
-                    "An error Occurred: " + err.message,
-                  )
-                : Text(
-                    err.toString(),
-                  ),
-          );
-        },
-        loading: () {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
-      bottomNavigationBar: FittedBox(
-        child: Row(
-          children: [
-            ElevatedButton.icon(
-              onPressed: (cart.isLoading ?? false)
-                  ? null
-                  : () {
-                      cartOperations.updateCartItem(
-                          int.parse(widget.productId), 1, ref);
-                    },
-              icon: const Icon(Icons.add_shopping_cart),
-              label: Text(
-                  (cart.isLoading ?? false) ? "Item Added" : "Add to cart"),
-              style: ElevatedButton.styleFrom(
-                shape: const BeveledRectangleBorder(),
-              ),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.credit_card),
-              label: const Text("Buy Now"),
-              style: ElevatedButton.styleFrom(
-                shape: const BeveledRectangleBorder(),
-                backgroundColor: Theme.of(context).colorScheme.onSecondary,
-                foregroundColor: Colors.black,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

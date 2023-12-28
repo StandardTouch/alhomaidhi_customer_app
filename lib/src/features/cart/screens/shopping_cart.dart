@@ -105,6 +105,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
               itemCount: data.message!.cart!.length,
               itemBuilder: (ctx, index) {
                 return SingleCartItem(
+                  key: ValueKey(data.message!.cart![index].key!),
                   productImage: data
                       .message!.cart![index].productDetails!.images![0].src!,
                   productName: data.message!.cart![index].productDetails!.name!,
@@ -114,6 +115,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                       data.message!.cart![index].productDetails!.stockQuantity!,
                   productId:
                       data.message!.cart![index].productDetails!.productId!,
+                  cartKey: data.message!.cart![index].key!,
                 );
               },
             ),
@@ -152,11 +154,17 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
             const CartPlaceHolder(),
             const Gap(10),
             ElevatedButton.icon(
-              onPressed: (cartDetails.isLoading ?? false) ? null : () {},
+              onPressed: (cartDetails.isLoading ||
+                      cartDetails.deletingElement["isDeleting"])
+                  ? null
+                  : () {},
               icon: const Icon(Icons.wallet),
-              label: Text((cartDetails.isLoading ?? false)
-                  ? "Updating Cart"
-                  : "Checkout"),
+              label: Text(
+                (cartDetails.isLoading ||
+                        cartDetails.deletingElement["isDeleting"])
+                    ? "Updating Cart"
+                    : "Checkout",
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.onSecondary,
                 foregroundColor: Colors.black,
