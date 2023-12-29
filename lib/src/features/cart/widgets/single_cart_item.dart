@@ -96,13 +96,14 @@ class SingleCartItem extends ConsumerWidget {
                                 ),
                               ),
                               IconButton(
-                                  onPressed: () {
-                                    cartOperations.deleteCartItem(cartKey, ref);
-                                  },
-                                  icon: const Icon(
-                                    Icons.delete,
-                                    color: Colors.grey,
-                                  ))
+                                onPressed: () {
+                                  cartOperations.deleteCartItem(cartKey, ref);
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.grey,
+                                ),
+                              )
                             ],
                           ),
                         ],
