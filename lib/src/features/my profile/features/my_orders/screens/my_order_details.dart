@@ -26,40 +26,42 @@ class MyOrderDetailsScreen extends ConsumerWidget {
         final String phoneNumber = data.message!.billingDetails!.phone!;
 
         return Scaffold(
-            appBar: AppBar(
-              title: const Text('Orders Details'),
-              backgroundColor: Colors.transparent,
-            ),
+          appBar: AppBar(
+            title: const Text('Orders Details'),
             backgroundColor: Colors.transparent,
-            body: Container(
-                margin: const EdgeInsets.only(top: 20),
-                // padding: const EdgeInsets.only(top: 20),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(25),
-                    topLeft: Radius.circular(25),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
+          ),
+          backgroundColor: Colors.transparent,
+          body: Container(
+            margin: const EdgeInsets.only(top: 20),
+            // padding: const EdgeInsets.only(top: 20),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(25),
+                topLeft: Radius.circular(25),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
                 ),
-                child: SingleOrderDetails(
-                  orderId: orderId,
-                  productName: productName,
-                  productUrl: productUrl,
-                  productPrice: productPrice,
-                  orderStatus: orderStatus,
-                  cusName: cusName,
-                  deliveryAddress: deliveryAddress,
-                  phoneNumber: phoneNumber,
-                )));
+              ],
+            ),
+            child: SingleOrderDetails(
+              orderId: orderId,
+              productName: productName,
+              productUrl: productUrl,
+              productPrice: productPrice,
+              orderStatus: orderStatus,
+              cusName: cusName,
+              deliveryAddress: deliveryAddress,
+              phoneNumber: phoneNumber,
+            ),
+          ),
+        );
       } else {
         return Scaffold(
           body: Center(
