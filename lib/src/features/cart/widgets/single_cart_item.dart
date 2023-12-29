@@ -74,8 +74,8 @@ class SingleCartItem extends ConsumerWidget {
                                 qtyFormProps:
                                     const QtyFormProps(enableTyping: false),
 
-                                maxVal:
-                                    100, // todo - add stock quantity as max value
+                                maxVal: stockQty -
+                                    1, // todo - add stock quantity as max value
                                 steps: 1,
                                 minVal: 1,
                                 onQtyChanged: (value) {
