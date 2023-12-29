@@ -1,3 +1,4 @@
+import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -61,9 +62,15 @@ class _ChoosePaymentState extends ConsumerState<ChoosePayment> {
             value: PaymentType.TAMARA,
             onChanged: (_) => _handlePaymentSelection(PaymentType.TAMARA),
             groupValue: paymentType,
-            title: Text(
-              "Tamara",
-              style: Theme.of(context).textTheme.titleSmall,
+            title: Row(
+              children: [
+                Expanded(
+                  child: Image.asset(
+                    Assets.tamaraIcon,
+                  ),
+                ),
+                const Spacer(),
+              ],
             ),
           ),
         ],
