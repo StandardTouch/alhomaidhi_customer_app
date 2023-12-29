@@ -44,7 +44,6 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
     _timer = Timer.periodic(duration, (timer) {
       double currentPosition = pos.pixels;
       double maxScrollExtent = pos.maxScrollExtent;
-      logger.d("User scroll direction: ${pos.userScrollDirection.name}");
       if (pos.userScrollDirection.name != "idle") {
         _timer.cancel();
         return;
