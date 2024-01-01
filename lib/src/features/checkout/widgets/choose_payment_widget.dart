@@ -44,18 +44,24 @@ class _ChoosePaymentState extends ConsumerState<ChoosePayment> {
             value: PaymentType.HYPERGATEWAY,
             onChanged: (_) => _handlePaymentSelection(PaymentType.HYPERGATEWAY),
             groupValue: paymentType,
-            title: Text(
-              "HyperGateway",
-              style: Theme.of(context).textTheme.titleSmall,
+            title: Row(
+              children: [
+                Expanded(
+                  child: Image.asset(Assets.hyperPayLogo),
+                ),
+                const Spacer(),
+              ],
             ),
           ),
           RadioListTile<PaymentType>(
             value: PaymentType.TABBY,
             onChanged: (_) => _handlePaymentSelection(PaymentType.TABBY),
             groupValue: paymentType,
-            title: Text(
-              "Tabby",
-              style: Theme.of(context).textTheme.titleSmall,
+            title: Row(
+              children: [
+                Expanded(child: Image.asset(Assets.tabbyIcon)),
+                const Spacer(),
+              ],
             ),
           ),
           RadioListTile<PaymentType>(
