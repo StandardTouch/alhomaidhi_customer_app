@@ -69,7 +69,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
             ),
             PriceWidget(
               title: "Discount",
-              value: data.message!.cartTotals!.discountTotal!,
+              value: data.message!.cartTotals!.discountTotal ?? 0,
               isDiscount: true,
             ),
             const Divider(),
@@ -79,7 +79,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
             ),
             const Divider(),
             Text(
-              "You will save SAR ${data.message!.cartTotals!.discountTotal!} on this order",
+              "You will save SAR ${data.message!.cartTotals!.discountTotal ?? 0} on this order",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: Colors.green[800],
                   ),
