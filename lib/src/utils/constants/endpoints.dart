@@ -20,6 +20,7 @@ class APIEndpoints {
   static const deleteProfile = "/wp-json/alhomaidhiapp/v2/deactivate_profile";
   static const updateCartItems = "/wp-json/alhomaidhiapp/v2/cart_update";
   static const deleteCartItems = "/wp-json/alhomaidhiapp/v2/delete_cart";
+  static const sendFcmToken = "/wp-json/alhomaidhiapp/v2/notification_token";
 }
 
 // logger is used for error handling
