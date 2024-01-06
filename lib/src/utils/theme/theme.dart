@@ -39,6 +39,7 @@ TextTheme getTextTheme({required bool isDark}) {
     ),
     labelLarge: const TextStyle(color: Colors.black, fontSize: 16),
     labelMedium: const TextStyle(color: Colors.grey, fontSize: 16),
+    labelSmall: const TextStyle(color: Colors.black, fontSize: 13),
   );
 }
 

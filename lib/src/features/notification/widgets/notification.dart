@@ -1,4 +1,3 @@
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -81,20 +80,19 @@ class SingleNotification extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Expanded(
-                flex: 1,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Column(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    getStatus(title!),
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Column(
                         children: [
-                          Text(
-                            getStatus(title!),
-                            style: Theme.of(context).textTheme.labelLarge,
-                          ),
-                          Gap(2),
+                          const Gap(2),
                           Image.network(
                             imageUrl!,
                             fit: BoxFit.fill,
@@ -103,36 +101,38 @@ class SingleNotification extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              timeAgo(
-                                sentTime,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Gap(140),
+                              Text(
+                                timeAgo(
+                                  sentTime,
+                                ),
+                                style: Theme.of(context).textTheme.labelMedium,
                               ),
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ),
-                          ],
-                        ),
-                        Gap(30),
-                        Text(
-                          extractEnglish(body!),
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(color: Theme.of(context).primaryColor),
-                        ),
-                        Gap(15),
-                        Text(body!,
-                            style: Theme.of(context).textTheme.labelMedium),
-                      ],
-                    ),
-                  ],
-                ),
+                            ],
+                          ),
+                          const Gap(15),
+                          Text(
+                            extractEnglish(body!),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                    color: Theme.of(context).primaryColor),
+                          ),
+                          Gap(1),
+                          Text(body!,
+                              style: Theme.of(context).textTheme.labelMedium),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),

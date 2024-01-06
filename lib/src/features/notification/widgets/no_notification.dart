@@ -9,21 +9,35 @@ class NoNotification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(8),
-      decoration: BoxDecoration(),
+      margin: EdgeInsets.symmetric(vertical: 60, horizontal: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             height: DeviceInfo.getDeviceHeight(context) * 0.08,
           ),
-          Text("No Notification"),
+          Text("No Notification!",
+              style: Theme.of(context).textTheme.bodyLarge),
           SizedBox(
             height: DeviceInfo.getDeviceHeight(context) * 0.08,
           ),
           Center(
-              child:
-                  Text("We will let you know once we have something for you")),
+              child: Text(
+            "We will let you know once we have something for you",
+            style: Theme.of(context).textTheme.labelSmall,
+          )),
           SizedBox(
             height: DeviceInfo.getDeviceHeight(context) * 0.08,
           ),

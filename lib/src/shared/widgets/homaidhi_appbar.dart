@@ -33,7 +33,7 @@ class HomaidhiAppbar extends StatelessWidget implements PreferredSizeWidget {
             context.push("/notifications");
           },
           icon: Icon(
-            Icons.notification_important_outlined,
+            Icons.notifications_on,
             color: Theme.of(context).primaryColor,
           ),
         ),
