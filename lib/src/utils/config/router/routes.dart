@@ -14,8 +14,10 @@ import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_or
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/profile/screens/my_profile_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/search/screens/search_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/signup_screen.dart';
+import 'package:alhomaidhi_customer_app/src/shared/screens/network_error_screen.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/bottom_bar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
+import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -52,12 +54,16 @@ final router = GoRouter(
     GoRoute(
       path: "/",
       redirect: (context, state) async {
-        bool isLoggedIn = await AuthHelper.isUserLoggedIn();
-        logger.d(isLoggedIn);
-        if (isLoggedIn) {
-          return "/home";
-        } else {
-          return "/login";
+        try {
+          bool isLoggedIn = await AuthHelper.isUserLoggedIn();
+          logger.d(isLoggedIn);
+          if (isLoggedIn) {
+            return "/home";
+          } else {
+            return "/login";
+          }
+        } on HomaidhiException catch (_) {
+          return "/network_error";
         }
       },
       pageBuilder: (ctx, state) => buildPageWithDefaultTransition(
@@ -91,6 +97,15 @@ final router = GoRouter(
         context: context,
         state: state,
         child: const BillingAddress(),
+      ),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
+      path: "/network_error",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const NetworkErrorScreen(),
       ),
       parentNavigatorKey: _rootNavigatorKey,
     ),

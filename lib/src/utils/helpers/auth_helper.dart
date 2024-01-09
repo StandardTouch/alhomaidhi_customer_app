@@ -1,5 +1,6 @@
 import 'package:alhomaidhi_customer_app/src/shared/models/auth_model.dart';
 import 'package:alhomaidhi_customer_app/src/shared/services/auth_service.dart';
+import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthDetails {
@@ -17,13 +18,20 @@ class AuthHelper {
     const storage = FlutterSecureStorage();
     final token = await storage.read(key: "token");
     final userId = await storage.read(key: "userId");
-
-    AuthResponseModel response =
-        await verifyToken(token ?? "notoken", userId ?? "0");
-    if (response.status == "DELAPP00") {
-      return true;
-    } else {
-      return false;
+    try {
+      AuthResponseModel response =
+          await verifyToken(token ?? "notoken", userId ?? "0");
+      if (response.status == "DELAPP00") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      if (err is HomaidhiException) {
+        throw HomaidhiException(status: err.status, message: err.message);
+      } else {
+        throw Exception(err);
+      }
     }
   }
 

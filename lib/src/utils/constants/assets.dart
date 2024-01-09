@@ -16,4 +16,5 @@ class Assets {
 
   static const fallBackProductImage =
       "https://alhomaidhigroup.com/wp-content/uploads/2023/12/no-image-found-1.png";
+  static const errorImage = "assets/images/error.png";
 }
