@@ -1,6 +1,7 @@
 import 'package:alhomaidhi_customer_app/src/features/brands/screens/all_brands_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/brands/screens/brand_products.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/screens/shopping_cart.dart';
+import 'package:alhomaidhi_customer_app/src/features/checkout/screens/checkout_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/screens/home_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/models/single_product_model.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/screens/product_details_screen.dart';
@@ -136,6 +137,14 @@ final router = GoRouter(
         state: state,
         child: const AllBrandScreen(),
       ),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+
+    GoRoute(
+      path: "/checkout/:totalBal",
+      name: "checkout",
+      builder: (context, state) =>
+          CheckoutScreen(totalBal: state.pathParameters["totalBal"]!),
       parentNavigatorKey: _rootNavigatorKey,
     ),
     GoRoute(

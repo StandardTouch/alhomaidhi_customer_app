@@ -10,6 +10,9 @@ class Assets {
   static const placeHolderImage = "assets/images/placeholder_image.png";
   static const invoice = "assets/images/Cheque.png";
   static const protectIcon = "assets/images/Protect.png";
+  static const tamaraIcon = "assets/images/EN Colored widget.png";
+  static const tabbyIcon = "assets/images/tabby_logo.png";
+  static const hyperPayLogo = "assets/images/Hyperpay-logo.png";
 
   static const fallBackProductImage =
       "https://alhomaidhigroup.com/wp-content/uploads/2023/12/no-image-found-1.png";

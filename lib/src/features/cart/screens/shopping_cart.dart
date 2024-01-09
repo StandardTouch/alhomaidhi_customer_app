@@ -3,6 +3,7 @@ import 'package:alhomaidhi_customer_app/src/features/cart/widgets/cart_placehold
 import 'package:alhomaidhi_customer_app/src/features/cart/widgets/price_widget.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/widgets/single_cart_item.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets/address_widget.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,7 +22,6 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
   Widget build(BuildContext context) {
     final cart = ref.watch(myCartProvider);
     final cartDetails = ref.watch(cartDetailsProvider);
-    final address = ref.watch(addressProvider);
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
@@ -32,73 +32,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
           padding: const EdgeInsets.all(10),
           shrinkWrap: true,
           children: [
-            address.when(
-                data: (data) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        (data.message!.firstName != "" &&
-                                data.message!.lastName != "")
-                            ? "Delivered to: ${data.message!.firstName!} ${data.message!.lastName!}"
-                            : "Delivered to User",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      const Gap(5),
-                    ],
-                  );
-                },
-                error: (err, stk) => Text(
-                      "An error occurred $err",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                loading: () => const LinearProgressIndicator()),
-            address.when(
-                data: (data) {
-                  return Text(
-                    (data.message!.address1 != "" &&
-                            data.message!.address2 != "")
-                        ? "${data.message!.address1}, ${data.message!.address2}}"
-                        : "Please add address",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Colors.grey[600],
-                          fontWeight: FontWeight.normal,
-                        ),
-                  );
-                },
-                error: (err, stk) => SizedBox.shrink(),
-                loading: () => LinearProgressIndicator()),
-            address.when(
-              data: (data) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      (data.message!.city != "" && data.message!.country != "")
-                          ? "${data.message!.city}, ${data.message!.country!}"
-                          : "",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.normal,
-                          ),
-                    ),
-                    TextButton.icon(
-                        onPressed: () {
-                          context.push("/address");
-                        },
-                        icon: const Icon(Icons.change_circle),
-                        label: Text(
-                          "Change",
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ))
-                  ],
-                );
-              },
-              error: (err, stk) => const Text("error occurred"),
-              loading: () => const LinearProgressIndicator(),
-            ),
+            const AddressWidget(),
             ListView.builder(
               shrinkWrap: true,
               physics: const ScrollPhysics(),
@@ -135,7 +69,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
             ),
             PriceWidget(
               title: "Discount",
-              value: data.message!.cartTotals!.discountTotal!,
+              value: data.message!.cartTotals!.discountTotal ?? 0,
               isDiscount: true,
             ),
             const Divider(),
@@ -145,7 +79,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
             ),
             const Divider(),
             Text(
-              "You will save SAR ${data.message!.cartTotals!.discountTotal!} on this order",
+              "You will save SAR ${data.message!.cartTotals!.discountTotal ?? 0} on this order",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: Colors.green[800],
                   ),
@@ -157,7 +91,11 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
               onPressed: (cartDetails.isLoading ||
                       cartDetails.deletingElement["isDeleting"])
                   ? null
-                  : () {},
+                  : () {
+                      context.pushNamed("checkout", pathParameters: {
+                        "totalBal": data.message!.cartTotals!.total!
+                      });
+                    },
               icon: const Icon(Icons.wallet),
               label: Text(
                 (cartDetails.isLoading ||
