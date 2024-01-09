@@ -4,7 +4,6 @@ import 'package:alhomaidhi_customer_app/src/features/home/features/product%20det
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_carousel.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_widget_1.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_widget_2.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_widget_3.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
@@ -34,7 +33,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
     ref.watch(addressProvider);
 
     return PopScope(
-      canPop: (cart.isLoading ?? false) ? false : true,
+      canPop: (cart.isLoading) ? false : true,
       child: Scaffold(
         appBar: const HomaidhiAppbar(),
         body: productDetails.when(
@@ -61,8 +60,6 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
                 ),
                 const Gap(10),
                 const ProductWidget2(),
-                const Gap(10),
-                const ProductWidget3(),
               ],
             );
           },
@@ -78,39 +75,24 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
             );
           },
           loading: () {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           },
         ),
-        bottomNavigationBar: FittedBox(
-          child: Row(
-            children: [
-              ElevatedButton.icon(
-                onPressed: (cart.isLoading ?? false)
-                    ? null
-                    : () {
-                        cartOperations.additemToCart(
-                            int.parse(widget.productId), ref);
-                      },
-                icon: const Icon(Icons.add_shopping_cart),
-                label: Text(
-                    (cart.isLoading ?? false) ? "Item Added" : "Add to cart"),
-                style: ElevatedButton.styleFrom(
-                  shape: const BeveledRectangleBorder(),
-                ),
-              ),
-              ElevatedButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.credit_card),
-                label: const Text("Buy Now"),
-                style: ElevatedButton.styleFrom(
-                  shape: const BeveledRectangleBorder(),
-                  backgroundColor: Theme.of(context).colorScheme.onSecondary,
-                  foregroundColor: Colors.black,
-                ),
-              ),
-            ],
+        bottomNavigationBar: ElevatedButton.icon(
+          onPressed: (cart.isLoading)
+              ? null
+              : () {
+                  cartOperations.additemToCart(
+                      int.parse(widget.productId), ref);
+                },
+          icon: const Icon(Icons.add_shopping_cart),
+          label: Text((cart.isLoading) ? "Item Added" : "Add to cart"),
+          style: ElevatedButton.styleFrom(
+            shape: const BeveledRectangleBorder(),
+            backgroundColor: Theme.of(context).colorScheme.onSecondary,
+            foregroundColor: Colors.black,
           ),
         ),
       ),

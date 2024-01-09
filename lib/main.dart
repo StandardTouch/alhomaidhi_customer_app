@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Alhomaidhi Customer App',
+      title: 'Alhomaidhi',
       theme: lightThemeData,
       darkTheme: darkThemeData,
       themeMode: EasyDynamicTheme.of(context).themeMode,

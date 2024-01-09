@@ -4,28 +4,9 @@ import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_or
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 
 class MyOrderScreen extends ConsumerWidget {
   const MyOrderScreen({super.key});
-  String getDeliveryDate(orderPlaceDate, orderModifiedDate, orderStatus) {
-    DateTime placedDate = DateTime.parse(orderPlaceDate);
-    DateTime modifiedDate = DateTime.parse(orderModifiedDate);
-    String status = orderStatus;
-
-    String formatDate(DateTime dateTime) {
-      return DateFormat('EEE MMM d').format(dateTime);
-    }
-
-    DateTime deliveryDate = placedDate.add(const Duration(days: 5));
-    if (status == 'wc-processing') {
-      return "To be delivered on, ${formatDate(deliveryDate)}";
-    } else if (status == 'wc-completed') {
-      return "Delivered on, ${formatDate(modifiedDate)}";
-    } else {
-      return "To be delivered on, ${formatDate(deliveryDate)}";
-    }
-  }
 
   String formatDate(DateTime dateTime) {
     return "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
@@ -64,10 +45,6 @@ class MyOrderScreen extends ConsumerWidget {
               child: ListView.builder(
                 itemCount: data.message!.length,
                 itemBuilder: (context, index) {
-                  String? orderStatusDate = getDeliveryDate(
-                      data.message![index].orderDetails!.orderPlacedDate,
-                      data.message![index].orderDetails!.orderDateModified,
-                      data.message![index].orderDetails!.orderStatus);
                   String? orderId = data.message![index].orderDetails!.orderId;
 
                   return ListView.builder(
@@ -78,7 +55,7 @@ class MyOrderScreen extends ConsumerWidget {
                       var item = data.message![index].items![indexItem];
                       return SingleOrderCard(
                         imageUrl: item.image,
-                        title: orderStatusDate,
+                        title: "Order Under Process",
                         subtitle: item.itemName ?? 'No Title',
                         orderStatus:
                             data.message![index].orderDetails!.orderStatus,
