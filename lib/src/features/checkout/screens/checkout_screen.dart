@@ -1,39 +1,17 @@
-import 'package:alhomaidhi_customer_app/src/features/checkout/widgets/choose_payment_widget.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/address_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
-import 'package:tamara_sdk/tamara_sdk.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class CheckoutScreen extends ConsumerStatefulWidget {
-  const CheckoutScreen({
-    super.key,
-    required this.totalBal,
-  });
-  final String totalBal;
+class CheckoutScreen extends ConsumerWidget {
+  const CheckoutScreen({super.key, required this.token});
+  final String token;
 
   @override
-  ConsumerState<CheckoutScreen> createState() => _CheckoutScreenState();
-}
-
-class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Checkout"),
-        forceMaterialTransparency: true,
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(10),
-        children: [
-          const AddressWidget(),
-          const Gap(10),
-          ChoosePayment(
-            onSelected: (value) {},
-          ),
-        ],
+      body: WebView(
+        initialUrl:
+            "https://alhomdelivery.standardtouch.com/custom-checkout/?mo_jwt_token=$token",
       ),
     );
   }

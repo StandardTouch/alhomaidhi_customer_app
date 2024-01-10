@@ -3,7 +3,6 @@ import 'package:alhomaidhi_customer_app/src/features/brands/screens/brand_produc
 import 'package:alhomaidhi_customer_app/src/features/cart/screens/shopping_cart.dart';
 import 'package:alhomaidhi_customer_app/src/features/checkout/screens/checkout_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/screens/home_screen.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/models/single_product_model.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/screens/product_details_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/screens/billing_address.dart';
@@ -144,7 +143,15 @@ final router = GoRouter(
         productIndex: int.parse(state.pathParameters["productIndex"]!),
       ),
       parentNavigatorKey: _rootNavigatorKey,
-    ), //define here
+    ),
+    GoRoute(
+      path: "/checkout/:token",
+      name: "checkout",
+      builder: (context, state) =>
+          CheckoutScreen(token: state.pathParameters["token"]!),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+    //define here
     GoRoute(
       path: "/all_brands",
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
@@ -155,13 +162,6 @@ final router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
     ),
 
-    GoRoute(
-      path: "/checkout/:totalBal",
-      name: "checkout",
-      builder: (context, state) =>
-          CheckoutScreen(totalBal: state.pathParameters["totalBal"]!),
-      parentNavigatorKey: _rootNavigatorKey,
-    ),
     GoRoute(
       path: "/product_details/:productId",
       name: "product_details_screen",

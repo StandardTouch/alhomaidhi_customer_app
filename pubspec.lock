@@ -877,14 +877,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0+1"
-  tamara_sdk:
-    dependency: "direct main"
-    description:
-      name: tamara_sdk
-      sha256: "026abf6ad5d3aa1e23de95aa9c832d06baf87492044bd467eeee9020eff6e851"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.1"
   term_glyph:
     dependency: transitive
     description:
@@ -1038,7 +1030,7 @@ packages:
     source: hosted
     version: "0.3.0"
   webview_flutter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webview_flutter
       sha256: "392c1d83b70fe2495de3ea2c84531268d5b8de2de3f01086a53334d8b6030a88"

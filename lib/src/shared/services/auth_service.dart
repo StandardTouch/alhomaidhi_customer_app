@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alhomaidhi_customer_app/src/shared/models/auth_model.dart';
 import 'package:alhomaidhi_customer_app/src/utils/config/dio/dio_client.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
@@ -30,5 +32,26 @@ Future<AuthResponseModel> verifyToken(String token, String userId) async {
     }
     logger.e("Error from auth_service.dart: $err");
     throw Exception("$err");
+  }
+}
+
+Future<Map<String, dynamic>> getPreCheckoutToken(
+    String userName, String password) async {
+  try {
+    final response = await dioClient.post(
+      APIEndpoints.getPreCheckoutToken,
+      data: {
+        "username": userName,
+        "password": password,
+      },
+    );
+    if (response.statusCode == HttpStatus.ok) {
+      return response.data;
+    } else {
+      throw HomaidhiException(status: "APP122", message: "Invalid credentials");
+    }
+  } on DioException catch (err) {
+    logger.e("Invalid Credentials Passed", error: err);
+    throw DioException(requestOptions: err.requestOptions);
   }
 }

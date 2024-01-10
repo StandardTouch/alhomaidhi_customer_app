@@ -37,7 +37,7 @@ class CartPlaceHolder extends StatelessWidget {
               children: [
                 FittedBox(
                     child: Text(
-                  "Safe and secure payments. Easy Returns.",
+                  "Safe and secure payments.",
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                   ),
