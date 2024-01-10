@@ -209,7 +209,7 @@ class Images {
 
 class CartTotals {
   String? subtotal;
-  double? subtotalTax;
+  int? subtotalTax;
   String? shippingTotal;
   int? shippingTax;
   int? discountTotal;
@@ -235,7 +235,7 @@ class CartTotals {
     if (json["subtotal"] is String) {
       subtotal = json["subtotal"];
     }
-    if (json["subtotal_tax"] is double) {
+    if (json["subtotal_tax"] is int) {
       subtotalTax = json["subtotal_tax"];
     }
     if (json["shipping_total"] is String) {
