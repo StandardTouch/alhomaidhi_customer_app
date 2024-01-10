@@ -22,7 +22,7 @@ class ShoppingCartScreen extends ConsumerStatefulWidget {
 class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
   void onCheckout() async {
     try {
-      final response = await getPreCheckoutToken("nisashaik", "Kahkashan@123s");
+      final response = await getPreCheckoutToken("nisashaik", "Kahkashan@123");
       final String token = response["jwt_token"] as String;
       logger.i("This is the token: $token");
       if (!context.mounted) return;
