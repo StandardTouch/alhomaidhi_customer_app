@@ -25,6 +25,7 @@ class ProductDetailsScreen extends ConsumerStatefulWidget {
 }
 
 class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
+  int? stock;
   @override
   Widget build(BuildContext context) {
     final productDetails = ref.watch(productDetailsProvider(widget.productId));
@@ -38,6 +39,9 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
         appBar: const HomaidhiAppbar(),
         body: productDetails.when(
           data: (data) {
+            setState(() {
+              stock = data.message!.productDetails!.stockQuantity;
+            });
             return ListView(
               children: [
                 ProductCarousel(
@@ -81,14 +85,18 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
           },
         ),
         bottomNavigationBar: ElevatedButton.icon(
-          onPressed: (cart.isLoading)
+          onPressed: (cart.isLoading || stock == 1)
               ? null
               : () {
                   cartOperations.additemToCart(
                       int.parse(widget.productId), ref);
                 },
           icon: const Icon(Icons.add_shopping_cart),
-          label: Text((cart.isLoading) ? "Item Added" : "Add to cart"),
+          label: Text((cart.isLoading)
+              ? "Item Added"
+              : (stock == 1)
+                  ? "No Stock Left"
+                  : "Add to cart"),
           style: ElevatedButton.styleFrom(
             shape: const BeveledRectangleBorder(),
             backgroundColor: Theme.of(context).colorScheme.onSecondary,
