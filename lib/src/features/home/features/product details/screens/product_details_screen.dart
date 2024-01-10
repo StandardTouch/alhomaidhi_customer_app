@@ -25,7 +25,8 @@ class ProductDetailsScreen extends ConsumerStatefulWidget {
 }
 
 class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
-  int? stock;
+  bool isStockReady = false;
+  int stock = 0;
   @override
   Widget build(BuildContext context) {
     final productDetails = ref.watch(productDetailsProvider(widget.productId));
@@ -40,7 +41,8 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
         body: productDetails.when(
           data: (data) {
             setState(() {
-              stock = data.message!.productDetails!.stockQuantity;
+              stock = data.message!.productDetails!.stockQuantity!;
+              isStockReady = true;
             });
             return ListView(
               children: [
@@ -71,7 +73,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
             return Center(
               child: (err is HomaidhiException)
                   ? Text(
-                      "An error Occurred: " + err.message,
+                      "An error Occurred: ${err.message}",
                     )
                   : Text(
                       err.toString(),
@@ -85,7 +87,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
           },
         ),
         bottomNavigationBar: ElevatedButton.icon(
-          onPressed: (cart.isLoading || stock == 1)
+          onPressed: (cart.isLoading || stock <= 1)
               ? null
               : () {
                   cartOperations.additemToCart(
@@ -94,9 +96,11 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
           icon: const Icon(Icons.add_shopping_cart),
           label: Text((cart.isLoading)
               ? "Item Added"
-              : (stock == 1)
-                  ? "No Stock Left"
-                  : "Add to cart"),
+              : (!isStockReady)
+                  ? "Calculating Stock"
+                  : (stock <= 1)
+                      ? "No Stock Left"
+                      : "Add to cart"),
           style: ElevatedButton.styleFrom(
             shape: const BeveledRectangleBorder(),
             backgroundColor: Theme.of(context).colorScheme.onSecondary,
