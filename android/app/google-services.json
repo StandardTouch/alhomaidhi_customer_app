@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "816749310905",
-    "project_id": "al-homaidi-notification-app",
-    "storage_bucket": "al-homaidi-notification-app.appspot.com"
+    "project_number": "441124926151",
+    "project_id": "alhomaidhi-34ab9",
+    "storage_bucket": "alhomaidhi-34ab9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:816749310905:android:4f44a0de8dc97815083c68",
+        "mobilesdk_app_id": "1:441124926151:android:9cacc4758941d8f7d484e2",
         "android_client_info": {
           "package_name": "com.example.alhomaidhi_customer_app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD5pTN-xaPVVo1RWfLzofhaY8vDVATo6H0"
+          "current_key": "AIzaSyAlcCZlAzInktsRBpLgwjfmYm6J2rfpFUg"
         }
       ],
       "services": {

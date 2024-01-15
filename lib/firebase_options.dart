@@ -17,24 +17,15 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -52,11 +43,39 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBIhIdglr-bgLVBWldTgjs4Bf4Fg52QXZM',
+    appId: '1:441124926151:web:7f979f6afd5a3b6bd484e2',
+    messagingSenderId: '441124926151',
+    projectId: 'alhomaidhi-34ab9',
+    authDomain: 'alhomaidhi-34ab9.firebaseapp.com',
+    storageBucket: 'alhomaidhi-34ab9.appspot.com',
+    measurementId: 'G-WQ8VG4ZGHQ',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD5pTN-xaPVVo1RWfLzofhaY8vDVATo6H0',
-    appId: '1:816749310905:android:4f44a0de8dc97815083c68',
-    messagingSenderId: '816749310905',
-    projectId: 'al-homaidi-notification-app',
-    storageBucket: 'al-homaidi-notification-app.appspot.com',
+    apiKey: 'AIzaSyAlcCZlAzInktsRBpLgwjfmYm6J2rfpFUg',
+    appId: '1:441124926151:android:9cacc4758941d8f7d484e2',
+    messagingSenderId: '441124926151',
+    projectId: 'alhomaidhi-34ab9',
+    storageBucket: 'alhomaidhi-34ab9.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyC30rmuhe0G9MrM9W0ej0LLlxZfRELryUo',
+    appId: '1:441124926151:ios:93e8969658fdb042d484e2',
+    messagingSenderId: '441124926151',
+    projectId: 'alhomaidhi-34ab9',
+    storageBucket: 'alhomaidhi-34ab9.appspot.com',
+    iosBundleId: 'com.example.alhomaidhiCustomerApp',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyC30rmuhe0G9MrM9W0ej0LLlxZfRELryUo',
+    appId: '1:441124926151:ios:e9ac2e70e40f92f4d484e2',
+    messagingSenderId: '441124926151',
+    projectId: 'alhomaidhi-34ab9',
+    storageBucket: 'alhomaidhi-34ab9.appspot.com',
+    iosBundleId: 'com.example.alhomaidhiCustomerApp.RunnerTests',
   );
 }

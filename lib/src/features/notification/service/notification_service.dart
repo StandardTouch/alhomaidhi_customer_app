@@ -44,7 +44,7 @@ class NotificationService {
         await _sendTokenToServer(fcmToken);
       }
     }
-
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
     _setUpMessageListeners(fcm);
   }
 
@@ -87,11 +87,29 @@ class NotificationService {
     await prefs.setStringList('saved_notifications', notificationsJson);
   }
 
-  static Future<void> _firebaseMessagingBackgroundHandler(
+  static Future<void> firebaseMessagingBackgroundHandler(
       RemoteMessage message) async {
-    // Handle background messages
-    debugPrint('Background message: ${message.notification?.title}');
+    print("Handling a background message: ${message.messageId}");
+
+    if (message.data.isNotEmpty) {
+      final notification = FirebaseNotification.fromRemoteMessage(message);
+      await _saveNotificationInBackground(notification);
+    }
   }
+
+  static Future<void> _saveNotificationInBackground(
+      FirebaseNotification notification) async {
+    final prefs = await SharedPreferences.getInstance();
+    final notificationsJson = prefs.getStringList('saved_notifications') ?? [];
+    notificationsJson.add(json.encode(notification.toJson()));
+    await prefs.setStringList('saved_notifications', notificationsJson);
+  }
+
+  // static Future<void> _firebaseMessagingBackgroundHandler(
+  //     RemoteMessage message) async {
+  //   // Handle background messages
+  //   debugPrint('Background message: ${message.notification?.title}');
+  // }
 
   Future<List<FirebaseNotification>> getSavedNotifications() async {
     final prefs = await SharedPreferences.getInstance();
