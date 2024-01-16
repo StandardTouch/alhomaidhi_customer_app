@@ -11,7 +11,7 @@ class CheckoutScreen extends ConsumerWidget {
     return Scaffold(
       body: WebView(
         initialUrl:
-            "https://alhomdelivery.standardtouch.com/custom-checkout/?mo_jwt_token=$token",
+            "https://alhomdelivery.standardtouch.com/custom-checkout?mo_jwt_token=$token",
       ),
     );
   }
