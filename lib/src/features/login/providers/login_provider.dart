@@ -45,7 +45,6 @@ class LoginNotifier extends StateNotifier<LoginModel> {
             type: SNACKBARTYPE.error,
           );
         }
-        state = state.copyWith(isButtonLoading: false);
       }
     } catch (err) {
       if (!context.mounted) {
@@ -56,6 +55,7 @@ class LoginNotifier extends StateNotifier<LoginModel> {
         message: "Server Error: Please try again later",
         type: SNACKBARTYPE.error,
       );
+    } finally {
       state = state.copyWith(isButtonLoading: false);
     }
   }
@@ -89,15 +89,18 @@ class LoginNotifier extends StateNotifier<LoginModel> {
           type: SNACKBARTYPE.error,
         );
       }
-
-      state = state.copyWith(isVerificationLoading: false);
     } catch (err) {
       getSnackBar(
         context: context,
         message: "$err",
         type: SNACKBARTYPE.error,
       );
-      state = state.copyWith(isVerificationLoading: false);
+    } finally {
+      state = state.copyWith(
+        isVerificationLoading: false,
+        isOTPVisible: false,
+        phoneNumber: "",
+      );
     }
   }
   // verify otp end

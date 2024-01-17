@@ -23,9 +23,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
     pinputFocus.dispose();
+    super.dispose();
   }
 
   @override

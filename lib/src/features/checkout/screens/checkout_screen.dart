@@ -9,6 +9,9 @@ class CheckoutScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Checkout"),
+      ),
       body: WebView(
         initialUrl:
             "https://alhomdelivery.standardtouch.com/custom-checkout?mo_jwt_token=$token",
