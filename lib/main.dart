@@ -1,8 +1,8 @@
 import 'package:alhomaidhi_customer_app/firebase_options.dart';
+import 'package:alhomaidhi_customer_app/src/features/notification/provider/provider.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/theme/theme.dart';
 import 'package:alhomaidhi_customer_app/src/utils/config/router/routes.dart';
-import 'package:dio/dio.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
