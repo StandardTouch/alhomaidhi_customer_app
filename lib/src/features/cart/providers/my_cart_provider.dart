@@ -1,6 +1,7 @@
 import 'package:alhomaidhi_customer_app/src/features/cart/models/cart_details_model.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/models/my_cart_response_model.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/services/cart_services.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,7 +37,13 @@ class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
     );
   }
 
-  // todo - addd functionality in deleteCartItem
+  void checkAddress(WidgetRef ref) async {
+    final address = await ref.read(addressProvider.future);
+    if (address.message!.address1 != "") {
+      state = state.copyWith(isAddressPresent: true);
+    }
+  }
+
   void deleteCartItem(String cartKey, WidgetRef ref) async {
     logger.d("Cart Key: $cartKey");
 

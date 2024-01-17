@@ -2,6 +2,7 @@ import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_prov
 import 'package:alhomaidhi_customer_app/src/features/cart/widgets/cart_placeholder.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/widgets/price_widget.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/widgets/single_cart_item.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:alhomaidhi_customer_app/src/shared/services/auth_service.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/address_widget.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/top_snackbar.dart';
@@ -37,6 +38,12 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
         type: SNACKBARTYPE.error,
       );
     }
+  }
+
+  @override
+  void initState() {
+    ref.read(cartDetailsProvider.notifier).checkAddress(ref);
+    super.initState();
   }
 
   @override
@@ -112,7 +119,8 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
               const Gap(10),
               ElevatedButton.icon(
                 onPressed: (cartDetails.isLoading ||
-                        cartDetails.deletingElement["isDeleting"])
+                        cartDetails.deletingElement["isDeleting"] ||
+                        !cartDetails.isAddressPresent)
                     ? null
                     : onCheckout,
                 icon: const Icon(Icons.wallet),
@@ -120,7 +128,9 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                   (cartDetails.isLoading ||
                           cartDetails.deletingElement["isDeleting"])
                       ? "Updating Cart"
-                      : "Checkout",
+                      : (!cartDetails.isAddressPresent)
+                          ? "Address Not Provided"
+                          : "Checkout",
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.onSecondary,
