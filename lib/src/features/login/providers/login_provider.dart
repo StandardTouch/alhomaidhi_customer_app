@@ -101,6 +101,7 @@ class LoginNotifier extends StateNotifier<LoginModel> {
         isOTPVisible: false,
         phoneNumber: "",
       );
+      // fixed
     }
   }
   // verify otp end
