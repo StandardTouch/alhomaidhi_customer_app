@@ -29,8 +29,13 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
       ref.read(isLoadingProvider.notifier).state = true;
       context.go("/cart");
       // ignore: unused_result
-      await ref.refresh(myCartProvider.future);
-      ref.read(isLoadingProvider.notifier).state = false;
+      try {
+        await ref.refresh(myCartProvider.future);
+        // ignore: empty_catches
+      } catch (err) {
+      } finally {
+        ref.read(isLoadingProvider.notifier).state = false;
+      }
     } else if (index == 3) {
       context.go("/profile");
     } else {
