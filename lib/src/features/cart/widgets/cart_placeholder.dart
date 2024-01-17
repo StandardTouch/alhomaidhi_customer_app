@@ -10,6 +10,8 @@ class CartPlaceHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 70,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: const Color(0XFFF5F5F5),
@@ -18,40 +20,37 @@ class CartPlaceHolder extends StatelessWidget {
         horizontal: 10,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Image.asset(
-                Assets.protectIcon,
-                fit: BoxFit.contain,
-              ),
+          Opacity(
+            opacity: 0.7,
+            child: Image.asset(
+              Assets.protectIcon,
+              fit: BoxFit.contain,
+              width: 50,
+              height: 50,
             ),
           ),
-          const Gap(5),
-          const Expanded(
-            flex: 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FittedBox(
-                    child: Text(
-                  "Safe and secure payments.",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                  ),
-                )),
-                FittedBox(
-                  child: Text(
-                    "100% Authentic Product.",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
+          const Gap(15),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Safe and secure payments.",
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Colors.grey[600],
                 ),
-              ],
-            ),
+              ),
+              Text(
+                "100% Authentic Product.",
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Colors.grey[600],
+                ),
+              ),
+            ],
           ),
         ],
       ),

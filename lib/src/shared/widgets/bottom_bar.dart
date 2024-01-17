@@ -1,5 +1,6 @@
 import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
+import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,7 @@ class HomaidhiBottomBar extends ConsumerStatefulWidget {
 
 class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
   int _index = 0;
-  void goToScreen(int index) {
+  void goToScreen(int index) async {
     if (index == 0) {
       ref.read(productQueryProvider.notifier).updateSearch("");
       context.go("/home");
@@ -23,8 +24,10 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
       ref.read(productQueryProvider.notifier).updateSearch("st");
       context.go("/search");
     } else if (index == 2) {
-      ref.invalidate(myCartProvider);
+      ref.read(isLoadingProvider.notifier).state = true;
       context.go("/cart");
+      await ref.refresh(myCartProvider.future);
+      ref.read(isLoadingProvider.notifier).state = false;
     } else if (index == 3) {
       context.go("/profile");
     } else {

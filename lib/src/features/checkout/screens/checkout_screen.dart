@@ -13,6 +13,7 @@ class CheckoutScreen extends ConsumerWidget {
         title: const Text("Checkout"),
       ),
       body: WebView(
+        javascriptMode: JavascriptMode.unrestricted,
         initialUrl:
             "https://alhomdelivery.standardtouch.com/custom-checkout?mo_jwt_token=$token",
       ),
