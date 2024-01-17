@@ -24,9 +24,9 @@ Future multipleRegistration() async {
 }
 
 void main() async {
-  await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+  await dotenv.load();
+  await FlutterDownloader.initialize(debug: false, ignoreSsl: true);
   multipleRegistration();
 
   runApp(
