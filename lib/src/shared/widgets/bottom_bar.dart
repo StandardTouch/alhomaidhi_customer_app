@@ -18,14 +18,13 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
   int _index = 0;
   void goToScreen(int index) async {
     if (index == 0) {
-      ref.read(productQueryProvider.notifier).updateSearch("");
       context.go("/home");
     } else if (index == 1) {
-      ref.read(productQueryProvider.notifier).updateSearch("st");
       context.go("/search");
     } else if (index == 2) {
       ref.read(isLoadingProvider.notifier).state = true;
       context.go("/cart");
+      // ignore: unused_result
       await ref.refresh(myCartProvider.future);
       ref.read(isLoadingProvider.notifier).state = false;
     } else if (index == 3) {
