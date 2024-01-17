@@ -1,6 +1,4 @@
-import 'package:alhomaidhi_customer_app/src/features/login/models/login_response.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 
 class FirebaseNotification {
   final String? title;
@@ -21,11 +19,21 @@ class FirebaseNotification {
     return FirebaseNotification(
       title: message.notification?.title,
       body: message.notification?.body,
-      imageUrl: message.notification?.android
-          ?.imageUrl, // Adjusted for potential null values
+      imageUrl: _getPlatformSpecificImageUrl(message),
       data: message.data,
       sentTime: message.sentTime,
     );
+  }
+
+  static String? _getPlatformSpecificImageUrl(RemoteMessage message) {
+    if (message.notification?.android != null) {
+      return message.notification?.android?.imageUrl;
+    }
+
+    if (message.notification?.apple != null) {
+      return message.notification?.apple?.imageUrl;
+    }
+    return null;
   }
 
   Map<String, dynamic> toJson() {
