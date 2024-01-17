@@ -2,6 +2,7 @@ import 'package:alhomaidhi_customer_app/src/features/brands/screens/all_brands_s
 import 'package:alhomaidhi_customer_app/src/features/brands/screens/brand_products.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/screens/shopping_cart.dart';
 import 'package:alhomaidhi_customer_app/src/features/checkout/screens/checkout_screen.dart';
+import 'package:alhomaidhi_customer_app/src/features/checkout/screens/success_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/screens/home_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/screens/product_details_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/login/screens/login_screen.dart';
@@ -175,6 +176,15 @@ final router = GoRouter(
       name: "brand_products",
       builder: (context, state) => BrandProducts(
         brandName: state.pathParameters["brandName"]!,
+      ),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
+      path: "/success",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const SuccessPaymentScreen(),
       ),
       parentNavigatorKey: _rootNavigatorKey,
     ),

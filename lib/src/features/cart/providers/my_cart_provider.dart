@@ -3,6 +3,7 @@ import 'package:alhomaidhi_customer_app/src/features/cart/models/my_cart_respons
 import 'package:alhomaidhi_customer_app/src/features/cart/services/cart_services.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:alhomaidhi_customer_app/src/shared/services/auth_service.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets/bottom_bar.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/top_snackbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
     );
   }
 
-  void additemToCart(int productId, WidgetRef ref) async {
+  void additemToCart(int productId, WidgetRef ref, BuildContext context) async {
     state = state.copyWith(isLoading: true);
     await updateCart(productId.toString(), "1");
     ref.invalidate(myCartProvider);
@@ -39,6 +40,17 @@ class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
     state = state.copyWith(
       isLoading: false,
     );
+    final snackbar = SnackBar(
+      content: const Text('Item Placed in your cart'),
+      action: SnackBarAction(
+        label: 'Go to cart',
+        onPressed: () async {
+          await navigateToCart(context);
+        },
+      ),
+    );
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
   void checkAddress(WidgetRef ref) async {

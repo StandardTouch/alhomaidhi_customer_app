@@ -1,3 +1,4 @@
+import 'package:alhomaidhi_customer_app/main.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
@@ -26,16 +27,7 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
     } else if (index == 1) {
       context.go("/search");
     } else if (index == 2) {
-      ref.read(isLoadingProvider.notifier).state = true;
-      context.go("/cart");
-      // ignore: unused_result
-      try {
-        await ref.refresh(myCartProvider.future);
-        // ignore: empty_catches
-      } catch (err) {
-      } finally {
-        ref.read(isLoadingProvider.notifier).state = false;
-      }
+      await navigateToCart(context);
     } else if (index == 3) {
       context.go("/profile");
     } else {
@@ -84,5 +76,18 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
         ),
       ],
     );
+  }
+}
+
+Future<void> navigateToCart(BuildContext context) async {
+  globalContainer.read(isLoadingProvider.notifier).state = true;
+  context.go("/cart");
+  try {
+    // ignore: unused_result
+    await globalContainer.refresh(myCartProvider.future);
+    // ignore: empty_catches
+  } catch (err) {
+  } finally {
+    globalContainer.read(isLoadingProvider.notifier).state = false;
   }
 }

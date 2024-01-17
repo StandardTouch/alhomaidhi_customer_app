@@ -94,7 +94,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("An Error Occurred ${data.status}"),
                         Text(data.errorMessage!),
                       ],
                     ),

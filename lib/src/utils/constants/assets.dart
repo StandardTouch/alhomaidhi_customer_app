@@ -13,6 +13,7 @@ class Assets {
   static const tamaraIcon = "assets/images/EN Colored widget.png";
   static const tabbyIcon = "assets/images/tabby_logo.png";
   static const hyperPayLogo = "assets/images/Hyperpay-logo.png";
+  static const thumbsUpIcon = "assets/images/thumbs_up.jpg";
 
   static const fallBackProductImage =
       "https://alhomaidhigroup.com/wp-content/uploads/2023/12/no-image-found-1.png";

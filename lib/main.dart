@@ -10,6 +10,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
+final globalContainer = ProviderContainer();
 void main() async {
   await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,8 @@ void main() async {
   // FlutterDownloader.registerCallback(downloadCallback);
 
   runApp(
-    ProviderScope(
+    UncontrolledProviderScope(
+      container: globalContainer,
       child: EasyDynamicThemeWidget(
         initialThemeMode: ThemeMode.light,
         child: const MyApp(),

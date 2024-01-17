@@ -91,7 +91,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
               ? null
               : () {
                   cartOperations.additemToCart(
-                      int.parse(widget.productId), ref);
+                      int.parse(widget.productId), ref, context);
                 },
           icon: const Icon(Icons.add_shopping_cart),
           label: Text((cart.isLoading)
