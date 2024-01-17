@@ -2,8 +2,12 @@ import 'package:alhomaidhi_customer_app/src/features/cart/models/cart_details_mo
 import 'package:alhomaidhi_customer_app/src/features/cart/models/my_cart_response_model.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/services/cart_services.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
+import 'package:alhomaidhi_customer_app/src/shared/services/auth_service.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets/top_snackbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
   CartDetailsNotifier() : super(CartDetailsModel(isLoading: false));
@@ -63,6 +67,36 @@ class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
         );
       },
     );
+  }
+
+  void onCheckout(BuildContext context) async {
+    try {
+      state = state.copyWith(isCheckingOut: true);
+      // update credentials
+      final updateCredentialsResponse = await updateCredentials();
+      final String username = updateCredentialsResponse["username"];
+      final String password = updateCredentialsResponse["password"];
+      logger.i("username: $username\npassword: $password");
+
+      // generate token
+      final getTokenResponse = await getPreCheckoutToken(username, password);
+      final String token = getTokenResponse["jwt_token"] as String;
+      logger.i("This is the token: $token");
+      if (!context.mounted) return;
+      // pass token to get request
+      context.pushNamed("checkout", pathParameters: {
+        "token": token,
+      });
+    } catch (err) {
+      if (!context.mounted) return;
+      getSnackBar(
+        context: context,
+        message: "Error While checking out",
+        type: SNACKBARTYPE.error,
+      );
+    } finally {
+      state = state.copyWith(isCheckingOut: false);
+    }
   }
 }
 

@@ -7,10 +7,13 @@ class AuthDetails {
   final String? token;
   final String? userId;
   final String? masterCustomerId;
-  AuthDetails(
-      {required this.token,
-      required this.userId,
-      required this.masterCustomerId});
+  final String? userName;
+  AuthDetails({
+    required this.token,
+    required this.userId,
+    required this.masterCustomerId,
+    required this.userName,
+  });
 }
 
 class AuthHelper {
@@ -40,8 +43,13 @@ class AuthHelper {
     final token = await storage.read(key: "token");
     final userId = await storage.read(key: "userId");
     final masterCustomerId = await storage.read(key: 'masterCustomerId');
+    final username = await storage.read(key: "username");
     AuthDetails authDetails = AuthDetails(
-        token: token, userId: userId, masterCustomerId: masterCustomerId);
+      token: token,
+      userId: userId,
+      masterCustomerId: masterCustomerId,
+      userName: username,
+    );
     return authDetails;
   }
 }

@@ -2,16 +2,11 @@ import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_prov
 import 'package:alhomaidhi_customer_app/src/features/cart/widgets/cart_placeholder.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/widgets/price_widget.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/widgets/single_cart_item.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
-import 'package:alhomaidhi_customer_app/src/shared/services/auth_service.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/address_widget.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/top_snackbar.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
 class ShoppingCartScreen extends ConsumerStatefulWidget {
   const ShoppingCartScreen({super.key});
@@ -21,25 +16,6 @@ class ShoppingCartScreen extends ConsumerStatefulWidget {
 }
 
 class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
-  void onCheckout() async {
-    try {
-      final response = await getPreCheckoutToken("nisashaik", "Kahkashan@123");
-      final String token = response["jwt_token"] as String;
-      logger.i("This is the token: $token");
-      if (!context.mounted) return;
-      context.pushNamed("checkout", pathParameters: {
-        "token": token,
-      });
-    } catch (err) {
-      if (!context.mounted) return;
-      getSnackBar(
-        context: context,
-        message: "Error While checking out",
-        type: SNACKBARTYPE.error,
-      );
-    }
-  }
-
   @override
   void initState() {
     ref.read(cartDetailsProvider.notifier).checkAddress(ref);
@@ -120,9 +96,14 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
               ElevatedButton.icon(
                 onPressed: (cartDetails.isLoading ||
                         cartDetails.deletingElement["isDeleting"] ||
-                        !cartDetails.isAddressPresent)
+                        !cartDetails.isAddressPresent ||
+                        cartDetails.isCheckingOut)
                     ? null
-                    : onCheckout,
+                    : () {
+                        ref
+                            .read(cartDetailsProvider.notifier)
+                            .onCheckout(context);
+                      },
                 icon: const Icon(Icons.wallet),
                 label: Text(
                   (cartDetails.isLoading ||
@@ -130,7 +111,9 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                       ? "Updating Cart"
                       : (!cartDetails.isAddressPresent)
                           ? "Address Not Provided"
-                          : "Checkout",
+                          : (cartDetails.isCheckingOut)
+                              ? "Checking Out"
+                              : "Checkout",
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.onSecondary,

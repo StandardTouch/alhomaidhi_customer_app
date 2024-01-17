@@ -21,7 +21,9 @@ class APIEndpoints {
   static const updateCartItems = "/wp-json/alhomaidhiapp/v2/cart_update";
   static const deleteCartItems = "/wp-json/alhomaidhiapp/v2/delete_cart";
   static const getPreCheckoutToken = "/wp-json/api/v1/mo-jwt";
+  static const updateCredentials =
+      "/wp-json/alhomaidhiapp/v2/update_credentials";
 }
 
-// logger is used for error handling
+// logger is used for logging errors
 final logger = Logger();

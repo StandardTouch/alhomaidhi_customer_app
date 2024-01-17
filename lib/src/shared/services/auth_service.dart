@@ -4,6 +4,7 @@ import 'package:alhomaidhi_customer_app/src/shared/models/auth_model.dart';
 import 'package:alhomaidhi_customer_app/src/utils/config/dio/dio_client.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
+import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
 import 'package:dio/dio.dart';
 
 Future<AuthResponseModel> verifyToken(String token, String userId) async {
@@ -52,6 +53,38 @@ Future<Map<String, dynamic>> getPreCheckoutToken(
     }
   } on DioException catch (err) {
     logger.e("Invalid Credentials Passed", error: err);
+    throw DioException(requestOptions: err.requestOptions);
+  }
+}
+
+Future<Map<String, dynamic>> updateCredentials() async {
+  try {
+    final authDetails = await AuthHelper.getAuthDetails();
+    final response = await dioClient.post(
+      APIEndpoints.updateCredentials,
+      options: Options(
+        headers: {
+          "Authorization": authDetails.token,
+          "user_id": authDetails.userId,
+        },
+      ),
+    );
+    if (response.statusCode == HttpStatus.ok) {
+      if (response.data["status"] == "APP00") {
+        return {
+          "username": authDetails.userName,
+          "password": response.data["message"],
+        };
+      } else {
+        throw DioException(requestOptions: response.requestOptions);
+      }
+    } else {
+      throw DioException(
+        requestOptions: response.requestOptions,
+      );
+    }
+  } on DioException catch (err) {
+    logger.e("Something Seems to be wrong", error: err);
     throw DioException(requestOptions: err.requestOptions);
   }
 }

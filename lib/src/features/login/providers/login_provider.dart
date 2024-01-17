@@ -73,6 +73,7 @@ class LoginNotifier extends StateNotifier<LoginModel> {
         storage.write(key: "userId", value: response.message!.userId);
         storage.write(
             key: "masterCustomerId", value: response.message!.masterCustomerId);
+        storage.write(key: "username", value: response.message!.username);
         if (!context.mounted) {
           return;
         }
