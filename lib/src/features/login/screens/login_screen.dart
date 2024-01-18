@@ -91,6 +91,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             const Gap(30),
                             if (loginRef.isOTPVisible == true)
                               Pinput(
+                                  androidSmsAutofillMethod:
+                                      AndroidSmsAutofillMethod
+                                          .smsUserConsentApi,
                                   focusNode: pinputFocus,
                                   autofocus: true,
                                   length: 6,
@@ -100,7 +103,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   onCompleted: (value) {
                                     loginNotifier.updateOtp(value);
                                     loginNotifier.verifyOtp(context);
-                                    // todo - implement login api functionality
                                   }),
                             if (loginRef.isOTPVisible == true) const Gap(30),
                             if (!(loginRef.isOTPVisible == true))
