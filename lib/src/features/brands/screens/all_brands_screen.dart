@@ -14,7 +14,7 @@ class AllBrandScreen extends ConsumerStatefulWidget {
 }
 
 class _AllBrandScreenState extends ConsumerState<AllBrandScreen> {
-  void OnBrandClick(int newBrandId, String brandName) {
+  void onBrandClick(int newBrandId, String brandName) {
     final query = ref.read(productQueryProvider.notifier);
     query.updateBrand(newBrandId);
     context.pushNamed(
@@ -71,7 +71,7 @@ class _AllBrandScreenState extends ConsumerState<AllBrandScreen> {
                       splashColor: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(15),
                       onTap: () {
-                        OnBrandClick(
+                        onBrandClick(
                           data.message![index].id!,
                           data.message![index].name!,
                         );

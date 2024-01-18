@@ -43,7 +43,7 @@ class ProductWidget1 extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Text(
-                  "SKU: " + skuNumber,
+                  "SKU: $skuNumber",
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
@@ -75,7 +75,7 @@ class ProductWidget1 extends StatelessWidget {
                 ),
                 const Gap(10),
                 Text(
-                  "${priceAfter} ريال",
+                  "$priceAfter ريال",
                   style: Theme.of(context).textTheme.bodyMedium!,
                 ),
                 const Gap(10),

@@ -22,12 +22,12 @@ class SingleProductModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["status"] = status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["status"] = status;
     if (message != null) {
-      _data["message"] = message?.toJson();
+      data["message"] = message?.toJson();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -64,20 +64,20 @@ class Message {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (productDetails != null) {
-      _data["product_details"] = productDetails?.toJson();
+      data["product_details"] = productDetails?.toJson();
     }
     if (images != null) {
-      _data["images"] = images?.map((e) => e.toJson()).toList();
+      data["images"] = images?.map((e) => e.toJson()).toList();
     }
     if (brands != null) {
-      _data["brands"] = brands?.map((e) => e.toJson()).toList();
+      data["brands"] = brands?.map((e) => e.toJson()).toList();
     }
     if (relatedProductIds != null) {
-      _data["related_product_ids"] = relatedProductIds;
+      data["related_product_ids"] = relatedProductIds;
     }
-    return _data;
+    return data;
   }
 }
 
@@ -101,11 +101,11 @@ class Brands {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["name"] = name;
-    _data["slug"] = slug;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["id"] = id;
+    data["name"] = name;
+    data["slug"] = slug;
+    return data;
   }
 }
 
@@ -133,12 +133,12 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["name"] = name;
-    _data["src"] = src;
-    _data["alt"] = alt;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["id"] = id;
+    data["name"] = name;
+    data["src"] = src;
+    data["alt"] = alt;
+    return data;
   }
 }
 
@@ -245,26 +245,26 @@ class ProductDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["product_id"] = productId;
-    _data["name"] = name;
-    _data["slug"] = slug;
-    _data["date_created"] = dateCreated;
-    _data["date_modified"] = dateModified;
-    _data["featured"] = featured;
-    _data["catalog_visibility"] = catalogVisibility;
-    _data["description"] = description;
-    _data["short_description"] = shortDescription;
-    _data["sku"] = sku;
-    _data["price"] = price;
-    _data["regular_price"] = regularPrice;
-    _data["sale_price"] = salePrice;
-    _data["discount_percentage"] = discountPercentage;
-    _data["on_sale"] = onSale;
-    _data["total_sales"] = totalSales;
-    _data["rating_count"] = ratingCount;
-    _data["stock_status"] = stockStatus;
-    _data["stock_quantity"] = stockQuantity;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["product_id"] = productId;
+    data["name"] = name;
+    data["slug"] = slug;
+    data["date_created"] = dateCreated;
+    data["date_modified"] = dateModified;
+    data["featured"] = featured;
+    data["catalog_visibility"] = catalogVisibility;
+    data["description"] = description;
+    data["short_description"] = shortDescription;
+    data["sku"] = sku;
+    data["price"] = price;
+    data["regular_price"] = regularPrice;
+    data["sale_price"] = salePrice;
+    data["discount_percentage"] = discountPercentage;
+    data["on_sale"] = onSale;
+    data["total_sales"] = totalSales;
+    data["rating_count"] = ratingCount;
+    data["stock_status"] = stockStatus;
+    data["stock_quantity"] = stockQuantity;
+    return data;
   }
 }

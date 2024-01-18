@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class SingleOrderDetails extends StatefulWidget {
-  SingleOrderDetails({
+  const SingleOrderDetails({
     super.key,
     required this.orderId,
     required this.productName,
@@ -116,7 +116,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                               width: DeviceInfo.getDeviceWidth(context) * 0.73,
                               child: Text(widget.productName)),
                           SizedBox(

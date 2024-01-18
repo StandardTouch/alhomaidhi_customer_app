@@ -334,8 +334,8 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
         error: (err, stk) => Center(
               child: Text("$err"),
             ),
-        loading: () => Scaffold(
-              body: const Center(
+        loading: () => const Scaffold(
+              body: Center(
                 child: CircularProgressIndicator(),
               ),
             ));

@@ -23,9 +23,9 @@ class AddCartResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["status"] = status;
-    _data["message"] = message;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["status"] = status;
+    data["message"] = message;
+    return data;
   }
 }

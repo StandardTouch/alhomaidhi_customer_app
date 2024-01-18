@@ -5,7 +5,7 @@ import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart' as Permissions;
+import 'package:permission_handler/permission_handler.dart' as permissions;
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -23,10 +23,10 @@ class MyInvoice extends StatefulWidget {
       : super(key: key);
 
   @override
-  _MyInvoiceState createState() => _MyInvoiceState();
+  MyInvoiceState createState() => MyInvoiceState();
 }
 
-class _MyInvoiceState extends State<MyInvoice> {
+class MyInvoiceState extends State<MyInvoice> {
   bool _isDownloading = false;
   String? _taskId;
   final ReceivePort _port = ReceivePort();
@@ -66,10 +66,10 @@ class _MyInvoiceState extends State<MyInvoice> {
     final plugin = DeviceInfoPlugin();
     final android = await plugin.androidInfo;
     final storageStatus = android.version.sdkInt < 33
-        ? await Permissions.Permission.storage.request()
+        ? await permissions.Permission.storage.request()
         : PermissionStatus.granted;
-    logger.e(storageStatus == Permissions.PermissionStatus.granted);
-    if (storageStatus == Permissions.PermissionStatus.granted) {
+    logger.e(storageStatus == permissions.PermissionStatus.granted);
+    if (storageStatus == permissions.PermissionStatus.granted) {
       Directory? directory = await getExternalStorageDirectory();
       String newPath = "${directory!.path}/Download";
       Directory downloadDirectory = Directory(newPath);
@@ -99,7 +99,7 @@ class _MyInvoiceState extends State<MyInvoice> {
       });
     } else {
       // Handle the scenario when user denies the storage permission
-      print('Storage permission denied');
+      logger.e('Storage permission denied');
     }
   }
 

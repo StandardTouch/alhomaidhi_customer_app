@@ -47,7 +47,8 @@ class ProductCarousel extends StatelessWidget {
                     imageUrl: image.src ?? Assets.fallBackProductImage,
                     placeholder: (context, url) =>
                         Image.asset(Assets.placeHolderImage),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
               ),

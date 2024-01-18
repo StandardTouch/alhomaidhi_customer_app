@@ -22,12 +22,12 @@ class MyCartResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["status"] = status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["status"] = status;
     if (message != null) {
-      _data["message"] = message?.toJson();
+      data["message"] = message?.toJson();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -51,14 +51,14 @@ class Message {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (cartTotals != null) {
-      _data["cart_totals"] = cartTotals?.toJson();
+      data["cart_totals"] = cartTotals?.toJson();
     }
     if (cart != null) {
-      _data["cart"] = cart?.map((e) => e.toJson()).toList();
+      data["cart"] = cart?.map((e) => e.toJson()).toList();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -107,17 +107,17 @@ class Cart {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["key"] = key;
-    _data["quantity"] = quantity;
-    _data["line_subtotal"] = lineSubtotal;
-    _data["line_subtotal_tax"] = lineSubtotalTax;
-    _data["line_total"] = lineTotal;
-    _data["line_tax"] = lineTax;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["key"] = key;
+    data["quantity"] = quantity;
+    data["line_subtotal"] = lineSubtotal;
+    data["line_subtotal_tax"] = lineSubtotalTax;
+    data["line_total"] = lineTotal;
+    data["line_tax"] = lineTax;
     if (productDetails != null) {
-      _data["product_details"] = productDetails?.toJson();
+      data["product_details"] = productDetails?.toJson();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -161,16 +161,16 @@ class ProductDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["product_id"] = productId;
-    _data["name"] = name;
-    _data["description"] = description;
-    _data["short_description"] = shortDescription;
-    _data["stock_quantity"] = stockQuantity;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["product_id"] = productId;
+    data["name"] = name;
+    data["description"] = description;
+    data["short_description"] = shortDescription;
+    data["stock_quantity"] = stockQuantity;
     if (images != null) {
-      _data["images"] = images?.map((e) => e.toJson()).toList();
+      data["images"] = images?.map((e) => e.toJson()).toList();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -198,12 +198,12 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["name"] = name;
-    _data["src"] = src;
-    _data["alt"] = alt;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["id"] = id;
+    data["name"] = name;
+    data["src"] = src;
+    data["alt"] = alt;
+    return data;
   }
 }
 
@@ -265,17 +265,17 @@ class CartTotals {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["subtotal"] = subtotal;
-    _data["subtotal_tax"] = subtotalTax;
-    _data["shipping_total"] = shippingTotal;
-    _data["shipping_tax"] = shippingTax;
-    _data["discount_total"] = discountTotal;
-    _data["discount_tax"] = discountTax;
-    _data["cart_contents_total"] = cartContentsTotal;
-    _data["cart_contents_tax"] = cartContentsTax;
-    _data["total"] = total;
-    _data["total_tax"] = totalTax;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["subtotal"] = subtotal;
+    data["subtotal_tax"] = subtotalTax;
+    data["shipping_total"] = shippingTotal;
+    data["shipping_tax"] = shippingTax;
+    data["discount_total"] = discountTotal;
+    data["discount_tax"] = discountTax;
+    data["cart_contents_total"] = cartContentsTotal;
+    data["cart_contents_tax"] = cartContentsTax;
+    data["total"] = total;
+    data["total_tax"] = totalTax;
+    return data;
   }
 }

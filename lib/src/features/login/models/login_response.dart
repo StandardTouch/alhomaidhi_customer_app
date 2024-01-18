@@ -16,10 +16,10 @@ class SendOtpResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["message"] = message;
-    _data["status"] = status;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["message"] = message;
+    data["status"] = status;
+    return data;
   }
 }
 
@@ -41,12 +41,12 @@ class VerifyOtpResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (message != null) {
-      _data["message"] = message?.toJson();
+      data["message"] = message?.toJson();
     }
-    _data["status"] = status;
-    return _data;
+    data["status"] = status;
+    return data;
   }
 }
 
@@ -93,15 +93,15 @@ class Message {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["token"] = token;
-    _data["user_id"] = userId;
-    _data["username"] = username;
-    _data["useremail"] = useremail;
-    _data["mobileno"] = mobileno;
-    _data["arabic_full_name"] = arabicFullName;
-    _data["master_customer_id"] = masterCustomerId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["token"] = token;
+    data["user_id"] = userId;
+    data["username"] = username;
+    data["useremail"] = useremail;
+    data["mobileno"] = mobileno;
+    data["arabic_full_name"] = arabicFullName;
+    data["master_customer_id"] = masterCustomerId;
 
-    return _data;
+    return data;
   }
 }

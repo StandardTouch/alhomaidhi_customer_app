@@ -56,8 +56,8 @@ class MyInvoicesScreen extends ConsumerWidget {
         }
       },
       error: (err, stk) => Scaffold(body: Center(child: Text("$err"))),
-      loading: () => const Scaffold(
-          body: const Center(child: CircularProgressIndicator())),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
     );
   }
 }

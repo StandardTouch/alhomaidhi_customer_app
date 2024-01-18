@@ -1,10 +1,7 @@
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/brands_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -53,7 +50,7 @@ class _NetworkErrorScreenState extends ConsumerState<NetworkErrorScreen> {
                       setState(() {
                         isLoading = false;
                       });
-                    } on HomaidhiException catch (err) {
+                    } on HomaidhiException catch (_) {
                       // catch empty
                     } finally {
                       setState(() {

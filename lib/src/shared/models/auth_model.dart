@@ -14,9 +14,9 @@ class AuthResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["message"] = message;
-    _data["status"] = status;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["message"] = message;
+    data["status"] = status;
+    return data;
   }
 }

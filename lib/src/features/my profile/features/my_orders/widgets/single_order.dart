@@ -24,7 +24,6 @@ class SingleOrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(orderStatus);
     return InkWell(
       onTap: onPressed,
       child: Container(

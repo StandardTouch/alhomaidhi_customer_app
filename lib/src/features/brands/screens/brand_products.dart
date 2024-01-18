@@ -1,7 +1,6 @@
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/product_card.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -83,7 +82,7 @@ class BrandProducts extends ConsumerWidget {
             child: Text("An Error Occurred $err"),
           );
         }, loading: () {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }),

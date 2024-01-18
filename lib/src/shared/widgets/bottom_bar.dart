@@ -38,7 +38,7 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
   @override
   Widget build(BuildContext context) {
     return GNav(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       selectedIndex: _index,
       onTabChange: (currentIndex) {
         setState(() {

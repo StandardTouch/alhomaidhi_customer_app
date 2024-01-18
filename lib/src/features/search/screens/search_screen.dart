@@ -2,7 +2,6 @@ import 'package:alhomaidhi_customer_app/src/features/home/features/all%20product
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/product_card.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -49,12 +48,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               if (data.status == "APP00") {
                 return ListView(
                   shrinkWrap: true,
-                  physics: ScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   children: [
                     GridView.builder(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         shrinkWrap: true,
-                        physics: ScrollPhysics(),
+                        physics: const ScrollPhysics(),
                         itemCount: data.message!.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
@@ -116,7 +115,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             }, loading: () {
               return SizedBox(
                 height: DeviceInfo.getDeviceHeight(context) * 0.8,
-                child: Center(
+                child: const Center(
                   child: CircularProgressIndicator(),
                 ),
               );
@@ -128,7 +127,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   InputDecoration searchInputDecoration() {
     return InputDecoration(
       labelText: "Search Products",
-      prefixIcon: Icon(Icons.search),
+      prefixIcon: const Icon(Icons.search),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
       fillColor: Colors.white,
       focusColor: Colors.white,
@@ -136,7 +135,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      labelStyle: TextStyle(
+      labelStyle: const TextStyle(
         color: Colors.black,
       ),
     );

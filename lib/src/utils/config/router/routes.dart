@@ -88,7 +88,7 @@ final router = GoRouter(
     GoRoute(
       path: "/signup",
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
-          context: context, state: state, child: SignupScreen()),
+          context: context, state: state, child: const SignupScreen()),
       parentNavigatorKey: _rootNavigatorKey,
     ),
     GoRoute(

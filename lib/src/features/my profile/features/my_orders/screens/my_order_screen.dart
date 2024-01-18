@@ -1,5 +1,4 @@
 import 'package:alhomaidhi_customer_app/main.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/services/my_order_details_services.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/widgets/single_order.dart';
@@ -145,7 +144,7 @@ class MyOrderScreen extends ConsumerWidget {
       },
       error: (err, stk) => Scaffold(body: Center(child: Text("$err"))),
       loading: () =>
-          Scaffold(body: const Center(child: CircularProgressIndicator())),
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
     );
   }
 }

@@ -42,7 +42,7 @@ class SingleCartItem extends ConsumerWidget {
       padding: const EdgeInsets.all(8),
       child: ((cartDetails.deletingElement["cartKey"] == cartKey) &&
               (cartDetails.deletingElement["isDeleting"] == true))
-          ? Column(
+          ? const Column(
               children: [
                 LinearProgressIndicator(),
                 Text("Deleting Item"),

@@ -1,4 +1,5 @@
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 

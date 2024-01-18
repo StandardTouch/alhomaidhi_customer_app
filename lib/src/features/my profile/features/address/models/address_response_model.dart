@@ -19,12 +19,12 @@ class AddressResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["status"] = status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["status"] = status;
     if (message != null) {
-      _data["message"] = message?.toJson();
+      data["message"] = message?.toJson();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -101,20 +101,20 @@ class Message {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["first_name"] = firstName;
-    _data["last_name"] = lastName;
-    _data["country"] = country;
-    _data["city"] = city;
-    _data["postcode"] = postcode;
-    _data["address_1"] = address1;
-    _data["address_2"] = address2;
-    _data["phone"] = phone;
-    _data["email"] = email;
-    _data["national_id"] = nationalId;
-    _data["cr_number"] = crNumber;
-    _data["vat_number"] = vatNumber;
-    _data["whatsapp_number"] = whatsappNumber;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["first_name"] = firstName;
+    data["last_name"] = lastName;
+    data["country"] = country;
+    data["city"] = city;
+    data["postcode"] = postcode;
+    data["address_1"] = address1;
+    data["address_2"] = address2;
+    data["phone"] = phone;
+    data["email"] = email;
+    data["national_id"] = nationalId;
+    data["cr_number"] = crNumber;
+    data["vat_number"] = vatNumber;
+    data["whatsapp_number"] = whatsappNumber;
+    return data;
   }
 }

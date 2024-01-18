@@ -20,12 +20,12 @@ class MyOrdersListModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["status"] = status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["status"] = status;
     if (message != null) {
-      _data["message"] = message?.map((e) => e.toJson()).toList();
+      data["message"] = message?.map((e) => e.toJson()).toList();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -65,20 +65,20 @@ class Message {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (orderDetails != null) {
-      _data["order_details"] = orderDetails?.toJson();
+      data["order_details"] = orderDetails?.toJson();
     }
     if (billingDetails != null) {
-      _data["billing_details"] = billingDetails?.toJson();
+      data["billing_details"] = billingDetails?.toJson();
     }
     if (paymentDetails != null) {
-      _data["payment_details"] = paymentDetails?.toJson();
+      data["payment_details"] = paymentDetails?.toJson();
     }
     if (items != null) {
-      _data["items"] = items?.map((e) => e.toJson()).toList();
+      data["items"] = items?.map((e) => e.toJson()).toList();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -135,17 +135,17 @@ class Items {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["item_name"] = itemName;
-    _data["product_id"] = productId;
-    _data["quantity"] = quantity;
-    _data["subtotal"] = subtotal;
-    _data["subtotal_tax"] = subtotalTax;
-    _data["total"] = total;
-    _data["total_tax"] = totalTax;
-    _data["sku"] = sku;
-    _data["image"] = image;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["item_name"] = itemName;
+    data["product_id"] = productId;
+    data["quantity"] = quantity;
+    data["subtotal"] = subtotal;
+    data["subtotal_tax"] = subtotalTax;
+    data["total"] = total;
+    data["total_tax"] = totalTax;
+    data["sku"] = sku;
+    data["image"] = image;
+    return data;
   }
 }
 
@@ -167,11 +167,11 @@ class PaymentDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["payment_method"] = paymentMethod;
-    _data["payment_method_title"] = paymentMethodTitle;
-    _data["date_paid"] = datePaid;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["payment_method"] = paymentMethod;
+    data["payment_method_title"] = paymentMethodTitle;
+    data["date_paid"] = datePaid;
+    return data;
   }
 }
 
@@ -233,18 +233,18 @@ class BillingDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["first_name"] = firstName;
-    _data["last_name"] = lastName;
-    _data["company"] = company;
-    _data["address_1"] = address1;
-    _data["address_2"] = address2;
-    _data["city"] = city;
-    _data["state"] = state;
-    _data["postcode"] = postcode;
-    _data["email"] = email;
-    _data["phone"] = phone;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["first_name"] = firstName;
+    data["last_name"] = lastName;
+    data["company"] = company;
+    data["address_1"] = address1;
+    data["address_2"] = address2;
+    data["city"] = city;
+    data["state"] = state;
+    data["postcode"] = postcode;
+    data["email"] = email;
+    data["phone"] = phone;
+    return data;
   }
 }
 
@@ -301,16 +301,16 @@ class OrderDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["order_id"] = orderId;
-    _data["order_placed_date"] = orderPlacedDate;
-    _data["order_date_modified"] = orderDateModified;
-    _data["order_status"] = orderStatus;
-    _data["total"] = total;
-    _data["total_tax"] = totalTax;
-    _data["discount_total"] = discountTotal;
-    _data["discount_tax"] = discountTax;
-    _data["cart_tax"] = cartTax;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["order_id"] = orderId;
+    data["order_placed_date"] = orderPlacedDate;
+    data["order_date_modified"] = orderDateModified;
+    data["order_status"] = orderStatus;
+    data["total"] = total;
+    data["total_tax"] = totalTax;
+    data["discount_total"] = discountTotal;
+    data["discount_tax"] = discountTax;
+    data["cart_tax"] = cartTax;
+    return data;
   }
 }
