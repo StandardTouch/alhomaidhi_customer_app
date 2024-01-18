@@ -1,11 +1,14 @@
+import 'package:alhomaidhi_customer_app/main.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/brands_widget.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/product_card.dart';
+import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -32,6 +35,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final height = DeviceInfo.getDeviceHeight(context);
     final products = ref.watch(allProductsProvider);
     final query = ref.watch(productQueryProvider);
+
     return Scaffold(
       appBar: const HomaidhiAppbar(),
       body: ListView(
@@ -112,7 +116,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             );
           }, error: (err, stk) {
-            return Center(child: Text("Server Error Occurred: $err"));
+            return SizedBox(
+                height: DeviceInfo.getDeviceHeight(context) * 0.8,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("An Error Occurred. Try Refreshing"),
+                    const Gap(10),
+                    ElevatedButton(
+                        onPressed: () async {
+                          globalContainer
+                              .read(isLoadingProvider.notifier)
+                              .state = true;
+
+                          try {
+                            // ignore: unused_result
+                            await ref.refresh(allProductsProvider.future);
+                          } catch (_) {
+                          } finally {
+                            globalContainer
+                                .read(isLoadingProvider.notifier)
+                                .state = false;
+                          }
+                        },
+                        child: const Text("Refresh"))
+                  ],
+                ));
           }),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

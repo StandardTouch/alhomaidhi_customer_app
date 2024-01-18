@@ -52,31 +52,37 @@ class _AllBrandScreenState extends ConsumerState<AllBrandScreen> {
                 topLeft: Radius.circular(25),
               ),
             ),
-            child: GridView.builder(
-                itemCount: data.message!.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 2.5,
-                ),
-                padding: const EdgeInsets.all(30),
-                itemBuilder: (ctx, index) {
-                  return InkWell(
-                    splashColor: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(15),
-                    onTap: () {
-                      OnBrandClick(
-                        data.message![index].id!,
-                        data.message![index].name!,
-                      );
-                    },
-                    child: BrandCard(
-                      data: data,
-                      index: index,
-                    ),
-                  );
-                }),
+            child: RefreshIndicator(
+              onRefresh: () async {
+                // ignore: unused_result
+                await ref.refresh(brandsProvider.future);
+              },
+              child: GridView.builder(
+                  itemCount: data.message!.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 2.5,
+                  ),
+                  padding: const EdgeInsets.all(30),
+                  itemBuilder: (ctx, index) {
+                    return InkWell(
+                      splashColor: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(15),
+                      onTap: () {
+                        OnBrandClick(
+                          data.message![index].id!,
+                          data.message![index].name!,
+                        );
+                      },
+                      child: BrandCard(
+                        data: data,
+                        index: index,
+                      ),
+                    );
+                  }),
+            ),
           );
         } else {
           return Center(
