@@ -11,6 +11,7 @@ class FormInput extends StatelessWidget {
     this.value,
     this.prefix,
     this.readOnly = false,
+    this.isRequired = false,
   });
 
   final String label;
@@ -22,6 +23,26 @@ class FormInput extends StatelessWidget {
   final String? prefix;
   final int? maxLength;
   final bool? readOnly;
+  final bool? isRequired;
+
+  Widget inputLable(bool isRequired, String label) {
+    if (isRequired) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(label),
+          const SizedBox(
+            width: 5,
+          ),
+          const Text(
+            "*",
+            style: TextStyle(color: Colors.red),
+          ),
+        ],
+      );
+    }
+    return Text(label);
+  }
 
   @override
   Widget build(context) {
@@ -31,7 +52,9 @@ class FormInput extends StatelessWidget {
       maxLength: maxLength,
       keyboardType: type,
       decoration: InputDecoration(
-        label: Text(label),
+        filled: readOnly ?? false,
+        fillColor: Colors.grey[200],
+        label: inputLable(isRequired!, label),
         prefix: (prefix != null) ? Text(prefix.toString()) : const Text(""),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         enabledBorder: const OutlineInputBorder(

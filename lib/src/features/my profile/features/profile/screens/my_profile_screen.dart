@@ -48,8 +48,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
                 ),
                 boxShadow: [
                   BoxShadow(
