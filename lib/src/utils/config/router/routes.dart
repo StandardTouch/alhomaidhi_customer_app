@@ -20,6 +20,7 @@ import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -64,6 +65,8 @@ final router = GoRouter(
           }
         } on HomaidhiException catch (_) {
           return "/network_error";
+        } finally {
+          FlutterNativeSplash.remove();
         }
       },
       pageBuilder: (ctx, state) => buildPageWithDefaultTransition(

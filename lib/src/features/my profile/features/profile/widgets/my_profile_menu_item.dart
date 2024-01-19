@@ -1,7 +1,9 @@
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class MyProfiletMenuItem extends StatelessWidget {
+class MyProfiletMenuItem extends ConsumerWidget {
   const MyProfiletMenuItem(
       {super.key,
       required this.menuItemLink,
@@ -15,7 +17,7 @@ class MyProfiletMenuItem extends StatelessWidget {
   final Widget? additionalWidget;
 
   @override
-  Widget build(context) {
+  Widget build(context, WidgetRef ref) {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 0,
@@ -29,7 +31,12 @@ class MyProfiletMenuItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: ListTile(
-        onTap: () {
+        onTap: () async {
+          // if (menuItemLink == "/address") {
+          //   // ignore: unused_result
+          //   await ref.refresh(addressProvider.future);
+          // }
+          if (!context.mounted) return;
           context.push(menuItemLink);
         },
         leading: Image(

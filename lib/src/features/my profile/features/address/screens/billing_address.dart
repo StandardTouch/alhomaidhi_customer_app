@@ -308,7 +308,7 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                             : () {
                                                 addressUpdateNotifier
                                                     .updateAddress(
-                                                        formkey, context);
+                                                        formkey, context, ref);
                                               },
                                         child: addressWatcher.isBtnDisable
                                             ? const CircularProgressIndicator()
@@ -337,8 +337,10 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
         error: (err, stk) => Center(
               child: Text("$err"),
             ),
-        loading: () => const Center(
-              child: CircularProgressIndicator(),
+        loading: () => const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
             ));
   }
 }

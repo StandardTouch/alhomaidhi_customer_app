@@ -1,6 +1,7 @@
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/models/address_request_model.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/models/address_response_model.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/top_snackbar.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alhomaidhi_customer_app/src/features/my profile/features/address/services/address_service.dart';
@@ -68,7 +69,8 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
     state = state.copyWith(whatsAppNumber: value);
   }
 
-  void updateAddress(GlobalKey<FormState> formkey, BuildContext context) async {
+  void updateAddress(
+      GlobalKey<FormState> formkey, BuildContext context, WidgetRef ref) async {
     if (formkey.currentState == null) {
       return;
     }
@@ -90,10 +92,13 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
           "whatsapp_number": state.whatsAppNumber,
         };
         AddressRequestResponseModel response = await updateProfileDetails(data);
+        logger.e(response);
         if (response.status == "APP00") {
           if (!context.mounted) {
             return;
           }
+          ref.invalidate(addressProvider);
+
           getSnackBar(
             context: context,
             message: "Address Details successfully Updated",
