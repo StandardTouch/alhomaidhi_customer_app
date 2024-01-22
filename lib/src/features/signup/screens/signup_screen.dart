@@ -57,10 +57,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       ),
                       child: Column(
                         children: [
-                          Image(
-                            image: AssetImage(DeviceInfo.isDarkMode(context)
-                                ? Assets.logoDark
-                                : Assets.logoLight),
+                          const Image(
+                            image: AssetImage(Assets.logoLight),
                             width: 250,
                           ),
                           const Gap(30),

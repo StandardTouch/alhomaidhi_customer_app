@@ -40,11 +40,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Image(
+                    const Image(
                       image: AssetImage(
-                        DeviceInfo.isDarkMode(context)
-                            ? Assets.logoDark
-                            : Assets.logoLight,
+                        Assets.logoLight,
                       ),
                       width: 250,
                     ),
