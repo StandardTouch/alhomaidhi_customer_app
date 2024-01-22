@@ -197,10 +197,8 @@ final router = GoRouter(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
         return Scaffold(
+          extendBody: true,
           body: child,
-          appBar: AppBar(
-            forceMaterialTransparency: true,
-          ),
           bottomNavigationBar: const HomaidhiBottomBar(),
         );
       },
@@ -208,6 +206,7 @@ final router = GoRouter(
         context: context,
         state: state,
         child: Scaffold(
+          extendBody: true,
           body: child,
           bottomNavigationBar: const HomaidhiBottomBar(),
         ),

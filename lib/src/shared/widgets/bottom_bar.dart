@@ -2,6 +2,7 @@ import 'package:alhomaidhi_customer_app/main.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
+import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -37,44 +38,68 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    return GNav(
-      padding: const EdgeInsets.all(15),
-      selectedIndex: _index,
-      onTabChange: (currentIndex) {
-        setState(() {
-          _index = currentIndex;
-        });
-        goToScreen(currentIndex);
-      },
-      backgroundColor: Theme.of(context).primaryColor,
-      tabBackgroundColor: Theme.of(context).highlightColor,
-      tabBorderRadius: 5,
-      gap: 10,
-      iconSize: 20,
-      color: Theme.of(context).highlightColor,
-      activeColor: Theme.of(context).colorScheme.onBackground,
-      tabs: const [
-        GButton(
-          icon: FontAwesomeIcons.house,
-          text: "Home",
-          borderRadius: BorderRadius.zero,
-        ),
-        GButton(
-          icon: FontAwesomeIcons.magnifyingGlass,
-          text: "Search",
-          borderRadius: BorderRadius.zero,
-        ),
-        GButton(
-          icon: FontAwesomeIcons.cartShopping,
-          text: "Cart",
-          borderRadius: BorderRadius.zero,
-        ),
-        GButton(
-          icon: FontAwesomeIcons.circleUser,
-          borderRadius: BorderRadius.zero,
-          text: "Profile",
-        ),
-      ],
+    // return GNav(
+    //   padding: const EdgeInsets.all(15),
+    //   selectedIndex: _index,
+    //   onTabChange: (currentIndex) {
+    // setState(() {
+    //   _index = currentIndex;
+    // });
+    //     goToScreen(currentIndex);
+    //   },
+    //   backgroundColor: Theme.of(context).primaryColor,
+    //   tabBackgroundColor: Theme.of(context).highlightColor,
+    //   tabBorderRadius: 5,
+    //   gap: 10,
+    //   iconSize: 20,
+    //   color: Theme.of(context).highlightColor,
+    //   activeColor: Theme.of(context).colorScheme.onBackground,
+    //   tabs: const [
+    //     GButton(
+    //       icon: FontAwesomeIcons.house,
+    //       text: "Home",
+    //       borderRadius: BorderRadius.zero,
+    //     ),
+    //     GButton(
+    //       icon: FontAwesomeIcons.magnifyingGlass,
+    //       text: "Search",
+    //       borderRadius: BorderRadius.zero,
+    //     ),
+    //     GButton(
+    //       icon: FontAwesomeIcons.cartShopping,
+    //       text: "Cart",
+    //       borderRadius: BorderRadius.zero,
+    //     ),
+    //     GButton(
+    //       icon: FontAwesomeIcons.circleUser,
+    //       borderRadius: BorderRadius.zero,
+    //       text: "Profile",
+    //     ),
+    //   ],
+    // );
+    return Container(
+      decoration: const BoxDecoration(color: Colors.transparent),
+      padding: const EdgeInsets.all(8.0),
+      child: BottomBarFloating(
+        iconSize: 18,
+        borderRadius: BorderRadius.circular(10),
+        items: const [
+          TabItem(icon: FontAwesomeIcons.house, title: "Home"),
+          TabItem(icon: FontAwesomeIcons.magnifyingGlass, title: "Search"),
+          TabItem(icon: FontAwesomeIcons.cartShopping, title: "Cart"),
+          TabItem(icon: FontAwesomeIcons.circleUser, title: "Profile"),
+        ],
+        backgroundColor: Theme.of(context).primaryColor,
+        color: Colors.white,
+        colorSelected: Colors.amber,
+        onTap: (index) {
+          setState(() {
+            _index = index;
+          });
+          goToScreen(index);
+        },
+        indexSelected: _index,
+      ),
     );
   }
 }

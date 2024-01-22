@@ -136,7 +136,8 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                      )
+                      ),
+                      const Gap(80),
                     ],
                   ),
                 );
@@ -179,7 +180,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   );

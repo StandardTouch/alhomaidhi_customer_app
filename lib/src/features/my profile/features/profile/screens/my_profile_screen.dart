@@ -23,6 +23,12 @@ class _MyProfileScreen extends State<MyProfileScreen> {
     context.go("/login");
   }
 
+  Future<String> getUserName() async {
+    const storage = FlutterSecureStorage();
+    final String userName = await storage.read(key: "username") ?? "User";
+    return userName;
+  }
+
   @override
   Widget build(context) {
     return Scaffold(
@@ -59,9 +65,20 @@ class _MyProfileScreen extends State<MyProfileScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const Image(image: AssetImage(Assets.profile), width: 100),
+                    CircleAvatar(
+                      radius: 60,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      child: const Icon(
+                        Icons.account_circle,
+                        size: 120,
+                      ),
+                    ),
                     const Gap(20),
-                    const Text("Hey, User Name"),
+                    FutureBuilder(
+                        future: getUserName(),
+                        builder: (context, snapshot) {
+                          return Text("Hey, ${snapshot.data}");
+                        }),
                     const Gap(20),
                     const MyProfiletMenuItem(
                       menuItemLink: '/address',
@@ -102,7 +119,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                         child: const Text("Logout"),
                       ),
                     ),
-                    const Gap(30),
+                    const Gap(100),
                   ],
                 ),
               ),
