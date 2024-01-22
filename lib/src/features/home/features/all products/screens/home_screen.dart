@@ -7,6 +7,7 @@ import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart'
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -46,6 +47,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: const BrandsWidget(),
           ),
           products.when(data: (data) {
+            FlutterNativeSplash.remove();
             if (data.status == "APP00") {
               if (data.message!.length < 100) {
                 noMoreProducts = true;
@@ -86,6 +88,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     );
                   });
             } else {
+              FlutterNativeSplash.remove();
+
               return SizedBox(
                 height: DeviceInfo.getDeviceHeight(context) * 0.7,
                 child: Column(
@@ -116,6 +120,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             );
           }, error: (err, stk) {
+            FlutterNativeSplash.remove();
+
             return SizedBox(
                 height: DeviceInfo.getDeviceHeight(context) * 0.8,
                 child: Column(
@@ -170,12 +176,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       floatingActionButton: (query.brandId == 0)
           ? const SizedBox.shrink()
-          : FloatingActionButton(
-              onPressed: () {
-                ref.read(productQueryProvider.notifier).updateBrand(0);
-              },
-              child: const Icon(
-                Icons.clear,
+          : Padding(
+              padding: const EdgeInsets.only(bottom: 65),
+              child: FloatingActionButton(
+                onPressed: () {
+                  ref.read(productQueryProvider.notifier).updateBrand(0);
+                },
+                child: const Icon(
+                  Icons.clear,
+                ),
               ),
             ),
     );

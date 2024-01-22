@@ -19,8 +19,8 @@ class MyInvoice extends StatefulWidget {
   final String invoiceId;
   final String invoicePdf;
 
-  const MyInvoice({Key? key, required this.invoiceId, required this.invoicePdf})
-      : super(key: key);
+  const MyInvoice(
+      {super.key, required this.invoiceId, required this.invoicePdf});
 
   @override
   MyInvoiceState createState() => MyInvoiceState();

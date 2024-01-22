@@ -93,6 +93,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                       ),
                       const Divider(),
                       PriceWidget(
+                        isTotal: true,
                         title: "Total Amount",
                         value: data.message!.cartTotals!.total!,
                       ),

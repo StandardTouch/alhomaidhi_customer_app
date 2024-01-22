@@ -10,10 +10,12 @@ class PriceWidget extends ConsumerWidget {
     required this.value,
     required this.title,
     this.isDiscount = false,
+    this.isTotal = false,
   });
   final String title;
   final dynamic value;
   final bool isDiscount;
+  final bool isTotal;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,7 +29,7 @@ class PriceWidget extends ConsumerWidget {
           child: Text(
             title,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.normal,
+                  fontWeight: (isTotal) ? FontWeight.bold : FontWeight.normal,
                 ),
           ),
         ),
@@ -40,7 +42,7 @@ class PriceWidget extends ConsumerWidget {
             child: Text(
               "SAR $value",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.normal,
+                    fontWeight: (isTotal) ? FontWeight.bold : FontWeight.normal,
                     color: isDiscount ? Colors.green[800] : null,
                   ),
             ),

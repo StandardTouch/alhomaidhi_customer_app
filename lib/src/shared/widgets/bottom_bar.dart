@@ -6,7 +6,6 @@ import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomaidhiBottomBar extends ConsumerStatefulWidget {
@@ -38,45 +37,6 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    // return GNav(
-    //   padding: const EdgeInsets.all(15),
-    //   selectedIndex: _index,
-    //   onTabChange: (currentIndex) {
-    // setState(() {
-    //   _index = currentIndex;
-    // });
-    //     goToScreen(currentIndex);
-    //   },
-    //   backgroundColor: Theme.of(context).primaryColor,
-    //   tabBackgroundColor: Theme.of(context).highlightColor,
-    //   tabBorderRadius: 5,
-    //   gap: 10,
-    //   iconSize: 20,
-    //   color: Theme.of(context).highlightColor,
-    //   activeColor: Theme.of(context).colorScheme.onBackground,
-    //   tabs: const [
-    //     GButton(
-    //       icon: FontAwesomeIcons.house,
-    //       text: "Home",
-    //       borderRadius: BorderRadius.zero,
-    //     ),
-    //     GButton(
-    //       icon: FontAwesomeIcons.magnifyingGlass,
-    //       text: "Search",
-    //       borderRadius: BorderRadius.zero,
-    //     ),
-    //     GButton(
-    //       icon: FontAwesomeIcons.cartShopping,
-    //       text: "Cart",
-    //       borderRadius: BorderRadius.zero,
-    //     ),
-    //     GButton(
-    //       icon: FontAwesomeIcons.circleUser,
-    //       borderRadius: BorderRadius.zero,
-    //       text: "Profile",
-    //     ),
-    //   ],
-    // );
     return Container(
       decoration: const BoxDecoration(color: Colors.transparent),
       padding: const EdgeInsets.all(8.0),

@@ -61,12 +61,12 @@ final router = GoRouter(
           if (isLoggedIn) {
             return "/home";
           } else {
+            FlutterNativeSplash.remove();
             return "/login";
           }
         } on HomaidhiException catch (_) {
-          return "/network_error";
-        } finally {
           FlutterNativeSplash.remove();
+          return "/network_error";
         }
       },
       pageBuilder: (ctx, state) => buildPageWithDefaultTransition(
