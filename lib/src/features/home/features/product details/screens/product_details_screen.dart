@@ -76,7 +76,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
                       "An error Occurred: ${err.message}",
                     )
                   : Text(
-                      err.toString(),
+                      "An Error Occurred. Please contact the developer for more information",
                     ),
             );
           },

@@ -36,7 +36,7 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext contex1t) {
     return Container(
       decoration: const BoxDecoration(color: Colors.transparent),
       padding: const EdgeInsets.all(8.0),
@@ -47,7 +47,7 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
           TabItem(icon: FontAwesomeIcons.house, title: "Home"),
           TabItem(icon: FontAwesomeIcons.magnifyingGlass, title: "Search"),
           TabItem(icon: FontAwesomeIcons.cartShopping, title: "Cart"),
-          TabItem(icon: FontAwesomeIcons.circleUser, title: "Profile"),
+          // TabItem(icon: FontAwesomeIcons.circleUser, title: "Profile"),
         ],
         backgroundColor: Theme.of(context).primaryColor,
         color: Colors.white,

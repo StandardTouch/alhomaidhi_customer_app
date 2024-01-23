@@ -16,6 +16,7 @@ import 'package:alhomaidhi_customer_app/src/features/search/screens/search_scree
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/signup_screen.dart';
 import 'package:alhomaidhi_customer_app/src/shared/screens/network_error_screen.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/bottom_bar.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_drawer.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
@@ -26,6 +27,8 @@ import 'package:go_router/go_router.dart';
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>();
+
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 // this is custom default transition
 CustomTransitionPage buildPageWithDefaultTransition(
@@ -197,6 +200,8 @@ final router = GoRouter(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
         return Scaffold(
+          key: scaffoldKey,
+          drawer: const HomaidhiDrawer(),
           extendBody: true,
           body: child,
           bottomNavigationBar: const HomaidhiBottomBar(),
@@ -206,6 +211,8 @@ final router = GoRouter(
         context: context,
         state: state,
         child: Scaffold(
+          key: scaffoldKey,
+          drawer: const HomaidhiDrawer(),
           extendBody: true,
           body: child,
           bottomNavigationBar: const HomaidhiBottomBar(),
