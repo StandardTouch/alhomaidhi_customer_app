@@ -6,20 +6,26 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class HomaidhiAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const HomaidhiAppbar(
-      {super.key, this.preferredSize = const Size.fromHeight(kToolbarHeight)});
+  const HomaidhiAppbar({
+    super.key,
+    this.preferredSize = const Size.fromHeight(kToolbarHeight),
+    this.isProductScreen = false,
+  });
   @override
   final Size preferredSize;
+  final bool isProductScreen;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
-        icon: Icon(Icons.menu),
-        onPressed: () {
-          scaffoldKey.currentState?.openDrawer();
-        },
-      ),
+      leading: isProductScreen
+          ? null
+          : IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                scaffoldKey.currentState?.openDrawer();
+              },
+            ),
       title: Image.asset(
         Assets.logoLight,
         fit: BoxFit.contain,

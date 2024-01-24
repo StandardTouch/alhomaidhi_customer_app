@@ -5,6 +5,7 @@ import 'package:alhomaidhi_customer_app/src/features/cart/widgets/price_widget.d
 import 'package:alhomaidhi_customer_app/src/features/cart/widgets/single_cart_item.dart';
 import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/address_widget.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,10 +31,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
     final cart = ref.watch(myCartProvider);
     final cartDetails = ref.watch(cartDetailsProvider);
     return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        title: const Text("My Cart"),
-      ),
+      appBar: const HomaidhiAppbar(),
       body: isLoading
           ? const Center(
               child: CircularProgressIndicator(),

@@ -37,7 +37,9 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
     return PopScope(
       canPop: (cart.isLoading) ? false : true,
       child: Scaffold(
-        appBar: const HomaidhiAppbar(),
+        appBar: const HomaidhiAppbar(
+          isProductScreen: true,
+        ),
         body: productDetails.when(
           data: (data) {
             setState(() {
@@ -75,7 +77,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
                   ? Text(
                       "An error Occurred: ${err.message}",
                     )
-                  : Text(
+                  : const Text(
                       "An Error Occurred. Please contact the developer for more information",
                     ),
             );
