@@ -7,14 +7,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 VoidCallback? onNewNotification;
-// Top-level function to handle background messages
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
 
-  // Convert message to a custom notification object
   final notification = FirebaseNotification.fromRemoteMessage(message);
 
-  // Save the notification
   await saveNotificationInBackground(notification);
   onNewNotification?.call();
 }
@@ -27,7 +24,8 @@ Future<void> saveNotificationInBackground(
     notificationsJson.add(json.encode(notification.toJson()));
     await prefs.setStringList('saved_notifications', notificationsJson);
     final notificationsJson2 = prefs.getStringList('saved_notifications') ?? [];
-    print("Saved notifications JSON: $notificationsJson2"); // Diagnostic log
+    print(
+        "Save notification in background  JSON: $notificationsJson2"); // Diagnostic log
   } catch (e) {
     print("Error saving notification: $e");
   }
@@ -36,7 +34,8 @@ Future<void> saveNotificationInBackground(
 Future<List<FirebaseNotification>> getSavedNotifications() async {
   final prefs = await SharedPreferences.getInstance();
   final notificationsJson = prefs.getStringList('saved_notifications') ?? [];
-  print("Saved notifications JSON: $notificationsJson"); // Diagnostic log
+  print(
+      "Saved Background notifications JSON: $notificationsJson"); // Diagnostic log
 
   return notificationsJson.map((jsonStr) {
     return FirebaseNotification.fromJson(json.decode(jsonStr));

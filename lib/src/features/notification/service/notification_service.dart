@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:io' show Platform;
 import 'package:alhomaidhi_customer_app/firebase_options.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/model/firebase_notification.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/provider/provider.dart';
@@ -75,7 +75,7 @@ class NotificationService {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       final notification = FirebaseNotification.fromRemoteMessage(message);
       await saveNotification(notification);
-      await saveNotificationInBackground(notification);
+      logger.e("sent time ${notification.sentTime}");
 
       onNewNotification?.call();
     });
@@ -84,6 +84,7 @@ class NotificationService {
   }
 
   Future<void> saveNotification(FirebaseNotification notification) async {
+    print("sent time ${notification.sentTime}");
     final prefs = await SharedPreferences.getInstance();
     final notificationsJson = prefs.getStringList('saved_notifications') ?? [];
     notificationsJson.add(json.encode(notification.toJson()));
@@ -99,16 +100,20 @@ class NotificationService {
       return FirebaseNotification.fromJson(json.decode(jsonStr));
     }).toList();
 
-    notifications
-        .sort((a, b) => b.sentTime?.compareTo(a.sentTime ?? DateTime(0)) ?? 0);
+    if (Platform.isIOS) {
+      return notifications;
+    } else {
+      notifications.sort(
+          (a, b) => b.sentTime?.compareTo(a.sentTime ?? DateTime(0)) ?? 0);
 
-    final cutoff = DateTime.now().subtract(Duration(days: 3));
-    final filteredNotifications = notifications
-        .where((n) => n.sentTime != null && n.sentTime!.isAfter(cutoff))
-        .toList();
+      final cutoff = DateTime.now().subtract(Duration(days: 3));
+      final filteredNotifications = notifications
+          .where((n) => n.sentTime != null && n.sentTime!.isAfter(cutoff))
+          .toList();
 
-    print("Filtered notifications: $filteredNotifications"); // Diagnostic log
+      print("Filtered notifications: $filteredNotifications"); // Diagnostic log
 
-    return filteredNotifications;
+      return filteredNotifications;
+    }
   }
 }

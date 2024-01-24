@@ -50,7 +50,7 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
           title: const Text('Notifications'),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
               onPressed: () async {
                 await ref
                     .read(notificationServiceProvider)
@@ -78,7 +78,7 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
                     title: notification.title,
                     body: notification.body,
                     imageUrl: notification.imageUrl,
-                    sentTime: notification.sentTime,
+                    sentTime: notification.sentTime ?? DateTime.now(),
                   );
                 },
               );
