@@ -1,6 +1,7 @@
 import 'package:alhomaidhi_customer_app/src/features/login/models/login_response.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/model/firebase_notification.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/provider/provider.dart';
+import 'package:alhomaidhi_customer_app/src/features/notification/service/background_notifications.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/widgets/no_notification.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/widgets/notification.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
@@ -26,15 +27,19 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
     notificationService.onNewNotification = () {
       setState(() {});
     };
+
+    onNewNotification = () {
+      setState(() {});
+    };
     notificationService.init();
   }
 
-  @override
-  void dispose() {
-    final notificationService = ref.read(notificationServiceProvider);
-    notificationService.onNewNotification = null;
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   final notificationService = ref.read(notificationServiceProvider);
+  //   notificationService.onNewNotification = null;
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

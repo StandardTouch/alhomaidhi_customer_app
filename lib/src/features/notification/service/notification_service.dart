@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:alhomaidhi_customer_app/firebase_options.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/model/firebase_notification.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/provider/provider.dart';
+import 'package:alhomaidhi_customer_app/src/features/notification/service/background_notifications.dart';
 import 'package:alhomaidhi_customer_app/src/utils/config/dio/dio_client.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
@@ -46,7 +47,6 @@ class NotificationService {
         await _sendTokenToServer(fcmToken);
       }
     }
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
     _setUpMessageListeners(fcm);
   }
 
@@ -75,6 +75,7 @@ class NotificationService {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       final notification = FirebaseNotification.fromRemoteMessage(message);
       await saveNotification(notification);
+      await saveNotificationInBackground(notification);
 
       onNewNotification?.call();
     });
@@ -87,35 +88,6 @@ class NotificationService {
     final notificationsJson = prefs.getStringList('saved_notifications') ?? [];
     notificationsJson.add(json.encode(notification.toJson()));
     await prefs.setStringList('saved_notifications', notificationsJson);
-  }
-
-  static Future<void> firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
-    try {
-      await Firebase.initializeApp();
-      logger.e("Handling a background message: ${message.messageId}");
-
-      final notification = FirebaseNotification.fromRemoteMessage(message);
-      logger.e("firebaseMessagingBackgroundHandler $notification");
-      await _saveNotificationInBackground(notification);
-    } catch (e) {
-      logger.e("Error in firebaseMessagingBackgroundHandler: $e");
-    }
-  }
-
-  static Future<void> _saveNotificationInBackground(
-      FirebaseNotification notification) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final notificationsJson =
-          prefs.getStringList('saved_notifications') ?? [];
-      notificationsJson.add(json.encode(notification.toJson()));
-      bool saved =
-          await prefs.setStringList('saved_notifications', notificationsJson);
-      logger.e("Save operation successful: $saved");
-    } catch (e) {
-      logger.e("Error in _saveNotificationInBackground: $e");
-    }
   }
 
   Future<List<FirebaseNotification>> getSavedNotifications() async {
