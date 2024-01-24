@@ -20,6 +20,7 @@ class _HomaidhiDrawerState extends State<HomaidhiDrawer> {
     const storage = FlutterSecureStorage();
     storage.delete(key: "token");
     storage.delete(key: "userId");
+    context.pop();
     context.go("/login");
   }
 
