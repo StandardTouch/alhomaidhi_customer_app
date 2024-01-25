@@ -175,7 +175,7 @@ final router = GoRouter(
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
         context: context,
         state: state,
-        child: NotificationScreen(),
+        child: const NotificationScreen(),
       ),
     ),
     GoRoute(

@@ -1,14 +1,10 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
-import 'package:alhomaidhi_customer_app/firebase_options.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/model/firebase_notification.dart';
-import 'package:alhomaidhi_customer_app/src/features/notification/provider/provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/notification/service/background_notifications.dart';
 import 'package:alhomaidhi_customer_app/src/utils/config/dio/dio_client.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -84,7 +80,7 @@ class NotificationService {
   }
 
   Future<void> saveNotification(FirebaseNotification notification) async {
-    print("sent time ${notification.sentTime}");
+    // print("sent time ${notification.sentTime}");
     final prefs = await SharedPreferences.getInstance();
     final notificationsJson = prefs.getStringList('saved_notifications') ?? [];
     notificationsJson.add(json.encode(notification.toJson()));
@@ -94,7 +90,7 @@ class NotificationService {
   Future<List<FirebaseNotification>> getSavedNotifications() async {
     final prefs = await SharedPreferences.getInstance();
     final notificationsJson = prefs.getStringList('saved_notifications') ?? [];
-    print("Saved notifications JSON: $notificationsJson"); // Diagnostic log
+    // print("Saved notifications JSON: $notificationsJson"); // Diagnostic log
 
     final notifications = notificationsJson.map((jsonStr) {
       return FirebaseNotification.fromJson(json.decode(jsonStr));
@@ -106,12 +102,12 @@ class NotificationService {
       notifications.sort(
           (a, b) => b.sentTime?.compareTo(a.sentTime ?? DateTime(0)) ?? 0);
 
-      final cutoff = DateTime.now().subtract(Duration(days: 3));
+      final cutoff = DateTime.now().subtract(const Duration(days: 3));
       final filteredNotifications = notifications
           .where((n) => n.sentTime != null && n.sentTime!.isAfter(cutoff))
           .toList();
 
-      print("Filtered notifications: $filteredNotifications"); // Diagnostic log
+      // print("Filtered notifications: $filteredNotifications"); // Diagnostic log
 
       return filteredNotifications;
     }

@@ -1,14 +1,10 @@
-import 'package:alhomaidhi_customer_app/src/features/login/models/login_response.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/model/firebase_notification.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/provider/provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/service/background_notifications.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/widgets/no_notification.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/widgets/notification.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 
 class NotificationScreen extends ConsumerStatefulWidget {
   const NotificationScreen({super.key});

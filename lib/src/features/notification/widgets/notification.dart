@@ -65,12 +65,12 @@ class SingleNotification extends StatelessWidget {
           child: FittedBox(
             fit: BoxFit.fitHeight,
             child: Container(
-              padding: EdgeInsets.all(4),
+              padding: const EdgeInsets.all(4),
               margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               width: DeviceInfo.getDeviceWidth(context),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
@@ -125,7 +125,7 @@ class SingleNotification extends StatelessWidget {
                                 .copyWith(
                                     color: Theme.of(context).primaryColor),
                           ),
-                          Gap(1),
+                          const Gap(1),
                           Text(body!,
                               style: Theme.of(context).textTheme.labelMedium),
                         ],

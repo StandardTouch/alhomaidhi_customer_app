@@ -4,10 +4,8 @@ import 'package:alhomaidhi_customer_app/src/features/home/features/all%20product
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/product_card.dart';
 import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/provider/provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/notification/service/notification_service.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
