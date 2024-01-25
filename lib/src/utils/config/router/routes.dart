@@ -12,6 +12,7 @@ import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_in
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_details.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/screens/my_order_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/profile/screens/my_profile_screen.dart';
+import 'package:alhomaidhi_customer_app/src/features/notification/screens/notifications.dart';
 import 'package:alhomaidhi_customer_app/src/features/search/screens/search_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/signup/screens/signup_screen.dart';
 import 'package:alhomaidhi_customer_app/src/shared/screens/network_error_screen.dart';
@@ -169,6 +170,14 @@ final router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
     ),
 
+    GoRoute(
+      path: "/notifications",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: NotificationScreen(),
+      ),
+    ),
     GoRoute(
       path: "/product_details/:productId",
       name: "product_details_screen",

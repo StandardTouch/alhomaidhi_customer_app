@@ -23,6 +23,7 @@ class APIEndpoints {
   static const getPreCheckoutToken = "/wp-json/api/v1/mo-jwt";
   static const updateCredentials =
       "/wp-json/alhomaidhiapp/v2/update_credentials";
+  static const sendFcmToken = "/wp-json/alhomaidhiapp/v2/notification_token";
 }
 
 // logger is used for logging errors

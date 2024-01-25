@@ -1,17 +1,37 @@
+import 'dart:convert';
+
+import 'package:alhomaidhi_customer_app/firebase_options.dart';
+import 'package:alhomaidhi_customer_app/src/features/notification/model/firebase_notification.dart';
+import 'package:alhomaidhi_customer_app/src/features/notification/provider/provider.dart';
+import 'package:alhomaidhi_customer_app/src/features/notification/service/background_notifications.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/theme/theme.dart';
 import 'package:alhomaidhi_customer_app/src/utils/config/router/routes.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import "package:alhomaidhi_customer_app/src/features/notification/service/notification_service.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 final globalContainer = ProviderContainer();
+Future multipleRegistration() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  await FirebaseMessaging.instance.subscribeToTopic("order-status");
+}
+
 void main() async {
   await dotenv.load();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
