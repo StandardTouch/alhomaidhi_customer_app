@@ -1,4 +1,3 @@
-
 import 'package:alhomaidhi_customer_app/firebase_options.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/service/background_notifications.dart';
 import 'package:alhomaidhi_customer_app/src/utils/theme/theme.dart';
@@ -31,6 +30,7 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+  await multipleRegistration();
 
   // FlutterDownloader.registerCallback(downloadCallback);
 
