@@ -84,6 +84,8 @@ class MyOrderScreen extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     String? orderId =
                         data.message![index].orderDetails!.orderId;
+                    String? orderStatus =
+                        data.message![index].orderDetails!.orderStatus;
 
                     return ListView.builder(
                       shrinkWrap: true,
@@ -93,7 +95,9 @@ class MyOrderScreen extends ConsumerWidget {
                         var item = data.message![index].items![indexItem];
                         return SingleOrderCard(
                           imageUrl: item.image,
-                          title: "Order Under Process",
+                          title: (orderStatus == 'wc-completed')
+                              ? "Order Delivered"
+                              : "Order Under Process",
                           subtitle: item.itemName ?? 'No Title',
                           orderStatus:
                               data.message![index].orderDetails!.orderStatus,
