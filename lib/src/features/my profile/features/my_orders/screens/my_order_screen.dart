@@ -47,14 +47,16 @@ class MyOrderScreen extends ConsumerWidget {
             appBar: AppBar(
               title: const Text('My Orders'),
               forceMaterialTransparency: true,
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    context.go("/home");
-                  },
-                  icon: const Icon(Icons.home),
-                )
-              ],
+              actions: context.canPop()
+                  ? null
+                  : [
+                      IconButton(
+                        onPressed: () {
+                          context.go("/home");
+                        },
+                        icon: const Icon(Icons.home),
+                      )
+                    ],
             ),
             body: Container(
               margin: const EdgeInsets.only(top: 20),

@@ -14,13 +14,14 @@ class SingleOrderCard extends StatelessWidget {
     topLeft: Radius.circular(10),
   );
 
-  const SingleOrderCard(
-      {super.key,
-      required this.title,
-      required this.subtitle,
-      required this.imageUrl,
-      required this.onPressed,
-      required this.orderStatus});
+  const SingleOrderCard({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.imageUrl,
+    required this.onPressed,
+    required this.orderStatus,
+  });
 
   @override
   Widget build(BuildContext context) {
