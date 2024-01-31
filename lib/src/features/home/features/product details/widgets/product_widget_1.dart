@@ -42,12 +42,14 @@ class ProductWidget1 extends StatelessWidget {
               ),
               Expanded(
                 flex: 1,
-                child: Text(
-                  "SKU: $skuNumber",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Colors.grey),
+                child: FittedBox(
+                  child: Text(
+                    "SKU: $skuNumber",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: Colors.grey),
+                  ),
                 ),
               ),
             ],
