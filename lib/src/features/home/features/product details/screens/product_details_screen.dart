@@ -83,8 +83,13 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
             );
           },
           loading: () {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: LinearProgressIndicator(
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
             );
           },
         ),
