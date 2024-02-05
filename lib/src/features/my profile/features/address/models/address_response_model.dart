@@ -42,21 +42,24 @@ class Message {
   String? crNumber;
   String? vatNumber;
   String? whatsappNumber;
+  String? password;
 
-  Message(
-      {this.firstName,
-      this.lastName,
-      this.country,
-      this.city,
-      this.postcode,
-      this.address1,
-      this.address2,
-      this.phone,
-      this.email,
-      this.nationalId,
-      this.crNumber,
-      this.vatNumber,
-      this.whatsappNumber});
+  Message({
+    this.firstName,
+    this.lastName,
+    this.country,
+    this.city,
+    this.postcode,
+    this.address1,
+    this.address2,
+    this.phone,
+    this.email,
+    this.nationalId,
+    this.crNumber,
+    this.vatNumber,
+    this.whatsappNumber,
+    this.password,
+  });
 
   Message.fromJson(Map<String, dynamic> json) {
     if (json["first_name"] is String) {
@@ -77,6 +80,7 @@ class Message {
     if (json["address_1"] is String) {
       address1 = json["address_1"];
     }
+
     if (json["address_2"] is String) {
       address2 = json["address_2"];
     }
@@ -98,6 +102,9 @@ class Message {
     if (json["whatsapp_number"] is String) {
       whatsappNumber = json["whatsapp_number"];
     }
+    if (json["checkout_key"] is String) {
+      password = json["checkout_key"];
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -115,6 +122,8 @@ class Message {
     data["cr_number"] = crNumber;
     data["vat_number"] = vatNumber;
     data["whatsapp_number"] = whatsappNumber;
+    data["checkout_key"] = password;
+
     return data;
   }
 }

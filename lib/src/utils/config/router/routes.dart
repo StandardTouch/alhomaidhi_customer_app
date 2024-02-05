@@ -60,10 +60,15 @@ final router = GoRouter(
       path: "/",
       redirect: (context, state) async {
         try {
-          bool isLoggedIn = await AuthHelper.isUserLoggedIn();
-          logger.d(isLoggedIn);
-          if (isLoggedIn) {
+          String authStatus = await AuthHelper.isUserLoggedIn();
+          logger.d(authStatus);
+          if (authStatus == "DELAPP00") {
             return "/home";
+            // FlutterNativeSplash.remove();
+            // return "/address?from=/";
+          } else if (authStatus == "DELAPP99") {
+            FlutterNativeSplash.remove();
+            return "/address?from=/";
           } else {
             FlutterNativeSplash.remove();
             return "/login";
@@ -92,6 +97,7 @@ final router = GoRouter(
       ),
       parentNavigatorKey: _rootNavigatorKey,
     ),
+
     GoRoute(
       path: "/signup",
       pageBuilder: (context, state) => buildPageWithDefaultTransition(

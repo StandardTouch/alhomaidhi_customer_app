@@ -5,9 +5,7 @@ class APIEndpoints {
   static const loginVerifyOtp = "/wp-json/alhomaidhiapp/v2/otp_verification";
   static const verifyToken = "/wp-json/alhomaidhiapp/v2/token_verification";
   static const loginResendOtp = "/wp-json/alhomaidhiapp/v2/resend_otp_request";
-
   static const getProducts = "/wp-json/alhomaidhiapp/v2/list_products";
-
   static const getBrands = "/wp-json/alhomaidhiapp/v2/retrieve_brands";
   static const registerUser = "/wp-json/alhomaidhiapp/v2/alhomapp_signup";
   static const myOrders = "/wp-json/alhomaidhiapp/v2/list_orders";
@@ -21,8 +19,7 @@ class APIEndpoints {
   static const updateCartItems = "/wp-json/alhomaidhiapp/v2/cart_update";
   static const deleteCartItems = "/wp-json/alhomaidhiapp/v2/delete_cart";
   static const getPreCheckoutToken = "/wp-json/api/v1/mo-jwt";
-  static const updateCredentials =
-      "/wp-json/alhomaidhiapp/v2/update_credentials";
+  static const getCredentials = "/wp-json/alhomaidhiapp/v2/get_checkout_key";
   static const sendFcmToken = "/wp-json/alhomaidhiapp/v2/notification_token";
 }
 

@@ -1,10 +1,13 @@
+import 'package:alhomaidhi_customer_app/main.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/product_card.dart';
+import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
@@ -27,6 +30,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   Widget build(BuildContext context) {
     final products = ref.watch(allProductsProvider);
     final query = ref.read(productQueryProvider.notifier);
+    final isLoading = ref.watch(isLoadingProvider);
 
     return Scaffold(
         appBar: const HomaidhiAppbar(),
@@ -107,7 +111,31 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("An Error Occurred"),
-                      Text("$err"),
+                      const Gap(15),
+                      ElevatedButton.icon(
+                        onPressed: isLoading
+                            ? null
+                            : () async {
+                                globalContainer
+                                    .read(isLoadingProvider.notifier)
+                                    .state = true;
+                                try {
+                                  // ignore: unused_result
+                                  await ref.refresh(allProductsProvider.future);
+                                } catch (_) {
+                                } finally {
+                                  globalContainer
+                                      .read(isLoadingProvider.notifier)
+                                      .state = false;
+                                }
+                              },
+                        icon: const Icon(Icons.refresh),
+                        label: isLoading
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : const Text("Refresh"),
+                      )
                     ],
                   ),
                 ),

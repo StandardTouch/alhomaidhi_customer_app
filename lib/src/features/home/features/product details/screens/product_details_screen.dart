@@ -83,13 +83,8 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
             );
           },
           loading: () {
-            return Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: LinearProgressIndicator(
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
+            return LinearProgressIndicator(
+              color: Theme.of(context).colorScheme.onSecondary,
             );
           },
         ),
@@ -102,7 +97,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
                 },
           icon: const Icon(Icons.add_shopping_cart),
           label: Text((cart.isLoading)
-              ? "Item Added"
+              ? "Adding Item"
               : (!isStockReady)
                   ? "Calculating Stock"
                   : (stock <= 1)

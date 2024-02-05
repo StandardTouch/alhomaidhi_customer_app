@@ -47,13 +47,21 @@ class AddressWidget extends ConsumerWidget {
                         ),
                   ),
                   TextButton.icon(
+                      style: TextButton.styleFrom(
+                        foregroundColor: (data.message!.address1 == "" &&
+                                data.message!.address2 == "")
+                            ? Colors.red
+                            : Colors.black,
+                      ),
                       onPressed: () {
                         context.push("/address");
                       },
                       icon: const Icon(Icons.change_circle),
                       label: Text(
-                        "Change",
-                        style: Theme.of(context).textTheme.bodySmall,
+                        (data.message!.address1 == "" &&
+                                data.message!.address2 == "")
+                            ? "Add Address"
+                            : "Change",
                       ))
                 ],
               ),

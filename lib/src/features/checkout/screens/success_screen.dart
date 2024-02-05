@@ -52,9 +52,11 @@ class SuccessPaymentScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: const Text(
-                  "My Orders",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                child: const FittedBox(
+                  child: Text(
+                    "My Orders",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
                 )),
           ),
           const Gap(10),
@@ -69,7 +71,7 @@ class SuccessPaymentScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: const Text("View Other Products"),
+              child: const FittedBox(child: Text("View Other Products")),
             ),
           ),
         ],

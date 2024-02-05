@@ -17,18 +17,14 @@ class AuthDetails {
 }
 
 class AuthHelper {
-  static Future<bool> isUserLoggedIn() async {
+  static Future<String> isUserLoggedIn() async {
     const storage = FlutterSecureStorage();
     final token = await storage.read(key: "token");
     final userId = await storage.read(key: "userId");
     try {
       AuthResponseModel response =
           await verifyToken(token ?? "notoken", userId ?? "0");
-      if (response.status == "DELAPP00") {
-        return true;
-      } else {
-        return false;
-      }
+      return response.status!;
     } catch (err) {
       if (err is HomaidhiException) {
         throw HomaidhiException(status: err.status, message: err.message);

@@ -54,9 +54,11 @@ class MyProfileMenuItem extends StatelessWidget {
               ),
             ),
             const Gap(10),
-            Text(
-              menuitemName,
-              style: Theme.of(context).textTheme.bodyLarge,
+            FittedBox(
+              child: Text(
+                menuitemName,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             )
           ],
         ),

@@ -23,12 +23,15 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
       body: Stack(
         children: [
           WebView(
+            zoomEnabled: false,
             onWebResourceError: (err) {
               logger.e("Error: ${err.description}");
             },
             onPageFinished: (isFinished) {
-              setState(() {
-                isLoading = false;
+              Future.delayed(const Duration(seconds: 10), () {
+                setState(() {
+                  isLoading = false;
+                });
               });
             },
             navigationDelegate: (request) {
@@ -36,6 +39,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                 context.go("/success");
                 return NavigationDecision.prevent;
               }
+              logger.i(request.url);
               return NavigationDecision.navigate;
             },
             javascriptMode: JavascriptMode.unrestricted,

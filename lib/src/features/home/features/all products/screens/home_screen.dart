@@ -36,6 +36,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     ref.watch(notificationServiceProvider);
+    final isLoading = ref.watch(isLoadingProvider);
     final height = DeviceInfo.getDeviceHeight(context);
     final products = ref.watch(allProductsProvider);
     final query = ref.watch(productQueryProvider);
@@ -133,22 +134,29 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     const Text("An Error Occurred. Try Refreshing"),
                     const Gap(10),
                     ElevatedButton(
-                        onPressed: () async {
-                          globalContainer
-                              .read(isLoadingProvider.notifier)
-                              .state = true;
+                      onPressed: isLoading
+                          ? null
+                          : () async {
+                              globalContainer
+                                  .read(isLoadingProvider.notifier)
+                                  .state = true;
 
-                          try {
-                            // ignore: unused_result
-                            await ref.refresh(allProductsProvider.future);
-                          } catch (_) {
-                          } finally {
-                            globalContainer
-                                .read(isLoadingProvider.notifier)
-                                .state = false;
-                          }
-                        },
-                        child: const Text("Refresh"))
+                              try {
+                                // ignore: unused_result
+                                await ref.refresh(allProductsProvider.future);
+                              } catch (_) {
+                              } finally {
+                                globalContainer
+                                    .read(isLoadingProvider.notifier)
+                                    .state = false;
+                              }
+                            },
+                      child: isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : const Text("Refresh"),
+                    )
                   ],
                 ));
           }),

@@ -12,23 +12,26 @@ class AddressRequestModel {
   String? crNumber;
   String? vatNumber;
   String? whatsAppNumber;
+  String? password;
   bool isBtnDisable;
 
-  AddressRequestModel(
-      {this.firstName,
-      this.lastName,
-      this.country,
-      this.city,
-      this.postcode,
-      this.address1,
-      this.address2,
-      this.phone,
-      this.email,
-      this.nationalId,
-      this.crNumber,
-      this.vatNumber,
-      this.whatsAppNumber,
-      this.isBtnDisable = false});
+  AddressRequestModel({
+    this.firstName,
+    this.lastName,
+    this.country,
+    this.city,
+    this.postcode,
+    this.address1,
+    this.address2,
+    this.phone,
+    this.email,
+    this.nationalId,
+    this.crNumber,
+    this.vatNumber,
+    this.whatsAppNumber,
+    this.isBtnDisable = false,
+    this.password,
+  });
 
   AddressRequestModel copyWith(
       {String? firstName,
@@ -44,7 +47,8 @@ class AddressRequestModel {
       String? crNumber,
       String? vatNumber,
       String? whatsAppNumber,
-      bool? isBtnDisable}) {
+      bool? isBtnDisable,
+      String? password}) {
     return AddressRequestModel(
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
@@ -58,6 +62,7 @@ class AddressRequestModel {
       vatNumber: vatNumber ?? this.vatNumber,
       whatsAppNumber: whatsAppNumber ?? this.whatsAppNumber,
       isBtnDisable: isBtnDisable ?? false,
+      password: password ?? this.password,
     );
   }
 }

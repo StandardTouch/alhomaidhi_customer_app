@@ -55,18 +55,21 @@ class Message {
   String? userId;
   String? username;
   String? useremail;
+  String? fullName;
   String? mobileno;
   String? arabicFullName;
   String? masterCustomerId;
 
-  Message(
-      {this.token,
-      this.userId,
-      this.username,
-      this.useremail,
-      this.mobileno,
-      this.arabicFullName,
-      this.masterCustomerId});
+  Message({
+    this.token,
+    this.userId,
+    this.username,
+    this.useremail,
+    this.mobileno,
+    this.arabicFullName,
+    this.masterCustomerId,
+    this.fullName,
+  });
 
   Message.fromJson(Map<String, dynamic> json) {
     if (json["token"] is String) {
@@ -90,6 +93,9 @@ class Message {
     if (json["master_customer_id"] is String) {
       masterCustomerId = json["master_customer_id"];
     }
+    if (json["full_name"] is String) {
+      fullName = json["full_name"];
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -101,6 +107,7 @@ class Message {
     data["mobileno"] = mobileno;
     data["arabic_full_name"] = arabicFullName;
     data["master_customer_id"] = masterCustomerId;
+    data["full_name"] = fullName;
 
     return data;
   }

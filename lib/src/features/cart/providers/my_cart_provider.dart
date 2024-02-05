@@ -32,6 +32,10 @@ class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
     );
   }
 
+  void setAddressToTrue() {
+    state = state.copyWith(isAddressPresent: true);
+  }
+
   void additemToCart(int productId, WidgetRef ref, BuildContext context) async {
     state = state.copyWith(isLoading: true);
     await updateCart(productId.toString(), "1");
@@ -84,8 +88,8 @@ class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
   void onCheckout(BuildContext context) async {
     try {
       state = state.copyWith(isCheckingOut: true);
-      // update credentials
-      final updateCredentialsResponse = await updateCredentials();
+      // get credentials
+      final updateCredentialsResponse = await getCredentials();
       final String username = updateCredentialsResponse["username"];
       final String password = updateCredentialsResponse["password"];
       logger.i("username: $username\npassword: $password");

@@ -57,11 +57,11 @@ Future<Map<String, dynamic>> getPreCheckoutToken(
   }
 }
 
-Future<Map<String, dynamic>> updateCredentials() async {
+Future<Map<String, dynamic>> getCredentials() async {
   try {
     final authDetails = await AuthHelper.getAuthDetails();
-    final response = await dioClient.post(
-      APIEndpoints.updateCredentials,
+    final response = await dioClient.get(
+      APIEndpoints.getCredentials,
       options: Options(
         headers: {
           "Authorization": authDetails.token,

@@ -1,11 +1,13 @@
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/form_input.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/cities.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:searchfield/searchfield.dart';
 
 class BillingAddress extends ConsumerStatefulWidget {
@@ -29,6 +31,13 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
 
   @override
   Widget build(context) {
+    final queryParams = GoRouter.of(context)
+        .routeInformationProvider
+        .value
+        .uri
+        .query; // Gets the query part
+// from=/
+    logger.i(queryParams);
     final addressGetProvider = ref.watch(addressProvider);
 
     final addressUpdateNotifier = ref.read(addressNotifier.notifier);
@@ -76,6 +85,12 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
+                            if (queryParams == "from=/")
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                    "We need your billing details for seamless shipping."),
+                              ),
                             Form(
                               key: formkey,
                               child: Column(
@@ -163,6 +178,7 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                     ),
                                     searchInputDecoration:
                                         const InputDecoration(
+                                      labelText: "City/State",
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.grey,
@@ -187,7 +203,7 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                     value: data.message!.postcode,
                                     label: "Post Code",
                                     isRequired: true,
-                                    type: TextInputType.text,
+                                    type: TextInputType.number,
                                     validator: (value) {
                                       return pinCodeValidator(value.toString());
                                     },
@@ -212,6 +228,28 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                     onSaved: (value) {
                                       addressUpdateNotifier
                                           .updateAddress1(value.toString());
+                                    },
+                                    readOnly: false,
+                                  ),
+                                  const Gap(30),
+                                  FormInput(
+                                    isObscure: true,
+                                    value: data.message!.password,
+                                    label: "Password",
+                                    isRequired: true,
+                                    type: TextInputType.text,
+                                    validator: (value) {
+                                      if (value == null ||
+                                          value.isEmpty ||
+                                          value.length < 7 ||
+                                          value.trim().isEmpty) {
+                                        return "Please add a valid password";
+                                      }
+                                      return null;
+                                    },
+                                    onSaved: (value) {
+                                      addressUpdateNotifier
+                                          .updatePassword(value!);
                                     },
                                     readOnly: false,
                                   ),
@@ -301,11 +339,19 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                     child: ElevatedButton(
                                       onPressed: addressWatcher.isBtnDisable
                                           ? null
-                                          : () {
-                                              addressUpdateNotifier
-                                                  .updateAddress(
-                                                      formkey, context, ref);
-                                            },
+                                          : (queryParams == "from=/")
+                                              ? () async {
+                                                  await addressUpdateNotifier
+                                                      .updateAddress(formkey,
+                                                          context, ref);
+                                                  if (!context.mounted) return;
+                                                  context.go("/home");
+                                                }
+                                              : () {
+                                                  addressUpdateNotifier
+                                                      .updateAddress(formkey,
+                                                          context, ref);
+                                                },
                                       child: addressWatcher.isBtnDisable
                                           ? const CircularProgressIndicator()
                                           : const Text("Save Address"),

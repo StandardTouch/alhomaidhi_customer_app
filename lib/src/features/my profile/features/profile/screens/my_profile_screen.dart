@@ -24,7 +24,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
   Future<String> getUserName() async {
     const storage = FlutterSecureStorage();
-    final String userName = await storage.read(key: "username") ?? "User";
+    final String userName = await storage.read(key: "full_name") ?? "User";
     return userName;
   }
 

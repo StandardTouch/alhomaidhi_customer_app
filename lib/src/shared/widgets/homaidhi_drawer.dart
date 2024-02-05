@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 class HomaidhiDrawer extends StatefulWidget {
@@ -13,14 +12,15 @@ class HomaidhiDrawer extends StatefulWidget {
 class _HomaidhiDrawerState extends State<HomaidhiDrawer> {
   Future<String> getUserName() async {
     const storage = FlutterSecureStorage();
-    final String userName = await storage.read(key: "username") ?? "User";
+    final String userName = await storage.read(key: "full_name") ?? "User";
     return userName;
   }
 
-  void logout() async {
+  void logoutUser() async {
     const storage = FlutterSecureStorage();
-    storage.delete(key: "token");
-    storage.delete(key: "userId");
+    await storage.delete(key: "token");
+    await storage.delete(key: "userId");
+    if (!context.mounted) return;
     context.pop();
     context.go("/login");
   }
@@ -34,21 +34,6 @@ class _HomaidhiDrawerState extends State<HomaidhiDrawer> {
         color: Colors.white,
         child: Stack(
           children: [
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: ElevatedButton.icon(
-                icon: const Icon(Icons.logout),
-                style: ElevatedButton.styleFrom(
-                  shape: const RoundedRectangleBorder(),
-                  backgroundColor: Theme.of(context).colorScheme.onSecondary,
-                  foregroundColor: Colors.black,
-                ),
-                onPressed: logout,
-                label: const Text("Logout"),
-              ),
-            ),
             ListView(
               children: [
                 Container(
@@ -61,40 +46,34 @@ class _HomaidhiDrawerState extends State<HomaidhiDrawer> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // Padding(
-                        //   padding: const EdgeInsets.all(15),
-                        //   child: CircleAvatar(
-                        //     radius: 20,
-                        //     backgroundColor:
-                        //         Theme.of(context).colorScheme.onPrimary,
-                        //     child: Icon(
-                        //       Icons.account_circle,
-                        //       size: 35,
-                        //       color: Theme.of(context).primaryColor,
-                        //     ),
-                        //   ),
-                        // ),
-                        const Icon(
-                          Icons.account_circle,
-                          color: Colors.white,
-                          size: 40,
+                        const Expanded(
+                          flex: 1,
+                          child: Icon(
+                            Icons.account_circle,
+                            color: Colors.white,
+                            size: 40,
+                          ),
                         ),
-                        const Gap(10),
-                        FutureBuilder(
-                          future: getUserName(),
-                          builder: (context, snapshot) {
-                            return Text(
-                              "Welcome, ${snapshot.data}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                      fontSize: 22),
-                            );
-                          },
+                        Expanded(
+                          flex: 4,
+                          child: FutureBuilder(
+                            future: getUserName(),
+                            builder: (context, snapshot) {
+                              return FittedBox(
+                                child: Text(
+                                  "Welcome, ${snapshot.data}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary,
+                                          fontSize: 22),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ],
                     )),
@@ -135,6 +114,21 @@ class _HomaidhiDrawerState extends State<HomaidhiDrawer> {
                 ),
                 const MyDivider(),
               ],
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.logout),
+                style: ElevatedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(),
+                  backgroundColor: Theme.of(context).colorScheme.onSecondary,
+                  foregroundColor: Colors.black,
+                ),
+                onPressed: logoutUser,
+                label: const Text("Logout"),
+              ),
             ),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/models/address_request_model.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/models/address_response_model.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/top_snackbar.dart';
@@ -5,6 +6,7 @@ import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alhomaidhi_customer_app/src/features/my profile/features/address/services/address_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final addressProvider = FutureProvider<AddressResponseModel>((ref) async {
   AddressResponseModel response = await getProfileDetails();
@@ -17,6 +19,10 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
   // Update first name
   void updateFirstName(String value) {
     state = state.copyWith(firstName: value);
+  }
+
+  void updatePassword(String value) {
+    state = state.copyWith(password: value);
   }
 
   // update last name
@@ -69,8 +75,10 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
     state = state.copyWith(whatsAppNumber: value);
   }
 
-  void updateAddress(
+  Future<void> updateAddress(
       GlobalKey<FormState> formkey, BuildContext context, WidgetRef ref) async {
+    final cartDetails = ref.read(cartDetailsProvider.notifier);
+    const storage = FlutterSecureStorage();
     if (formkey.currentState == null) {
       return;
     }
@@ -90,6 +98,7 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
           "cr_number": state.crNumber,
           "vat_number": state.vatNumber,
           "whatsapp_number": state.whatsAppNumber,
+          "checkout_key": state.password,
         };
         AddressRequestResponseModel response = await updateProfileDetails(data);
         logger.e(response);
@@ -98,6 +107,10 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
             return;
           }
           ref.invalidate(addressProvider);
+          storage.write(
+              key: "full_name", value: "${state.firstName} ${state.lastName}");
+
+          cartDetails.setAddressToTrue();
 
           getSnackBar(
             context: context,
@@ -114,7 +127,6 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
             type: SNACKBARTYPE.error,
           );
         }
-
         state = state.copyWith(isBtnDisable: false);
       }
     } catch (err) {

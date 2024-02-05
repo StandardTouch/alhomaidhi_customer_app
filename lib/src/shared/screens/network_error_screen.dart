@@ -45,7 +45,11 @@ class _NetworkErrorScreenState extends ConsumerState<NetworkErrorScreen> {
                       });
                       final isLoggedIn = await AuthHelper.isUserLoggedIn();
                       if (!context.mounted) return;
-                      isLoggedIn ? context.go("/home") : context.go("login");
+                      (isLoggedIn == "DELAPP00")
+                          ? context.go("/home")
+                          : (isLoggedIn == "DELAPP99")
+                              ? context.go("/password-reset")
+                              : context.go("login");
 
                       setState(() {
                         isLoading = false;
