@@ -6,6 +6,8 @@ class FirebaseNotification {
   final Map<String, dynamic>? data;
   final DateTime? sentTime;
   final String? imageUrl;
+  final String? orderId;
+  final String? productIndex;
 
   FirebaseNotification({
     this.title,
@@ -13,16 +15,19 @@ class FirebaseNotification {
     this.data,
     this.sentTime,
     this.imageUrl,
+    this.orderId,
+    this.productIndex,
   });
 
   factory FirebaseNotification.fromRemoteMessage(RemoteMessage message) {
     return FirebaseNotification(
-      title: message.notification?.title,
-      body: message.notification?.body,
-      imageUrl: _getPlatformSpecificImageUrl(message),
-      data: message.data,
-      sentTime: message.sentTime,
-    );
+        title: message.notification?.title,
+        body: message.notification?.body,
+        imageUrl: _getPlatformSpecificImageUrl(message),
+        data: message.data,
+        sentTime: message.sentTime,
+        orderId: message.data['orderId'],
+        productIndex: message.data['productIndex']);
   }
 
   static String? _getPlatformSpecificImageUrl(RemoteMessage message) {
@@ -43,17 +48,20 @@ class FirebaseNotification {
       'data': data,
       'sentTime': sentTime?.toIso8601String(),
       'imageUrl': imageUrl,
+      'orderId': orderId,
+      'productIndex': productIndex
     };
   }
 
   factory FirebaseNotification.fromJson(Map<String, dynamic> json) {
     return FirebaseNotification(
-      title: json['title'],
-      body: json['body'],
-      data: json['data'] as Map<String, dynamic>?,
-      sentTime:
-          json['sentTime'] != null ? DateTime.parse(json['sentTime']) : null,
-      imageUrl: json['imageUrl'],
-    );
+        title: json['title'],
+        body: json['body'],
+        data: json['data'] as Map<String, dynamic>?,
+        sentTime:
+            json['sentTime'] != null ? DateTime.parse(json['sentTime']) : null,
+        imageUrl: json['imageUrl'],
+        orderId: json['orderId'],
+        productIndex: json['productIndex']);
   }
 }

@@ -2,11 +2,14 @@ import 'package:alhomaidhi_customer_app/main.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/brands_widget.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/product_card.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/services/my_order_details_services.dart';
 import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/provider/provider.dart';
 import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,6 +25,36 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   bool noMoreProducts = false;
+
+  @override
+  void initState() {
+    _initMessaging();
+    super.initState();
+  }
+
+  Future<void> _initMessaging() async {
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+    if (initialMessage != null) {
+      navigateToOrder(initialMessage.data);
+    }
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      navigateToOrder(message.data);
+    });
+  }
+
+  void navigateToOrder(Map<String, dynamic> data) {
+    if (data.containsKey('orderId')) {
+      final orderId = data['orderId'];
+      final productIndex = data['productIndex'] ?? '0';
+      logger.e(orderId);
+      getMyOrderDetails(orderId);
+      GoRouter.of(context).pushNamed("my_order_details", pathParameters: {
+        "orderId": orderId,
+        "productIndex": productIndex,
+      });
+    }
+  }
 
   // Instance of MessagingService for handling notifications
   void pageNavigator({required bool isPrev}) {

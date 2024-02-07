@@ -75,6 +75,8 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
                     body: notification.body,
                     imageUrl: notification.imageUrl,
                     sentTime: notification.sentTime ?? DateTime.now(),
+                    productIndex: notification.productIndex,
+                    orderId: notification.orderId,
                   );
                 },
               );

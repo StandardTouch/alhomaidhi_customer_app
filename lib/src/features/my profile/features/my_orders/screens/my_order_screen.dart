@@ -98,7 +98,7 @@ class MyOrderScreen extends ConsumerWidget {
                           orderStatus:
                               data.message![index].orderDetails!.orderStatus,
                           onPressed: () {
-                            getMyOrderDetails(orderId);
+                            // getMyOrderDetails(orderId);
                             context
                                 .pushNamed("my_order_details", pathParameters: {
                               "orderId": orderId!,

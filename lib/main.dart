@@ -1,5 +1,8 @@
 import 'package:alhomaidhi_customer_app/firebase_options.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/services/my_order_details_services.dart';
+import 'package:alhomaidhi_customer_app/src/features/notification/provider/provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/service/background_notifications.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/theme/theme.dart';
 import 'package:alhomaidhi_customer_app/src/utils/config/router/routes.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
@@ -11,10 +14,10 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:go_router/go_router.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
-
 final globalContainer = ProviderContainer();
 Future multipleRegistration() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +25,7 @@ Future multipleRegistration() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
   await FirebaseMessaging.instance.subscribeToTopic("order-status");
 }
 
@@ -48,6 +52,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  @override
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(

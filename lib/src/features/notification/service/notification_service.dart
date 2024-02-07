@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
+import 'package:alhomaidhi_customer_app/main.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/services/my_order_details_services.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/services/order_services.dart';
 import 'package:alhomaidhi_customer_app/src/features/notification/model/firebase_notification.dart';
 import 'package:alhomaidhi_customer_app/src/utils/config/dio/dio_client.dart';
 import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
@@ -8,6 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationService {
@@ -71,10 +75,10 @@ class NotificationService {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       final notification = FirebaseNotification.fromRemoteMessage(message);
       await saveNotification(notification);
-      logger.e("sent time ${notification.sentTime}");
 
       onNewNotification?.call();
     });
+
     // Include other message handlers as needed
     _isListenerSetUp = true;
   }
