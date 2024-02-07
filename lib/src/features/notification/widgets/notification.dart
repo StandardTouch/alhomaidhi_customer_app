@@ -1,6 +1,8 @@
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/services/my_order_details_services.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class SingleNotification extends StatelessWidget {
   const SingleNotification(
@@ -8,11 +10,15 @@ class SingleNotification extends StatelessWidget {
       required this.title,
       required this.body,
       required this.sentTime,
-      required this.imageUrl});
+      required this.imageUrl,
+      required this.orderId,
+      required this.productIndex});
   final String? title;
   final String? body;
   final DateTime? sentTime;
   final String? imageUrl;
+  final String? orderId;
+  final String? productIndex;
 
   String timeAgo(DateTime? dateTime) {
     final Duration difference = DateTime.now().difference(dateTime!);
@@ -62,52 +68,59 @@ class SingleNotification extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-          child: FittedBox(
-            fit: BoxFit.fitHeight,
-            child: Container(
-              padding: const EdgeInsets.all(4),
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              width: DeviceInfo.getDeviceWidth(context),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    getStatus(title!),
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Column(
-                        children: [
-                          const Gap(2),
-                          Image.network(
-                            imageUrl!,
-                            fit: BoxFit.fill,
-                            height: 90,
-                            width: 90,
-                          ),
-                        ],
+          onTap: () {
+            getMyOrderDetails(orderId);
+            context.pushNamed(
+              "my_order_details",
+              pathParameters: {
+                "orderId": orderId!,
+                "productIndex": productIndex!,
+              },
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(4),
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            width: DeviceInfo.getDeviceWidth(context),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  getStatus(title!),
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.network(
+                        imageUrl!,
+                        fit: BoxFit.fill,
+                        height: 90,
+                        width: 90,
                       ),
-                      Column(
+                    ),
+                    Expanded(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // const Gap(140),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              const Gap(140),
                               Text(
                                 timeAgo(
                                   sentTime,
@@ -126,14 +139,22 @@ class SingleNotification extends StatelessWidget {
                                     color: Theme.of(context).primaryColor),
                           ),
                           const Gap(1),
-                          Text(body!,
-                              style: Theme.of(context).textTheme.labelMedium),
+                          FittedBox(
+                            child: Text(
+                              body!,
+                              overflow: TextOverflow.fade,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(fontSize: 15),
+                            ),
+                          ),
                         ],
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),

@@ -71,10 +71,10 @@ class NotificationService {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       final notification = FirebaseNotification.fromRemoteMessage(message);
       await saveNotification(notification);
-      logger.e("sent time ${notification.sentTime}");
 
       onNewNotification?.call();
     });
+
     // Include other message handlers as needed
     _isListenerSetUp = true;
   }

@@ -1,6 +1,5 @@
 import 'package:alhomaidhi_customer_app/main.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/services/my_order_details_services.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/widgets/single_order.dart';
 import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +103,7 @@ class MyOrderScreen extends ConsumerWidget {
                           orderStatus:
                               data.message![index].orderDetails!.orderStatus,
                           onPressed: () {
-                            getMyOrderDetails(orderId);
+                            // getMyOrderDetails(orderId);
                             context
                                 .pushNamed("my_order_details", pathParameters: {
                               "orderId": orderId!,

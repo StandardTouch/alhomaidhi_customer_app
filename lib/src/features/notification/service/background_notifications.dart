@@ -1,13 +1,30 @@
 import 'dart:ui';
 
 import 'package:alhomaidhi_customer_app/src/features/notification/model/firebase_notification.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 VoidCallback? onNewNotification;
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // print("Handling a background message: ${message.messageId}");
+  if (message.data.containsKey('orderId')) {
+    final orderId = message.data['orderId'];
+    // ignore: unused_local_variable
+    final productIndex = message.data['productIndex'] ?? '0';
+    logger.e(orderId);
+
+    // getMyOrderDetails(orderId);
+    // navigatorKey.currentContext?.pushNamed(
+    //   "my_order_details",
+    //   pathParameters: {
+    //     "orderId": orderId,
+    //     "productIndex": productIndex,
+    //   },
+    // );
+  }
 
   final notification = FirebaseNotification.fromRemoteMessage(message);
 

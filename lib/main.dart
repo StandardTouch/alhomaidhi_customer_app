@@ -15,7 +15,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
-
 final globalContainer = ProviderContainer();
 Future multipleRegistration() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +22,7 @@ Future multipleRegistration() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
   await FirebaseMessaging.instance.subscribeToTopic("order-status");
 }
 
@@ -53,6 +53,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  @override
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
