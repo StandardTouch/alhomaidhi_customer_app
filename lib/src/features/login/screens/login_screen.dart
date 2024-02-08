@@ -147,6 +147,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                               color: Theme.of(context)
                                                   .colorScheme
                                                   .error,
+                                              fontWeight: FontWeight.normal,
                                               decoration:
                                                   TextDecoration.underline,
                                               decorationColor: Theme.of(context)
@@ -157,6 +158,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         : Text(
                                             "Resend OTP",
                                             style: TextStyle(
+                                                fontWeight: FontWeight.normal,
                                                 color: Theme.of(context)
                                                     .colorScheme
                                                     .error,
@@ -169,7 +171,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                           ),
                               ),
                             const Gap(50),
-                            const Text("Don't have an account?"),
+                            const Text(
+                              "Don't have an account?",
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
                             const Gap(10),
                             InkWell(
                               onTap: () {
@@ -179,6 +186,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 "Sign Up",
                                 style: TextStyle(
                                     color: Theme.of(context).colorScheme.error,
+                                    fontWeight: FontWeight.normal,
                                     decoration: TextDecoration.underline,
                                     decorationColor:
                                         Theme.of(context).colorScheme.error),

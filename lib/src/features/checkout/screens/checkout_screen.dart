@@ -35,6 +35,9 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
               });
             },
             navigationDelegate: (request) {
+              // TODO - add hyperpay failure gateway redirect
+              // HYPERPAY FAILURE URL
+// https://alhomdelivery.standardtouch.com/checkout/order-pay/1829/?key=wc_order_cVFgG6qogXMWU&callback=true&transaction-key=15054021&id=CAD59C3188A2532C9B997295744AE27A.prod01-vm-tx07&resourcePath=%2Fv1%2Fcheckouts%2FCAD59C3188A2532C9B997295744AE27A.prod01-vm-tx07%2Fpayment
               if (request.url.contains("/order-received")) {
                 context.go("/success");
                 return NavigationDecision.prevent;

@@ -77,3 +77,4 @@ Future<List<FirebaseNotification>> getSavedNotifications() async {
 //     // Create a notification object from a JSON map
 //   }
 // }
+
