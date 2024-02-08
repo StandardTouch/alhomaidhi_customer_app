@@ -67,6 +67,8 @@ class SuccessPaymentScreen extends StatelessWidget {
                 context.go("/home");
               },
               style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).primaryColor,
+                foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

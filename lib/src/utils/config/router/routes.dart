@@ -2,6 +2,7 @@ import 'package:alhomaidhi_customer_app/src/features/brands/screens/all_brands_s
 import 'package:alhomaidhi_customer_app/src/features/brands/screens/brand_products.dart';
 import 'package:alhomaidhi_customer_app/src/features/cart/screens/shopping_cart.dart';
 import 'package:alhomaidhi_customer_app/src/features/checkout/screens/checkout_screen.dart';
+import 'package:alhomaidhi_customer_app/src/features/checkout/screens/failure_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/checkout/screens/success_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/screens/home_screen.dart';
 import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/screens/product_details_screen.dart';
@@ -65,7 +66,7 @@ final router = GoRouter(
           if (authStatus == "DELAPP00") {
             return "/home";
             // FlutterNativeSplash.remove();
-            // return "/address?from=/";
+            // return "/failure";
           } else if (authStatus == "DELAPP99") {
             FlutterNativeSplash.remove();
             return "/address?from=/";
@@ -206,6 +207,15 @@ final router = GoRouter(
         context: context,
         state: state,
         child: const SuccessPaymentScreen(),
+      ),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
+      path: "/failure",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const FailurePaymentScreen(),
       ),
       parentNavigatorKey: _rootNavigatorKey,
     ),

@@ -39,7 +39,7 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
   Widget build(BuildContext contex1t) {
     return Container(
       decoration: const BoxDecoration(color: Colors.transparent),
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10),
       child: BottomBarFloating(
         iconSize: 18,
         borderRadius: BorderRadius.circular(10),
