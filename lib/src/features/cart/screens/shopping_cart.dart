@@ -84,11 +84,6 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                         title: "Tax",
                         value: data.message!.cartTotals!.subtotalTax ?? 0,
                       ),
-                      PriceWidget(
-                        title: "Discount",
-                        value: data.message!.cartTotals!.discountTotal ?? 0,
-                        isDiscount: true,
-                      ),
                       const Divider(),
                       PriceWidget(
                         isTotal: true,
@@ -96,13 +91,6 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                         value: data.message!.cartTotals!.total!,
                       ),
                       const Divider(),
-                      Text(
-                        "You will save SAR ${data.message!.cartTotals!.discountTotal ?? 0} on this order",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Colors.green[800],
-                            ),
-                      ),
-                      const Gap(5),
                       const CartPlaceHolder(),
                       const Gap(10),
                       ElevatedButton.icon(
@@ -154,7 +142,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge!
-                              .copyWith(fontWeight: FontWeight.bold),
+                              .copyWith(),
                         ),
                         const Gap(10),
                         ElevatedButton.icon(
@@ -173,7 +161,12 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                             }
                           },
                           icon: const Icon(Icons.refresh),
-                          label: const Text("Refresh"),
+                          label: const Text(
+                            "Refresh",
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
