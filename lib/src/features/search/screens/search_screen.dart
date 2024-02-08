@@ -165,6 +165,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       ),
       labelStyle: const TextStyle(
         color: Colors.black,
+        fontWeight: FontWeight.normal,
       ),
     );
   }
