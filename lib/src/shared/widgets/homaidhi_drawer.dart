@@ -171,7 +171,12 @@ class DrawerList extends StatelessWidget {
         onTap();
       },
       leading: Icon(icon),
-      title: Text(title),
+      title: Text(
+        title,
+        style: const TextStyle(
+          fontWeight: FontWeight.normal,
+        ),
+      ),
     );
   }
 }
