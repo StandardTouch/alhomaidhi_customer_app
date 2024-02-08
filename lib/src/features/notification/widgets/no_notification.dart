@@ -27,16 +27,20 @@ class NoNotification extends StatelessWidget {
           SizedBox(
             height: DeviceInfo.getDeviceHeight(context) * 0.08,
           ),
-          Text("No Notification!",
+          Text("No Notifications!",
               style: Theme.of(context).textTheme.bodyLarge),
           SizedBox(
             height: DeviceInfo.getDeviceHeight(context) * 0.08,
           ),
-          Center(
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-            "We will let you know once we have something for you",
-            style: Theme.of(context).textTheme.labelSmall,
-          )),
+                "We will let you know once we have something for you",
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                      fontWeight: FontWeight.normal,
+                    ),
+                textAlign: TextAlign.center,
+              )),
           SizedBox(
             height: DeviceInfo.getDeviceHeight(context) * 0.08,
           ),
