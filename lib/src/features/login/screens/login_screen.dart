@@ -119,8 +119,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         Icons.safety_check,
                                         size: 0,
                                       )
-                                    : const Icon(Icons.arrow_circle_right_sharp,
-                                        color: Colors.white),
+                                    : const Icon(
+                                        Icons.arrow_circle_right_sharp),
                                 label: loginRef.isButtonLoading
                                     ? const CircularProgressIndicator()
                                     : (loginRef.isOTPVisible == true)

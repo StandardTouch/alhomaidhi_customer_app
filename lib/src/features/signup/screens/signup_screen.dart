@@ -120,7 +120,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             },
                             child: const Text(
                               "Register",
-                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                           const Gap(50),

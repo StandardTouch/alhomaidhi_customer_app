@@ -117,7 +117,7 @@ class ProductCard extends StatelessWidget {
                                 horizontal: 10,
                               ),
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
+                                  borderRadius: BorderRadius.circular(4)),
                               backgroundColor:
                                   Theme.of(context).colorScheme.onSecondary),
                           child: FittedBox(

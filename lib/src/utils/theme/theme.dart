@@ -12,14 +12,15 @@ const COLOR_SECONDARY = Color(0XFFFFB800);
 ElevatedButtonThemeData getElevatedButtonThemeData({required isDark}) {
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         padding: const EdgeInsetsDirectional.symmetric(
-          vertical: 18,
-          horizontal: 60,
+          vertical: 15,
+          horizontal: 40,
         ),
         elevation: 0.2,
-        backgroundColor: COLOR_PRIMARY,
+        backgroundColor: COLOR_SECONDARY,
         // can change accordingly if asked.
-        foregroundColor: isDark ? Colors.white : Colors.white),
+        foregroundColor: isDark ? Colors.black : Colors.black),
   );
 }
 
