@@ -1,5 +1,6 @@
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_invoices/providers/my_invoices_provider.dart';
 import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_invoices/widgets/my_invoice.dart';
+import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -55,7 +56,31 @@ class MyInvoicesScreen extends ConsumerWidget {
           );
         }
       },
-      error: (err, stk) => Scaffold(body: Center(child: Text("$err"))),
+      error: (err, stk) {
+        if (err is HomaidhiException) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text("My Invoices"),
+            ),
+            body: Center(
+              child: Text(
+                err.message,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        } else {
+          return Scaffold(
+              appBar: AppBar(
+                title: const Text("My Invoices"),
+              ),
+              body: Center(
+                  child: Text(
+                "$err",
+                textAlign: TextAlign.center,
+              )));
+        }
+      },
       loading: () =>
           const Scaffold(body: Center(child: CircularProgressIndicator())),
     );
