@@ -100,7 +100,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     crossAxisSpacing: 6,
                     mainAxisSpacing: 10,
                     childAspectRatio: DeviceInfo.getDeviceWidth(context) /
-                        (DeviceInfo.getDeviceHeight(context) / 1.5),
+                        (DeviceInfo.getDeviceHeight(context) / 1.2),
                     // mainAxisExtent: DeviceInfo.getDeviceHeight(context) * 0.35,
                   ),
                   itemCount: data.message!.length,
