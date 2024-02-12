@@ -24,7 +24,7 @@ class AddressWidget extends ConsumerWidget {
               const Gap(5),
               Text(
                 (data.message!.address1 != "" && data.message!.address2 != "")
-                    ? "${data.message!.address1}, ${data.message!.address2}}"
+                    ? "${data.message!.address1}, ${data.message!.address2}"
                     : "Please add address",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

@@ -1,15 +1,18 @@
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
+import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 
-class HomaidhiDrawer extends StatefulWidget {
+class HomaidhiDrawer extends ConsumerStatefulWidget {
   const HomaidhiDrawer({super.key});
 
   @override
-  State<HomaidhiDrawer> createState() => _HomaidhiDrawerState();
+  ConsumerState<HomaidhiDrawer> createState() => _HomaidhiDrawerState();
 }
 
-class _HomaidhiDrawerState extends State<HomaidhiDrawer> {
+class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
   Future<String> getUserName() async {
     const storage = FlutterSecureStorage();
     final String userName = await storage.read(key: "full_name") ?? "User";
@@ -80,6 +83,7 @@ class _HomaidhiDrawerState extends State<HomaidhiDrawer> {
                 DrawerList(
                   onTap: () {
                     context.pop();
+                    ref.invalidate(addressProvider);
                     context.push("/address");
                   },
                   icon: Icons.location_city,
@@ -89,6 +93,7 @@ class _HomaidhiDrawerState extends State<HomaidhiDrawer> {
                 DrawerList(
                   onTap: () {
                     context.pop();
+                    ref.invalidate(myOrdersListProvider);
                     context.push("/my_orders");
                   },
                   icon: Icons.list,
