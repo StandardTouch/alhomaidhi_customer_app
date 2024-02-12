@@ -13,6 +13,17 @@ class CheckoutScreen extends ConsumerStatefulWidget {
 }
 
 class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
+  Future<void> clearCookies() async {
+    final CookieManager cookieManager = CookieManager();
+    await cookieManager.clearCookies();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    clearCookies();
+  }
+
   bool isLoading = true;
   @override
   Widget build(BuildContext context) {
