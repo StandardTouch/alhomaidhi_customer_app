@@ -95,21 +95,26 @@ class MyOrderScreen extends ConsumerWidget {
                       itemBuilder: (context, indexItem) {
                         var item = data.message![index].items![indexItem];
                         return SingleOrderCard(
+                          isOrderPending: (orderStatus == 'wc-pending'),
                           imageUrl: item.image,
                           title: (orderStatus == 'wc-completed')
                               ? "Order Delivered"
-                              : "Order Under Process",
+                              : (orderStatus == 'wc-pending')
+                                  ? "Order Pending"
+                                  : "Order Under Process",
                           subtitle: item.itemName ?? 'No Title',
                           orderStatus:
                               data.message![index].orderDetails!.orderStatus,
-                          onPressed: () {
-                            // getMyOrderDetails(orderId);
-                            context
-                                .pushNamed("my_order_details", pathParameters: {
-                              "orderId": orderId!,
-                              "productIndex": "$indexItem",
-                            });
-                          },
+                          onPressed: (orderStatus == 'wc-pending')
+                              ? null
+                              : () {
+                                  ref.invalidate(myOrderDetailsProvider);
+                                  context.pushNamed("my_order_details",
+                                      pathParameters: {
+                                        "orderId": orderId!,
+                                        "productIndex": "$indexItem",
+                                      });
+                                },
                         );
                       },
                     );
@@ -121,6 +126,16 @@ class MyOrderScreen extends ConsumerWidget {
         } else {
           return Scaffold(
             appBar: AppBar(
+              actions: context.canPop()
+                  ? null
+                  : [
+                      IconButton(
+                        onPressed: () {
+                          context.go("/home");
+                        },
+                        icon: const Icon(Icons.home),
+                      )
+                    ],
               title: const Text("No Orders"),
             ),
             body: Align(

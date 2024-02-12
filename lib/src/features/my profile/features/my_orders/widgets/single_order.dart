@@ -1,12 +1,18 @@
+import 'package:alhomaidhi_customer_app/src/shared/services/auth_service.dart';
+import 'package:alhomaidhi_customer_app/src/shared/widgets/top_snackbar.dart';
+import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
 import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class SingleOrderCard extends StatelessWidget {
+class SingleOrderCard extends ConsumerStatefulWidget {
   final String title;
   final String? subtitle;
   final String? imageUrl;
-  final Function() onPressed;
+  final Function()? onPressed;
   final String? orderStatus;
+  final bool isOrderPending;
   final borderRadius = const BorderRadius.only(
     topRight: Radius.circular(10),
     bottomRight: Radius.circular(10),
@@ -21,18 +27,60 @@ class SingleOrderCard extends StatelessWidget {
     required this.imageUrl,
     required this.onPressed,
     required this.orderStatus,
+    this.isOrderPending = false,
   });
+
+  @override
+  ConsumerState<SingleOrderCard> createState() => _SingleOrderCardState();
+}
+
+class _SingleOrderCardState extends ConsumerState<SingleOrderCard> {
+  bool isLoading = false;
+  void onCheckout() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      // get credentials
+      final updateCredentialsResponse = await getCredentials();
+      final String username = updateCredentialsResponse["username"];
+      final String password = updateCredentialsResponse["password"];
+      logger.i("username: $username\npassword: $password");
+
+      // generate token
+      final getTokenResponse = await getPreCheckoutToken(username, password);
+      final String token = getTokenResponse["jwt_token"] as String;
+      logger.i("This is the token: $token");
+      if (!context.mounted) return;
+      // pass token to get request
+      context.pushNamed("checkout", pathParameters: {
+        "token": token,
+      });
+    } catch (err) {
+      if (!context.mounted) return;
+      getSnackBar(
+        context: context,
+        message: "Error While checking out",
+        type: SNACKBARTYPE.error,
+      );
+    } finally {
+      // state = state.copyWith(isCheckingOut: false);
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed,
+      onTap: widget.onPressed,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
         height: DeviceInfo.getDeviceHeight(context) * 0.1,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
-          borderRadius: borderRadius,
+          borderRadius: widget.borderRadius,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -43,7 +91,7 @@ class SingleOrderCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.network(
-                  imageUrl!,
+                  widget.imageUrl!,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -57,16 +105,16 @@ class SingleOrderCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      title,
+                      widget.title,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: orderStatus == 'wc-completed'
+                          color: widget.orderStatus == 'wc-completed'
                               ? Colors.black
                               : const Color.fromARGB(255, 3, 104, 45)),
                       overflow: TextOverflow.ellipsis,
                     ),
                     FittedBox(
                       child: Text(
-                        subtitle!,
+                        widget.subtitle!,
                         style: Theme.of(context).textTheme.labelMedium,
                         // overflow: TextOverflow.ellipsis,
                         maxLines: 2,
@@ -77,10 +125,32 @@ class SingleOrderCard extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: Theme.of(context).primaryColor,
-            )
+            (widget.isOrderPending)
+                ? SizedBox(
+                    height: double.infinity,
+                    child: IconButton(
+                      style: IconButton.styleFrom(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onSecondary,
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(9),
+                                bottomRight: Radius.circular(9))),
+                      ),
+                      icon: (isLoading)
+                          ? const CircularProgressIndicator()
+                          : const Icon(
+                              Icons.payment,
+                              color: Colors.black,
+                              size: 40,
+                            ),
+                      onPressed: (isLoading) ? null : onCheckout,
+                    ),
+                  )
+                : Icon(
+                    Icons.arrow_forward_ios,
+                    color: Theme.of(context).primaryColor,
+                  )
           ],
         ),
       ),
