@@ -100,7 +100,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
               ? "Adding Item"
               : (!isStockReady)
                   ? "Calculating Stock"
-                  : (stock <= 1)
+                  : (stock < 1)
                       ? "No Stock Left"
                       : "Add to cart"),
           style: ElevatedButton.styleFrom(
