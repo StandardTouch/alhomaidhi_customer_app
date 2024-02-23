@@ -125,8 +125,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     );
                   });
             } else {
-              FlutterNativeSplash.remove();
-
               return SizedBox(
                 height: DeviceInfo.getDeviceHeight(context) * 0.7,
                 child: Column(
