@@ -99,6 +99,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               signUpNotifer.updatephoneNumber(value);
                             },
                             readOnly: false,
+                            prefix: "+966",
+                            maxLength: 9,
                           ),
                           const Gap(20),
                           FormInput(
