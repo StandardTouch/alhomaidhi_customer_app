@@ -1,4 +1,4 @@
-import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

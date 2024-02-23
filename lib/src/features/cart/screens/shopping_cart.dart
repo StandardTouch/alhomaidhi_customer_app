@@ -1,12 +1,13 @@
-import 'package:alhomaidhi_customer_app/main.dart';
-import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/cart/widgets/cart_placeholder.dart';
-import 'package:alhomaidhi_customer_app/src/features/cart/widgets/price_widget.dart';
-import 'package:alhomaidhi_customer_app/src/features/cart/widgets/single_cart_item.dart';
-import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/address_widget.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
-import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
+import 'package:Alhomaidhi/main.dart';
+import 'package:Alhomaidhi/src/features/cart/providers/my_cart_provider.dart';
+import 'package:Alhomaidhi/src/features/cart/widgets/cart_placeholder.dart';
+import 'package:Alhomaidhi/src/features/cart/widgets/price_widget.dart';
+import 'package:Alhomaidhi/src/features/cart/widgets/single_cart_item.dart';
+import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
+import 'package:Alhomaidhi/src/shared/widgets/address_widget.dart';
+import 'package:Alhomaidhi/src/shared/widgets/homaidhi_appbar.dart';
+import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
+import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -178,7 +179,13 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                   );
                 } else {
                   return Center(
-                    child: Text(err.toString()),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Server Error Occurred"),
+                        RefreshButton(provider: myCartProvider)
+                      ],
+                    ),
                   );
                 }
               },

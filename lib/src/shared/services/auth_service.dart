@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:alhomaidhi_customer_app/src/shared/models/auth_model.dart';
-import 'package:alhomaidhi_customer_app/src/utils/config/dio/dio_client.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
-import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
+import 'package:Alhomaidhi/src/shared/models/auth_model.dart';
+import 'package:Alhomaidhi/src/utils/config/dio/dio_client.dart';
+import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
+import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
 import 'package:dio/dio.dart';
 
 Future<AuthResponseModel> verifyToken(String token, String userId) async {

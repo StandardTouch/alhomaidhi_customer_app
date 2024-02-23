@@ -1,6 +1,6 @@
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/models/all_products_response.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/models/query_model.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/services/home_service.dart';
+import 'package:Alhomaidhi/src/features/home/features/all%20products/models/all_products_response.dart';
+import 'package:Alhomaidhi/src/features/home/features/all%20products/models/query_model.dart';
+import 'package:Alhomaidhi/src/features/home/features/all%20products/services/home_service.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

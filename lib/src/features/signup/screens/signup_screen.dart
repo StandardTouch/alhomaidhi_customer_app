@@ -1,8 +1,8 @@
-import 'package:alhomaidhi_customer_app/src/features/signup/providers/signup_provider.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/form_input.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
-import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
+import 'package:Alhomaidhi/src/features/signup/providers/signup_provider.dart';
+import 'package:Alhomaidhi/src/shared/widgets/form_input.dart';
+import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';

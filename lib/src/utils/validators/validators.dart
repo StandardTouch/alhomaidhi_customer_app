@@ -20,7 +20,7 @@ String? lastNameValidator(String? value) {
 
 // todo - change validator to limit 9 before production
 String? mobileNumberValidator(String? value) {
-  if (value == null || value.isEmpty || value.trim().length != 10) {
+  if (value == null || value.isEmpty || value.trim().length != 9) {
     return 'Mobile number should be 9 digits long';
   }
   return null;

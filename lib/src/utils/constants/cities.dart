@@ -61,6 +61,7 @@ final cities = [
   "Muzahmiyya",
   "Najran",
   "Al-Namas",
+  "Arar",
   "Omloj",
   "Al-Omran",
   "Al-Oyoon",

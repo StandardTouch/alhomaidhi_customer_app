@@ -1,7 +1,7 @@
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/models/my_order_details_models.dart';
-import 'package:alhomaidhi_customer_app/src/utils/config/dio/dio_client.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/models/my_order_details_models.dart';
+import 'package:Alhomaidhi/src/utils/config/dio/dio_client.dart';
+import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
 import 'package:dio/dio.dart';
 
 Future<MyOrderDetailsModels> getMyOrderDetails(String? orderId) async {

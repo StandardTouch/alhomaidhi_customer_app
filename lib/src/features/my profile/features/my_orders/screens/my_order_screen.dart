@@ -1,7 +1,8 @@
-import 'package:alhomaidhi_customer_app/main.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_orders/widgets/single_order.dart';
-import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
+import 'package:Alhomaidhi/main.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/widgets/single_order.dart';
+import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
+import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -162,7 +163,18 @@ class MyOrderScreen extends ConsumerWidget {
           );
         }
       },
-      error: (err, stk) => Scaffold(body: Center(child: Text("$err"))),
+      error: (err, stk) => Scaffold(
+          appBar: AppBar(
+            title: const Text("My Orders"),
+          ),
+          body: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("Server Error Occurred"),
+              RefreshButton(provider: myOrdersListProvider),
+            ],
+          ))),
       loading: () =>
           const Scaffold(body: Center(child: CircularProgressIndicator())),
     );

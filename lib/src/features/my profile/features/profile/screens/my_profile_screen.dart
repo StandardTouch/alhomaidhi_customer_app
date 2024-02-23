@@ -1,5 +1,5 @@
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/profile/widgets/my_profile_menu_item.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/profile/widgets/my_profile_menu_item.dart';
+import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gap/gap.dart';

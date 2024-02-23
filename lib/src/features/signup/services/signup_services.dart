@@ -1,6 +1,6 @@
-import 'package:alhomaidhi_customer_app/src/features/signup/models/signup_response.dart';
-import 'package:alhomaidhi_customer_app/src/utils/config/dio/dio_client.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/features/signup/models/signup_response.dart';
+import 'package:Alhomaidhi/src/utils/config/dio/dio_client.dart';
+import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 

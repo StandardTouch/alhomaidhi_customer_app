@@ -1,13 +1,13 @@
-import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/models/single_product_model.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/providers/product_details_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_carousel.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_widget_1.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/widgets/product_widget_2.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
+import 'package:Alhomaidhi/src/features/cart/providers/my_cart_provider.dart';
+import 'package:Alhomaidhi/src/features/home/features/product%20details/models/single_product_model.dart';
+import 'package:Alhomaidhi/src/features/home/features/product%20details/providers/product_details_provider.dart';
+import 'package:Alhomaidhi/src/features/home/features/product%20details/widgets/product_carousel.dart';
+import 'package:Alhomaidhi/src/features/home/features/product%20details/widgets/product_widget_1.dart';
+import 'package:Alhomaidhi/src/features/home/features/product%20details/widgets/product_widget_2.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
+import 'package:Alhomaidhi/src/shared/widgets/homaidhi_appbar.dart';
+import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -89,7 +89,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
           },
         ),
         bottomNavigationBar: ElevatedButton.icon(
-          onPressed: (cart.isLoading || stock <= 1)
+          onPressed: (cart.isLoading || stock == 0)
               ? null
               : () {
                   cartOperations.additemToCart(

@@ -1,6 +1,6 @@
-import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/models/single_product_model.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/features/home/features/product%20details/models/single_product_model.dart';
+import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

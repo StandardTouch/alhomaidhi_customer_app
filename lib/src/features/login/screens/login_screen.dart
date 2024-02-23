@@ -1,9 +1,9 @@
-import 'package:alhomaidhi_customer_app/src/features/login/providers/login_provider.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/form_input.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
-import 'package:alhomaidhi_customer_app/src/utils/theme/theme.dart';
-import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
+import 'package:Alhomaidhi/src/features/login/providers/login_provider.dart';
+import 'package:Alhomaidhi/src/shared/widgets/form_input.dart';
+import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/theme/theme.dart';
+import 'package:Alhomaidhi/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -73,7 +73,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             FormInput(
                               value: loginRef.getPhoneNumber,
                               // todo - change max length to 9 before production
-                              maxLength: 10,
+                              maxLength: 9,
                               label: "Phone Number",
                               type: TextInputType.number,
                               prefix: "+966",

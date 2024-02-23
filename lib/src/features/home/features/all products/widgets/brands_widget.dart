@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/brands_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/brands_provider.dart';
+import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/products_provider.dart';
+import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -115,7 +115,7 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
         }
       },
       error: (err, stackTrace) {
-        return Center(child: Text("Server Error Occurred: $err"));
+        return const Center(child: Text("Server Error Occurred"));
       },
       loading: () {
         return const Center(child: LinearProgressIndicator());

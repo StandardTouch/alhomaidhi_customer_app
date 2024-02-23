@@ -1,4 +1,4 @@
-# alhomaidhi_customer_app
+# Alhomaidhi
 
 Official E Commerce Application for Alhomaidhi group
 

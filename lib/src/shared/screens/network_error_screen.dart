@@ -1,7 +1,7 @@
-import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
+import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
+import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';

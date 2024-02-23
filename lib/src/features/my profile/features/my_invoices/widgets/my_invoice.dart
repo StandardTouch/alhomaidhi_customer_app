@@ -1,8 +1,8 @@
 import 'dart:isolate';
 import 'dart:ui';
 import 'dart:async';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart' as permissions;

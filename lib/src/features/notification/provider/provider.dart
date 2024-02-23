@@ -1,5 +1,5 @@
-import 'package:alhomaidhi_customer_app/src/features/notification/model/firebase_notification.dart';
-import 'package:alhomaidhi_customer_app/src/features/notification/service/notification_service.dart';
+import 'package:Alhomaidhi/src/features/notification/model/firebase_notification.dart';
+import 'package:Alhomaidhi/src/features/notification/service/notification_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // providers.dart
 

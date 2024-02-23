@@ -1,10 +1,10 @@
-import 'package:alhomaidhi_customer_app/main.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/product_card.dart';
-import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/homaidhi_appbar.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/main.dart';
+import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/products_provider.dart';
+import 'package:Alhomaidhi/src/features/home/features/all%20products/widgets/product_card.dart';
+import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
+import 'package:Alhomaidhi/src/shared/widgets/homaidhi_appbar.dart';
+import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';

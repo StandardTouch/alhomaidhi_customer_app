@@ -1,7 +1,8 @@
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/models/brand_response.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/brands_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/features/home/features/all%20products/models/brand_response.dart';
+import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/brands_provider.dart';
+import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/products_provider.dart';
+import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
+import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -91,7 +92,13 @@ class _AllBrandScreenState extends ConsumerState<AllBrandScreen> {
         }
       }, error: (err, stk) {
         return Center(
-          child: Text("An Error Occurred $err"),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("Server Error Occurred"),
+              RefreshButton(provider: brandsProvider)
+            ],
+          ),
         );
       }, loading: () {
         return const Center(

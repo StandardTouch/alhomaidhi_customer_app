@@ -1,7 +1,7 @@
-import 'package:alhomaidhi_customer_app/main.dart';
-import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/providers/products_provider.dart';
-import 'package:alhomaidhi_customer_app/src/shared/providers/loading_provider.dart';
+import 'package:Alhomaidhi/main.dart';
+import 'package:Alhomaidhi/src/features/cart/providers/my_cart_provider.dart';
+import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/products_provider.dart';
+import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,8 +1,8 @@
-import 'package:alhomaidhi_customer_app/src/features/home/features/product%20details/models/single_product_model.dart';
-import 'package:alhomaidhi_customer_app/src/utils/config/dio/dio_client.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
-import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
+import 'package:Alhomaidhi/src/features/home/features/product%20details/models/single_product_model.dart';
+import 'package:Alhomaidhi/src/utils/config/dio/dio_client.dart';
+import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
+import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
 import 'package:dio/dio.dart';
 
 Future<SingleProductModel> getProductDetails(String productId) async {

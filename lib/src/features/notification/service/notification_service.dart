@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
-import 'package:alhomaidhi_customer_app/src/features/notification/model/firebase_notification.dart';
-import 'package:alhomaidhi_customer_app/src/utils/config/dio/dio_client.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/auth_helper.dart';
+import 'package:Alhomaidhi/src/features/notification/model/firebase_notification.dart';
+import 'package:Alhomaidhi/src/utils/config/dio/dio_client.dart';
+import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';

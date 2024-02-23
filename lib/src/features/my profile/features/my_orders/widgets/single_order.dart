@@ -1,7 +1,7 @@
-import 'package:alhomaidhi_customer_app/src/shared/services/auth_service.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/top_snackbar.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/shared/services/auth_service.dart';
+import 'package:Alhomaidhi/src/shared/widgets/top_snackbar.dart';
+import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

@@ -1,6 +1,6 @@
-import 'package:alhomaidhi_customer_app/src/shared/models/auth_model.dart';
-import 'package:alhomaidhi_customer_app/src/shared/services/auth_service.dart';
-import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
+import 'package:Alhomaidhi/src/shared/models/auth_model.dart';
+import 'package:Alhomaidhi/src/shared/services/auth_service.dart';
+import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthDetails {

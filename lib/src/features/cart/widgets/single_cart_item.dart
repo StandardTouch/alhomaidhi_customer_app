@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
+import 'package:Alhomaidhi/src/features/cart/providers/my_cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';

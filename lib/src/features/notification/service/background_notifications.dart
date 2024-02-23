@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:alhomaidhi_customer_app/src/features/notification/model/firebase_notification.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/features/notification/model/firebase_notification.dart';
+import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:alhomaidhi_customer_app/src/features/login/models/login_model.dart';
-import 'package:alhomaidhi_customer_app/src/features/login/models/login_response.dart';
-import 'package:alhomaidhi_customer_app/src/features/login/services/login_services.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/top_snackbar.dart';
+import 'package:Alhomaidhi/src/features/login/models/login_model.dart';
+import 'package:Alhomaidhi/src/features/login/models/login_response.dart';
+import 'package:Alhomaidhi/src/features/login/services/login_services.dart';
+import 'package:Alhomaidhi/src/shared/widgets/top_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';

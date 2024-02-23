@@ -1,6 +1,6 @@
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_invoices/providers/my_invoices_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/my_invoices/widgets/my_invoice.dart';
-import 'package:alhomaidhi_customer_app/src/utils/exceptions/homaidhi_exception.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/my_invoices/providers/my_invoices_provider.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/my_invoices/widgets/my_invoice.dart';
+import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,7 +1,7 @@
-import 'package:alhomaidhi_customer_app/src/features/home/features/all%20products/widgets/sort_button.dart';
-import 'package:alhomaidhi_customer_app/src/utils/config/router/routes.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/assets.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/features/home/features/all%20products/widgets/sort_button.dart';
+import 'package:Alhomaidhi/src/utils/config/router/routes.dart';
+import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

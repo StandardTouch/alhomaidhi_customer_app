@@ -1,9 +1,10 @@
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/form_input.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/cities.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
-import 'package:alhomaidhi_customer_app/src/utils/helpers/device_info.dart';
-import 'package:alhomaidhi_customer_app/src/utils/validators/validators.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
+import 'package:Alhomaidhi/src/shared/widgets/form_input.dart';
+import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
+import 'package:Alhomaidhi/src/utils/constants/cities.dart';
+import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -376,8 +377,16 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
           );
         }
       },
-      error: (err, stk) => Center(
-        child: Text("$err"),
+      error: (err, stk) => Scaffold(
+        appBar: AppBar(
+          title: const Text("My Address"),
+        ),
+        body: Center(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const Text("Server Error Occurred"),
+            RefreshButton(provider: addressProvider)
+          ]),
+        ),
       ),
       loading: () => const Scaffold(
         body: Center(

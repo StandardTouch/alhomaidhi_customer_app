@@ -1,11 +1,11 @@
-import 'package:alhomaidhi_customer_app/src/features/cart/providers/my_cart_provider.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/models/address_request_model.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/models/address_response_model.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/top_snackbar.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/features/cart/providers/my_cart_provider.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/address/models/address_request_model.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/address/models/address_response_model.dart';
+import 'package:Alhomaidhi/src/shared/widgets/top_snackbar.dart';
+import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:alhomaidhi_customer_app/src/features/my profile/features/address/services/address_service.dart';
+import 'package:Alhomaidhi/src/features/my profile/features/address/services/address_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final addressProvider = FutureProvider<AddressResponseModel>((ref) async {

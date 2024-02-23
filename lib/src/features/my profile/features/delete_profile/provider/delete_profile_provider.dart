@@ -1,7 +1,7 @@
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/delete_profile/models/delete_profile_request_model.dart';
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/delete_profile/services/delete_profile_service.dart';
-import 'package:alhomaidhi_customer_app/src/shared/widgets/top_snackbar.dart';
-import 'package:alhomaidhi_customer_app/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/delete_profile/models/delete_profile_request_model.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/delete_profile/services/delete_profile_service.dart';
+import 'package:Alhomaidhi/src/shared/widgets/top_snackbar.dart';
+import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';

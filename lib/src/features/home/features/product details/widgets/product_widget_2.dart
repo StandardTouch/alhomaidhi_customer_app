@@ -1,4 +1,4 @@
-import 'package:alhomaidhi_customer_app/src/features/my%20profile/features/address/provider/address_provider.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -52,7 +52,7 @@ class ProductWidget2 extends ConsumerWidget {
                   Text(
                     (data.message!.address1 != "" &&
                             data.message!.address2 != "")
-                        ? "${data.message!.address1}, ${data.message!.address2}}"
+                        ? "${data.message!.address1}, ${data.message!.address2}"
                         : "No Address Provided",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
