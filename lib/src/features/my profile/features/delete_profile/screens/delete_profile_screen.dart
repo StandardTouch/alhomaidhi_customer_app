@@ -52,8 +52,11 @@ class _DeleteProfileScreen extends ConsumerState<DeleteProfileScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Text("Precautionary Notice: Deleting Your Account",
-                        style: Theme.of(context).textTheme.labelLarge),
+                    Text(
+                      "Precautionary Notice: Deleting Your Account",
+                      style: Theme.of(context).textTheme.labelLarge,
+                      textAlign: TextAlign.center,
+                    ),
                     const Gap(10),
                     Text(
                       "Before proceeding with the account deletion process, we want to ensure that you are fully aware of the consequences and implications of this action. Deleting your account is an irreversible step and will result in the permanent removal of all your personal information, account history, and associated data from our platform.",
@@ -63,6 +66,7 @@ class _DeleteProfileScreen extends ConsumerState<DeleteProfileScreen> {
                     Text(
                       "Loss of Data and Access",
                       style: Theme.of(context).textTheme.labelLarge,
+                      textAlign: TextAlign.center,
                     ),
                     const Gap(10),
                     Text(
@@ -73,6 +77,7 @@ class _DeleteProfileScreen extends ConsumerState<DeleteProfileScreen> {
                     Text(
                       "Impact on Services",
                       style: Theme.of(context).textTheme.labelLarge,
+                      textAlign: TextAlign.center,
                     ),
                     const Gap(10),
                     Text(
@@ -83,6 +88,7 @@ class _DeleteProfileScreen extends ConsumerState<DeleteProfileScreen> {
                     Text(
                       "Account Recovery and Future Access",
                       style: Theme.of(context).textTheme.labelLarge,
+                      textAlign: TextAlign.center,
                     ),
                     const Gap(10),
                     Text(

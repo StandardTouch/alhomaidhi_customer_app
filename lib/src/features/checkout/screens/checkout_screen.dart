@@ -91,7 +91,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
             },
             javascriptMode: JavascriptMode.unrestricted,
             initialUrl:
-                "https://alhomdelivery.standardtouch.com/custom-checkout?mo_jwt_token=${widget.token}",
+                "https://alhomaidhigroup.com/custom-checkout?mo_jwt_token=${widget.token}",
           ),
           if (isLoading)
             Container(
