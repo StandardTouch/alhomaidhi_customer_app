@@ -109,7 +109,6 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text("An Error Occurred!"),
-              Text(data.errorMessage!),
             ],
           );
         }

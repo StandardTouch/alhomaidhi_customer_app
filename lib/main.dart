@@ -17,7 +17,7 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 final globalContainer = ProviderContainer();
 Future multipleRegistration() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
@@ -29,9 +29,9 @@ Future multipleRegistration() async {
 void main() async {
   await dotenv.load();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+  await FlutterDownloader.initialize(debug: false, ignoreSsl: true);
   await multipleRegistration();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // FlutterDownloader.registerCallback(downloadCallback);
   await SystemChrome.setPreferredOrientations([

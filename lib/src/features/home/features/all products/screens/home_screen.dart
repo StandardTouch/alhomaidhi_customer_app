@@ -6,6 +6,7 @@ import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/services
 import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
 import 'package:Alhomaidhi/src/features/notification/provider/provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/homaidhi_appbar.dart';
+import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
@@ -137,7 +138,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         child: Column(
                           children: [
                             const Text("An Error Occurred!"),
-                            Text(data.errorMessage!),
+                            const Gap(20),
+                            RefreshButton(
+                              provider: allProductsProvider,
+                              isAllProducts: true,
+                            )
                           ],
                         ),
                       ),
