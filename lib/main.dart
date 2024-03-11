@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:Alhomaidhi/firebase_options.dart';
 import 'package:Alhomaidhi/src/features/notification/service/background_notifications.dart';
 import 'package:Alhomaidhi/src/utils/theme/theme.dart';
@@ -17,13 +19,37 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 final globalContainer = ProviderContainer();
 Future multipleRegistration() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-
-  await FirebaseMessaging.instance.subscribeToTopic("order-status");
+  if (Platform.isIOS) {
+    String? apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+    if (apnsToken != null) {
+      // await _firebaseMessaging.subscribeToTopic("notificationChannel");
+      try {
+        await FirebaseMessaging.instance.subscribeToTopic('order-status');
+      } on FirebaseException catch (e) {
+        debugPrint("George here is the error: $e");
+      }
+    } else {
+      await Future<void>.delayed(const Duration(seconds: 3));
+      apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+      if (apnsToken != null) {
+        try {
+          await FirebaseMessaging.instance.subscribeToTopic('order-status');
+        } on FirebaseException catch (e) {
+          debugPrint("George here is the error: $e");
+        }
+      }
+    }
+  } else {
+    try {
+      await FirebaseMessaging.instance.subscribeToTopic('order-status');
+    } on FirebaseException catch (e) {
+      debugPrint("George here is the error: $e");
+    }
+  }
+  // WidgetsFlutterBinding.ensureInitialized();
 }
 
 void main() async {
