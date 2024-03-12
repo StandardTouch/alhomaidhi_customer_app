@@ -34,6 +34,23 @@ class AuthHelper {
     }
   }
 
+  static Future<bool> checkUserAuth() async {
+    const storage = FlutterSecureStorage();
+    final token = await storage.read(key: "token");
+    final userId = await storage.read(key: "userId");
+    try {
+      AuthResponseModel response =
+          await verifyToken(token ?? "notoken", userId ?? "0");
+      if (response.status == "DELAPP00") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      return false;
+    }
+  }
+
   static Future<AuthDetails> getAuthDetails() async {
     const storage = FlutterSecureStorage();
     final token = await storage.read(key: "token");

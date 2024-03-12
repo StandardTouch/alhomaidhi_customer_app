@@ -1,7 +1,9 @@
 import 'package:Alhomaidhi/main.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/widgets/single_order.dart';
+import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
+import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
 import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,6 +33,10 @@ class MyOrderScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final myOrders = ref.watch(myOrdersListProvider);
     final isLoading = ref.watch(isLoadingProvider);
+    final isLoggedIn = ref.watch(authProvider);
+    if (!isLoggedIn) {
+      return const LoginToContinueWidget();
+    }
 
     if (isLoading) {
       return const Scaffold(

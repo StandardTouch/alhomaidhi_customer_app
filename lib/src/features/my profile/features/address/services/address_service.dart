@@ -1,6 +1,7 @@
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/models/address_request_model.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/models/address_response_model.dart';
 import 'package:Alhomaidhi/src/utils/config/dio/dio_client.dart';
+import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:dio/dio.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
@@ -14,8 +15,15 @@ Future<AddressResponseModel> getProfileDetails() async {
           "user_id": authDetails.userId,
         }));
     final response = AddressResponseModel.fromJson(jsonResponse.data);
+    if (response.status != "APP00") {
+      throw HomaidhiException(
+          status: response.status!, message: "You are not Signed in");
+    }
     return response;
   } catch (err) {
+    if (err is HomaidhiException) {
+      throw HomaidhiException(status: err.status, message: err.message);
+    }
     logger.e("from address screen:  $err");
     throw Exception("$err");
   }

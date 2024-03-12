@@ -1,4 +1,6 @@
 import 'package:Alhomaidhi/src/features/my%20profile/features/delete_profile/provider/delete_profile_provider.dart';
+import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
+import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +20,10 @@ class _DeleteProfileScreen extends ConsumerState<DeleteProfileScreen> {
   Widget build(context) {
     final deleteProfileNotify = ref.read(deleteProfileNotifier.notifier);
     final deleteProfileWatcher = ref.watch(deleteProfileNotifier);
+    final isLoggedIn = ref.watch(authProvider);
+    if (!isLoggedIn) {
+      return const LoginToContinueWidget();
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -102,7 +108,7 @@ class _DeleteProfileScreen extends ConsumerState<DeleteProfileScreen> {
                         onPressed: deleteProfileWatcher.isBtnDisable
                             ? null
                             : () {
-                                deleteProfileNotify.deleteProfile(context);
+                                deleteProfileNotify.deleteProfile(context, ref);
                               },
                         child: deleteProfileWatcher.isBtnDisable
                             ? const CircularProgressIndicator()

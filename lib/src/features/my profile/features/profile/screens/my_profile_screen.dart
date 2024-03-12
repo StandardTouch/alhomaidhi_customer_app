@@ -19,6 +19,10 @@ class _MyProfileScreen extends State<MyProfileScreen> {
     const storage = FlutterSecureStorage();
     storage.delete(key: "token");
     storage.delete(key: "userId");
+    storage.delete(key: "username");
+    storage.delete(key: "full_name");
+        storage.delete(key: "masterCustomerId");
+
     context.go("/login");
   }
 

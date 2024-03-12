@@ -1,5 +1,7 @@
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
+import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/form_input.dart';
+import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
 import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:Alhomaidhi/src/utils/constants/cities.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
@@ -43,6 +45,10 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
 
     final addressUpdateNotifier = ref.read(addressNotifier.notifier);
     final addressWatcher = ref.watch(addressNotifier);
+    final isLoggedIn = ref.watch(authProvider);
+    if (!isLoggedIn) {
+      return const LoginToContinueWidget();
+    }
 
     return addressGetProvider.when(
       data: (data) {

@@ -3,6 +3,8 @@ import 'package:Alhomaidhi/src/features/notification/provider/provider.dart';
 import 'package:Alhomaidhi/src/features/notification/service/background_notifications.dart';
 import 'package:Alhomaidhi/src/features/notification/widgets/no_notification.dart';
 import 'package:Alhomaidhi/src/features/notification/widgets/notification.dart';
+import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
+import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -40,6 +42,10 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     ref.read(notificationServiceProvider).init();
+    final isLoggedIn = ref.watch(authProvider);
+    if (!isLoggedIn) {
+      return LoginToContinueWidget();
+    }
 
     return Scaffold(
         appBar: AppBar(

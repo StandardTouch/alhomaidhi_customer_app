@@ -1,5 +1,7 @@
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
+import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
+import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -21,8 +23,12 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
 
   void logoutUser() async {
     const storage = FlutterSecureStorage();
-    await storage.delete(key: "token");
-    await storage.delete(key: "userId");
+    storage.delete(key: "token");
+    storage.delete(key: "userId");
+    storage.delete(key: "username");
+    storage.delete(key: "full_name");
+    storage.delete(key: "masterCustomerId");
+    ref.read(authProvider.notifier).logOut();
     if (!context.mounted) return;
     context.pop();
     context.go("/login");
@@ -30,6 +36,7 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = ref.watch(authProvider);
     return Drawer(
       child: Container(
         width: double.infinity,
@@ -125,14 +132,18 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
               left: 0,
               right: 0,
               child: ElevatedButton.icon(
-                icon: const Icon(Icons.logout),
+                icon: Icon(isLoggedIn ? Icons.logout : Icons.login),
                 style: ElevatedButton.styleFrom(
                   shape: const RoundedRectangleBorder(),
                   backgroundColor: Theme.of(context).colorScheme.onSecondary,
                   foregroundColor: Colors.black,
                 ),
-                onPressed: logoutUser,
-                label: const Text("Logout"),
+                onPressed: isLoggedIn
+                    ? logoutUser
+                    : () {
+                        context.push("/login");
+                      },
+                label: Text(isLoggedIn ? "Logout" : "Sign In"),
               ),
             ),
           ],

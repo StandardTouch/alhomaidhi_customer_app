@@ -1,4 +1,7 @@
+import 'package:Alhomaidhi/main.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
+import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
+import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -10,6 +13,7 @@ class AddressWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final address = ref.watch(addressProvider);
+    final isLoading = ref.watch(isLoadingProvider);
     return address.when(
         data: (data) {
           return Column(
@@ -68,10 +72,43 @@ class AddressWidget extends ConsumerWidget {
             ],
           );
         },
-        error: (err, stk) => Text(
-              "An error occurred $err",
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
+        error: (err, stk) {
+          if (err is HomaidhiException) {
+            return Row(
+              children: [
+                const Expanded(
+                    flex: 3,
+                    child: Text("Error getting Address, try refreshing")),
+                Expanded(
+                    flex: 1,
+                    child: IconButton(
+                        onPressed: isLoading
+                            ? null
+                            : () async {
+                                try {
+                                  globalContainer
+                                      .read(isLoadingProvider.notifier)
+                                      .state = true;
+
+                                  await ref.refresh(addressProvider.future);
+                                } catch (_) {
+                                } finally {
+                                  globalContainer
+                                      .read(isLoadingProvider.notifier)
+                                      .state = false;
+                                }
+                              },
+                        icon: isLoading
+                            ? const CircularProgressIndicator()
+                            : Icon(Icons.refresh))),
+              ],
+            );
+          }
+          return Text(
+            "An error occurred $err",
+            style: Theme.of(context).textTheme.bodyMedium,
+          );
+        },
         loading: () => const LinearProgressIndicator());
   }
 }

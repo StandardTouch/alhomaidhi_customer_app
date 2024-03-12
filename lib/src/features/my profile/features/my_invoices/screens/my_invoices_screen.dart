@@ -1,5 +1,7 @@
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_invoices/providers/my_invoices_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_invoices/widgets/my_invoice.dart';
+import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
+import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +10,10 @@ class MyInvoicesScreen extends ConsumerWidget {
   const MyInvoicesScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isLoggedIn = ref.watch(authProvider);
+    if (!isLoggedIn) {
+      return const LoginToContinueWidget();
+    }
     final myinvoices = ref.watch(myInvoicesProvider);
     return myinvoices.when(
       data: (data) {

@@ -1,4 +1,5 @@
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
+import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -97,7 +98,9 @@ class ProductWidget2 extends ConsumerWidget {
         decoration: const BoxDecoration(
           color: Colors.white,
         ),
-        child: const Text("Error while fetching address"),
+        child: Text((err is HomaidhiException)
+            ? err.message
+            : "Error While fetching data"),
       );
     }, loading: () {
       return Container(

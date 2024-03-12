@@ -3,14 +3,17 @@ import 'package:Alhomaidhi/src/features/cart/providers/my_cart_provider.dart';
 import 'package:Alhomaidhi/src/features/cart/widgets/cart_placeholder.dart';
 import 'package:Alhomaidhi/src/features/cart/widgets/price_widget.dart';
 import 'package:Alhomaidhi/src/features/cart/widgets/single_cart_item.dart';
+import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/address_widget.dart';
 import 'package:Alhomaidhi/src/shared/widgets/homaidhi_appbar.dart';
+import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
 import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class ShoppingCartScreen extends ConsumerStatefulWidget {
   const ShoppingCartScreen({super.key});
@@ -31,6 +34,11 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
     final isLoading = ref.watch(isLoadingProvider);
     final cart = ref.watch(myCartProvider);
     final cartDetails = ref.watch(cartDetailsProvider);
+    final isLoggedIn = ref.watch(authProvider);
+    if (!isLoggedIn) {
+      return LoginToContinueWidget();
+    }
+
     return Scaffold(
       appBar: const HomaidhiAppbar(),
       body: isLoading

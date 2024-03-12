@@ -3,6 +3,7 @@ import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/p
 import 'package:Alhomaidhi/src/features/home/features/all%20products/widgets/brands_widget.dart';
 import 'package:Alhomaidhi/src/features/home/features/all%20products/widgets/product_card.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/services/my_order_details_services.dart';
+import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
 import 'package:Alhomaidhi/src/features/notification/provider/provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/homaidhi_appbar.dart';
@@ -30,6 +31,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     _initMessaging();
+    Future.microtask(
+      () => ref.read(authProvider.notifier).checkUserAuth(),
+    );
+
     super.initState();
   }
 

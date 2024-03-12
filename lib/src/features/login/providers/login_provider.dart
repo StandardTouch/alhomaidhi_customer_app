@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:Alhomaidhi/src/features/login/models/login_model.dart';
 import 'package:Alhomaidhi/src/features/login/models/login_response.dart';
 import 'package:Alhomaidhi/src/features/login/services/login_services.dart';
+import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/top_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -63,7 +64,7 @@ class LoginNotifier extends StateNotifier<LoginModel> {
 // send otp end
 
 // verify otp start
-  void verifyOtp(BuildContext context) async {
+  void verifyOtp(BuildContext context, WidgetRef ref) async {
     try {
       state = state.copyWith(isVerificationLoading: true);
       VerifyOtpResponseModel response =
@@ -75,6 +76,8 @@ class LoginNotifier extends StateNotifier<LoginModel> {
             key: "masterCustomerId", value: response.message!.masterCustomerId);
         storage.write(key: "username", value: response.message!.username);
         storage.write(key: "full_name", value: response.message!.fullName);
+        ref.read(authProvider.notifier).logIn();
+
         if (!context.mounted) {
           return;
         }

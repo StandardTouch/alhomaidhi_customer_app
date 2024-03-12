@@ -28,7 +28,6 @@ Future<AuthResponseModel> verifyToken(String token, String userId) async {
           err.type == DioExceptionType.cancel ||
           err.type == DioExceptionType.connectionTimeout) {
         throw HomaidhiException(status: "NONET", message: "No Net");
-        // todo:  show screen
       }
     }
     logger.e("Error from auth_service.dart: $err");

@@ -100,7 +100,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                       getSubmittedPinTheme(context),
                                   onCompleted: (value) {
                                     loginNotifier.updateOtp(value);
-                                    loginNotifier.verifyOtp(context);
+                                    loginNotifier.verifyOtp(context, ref);
                                   }),
                             if (loginRef.isOTPVisible == true) const Gap(30),
                             if (!(loginRef.isOTPVisible == true))
@@ -190,6 +190,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     decoration: TextDecoration.underline,
                                     decorationColor:
                                         Theme.of(context).colorScheme.error),
+                              ),
+                            ),
+                            const Gap(20),
+                            InkWell(
+                              onTap: () {
+                                context.go("/home");
+                              },
+                              child: Text(
+                                "Continue as a guest",
+                                style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontWeight: FontWeight.normal,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Colors.grey[800]),
                               ),
                             ),
                           ],
