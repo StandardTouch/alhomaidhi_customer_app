@@ -10,6 +10,17 @@ class ConversionHelper {
     }
   }
 
+  static String getArabicPart(String inputString) {
+    int slashIndex = inputString.indexOf('/');
+
+    if (slashIndex != -1 && slashIndex < inputString.length - 1) {
+      return inputString.substring(slashIndex + 1).trim();
+    } else {
+      // If there is no "/" or the "/" is at the end of the string, return an empty string
+      return inputString.trim();
+    }
+  }
+
   static String formatPrice(String inputString) {
     try {
       double value = double.parse(inputString);

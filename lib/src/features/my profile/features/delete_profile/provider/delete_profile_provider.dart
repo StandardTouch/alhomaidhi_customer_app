@@ -3,6 +3,7 @@ import 'package:Alhomaidhi/src/features/my%20profile/features/delete_profile/ser
 import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/top_snackbar.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
@@ -23,7 +24,8 @@ class DeleteProfileNotifier extends StateNotifier<DeleteProfileRequestModel> {
         }
         getSnackBar(
           context: context,
-          message: "Account Deleted Successfully",
+          message: TranslationHelper.translation(context)!
+              .accountDeletedSuccessfully,
           type: SNACKBARTYPE.success,
         );
         const storage = FlutterSecureStorage();
@@ -42,7 +44,8 @@ class DeleteProfileNotifier extends StateNotifier<DeleteProfileRequestModel> {
         }
         getSnackBar(
           context: context,
-          message: "Uh Oh. An error occurred: ${response.message}",
+          message:
+              "${TranslationHelper.translation(context)!.uhOhAnErrorOccurred}: ${response.message}",
           type: SNACKBARTYPE.error,
         );
       }
@@ -53,7 +56,8 @@ class DeleteProfileNotifier extends StateNotifier<DeleteProfileRequestModel> {
       }
       getSnackBar(
         context: context,
-        message: "Server Error: Please try again later",
+        message:
+            TranslationHelper.translation(context)!.serverErrorPleaseTryLater,
         type: SNACKBARTYPE.error,
       );
       state = state.copyWith(isBtnDisable: false);

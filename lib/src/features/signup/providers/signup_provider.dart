@@ -3,6 +3,7 @@ import 'package:Alhomaidhi/src/features/signup/models/signup_response.dart';
 import 'package:Alhomaidhi/src/features/signup/services/signup_services.dart';
 import 'package:Alhomaidhi/src/shared/widgets/top_snackbar.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -50,7 +51,8 @@ class SignUpNotifer extends StateNotifier<SignupModel> {
           }
           getSnackBar(
             context: context,
-            message: "Account successfully created",
+            message: TranslationHelper.translation(context)!
+                .accountSuccessFullyCreated,
             type: SNACKBARTYPE.success,
           );
           context.go("/login");
@@ -60,7 +62,8 @@ class SignUpNotifer extends StateNotifier<SignupModel> {
           }
           getSnackBar(
             context: context,
-            message: "Uh Oh. An error occurred: ${response.message}",
+            message:
+                "${TranslationHelper.translation(context)!.uhOhAnErrorOccurred}: ${response.message}",
             type: SNACKBARTYPE.error,
           );
         }
@@ -73,7 +76,8 @@ class SignUpNotifer extends StateNotifier<SignupModel> {
       }
       getSnackBar(
         context: context,
-        message: "Server Error: Please try again later",
+        message:
+            TranslationHelper.translation(context)!.serverErrorPleaseTryLater,
         type: SNACKBARTYPE.error,
       );
       state = state.copyWith(isVerificationLoading: false);

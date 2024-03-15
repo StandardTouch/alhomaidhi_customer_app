@@ -123,6 +123,16 @@
     "searchProducts": "Search Products",
     "home": "Home",
     "search": "Search",
-    "cart": "Cart"
+    "cart": "Cart",
+    "errorWhileCheckingOut": "Error While checking out",
+    "uhOhAnErrorOccurred": "Uh Oh. An error occurred",
+    "serverErrorPleaseTryLater": "Server Error: Please try again later",
+    "otpIsSent":"OTP is sent",
+    "addressDetailsSuccessFullyUpdated": "Address Details successfully Updated",
+    "accountDeletedSuccessfully":"Account Deleted Successfully",
+    "accountSuccessFullyCreated":"Account successfully created"
+
+
+
 
 }

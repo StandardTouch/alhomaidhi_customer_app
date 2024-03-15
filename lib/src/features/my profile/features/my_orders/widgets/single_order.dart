@@ -2,6 +2,7 @@ import 'package:Alhomaidhi/src/shared/services/auth_service.dart';
 import 'package:Alhomaidhi/src/shared/widgets/top_snackbar.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -59,8 +60,10 @@ class _SingleOrderCardState extends ConsumerState<SingleOrderCard> {
     } catch (err) {
       if (!context.mounted) return;
       getSnackBar(
+        // ignore: use_build_context_synchronously
         context: context,
-        message: "Error While checking out",
+        // ignore: use_build_context_synchronously
+        message: TranslationHelper.translation(context)!.errorWhileCheckingOut,
         type: SNACKBARTYPE.error,
       );
     } finally {

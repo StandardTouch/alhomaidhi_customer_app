@@ -1,12 +1,14 @@
+import 'package:Alhomaidhi/src/shared/providers/language_provider.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/helpers/conversion.dart';
 import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends ConsumerWidget {
   const ProductCard({
     super.key,
     required this.imageUrl,
@@ -26,7 +28,8 @@ class ProductCard extends StatelessWidget {
   final Function() onButtonPress;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isArabic = ref.watch(languageProvider);
     return Material(
       elevation: 8,
       borderRadius: BorderRadius.circular(15),
@@ -60,7 +63,9 @@ class ProductCard extends StatelessWidget {
                 flex: isSearch ? 2 : 1,
                 child: isSearch
                     ? Text(
-                        ConversionHelper.getEnglishPart(title),
+                        isArabic
+                            ? ConversionHelper.getArabicPart(title)
+                            : ConversionHelper.getEnglishPart(title),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
@@ -69,7 +74,9 @@ class ProductCard extends StatelessWidget {
                       )
                     : FittedBox(
                         child: Text(
-                          ConversionHelper.getEnglishPart(title),
+                          isArabic
+                              ? ConversionHelper.getArabicPart(title)
+                              : ConversionHelper.getEnglishPart(title),
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),

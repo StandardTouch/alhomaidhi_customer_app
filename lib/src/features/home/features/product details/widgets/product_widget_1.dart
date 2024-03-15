@@ -1,9 +1,11 @@
+import 'package:Alhomaidhi/src/shared/providers/language_provider.dart';
 import 'package:Alhomaidhi/src/utils/helpers/conversion.dart';
 import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
-class ProductWidget1 extends StatelessWidget {
+class ProductWidget1 extends ConsumerWidget {
   const ProductWidget1({
     super.key,
     required this.productName,
@@ -19,7 +21,8 @@ class ProductWidget1 extends StatelessWidget {
   final String discountPercentage;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isArabic = ref.watch(languageProvider);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: const BoxDecoration(
@@ -34,7 +37,9 @@ class ProductWidget1 extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Text(
-                  ConversionHelper.getEnglishPart(productName),
+                  isArabic
+                      ? ConversionHelper.getArabicPart(productName)
+                      : ConversionHelper.getEnglishPart(productName),
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!

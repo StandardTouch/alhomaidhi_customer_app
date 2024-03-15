@@ -121,7 +121,13 @@
     "emailValidator": "Please enter a valid email address",
     "pinCodeValidator": "Please enter a valid pincode",
     "searchProducts": "البحث في المنتجات",
-    "home": "الصفحة الرئيسية",
+    "home": "الرئيسية",
     "search": "البحث",
-    "cart": "العربة"
+    "cart": "العربة","errorWhileCheckingOut": "حدث خطأ أثناء الدفع",
+    "uhOhAnErrorOccurred": "عذرًا، حدث خطأ",
+    "serverErrorPleaseTryLater": "خطأ في الخادم: يرجى المحاولة مرة أخرى لاحقًا",
+    "otpIsSent": "تم إرسال رمز التحقق",
+    "addressDetailsSuccessFullyUpdated": "تم تحديث تفاصيل العنوان بنجاح",
+    "accountDeletedSuccessfully": "تم حذف الحساب بنجاح",
+    "accountSuccessFullyCreated": "تم إنشاء الحساب بنجاح"
 }

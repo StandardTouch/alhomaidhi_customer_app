@@ -3,6 +3,7 @@ import 'package:Alhomaidhi/src/features/my%20profile/features/address/models/add
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/models/address_response_model.dart';
 import 'package:Alhomaidhi/src/shared/widgets/top_snackbar.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:Alhomaidhi/src/features/my profile/features/address/services/address_service.dart';
@@ -115,7 +116,8 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
 
           getSnackBar(
             context: context,
-            message: "Address Details successfully Updated",
+            message: TranslationHelper.translation(context)!
+                .addressDetailsSuccessFullyUpdated,
             type: SNACKBARTYPE.success,
           );
         } else {
@@ -124,7 +126,8 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
           }
           getSnackBar(
             context: context,
-            message: "Uh Oh. An error occurred: ${response.message}",
+            message:
+                "${TranslationHelper.translation(context)!.uhOhAnErrorOccurred}: ${response.message}",
             type: SNACKBARTYPE.error,
           );
         }
@@ -136,7 +139,8 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
       }
       getSnackBar(
         context: context,
-        message: "Server Error: Please try again later",
+        message:
+            TranslationHelper.translation(context)!.serverErrorPleaseTryLater,
         type: SNACKBARTYPE.error,
       );
       state = state.copyWith(isBtnDisable: false);

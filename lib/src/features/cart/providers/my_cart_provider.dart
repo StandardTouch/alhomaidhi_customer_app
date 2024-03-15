@@ -114,7 +114,7 @@ class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
       if (!context.mounted) return;
       getSnackBar(
         context: context,
-        message: "Error While checking out",
+        message: TranslationHelper.translation(context)!.errorWhileCheckingOut,
         type: SNACKBARTYPE.error,
       );
     } finally {

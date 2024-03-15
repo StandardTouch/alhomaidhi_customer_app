@@ -5,6 +5,7 @@ import 'package:Alhomaidhi/src/features/login/models/login_response.dart';
 import 'package:Alhomaidhi/src/features/login/services/login_services.dart';
 import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/top_snackbar.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -42,7 +43,8 @@ class LoginNotifier extends StateNotifier<LoginModel> {
           }
           getSnackBar(
             context: context,
-            message: "Uh Oh. An error occurred: ${response.message}",
+            message:
+                "${TranslationHelper.translation(context)!.uhOhAnErrorOccurred}: ${response.message}",
             type: SNACKBARTYPE.error,
           );
         }
@@ -53,7 +55,8 @@ class LoginNotifier extends StateNotifier<LoginModel> {
       }
       getSnackBar(
         context: context,
-        message: "Server Error: Please try again later",
+        message:
+            TranslationHelper.translation(context)!.serverErrorPleaseTryLater,
         type: SNACKBARTYPE.error,
       );
     } finally {
@@ -89,7 +92,8 @@ class LoginNotifier extends StateNotifier<LoginModel> {
         getSnackBar(
           context: context,
           // storing error message ion username variable
-          message: "Uh Oh. An error occurred: ${response.message!.username}",
+          message:
+              "${TranslationHelper.translation(context)!.uhOhAnErrorOccurred}: ${response.message!.username}",
           type: SNACKBARTYPE.error,
         );
       }
@@ -133,7 +137,7 @@ class LoginNotifier extends StateNotifier<LoginModel> {
         }
         getSnackBar(
           context: context,
-          message: "OTP is sent",
+          message: TranslationHelper.translation(context)!.otpIsSent,
           type: SNACKBARTYPE.success,
         );
         // start timer for resending otp
@@ -145,7 +149,8 @@ class LoginNotifier extends StateNotifier<LoginModel> {
         }
         getSnackBar(
           context: context,
-          message: "Uh Oh. An error occurred: ${response.message}",
+          message:
+              "${TranslationHelper.translation(context)!.uhOhAnErrorOccurred}: ${response.message}",
           type: SNACKBARTYPE.error,
         );
       }
@@ -156,7 +161,8 @@ class LoginNotifier extends StateNotifier<LoginModel> {
       }
       getSnackBar(
         context: context,
-        message: "Server Error: Please try again later",
+        message:
+            TranslationHelper.translation(context)!.serverErrorPleaseTryLater,
         type: SNACKBARTYPE.error,
       );
       state = state.copyWith(isResendLoading: false);
