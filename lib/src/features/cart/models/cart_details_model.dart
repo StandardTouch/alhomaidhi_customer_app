@@ -4,6 +4,7 @@ class CartDetailsModel {
   final Map<String, dynamic> deletingElement;
   final bool isAddressPresent;
   final bool isCheckingOut;
+  final bool isPasswordPresent;
 
   CartDetailsModel({
     this.isLoading = false,
@@ -14,6 +15,7 @@ class CartDetailsModel {
     },
     this.isAddressPresent = false,
     this.isCheckingOut = false,
+    this.isPasswordPresent = false,
   });
 
   CartDetailsModel copyWith({
@@ -23,6 +25,7 @@ class CartDetailsModel {
     Map<String, dynamic>? deletingElement,
     bool? isAddressPresent,
     bool? isCheckingOut,
+    bool? isPasswordPresent,
   }) {
     return CartDetailsModel(
       isLoading: isLoading ?? this.isLoading,
@@ -30,6 +33,7 @@ class CartDetailsModel {
       deletingElement: deletingElement ?? this.deletingElement,
       isAddressPresent: isAddressPresent ?? this.isAddressPresent,
       isCheckingOut: isCheckingOut ?? this.isCheckingOut,
+      isPasswordPresent: isPasswordPresent ?? this.isAddressPresent,
     );
   }
 }

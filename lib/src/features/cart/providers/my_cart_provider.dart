@@ -36,6 +36,10 @@ class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
     state = state.copyWith(isAddressPresent: true);
   }
 
+  void setPasswordPresentToTrue(){
+    state = state.copyWith(isPasswordPresent: true);
+  }
+
   void additemToCart(int productId, WidgetRef ref, BuildContext context) async {
     state = state.copyWith(isLoading: true);
     await updateCart(productId.toString(), "1");

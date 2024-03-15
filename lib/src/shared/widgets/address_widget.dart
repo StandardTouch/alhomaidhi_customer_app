@@ -1,4 +1,5 @@
 import 'package:Alhomaidhi/main.dart';
+import 'package:Alhomaidhi/src/features/cart/providers/my_cart_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
@@ -7,13 +8,35 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-class AddressWidget extends ConsumerWidget {
+class AddressWidget extends ConsumerStatefulWidget {
   const AddressWidget({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AddressWidget> createState() => _AddressWidgetState();
+}
+
+class _AddressWidgetState extends ConsumerState<AddressWidget> {
+  void setPasswordPresentToTrue(WidgetRef ref) async {
+    final address = await ref.read(addressProvider.future);
+    if (address.message?.password != "") {
+      ref.read(cartDetailsProvider.notifier).setPasswordPresentToTrue();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //   (timeStamp) {},
+    // );
+    setPasswordPresentToTrue(ref);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final address = ref.watch(addressProvider);
     final isLoading = ref.watch(isLoadingProvider);
+
     return address.when(
         data: (data) {
           return Column(

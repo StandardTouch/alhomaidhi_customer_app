@@ -37,7 +37,6 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
     final productDetails = ref.watch(productDetailsProvider(widget.productId));
     final cart = ref.watch(cartDetailsProvider);
     final cartOperations = ref.read(cartDetailsProvider.notifier);
-    ref.watch(addressProvider);
     final isLoggedIn = ref.watch(authProvider);
 
     return PopScope(

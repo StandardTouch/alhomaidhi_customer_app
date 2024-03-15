@@ -111,6 +111,7 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
               key: "full_name", value: "${state.firstName} ${state.lastName}");
 
           cartDetails.setAddressToTrue();
+          cartDetails.setPasswordPresentToTrue();
 
           getSnackBar(
             context: context,

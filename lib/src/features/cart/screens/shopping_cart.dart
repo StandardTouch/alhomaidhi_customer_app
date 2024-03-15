@@ -11,6 +11,7 @@ import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
 import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -102,10 +103,29 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                       const Divider(),
                       const CartPlaceHolder(),
                       const Gap(10),
+                      if (!cartDetails.isPasswordPresent)
+                        Row(
+                          children: [
+                            const Expanded(
+                              child: Text("Please add a password to proceed"),
+                            ),
+                            Expanded(
+                              child: TextButton.icon(
+                                onPressed: () {
+                                  context.push("/address");
+                                },
+                                label: const Text("Add Password"),
+                                icon: const Icon(Icons.add),
+                              ),
+                            )
+                          ],
+                        ),
+                      const Gap(10),
                       ElevatedButton.icon(
                         onPressed: (cartDetails.isLoading ||
                                 cartDetails.deletingElement["isDeleting"] ||
                                 !cartDetails.isAddressPresent ||
+                                !cartDetails.isPasswordPresent ||
                                 cartDetails.isCheckingOut)
                             ? null
                             : () {
