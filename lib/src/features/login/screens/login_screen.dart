@@ -1,4 +1,5 @@
 import 'package:Alhomaidhi/src/features/login/providers/login_provider.dart';
+import 'package:Alhomaidhi/src/shared/providers/language_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/form_input.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
@@ -32,7 +33,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     final loginNotifier = ref.read(loginProvider.notifier);
     final loginRef = ref.watch(loginProvider);
+    final languageOperations = ref.read(languageProvider.notifier);
+    final isArabic = ref.watch(languageProvider);
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        actions: [
+          TextButton(
+              onPressed: () {
+                languageOperations.toggleLanguage(!isArabic);
+              },
+              child: Text(isArabic ? "en" : "ar"))
+        ],
+      ),
       body: Stack(
         children: [
           Container(

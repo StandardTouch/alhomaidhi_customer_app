@@ -1,4 +1,5 @@
 import 'package:Alhomaidhi/src/features/signup/providers/signup_provider.dart';
+import 'package:Alhomaidhi/src/shared/providers/language_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/form_input.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
@@ -23,9 +24,18 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   Widget build(BuildContext context) {
     final signUpNotifer = ref.read(signUpProvider.notifier);
     final signUpRef = ref.watch(signUpProvider);
+    final languageOperations = ref.read(languageProvider.notifier);
+    final isArabic = ref.watch(languageProvider);
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
+        actions: [
+          TextButton(
+              onPressed: () {
+                languageOperations.toggleLanguage(!isArabic);
+              },
+              child: Text(isArabic ? "en" : "ar"))
+        ],
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
