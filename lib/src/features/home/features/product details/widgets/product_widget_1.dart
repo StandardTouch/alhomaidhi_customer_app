@@ -1,4 +1,5 @@
 import 'package:Alhomaidhi/src/utils/helpers/conversion.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -44,7 +45,7 @@ class ProductWidget1 extends StatelessWidget {
                 flex: 1,
                 child: FittedBox(
                   child: Text(
-                    "SKU: $skuNumber",
+                    "${TranslationHelper.translation(context)!.sku} $skuNumber",
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
@@ -69,7 +70,7 @@ class ProductWidget1 extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "${discountPercentage.substring(0, 2)}% off",
+                  "${discountPercentage.substring(0, 2)}${TranslationHelper.translation(context)!.percentOff}",
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: const Color.fromARGB(255, 40, 122, 43),

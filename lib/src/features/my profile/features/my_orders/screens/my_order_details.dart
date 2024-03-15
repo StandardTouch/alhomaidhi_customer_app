@@ -1,5 +1,6 @@
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/widgets/single_order_details.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,7 +28,7 @@ class MyOrderDetailsScreen extends ConsumerWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Orders Details'),
+            title: Text(TranslationHelper.translation(context)!.orderDetails),
             backgroundColor: Colors.transparent,
           ),
           body: Container(
@@ -69,12 +70,12 @@ class MyOrderDetailsScreen extends ConsumerWidget {
         );
       }
     }, error: (err, stk) {
-      return const Scaffold(
+      return Scaffold(
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Server Error Occurred"),
+              Text(TranslationHelper.translation(context)!.serverErrorOccurred),
             ],
           ),
         ),

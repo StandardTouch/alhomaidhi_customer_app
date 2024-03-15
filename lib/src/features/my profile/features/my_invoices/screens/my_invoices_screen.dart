@@ -3,6 +3,7 @@ import 'package:Alhomaidhi/src/features/my%20profile/features/my_invoices/widget
 import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,7 +21,7 @@ class MyInvoicesScreen extends ConsumerWidget {
         if (data.status == "success") {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('My Invoices'),
+              title: Text(TranslationHelper.translation(context)!.myInvoices),
               backgroundColor: Colors.transparent,
             ),
             body: Container(
@@ -58,7 +59,8 @@ class MyInvoicesScreen extends ConsumerWidget {
           );
         } else {
           return Center(
-            child: Text(data.errorMessage ?? 'Unknown error'),
+            child: Text(data.errorMessage ??
+                TranslationHelper.translation(context)!.unknownError),
           );
         }
       },
@@ -66,7 +68,7 @@ class MyInvoicesScreen extends ConsumerWidget {
         if (err is HomaidhiException) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text("My Invoices"),
+              title: Text(TranslationHelper.translation(context)!.myInvoices),
             ),
             body: Center(
               child: Text(
@@ -78,7 +80,7 @@ class MyInvoicesScreen extends ConsumerWidget {
         } else {
           return Scaffold(
               appBar: AppBar(
-                title: const Text("My Invoices"),
+                title: Text(TranslationHelper.translation(context)!.myInvoices),
               ),
               body: Center(
                   child: Text(

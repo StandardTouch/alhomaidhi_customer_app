@@ -11,6 +11,7 @@ import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -142,7 +143,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       child: Center(
                         child: Column(
                           children: [
-                            const Text("An Error Occurred!"),
+                            Text(TranslationHelper.translation(context)!
+                                .errorOccurred),
                             const Gap(20),
                             RefreshButton(
                               provider: allProductsProvider,
@@ -172,7 +174,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("An Error Occurred. Try Refreshing"),
+                    Text(TranslationHelper.translation(context)!
+                        .errorOccurredTryRefreshing),
                     const Gap(10),
                     ElevatedButton(
                       onPressed: isLoading
@@ -196,7 +199,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           ? const Center(
                               child: CircularProgressIndicator(),
                             )
-                          : const Text("Refresh"),
+                          : Text(
+                              TranslationHelper.translation(context)!.refresh),
                     )
                   ],
                 ));
@@ -211,7 +215,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         pageNavigator(isPrev: true);
                       },
                 icon: const Icon(Icons.arrow_circle_left),
-                label: const Text("previous"),
+                label: Text(TranslationHelper.translation(context)!.previous),
               ),
               TextButton.icon(
                 onPressed: noMoreProducts
@@ -220,7 +224,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         pageNavigator(isPrev: false);
                       },
                 icon: const Icon(Icons.arrow_circle_right),
-                label: const Text("next"),
+                label: Text(TranslationHelper.translation(context)!.next),
               ),
             ],
           )

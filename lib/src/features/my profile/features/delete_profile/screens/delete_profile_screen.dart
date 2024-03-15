@@ -2,6 +2,7 @@ import 'package:Alhomaidhi/src/features/my%20profile/features/delete_profile/pro
 import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -27,8 +28,8 @@ class _DeleteProfileScreen extends ConsumerState<DeleteProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Delete Profile",
+        title: Text(
+          TranslationHelper.translation(context)!.deleteProfile,
         ),
         forceMaterialTransparency: true,
       ),
@@ -59,46 +60,53 @@ class _DeleteProfileScreen extends ConsumerState<DeleteProfileScreen> {
                 child: Column(
                   children: [
                     Text(
-                      "Precautionary Notice: Deleting Your Account",
+                      TranslationHelper.translation(context)!
+                          .precautionaryNotice,
                       style: Theme.of(context).textTheme.labelLarge,
                       textAlign: TextAlign.center,
                     ),
                     const Gap(10),
                     Text(
-                      "Before proceeding with the account deletion process, we want to ensure that you are fully aware of the consequences and implications of this action. Deleting your account is an irreversible step and will result in the permanent removal of all your personal information, account history, and associated data from our platform.",
+                      TranslationHelper.translation(context)!
+                          .beforeProceedingWithAccount,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const Gap(20),
                     Text(
-                      "Loss of Data and Access",
+                      TranslationHelper.translation(context)!
+                          .lossOfDataAndAccess,
                       style: Theme.of(context).textTheme.labelLarge,
                       textAlign: TextAlign.center,
                     ),
                     const Gap(10),
                     Text(
-                      "By deleting your account, you will lose access to all features and services tied to your account. This includes order history, preferences, and any personalized settings you have configured. Additionally, any content you have created or uploaded, such as reviews or comments, will be permanently removed from our platform. Please make sure to download or save any crucial information before initiating the account deletion process.",
+                      TranslationHelper.translation(context)!
+                          .byDeletingYourAccount,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const Gap(20),
                     Text(
-                      "Impact on Services",
+                      TranslationHelper.translation(context)!.impactOnServices,
                       style: Theme.of(context).textTheme.labelLarge,
                       textAlign: TextAlign.center,
                     ),
                     const Gap(10),
                     Text(
-                      "Deleting your account means the termination of your relationship with our platform. You will no longer be eligible for any benefits, promotions, or exclusive offers associated with your account. If you have any active subscriptions or memberships, those services will be discontinued, and any remaining credits or balances may be forfeited. Take a moment to review your current subscriptions and ensure you have made necessary arrangements before proceeding.",
+                      TranslationHelper.translation(context)!
+                          .deletingYourAccountMeans,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const Gap(20),
                     Text(
-                      "Account Recovery and Future Access",
+                      TranslationHelper.translation(context)!
+                          .accountRecoveryAndFutureAccess,
                       style: Theme.of(context).textTheme.labelLarge,
                       textAlign: TextAlign.center,
                     ),
                     const Gap(10),
                     Text(
-                      "Once your account is deleted, you will not be able to recover it, and any attempts to do so will be unsuccessful. If you ever decide to return to our platform, you will need to create a new account and start afresh. Keep in mind that your previous account information, including usernames and email addresses, will no longer be available for reuse. Consider the implications of starting anew and whether this aligns with your future intentions.",
+                      TranslationHelper.translation(context)!
+                          .onceYourAccountIsDeleted,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const Gap(10),
@@ -112,7 +120,8 @@ class _DeleteProfileScreen extends ConsumerState<DeleteProfileScreen> {
                               },
                         child: deleteProfileWatcher.isBtnDisable
                             ? const CircularProgressIndicator()
-                            : const Text("Delete Profile"),
+                            : Text(TranslationHelper.translation(context)!
+                                .deleteProfile),
                       ),
                     ),
                     const Gap(20),

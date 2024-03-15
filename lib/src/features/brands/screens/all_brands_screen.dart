@@ -88,7 +88,8 @@ class _AllBrandScreenState extends ConsumerState<AllBrandScreen> {
           );
         } else {
           return Center(
-            child: Text("An Error Occurred ${data.errorMessage}"),
+            child: Text(
+                "${TranslationHelper.translation(context)!.errorOccurred} ${data.errorMessage}"),
           );
         }
       }, error: (err, stk) {
@@ -96,7 +97,7 @@ class _AllBrandScreenState extends ConsumerState<AllBrandScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Server Error Occurred"),
+              Text(TranslationHelper.translation(context)!.serverErrorOccurred),
               RefreshButton(provider: brandsProvider)
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,16 +12,19 @@ class SortByButton extends ConsumerStatefulWidget {
 }
 
 class _SortByButtonState extends ConsumerState<SortByButton> {
-  List<PopupMenuEntry<String>> menuItems = const [
-    PopupMenuItem(
-      value: 'asc',
-      child: Text('Earliest first'),
-    ),
-    PopupMenuItem(
-      value: 'desc',
-      child: Text('Latest Release'),
-    ),
-  ];
+  List<PopupMenuEntry<String>> getMenuItems(BuildContext context) {
+    return [
+      PopupMenuItem(
+        value: 'asc',
+        child: Text(TranslationHelper.translation(context)!.earliestFirst),
+      ),
+      PopupMenuItem(
+        value: 'desc',
+        child: Text(TranslationHelper.translation(context)!.latestRelease),
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final query = ref.read(productQueryProvider.notifier);
@@ -31,7 +35,7 @@ class _SortByButtonState extends ConsumerState<SortByButton> {
       ),
       initialValue: null,
       itemBuilder: (context) {
-        return menuItems;
+        return getMenuItems(context);
       },
       onSelected: (value) {
         query.updateSort(value ?? "");

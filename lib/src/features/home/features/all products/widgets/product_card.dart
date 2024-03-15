@@ -1,5 +1,6 @@
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/helpers/conversion.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +118,7 @@ class ProductCard extends StatelessWidget {
                     if (!isSearch)
                       Expanded(
                         child: Text(
-                          "${discountPercentage.substring(0, 2)}% off",
+                          "${discountPercentage.substring(0, 2)}${TranslationHelper.translation(context)!.percentOff}",
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
@@ -142,7 +143,7 @@ class ProductCard extends StatelessWidget {
                                   Theme.of(context).colorScheme.onSecondary),
                           child: FittedBox(
                             child: Text(
-                              "Buy Now",
+                              TranslationHelper.translation(context)!.buyNow,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!

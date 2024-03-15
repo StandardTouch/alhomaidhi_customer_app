@@ -1,4 +1,5 @@
 import 'package:Alhomaidhi/src/shared/widgets/homaidhi_appbar.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -18,7 +19,7 @@ class LoginToContinueWidget extends StatelessWidget {
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
-            "Please login to continue",
+            TranslationHelper.translation(context)!.pleaseLoginToContinue,
             style: Theme.of(context).textTheme.titleLarge!,
           ),
           const Gap(20),
@@ -27,8 +28,8 @@ class LoginToContinueWidget extends StatelessWidget {
               context.go("/login");
             },
             icon: const Icon(Icons.login),
-            label: const Text(
-              "Login",
+            label: Text(
+              TranslationHelper.translation(context)!.login,
               style: TextStyle(
                 fontWeight: FontWeight.normal,
               ),

@@ -10,6 +10,7 @@ import 'package:Alhomaidhi/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
 import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -82,22 +83,23 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                       ),
                       const Gap(5),
                       Text(
-                        "Billing Details",
+                        TranslationHelper.translation(context)!.billingDetails,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const Gap(5),
                       PriceWidget(
-                        title: "Subtotal",
+                        title: TranslationHelper.translation(context)!.subtotal,
                         value: data.message!.cartTotals!.subtotal!,
                       ),
                       PriceWidget(
-                        title: "Tax",
+                        title: TranslationHelper.translation(context)!.tax,
                         value: data.message!.cartTotals!.subtotalTax ?? 0,
                       ),
                       const Divider(),
                       PriceWidget(
                         isTotal: true,
-                        title: "Total Amount",
+                        title:
+                            TranslationHelper.translation(context)!.totalAmount,
                         value: data.message!.cartTotals!.total!,
                       ),
                       const Divider(),
@@ -106,15 +108,19 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                       if (!cartDetails.isPasswordPresent)
                         Row(
                           children: [
-                            const Expanded(
-                              child: Text("Please add a password to proceed"),
+                            Expanded(
+                              child: Text(
+                                  TranslationHelper.translation(context)!
+                                      .pleaseAddPassword),
                             ),
                             Expanded(
                               child: TextButton.icon(
                                 onPressed: () {
                                   context.push("/address");
                                 },
-                                label: const Text("Add Password"),
+                                label: Text(
+                                    TranslationHelper.translation(context)!
+                                        .addPassword),
                                 icon: const Icon(Icons.add),
                               ),
                             )
@@ -137,12 +143,16 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                         label: Text(
                           (cartDetails.isLoading ||
                                   cartDetails.deletingElement["isDeleting"])
-                              ? "Updating Cart"
+                              ? TranslationHelper.translation(context)!
+                                  .updatingCart
                               : (!cartDetails.isAddressPresent)
-                                  ? "Address Not Provided"
+                                  ? TranslationHelper.translation(context)!
+                                      .addressNotProvided
                                   : (cartDetails.isCheckingOut)
-                                      ? "Checking Out"
-                                      : "Checkout",
+                                      ? TranslationHelper.translation(context)!
+                                          .checkingOut
+                                      : TranslationHelper.translation(context)!
+                                          .checkout,
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
@@ -167,7 +177,7 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          err.message,
+                          TranslationHelper.translation(context)!.cartIsEmpty,
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge!
@@ -190,9 +200,9 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                             }
                           },
                           icon: const Icon(Icons.refresh),
-                          label: const Text(
-                            "Refresh",
-                            style: TextStyle(
+                          label: Text(
+                            TranslationHelper.translation(context)!.refresh,
+                            style: const TextStyle(
                               fontWeight: FontWeight.normal,
                             ),
                           ),
@@ -210,7 +220,8 @@ class _ShoppingCartScreenState extends ConsumerState<ShoppingCartScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Server Error Occurred"),
+                        Text(TranslationHelper.translation(context)!
+                            .serverErrorOccurred),
                         RefreshButton(provider: myCartProvider)
                       ],
                     ),

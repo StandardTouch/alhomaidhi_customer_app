@@ -3,6 +3,7 @@ import 'package:Alhomaidhi/src/features/cart/providers/my_cart_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -44,15 +45,15 @@ class _AddressWidgetState extends ConsumerState<AddressWidget> {
             children: [
               Text(
                 (data.message!.firstName != "" && data.message!.lastName != "")
-                    ? "Delivered to: ${data.message!.firstName!} ${data.message!.lastName!}"
-                    : "Delivered to User",
+                    ? "${TranslationHelper.translation(context)!.deliveredTo} ${data.message!.firstName!} ${data.message!.lastName!}"
+                    : TranslationHelper.translation(context)!.deliveredToUser,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const Gap(5),
               Text(
                 (data.message!.address1 != "" && data.message!.address2 != "")
                     ? "${data.message!.address1}, ${data.message!.address2}"
-                    : "Please add address",
+                    : TranslationHelper.translation(context)!.pleaseAddAddress,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -87,8 +88,8 @@ class _AddressWidgetState extends ConsumerState<AddressWidget> {
                       label: Text(
                         (data.message!.address1 == "" &&
                                 data.message!.address2 == "")
-                            ? "Add Address"
-                            : "Change",
+                            ? TranslationHelper.translation(context)!.addAddress
+                            : TranslationHelper.translation(context)!.change,
                       ))
                 ],
               ),
@@ -99,9 +100,10 @@ class _AddressWidgetState extends ConsumerState<AddressWidget> {
           if (err is HomaidhiException) {
             return Row(
               children: [
-                const Expanded(
+                Expanded(
                     flex: 3,
-                    child: Text("Error getting Address, try refreshing")),
+                    child: Text(TranslationHelper.translation(context)!
+                        .errorGettingAddress)),
                 Expanded(
                     flex: 1,
                     child: IconButton(
@@ -128,7 +130,7 @@ class _AddressWidgetState extends ConsumerState<AddressWidget> {
             );
           }
           return Text(
-            "An error occurred $err",
+            "${TranslationHelper.translation(context)!.errorOccurred} $err",
             style: Theme.of(context).textTheme.bodyMedium,
           );
         },

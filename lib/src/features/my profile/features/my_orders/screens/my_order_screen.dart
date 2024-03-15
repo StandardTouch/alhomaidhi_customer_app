@@ -5,6 +5,7 @@ import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
 import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -51,7 +52,7 @@ class MyOrderScreen extends ConsumerWidget {
         if (data.status == "APP00") {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('My Orders'),
+              title: Text(TranslationHelper.translation(context)!.myOrders),
               forceMaterialTransparency: true,
               actions: context.canPop()
                   ? null
@@ -143,14 +144,15 @@ class MyOrderScreen extends ConsumerWidget {
                         icon: const Icon(Icons.home),
                       )
                     ],
-              title: const Text("No Orders"),
+              title: Text(TranslationHelper.translation(context)!.noOrders),
             ),
             body: Align(
               alignment: Alignment.center,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(data.errorMessage ?? 'Unknown error'),
+                  Text(data.errorMessage ??
+                      TranslationHelper.translation(context)!.unknownError),
                   const Gap(10),
                   ElevatedButton(
                     onPressed: () {
@@ -161,7 +163,8 @@ class MyOrderScreen extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text("Refresh"),
+                    child:
+                        Text(TranslationHelper.translation(context)!.refresh),
                   )
                 ],
               ),
@@ -171,13 +174,13 @@ class MyOrderScreen extends ConsumerWidget {
       },
       error: (err, stk) => Scaffold(
           appBar: AppBar(
-            title: const Text("My Orders"),
+            title: Text(TranslationHelper.translation(context)!.myOrders),
           ),
           body: Center(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Server Error Occurred"),
+              Text(TranslationHelper.translation(context)!.serverErrorOccurred),
               RefreshButton(provider: myOrdersListProvider),
             ],
           ))),

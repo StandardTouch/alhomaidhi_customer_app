@@ -3,6 +3,7 @@ import 'package:Alhomaidhi/src/features/home/features/all%20products/widgets/pro
 import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -75,7 +76,8 @@ class BrandProducts extends ConsumerWidget {
             );
           } else {
             return Center(
-              child: Text("An Error Occurred ${data.errorMessage}"),
+              child: Text(
+                  "${TranslationHelper.translation(context)!.errorOccurred} ${data.errorMessage}"),
             );
           }
         }, error: (err, stk) {
@@ -83,7 +85,8 @@ class BrandProducts extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Server Error Occurred"),
+                Text(TranslationHelper.translation(context)!
+                    .serverErrorOccurred),
                 RefreshButton(provider: allProductsProvider)
               ],
             ),

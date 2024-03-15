@@ -2,6 +2,7 @@ import 'package:Alhomaidhi/src/features/signup/providers/signup_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/form_input.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:Alhomaidhi/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -66,7 +67,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             label: "First Name",
                             type: TextInputType.name,
                             validator: (value) {
-                              return firstNameValidator(value);
+                              return firstNameValidator(context, value);
                             },
                             onSaved: (value) {
                               // _enterFirstName = value.toString();
@@ -79,7 +80,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             label: "Last Name",
                             type: TextInputType.name,
                             validator: (value) {
-                              return lastNameValidator(value);
+                              return lastNameValidator(context, value);
                             },
                             onSaved: (value) {
                               // _enterLastName = value.toString();
@@ -92,7 +93,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             label: "Mobile Number",
                             type: TextInputType.number,
                             validator: (value) {
-                              return mobileNumberValidator(value);
+                              return mobileNumberValidator(context, value);
                             },
                             onSaved: (value) {
                               // _enterMobileNo = value.toString();
@@ -107,7 +108,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             label: "Email Address",
                             type: TextInputType.emailAddress,
                             validator: (value) {
-                              return emailValidator(value);
+                              return emailValidator(context, value);
                             },
                             onSaved: (value) {
                               // _enterEmailAdd = value.toString();
@@ -120,19 +121,20 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             onPressed: () {
                               signUpNotifer.registerUser(formKey, context);
                             },
-                            child: const Text(
-                              "Register",
+                            child: Text(
+                              TranslationHelper.translation(context)!.register,
                             ),
                           ),
                           const Gap(50),
-                          const Text("Already have an account?"),
+                          Text(TranslationHelper.translation(context)!
+                              .alreadyHaveAnAccount),
                           const Gap(10),
                           InkWell(
                             onTap: () {
                               context.push("/login");
                             },
                             child: Text(
-                              "Sign In",
+                              TranslationHelper.translation(context)!.signIn,
                               style: TextStyle(
                                   color: Theme.of(context).colorScheme.error,
                                   decoration: TextDecoration.underline,
@@ -154,15 +156,17 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               width: DeviceInfo.getDeviceWidth(context),
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor.withOpacity(0.5)),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(10),
                     child: LinearProgressIndicator(),
                   ),
-                  Text("Signing In"),
+                  Text(
+                    TranslationHelper.translation(context)!.signingIn,
+                  ),
                 ],
               ),
             ),

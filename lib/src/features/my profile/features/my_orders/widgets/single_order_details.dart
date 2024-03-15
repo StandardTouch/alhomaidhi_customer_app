@@ -1,4 +1,5 @@
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -165,7 +166,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
                   ),
                   const Gap(8),
                   Text(
-                    'Order Processing',
+                    TranslationHelper.translation(context)!.orderProcessing,
                     style: TextStyle(color: statusColors[0]),
                   )
                 ],
@@ -179,7 +180,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
                     child: Icon(Icons.check_circle, color: statusColors[1]),
                   ),
                   const Gap(8),
-                  Text('Order Confirmed',
+                  Text(TranslationHelper.translation(context)!.orderConfirmed,
                       style: TextStyle(color: statusColors[1]))
                 ],
               ),
@@ -191,7 +192,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
                           : const AlwaysStoppedAnimation(2),
                       child: Icon(Icons.check_circle, color: statusColors[2])),
                   const Gap(8),
-                  Text('Order Shipped',
+                  Text(TranslationHelper.translation(context)!.orderShipped,
                       style: TextStyle(color: statusColors[2]))
                 ],
               ),
@@ -203,7 +204,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
                           : const AlwaysStoppedAnimation(2),
                       child: Icon(Icons.check_circle, color: statusColors[3])),
                   const Gap(8),
-                  Text('Order Delivered',
+                  Text(TranslationHelper.translation(context)!.orderDelivered,
                       style: TextStyle(color: statusColors[3]))
                 ],
               )
@@ -211,9 +212,10 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
           ),
         ),
         Gap(DeviceInfo.getDeviceHeight(context) * 0.01),
-        const Padding(
-          padding: EdgeInsets.only(left: 14),
-          child: Text('Shipping Information'),
+        Padding(
+          padding: const EdgeInsets.only(left: 14),
+          child:
+              Text(TranslationHelper.translation(context)!.shippingInformation),
         ),
         Gap(DeviceInfo.getDeviceHeight(context) * 0.01),
         Container(
@@ -229,17 +231,17 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Name:',
+                TranslationHelper.translation(context)!.name,
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Text(widget.cusName),
               Text(
-                'Phone:',
+                TranslationHelper.translation(context)!.phone,
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Text(widget.phoneNumber),
               Text(
-                'Address:',
+                TranslationHelper.translation(context)!.address,
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Text(widget.deliveryAddress)

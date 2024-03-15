@@ -1,4 +1,5 @@
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +22,7 @@ class FailurePaymentScreen extends StatelessWidget {
               size: DeviceInfo.getDeviceWidth(context) / 3,
             ),
             Text(
-              "Uh Oh! Order Failed",
+              TranslationHelper.translation(context)!.uhOhOrderFailed,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
@@ -30,7 +31,7 @@ class FailurePaymentScreen extends StatelessWidget {
             ),
             const Gap(5),
             Text(
-              "Please Try Again",
+              TranslationHelper.translation(context)!.pleaseTryAgain,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
@@ -50,11 +51,11 @@ class FailurePaymentScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const FittedBox(
+                  child: FittedBox(
                     child: Text(
-                      "My Cart",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      TranslationHelper.translation(context)!.myCart,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                   )),
             ),
@@ -72,7 +73,9 @@ class FailurePaymentScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: const FittedBox(child: Text("Go Back Home")),
+                child: FittedBox(
+                    child: Text(
+                        TranslationHelper.translation(context)!.goBackHome)),
               ),
             ),
           ],

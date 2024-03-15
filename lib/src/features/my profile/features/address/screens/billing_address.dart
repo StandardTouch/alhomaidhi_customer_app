@@ -6,6 +6,7 @@ import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:Alhomaidhi/src/utils/constants/cities.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:Alhomaidhi/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,8 +56,8 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
         if (data.status == "APP00") {
           return Scaffold(
             appBar: AppBar(
-              title: const Text(
-                "Billing Details",
+              title: Text(
+                TranslationHelper.translation(context)!.billingDetails,
               ),
               forceMaterialTransparency: true,
             ),
@@ -93,10 +94,11 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                         child: Column(
                           children: [
                             if (queryParams == "from=/")
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                    "We need your billing details for seamless shipping."),
+                                    TranslationHelper.translation(context)!
+                                        .weNeedYourBillingDetails),
                               ),
                             Form(
                               key: formkey,
@@ -105,7 +107,9 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   const Gap(10),
                                   FormInput(
                                     value: data.message!.email,
-                                    label: "Email Address",
+                                    label:
+                                        TranslationHelper.translation(context)!
+                                            .emailAddress,
                                     type: TextInputType.emailAddress,
                                     validator: (value) {
                                       return null;
@@ -116,7 +120,9 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   const Gap(30),
                                   FormInput(
                                     value: data.message!.phone,
-                                    label: "Mobile Number",
+                                    label:
+                                        TranslationHelper.translation(context)!
+                                            .mobileNumber,
                                     type: TextInputType.number,
                                     prefix: "+966 ",
                                     validator: (value) {
@@ -128,11 +134,13 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   const Gap(30),
                                   FormInput(
                                     value: data.message!.firstName,
-                                    label: "First Name",
+                                    label:
+                                        TranslationHelper.translation(context)!
+                                            .firstName,
                                     type: TextInputType.name,
                                     isRequired: true,
                                     validator: (value) {
-                                      return firstNameValidator(value);
+                                      return firstNameValidator(context, value);
                                     },
                                     onSaved: (value) {
                                       addressUpdateNotifier
@@ -143,11 +151,13 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   const Gap(30),
                                   FormInput(
                                     value: data.message!.lastName,
-                                    label: "Last Name",
+                                    label:
+                                        TranslationHelper.translation(context)!
+                                            .lastName,
                                     isRequired: true,
                                     type: TextInputType.name,
                                     validator: (value) {
-                                      return lastNameValidator(value);
+                                      return lastNameValidator(context, value);
                                     },
                                     onSaved: (value) {
                                       addressUpdateNotifier
@@ -167,13 +177,17 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                         .toList(),
                                     suggestionState: Suggestion.expand,
                                     textInputAction: TextInputAction.next,
-                                    hint: 'City/State',
+                                    hint:
+                                        TranslationHelper.translation(context)!
+                                            .cityState,
                                     searchStyle:
                                         Theme.of(context).textTheme.labelMedium,
                                     validator: (value) {
                                       if (!cities.contains(value) ||
                                           value!.isEmpty) {
-                                        return 'Please Enter a valid State';
+                                        return TranslationHelper.translation(
+                                                context)!
+                                            .pleaseEnterValidState;
                                       }
                                       return null;
                                     },
@@ -183,16 +197,17 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(5)),
                                     ),
-                                    searchInputDecoration:
-                                        const InputDecoration(
-                                      labelText: "City/State",
-                                      focusedBorder: OutlineInputBorder(
+                                    searchInputDecoration: InputDecoration(
+                                      labelText: TranslationHelper.translation(
+                                              context)!
+                                          .cityState,
+                                      focusedBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.grey,
                                           width: 1.0,
                                         ),
                                       ),
-                                      border: OutlineInputBorder(
+                                      border: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.grey,
                                         ),
@@ -208,11 +223,14 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   const Gap(30),
                                   FormInput(
                                     value: data.message!.postcode,
-                                    label: "Post Code",
+                                    label:
+                                        TranslationHelper.translation(context)!
+                                            .postCode,
                                     isRequired: true,
                                     type: TextInputType.number,
                                     validator: (value) {
-                                      return pinCodeValidator(value.toString());
+                                      return pinCodeValidator(
+                                          context, value.toString());
                                     },
                                     onSaved: (value) {
                                       addressUpdateNotifier
@@ -361,7 +379,9 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                                 },
                                       child: addressWatcher.isBtnDisable
                                           ? const CircularProgressIndicator()
-                                          : const Text("Save Address"),
+                                          : Text(TranslationHelper.translation(
+                                                  context)!
+                                              .saveAddress),
                                     ),
                                   ),
                                   const Gap(30),
@@ -379,17 +399,18 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
           );
         } else {
           return Center(
-            child: Text(data.errorMessage ?? 'Unknown error'),
+            child: Text(data.errorMessage ??
+                TranslationHelper.translation(context)!.unknownError),
           );
         }
       },
       error: (err, stk) => Scaffold(
         appBar: AppBar(
-          title: const Text("My Address"),
+          title: Text(TranslationHelper.translation(context)!.myAddress),
         ),
         body: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const Text("Server Error Occurred"),
+            Text(TranslationHelper.translation(context)!.serverErrorOccurred),
             RefreshButton(provider: addressProvider)
           ]),
         ),

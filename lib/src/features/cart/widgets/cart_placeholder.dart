@@ -1,4 +1,5 @@
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -37,14 +38,14 @@ class CartPlaceHolder extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Safe and secure payments.",
+                TranslationHelper.translation(context)!.safeAndSecurePayments,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: Colors.grey[600],
                 ),
               ),
               Text(
-                "100% Authentic Product.",
+                TranslationHelper.translation(context)!.authenticProduct,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: Colors.grey[600],

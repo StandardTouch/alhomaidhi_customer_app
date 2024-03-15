@@ -1,5 +1,6 @@
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +17,7 @@ class SuccessPaymentScreen extends StatelessWidget {
         children: [
           Image.asset(Assets.thumbsUpIcon),
           Text(
-            "Order Successful",
+            TranslationHelper.translation(context)!.orderSuccessful,
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
@@ -25,7 +26,7 @@ class SuccessPaymentScreen extends StatelessWidget {
           ),
           const Gap(5),
           Text(
-            "Thank You!",
+            TranslationHelper.translation(context)!.thankYou,
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
@@ -33,7 +34,7 @@ class SuccessPaymentScreen extends StatelessWidget {
           ),
           const Gap(5),
           Text(
-            "Your Order us on the way",
+            TranslationHelper.translation(context)!.orderOnWay,
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontSize: 25,
                 ),
@@ -52,10 +53,11 @@ class SuccessPaymentScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: const FittedBox(
+                child: FittedBox(
                   child: Text(
-                    "My Orders",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    TranslationHelper.translation(context)!.myOrders,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 )),
           ),
@@ -73,7 +75,9 @@ class SuccessPaymentScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: const FittedBox(child: Text("View Other Products")),
+              child: FittedBox(
+                  child: Text(TranslationHelper.translation(context)!
+                      .viewOtherProducts)),
             ),
           ),
         ],

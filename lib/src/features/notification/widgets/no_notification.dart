@@ -1,5 +1,6 @@
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 
 class NoNotification extends StatelessWidget {
@@ -27,7 +28,7 @@ class NoNotification extends StatelessWidget {
           SizedBox(
             height: DeviceInfo.getDeviceHeight(context) * 0.08,
           ),
-          Text("No Notifications!",
+          Text(TranslationHelper.translation(context)!.noNotifications,
               style: Theme.of(context).textTheme.bodyLarge),
           SizedBox(
             height: DeviceInfo.getDeviceHeight(context) * 0.08,
@@ -35,7 +36,7 @@ class NoNotification extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-                "We will let you know once we have something for you",
+                TranslationHelper.translation(context)!.weWillLetYouKnowOnce,
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                       fontWeight: FontWeight.normal,
                     ),

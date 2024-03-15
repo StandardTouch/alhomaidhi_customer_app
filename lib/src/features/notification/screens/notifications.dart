@@ -5,6 +5,7 @@ import 'package:Alhomaidhi/src/features/notification/widgets/no_notification.dar
 import 'package:Alhomaidhi/src/features/notification/widgets/notification.dart';
 import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -49,7 +50,7 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Notifications'),
+          title: Text(TranslationHelper.translation(context)!.notifications),
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.delete),
@@ -68,7 +69,9 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
+              return Center(
+                  child: Text(
+                      '${TranslationHelper.translation(context)!.errorOccurred} ${snapshot.error}'));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const NoNotification(); // Custom widget for "no notifications"
             } else {

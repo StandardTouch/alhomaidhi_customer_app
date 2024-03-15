@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:Alhomaidhi/src/features/cart/providers/my_cart_provider.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -42,10 +43,10 @@ class SingleCartItem extends ConsumerWidget {
       padding: const EdgeInsets.all(8),
       child: ((cartDetails.deletingElement["cartKey"] == cartKey) &&
               (cartDetails.deletingElement["isDeleting"] == true))
-          ? const Column(
+          ? Column(
               children: [
-                LinearProgressIndicator(),
-                Text("Deleting Item"),
+                const LinearProgressIndicator(),
+                Text(TranslationHelper.translation(context)!.deletingItem),
               ],
             )
           : Column(

@@ -111,5 +111,14 @@
     "pleaseLoginToContinue":"الرجاء تسجيل الدخول للمتابعة",
     "navigating": "التنقل",
     "pleaseAddPassword": "يرجى إضافة كلمة مرور للمتابعة",
-    "addPassword": "إضافة كلمة مرور"
+    "addPassword": "إضافة كلمة مرور",
+    "gotoCart": "الانتقال إلى السلة",
+    "sar": "ريال",
+    "cartIsEmpty":"العربة فارغة",
+    "firstNameValidator": "Must be between 1 and 50 characters long",
+    "lastNameValidator": "Must be between 1 and 20 characters long",
+    "mobileNumberValidator": "Mobile number should be 9 digits long",
+    "emailValidator": "Please enter a valid email address",
+    "pinCodeValidator": "Please enter a valid pincode",
+    "searchProducts": "البحث في المنتجات"
 }

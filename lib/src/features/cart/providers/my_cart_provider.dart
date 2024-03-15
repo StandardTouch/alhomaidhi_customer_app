@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:Alhomaidhi/src/features/cart/models/cart_details_model.dart';
 import 'package:Alhomaidhi/src/features/cart/models/my_cart_response_model.dart';
 import 'package:Alhomaidhi/src/features/cart/services/cart_services.dart';
@@ -6,6 +8,7 @@ import 'package:Alhomaidhi/src/shared/services/auth_service.dart';
 import 'package:Alhomaidhi/src/shared/widgets/bottom_bar.dart';
 import 'package:Alhomaidhi/src/shared/widgets/top_snackbar.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -36,7 +39,7 @@ class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
     state = state.copyWith(isAddressPresent: true);
   }
 
-  void setPasswordPresentToTrue(){
+  void setPasswordPresentToTrue() {
     state = state.copyWith(isPasswordPresent: true);
   }
 
@@ -49,9 +52,9 @@ class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
       isLoading: false,
     );
     final snackbar = SnackBar(
-      content: const Text('Item Placed in your cart'),
+      content: Text(TranslationHelper.translation(context)!.itemPlacedInCart),
       action: SnackBarAction(
-        label: 'Go to cart',
+        label: TranslationHelper.translation(context)!.gotoCart,
         onPressed: () async {
           await navigateToCart(context);
         },

@@ -5,6 +5,7 @@ import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -110,7 +111,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("An Error Occurred"),
+                      Text(TranslationHelper.translation(context)!
+                          .errorOccurred),
                       const Gap(15),
                       ElevatedButton.icon(
                         onPressed: isLoading
@@ -134,7 +136,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                             ? const Center(
                                 child: CircularProgressIndicator(),
                               )
-                            : const Text("Refresh"),
+                            : Text(TranslationHelper.translation(context)!
+                                .refresh),
                       )
                     ],
                   ),
@@ -154,7 +157,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   InputDecoration searchInputDecoration() {
     return InputDecoration(
-      labelText: "Search Products",
+      labelText: TranslationHelper.translation(context)!.searchProducts,
       prefixIcon: const Icon(Icons.search),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
       fillColor: Colors.white,

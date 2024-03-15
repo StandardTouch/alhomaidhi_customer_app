@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'dart:async';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart' as permissions;
@@ -151,7 +152,7 @@ class MyInvoiceState extends State<MyInvoice> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Invoice No : ${widget.invoiceId}',
+                            '${TranslationHelper.translation(context)!.invoiceNo}: ${widget.invoiceId}',
                             style: Theme.of(context).textTheme.bodyMedium!,
                             overflow: TextOverflow.ellipsis,
                           ),

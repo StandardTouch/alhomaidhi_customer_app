@@ -1,5 +1,6 @@
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -29,7 +30,8 @@ class ProductWidget2 extends ConsumerWidget {
                 children: [
                   RichText(
                     text: TextSpan(
-                        text: "Delivered to ",
+                        text:
+                            "${TranslationHelper.translation(context)!.deliveredTo}: ",
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               color: Colors.grey,
                             ),
@@ -38,7 +40,8 @@ class ProductWidget2 extends ConsumerWidget {
                             text: (data.message!.firstName != "" &&
                                     data.message!.lastName != "")
                                 ? "${data.message!.firstName} ${data.message!.lastName}"
-                                : "No Name provided",
+                                : TranslationHelper.translation(context)!
+                                    .noNameProvided,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -54,7 +57,8 @@ class ProductWidget2 extends ConsumerWidget {
                     (data.message!.address1 != "" &&
                             data.message!.address2 != "")
                         ? "${data.message!.address1}, ${data.message!.address2}"
-                        : "No Address Provided",
+                        : TranslationHelper.translation(context)!
+                            .noAddressProvided,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -83,7 +87,7 @@ class ProductWidget2 extends ConsumerWidget {
                     alignment: Alignment.center,
                     height: 40,
                     width: 100,
-                    child: const Text("Change"),
+                    child: Text(TranslationHelper.translation(context)!.change),
                   ),
                 ),
               ),
@@ -100,7 +104,7 @@ class ProductWidget2 extends ConsumerWidget {
         ),
         child: Text((err is HomaidhiException)
             ? err.message
-            : "Error While fetching data"),
+            : TranslationHelper.translation(context)!.errorWhileFetchingData),
       );
     }, loading: () {
       return Container(

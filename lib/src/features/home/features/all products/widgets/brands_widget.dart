@@ -5,6 +5,7 @@ import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/p
 import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/scroll_controller_provider.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -114,13 +115,15 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("An Error Occurred!"),
+              Text(TranslationHelper.translation(context)!.errorOccurred),
             ],
           );
         }
       },
       error: (err, stackTrace) {
-        return const Center(child: Text("Server Error Occurred"));
+        return Center(
+            child: Text(
+                TranslationHelper.translation(context)!.serverErrorOccurred));
       },
       loading: () {
         return const Center(child: LinearProgressIndicator());

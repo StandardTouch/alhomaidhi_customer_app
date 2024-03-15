@@ -1,6 +1,7 @@
 // ignore_for_file: unused_result
 
 import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/brands_provider.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,8 +24,9 @@ class _RefreshButtonState extends ConsumerState<RefreshButton> {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       icon: const Icon(Icons.refresh),
-      label:
-          isLoading ? const CircularProgressIndicator() : const Text("Refresh"),
+      label: isLoading
+          ? const CircularProgressIndicator()
+          : Text(TranslationHelper.translation(context)!.refresh),
       onPressed: isLoading
           ? null
           : () async {

@@ -22,6 +22,7 @@ import 'package:Alhomaidhi/src/shared/widgets/homaidhi_drawer.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
@@ -82,9 +83,9 @@ final router = GoRouter(
       pageBuilder: (ctx, state) => buildPageWithDefaultTransition(
         context: ctx,
         state: state,
-        child: const Scaffold(
+        child: Scaffold(
           body: Center(
-            child: Text("Navigating"),
+            child: Text(TranslationHelper.translation(ctx)!.navigating),
           ),
         ),
       ),

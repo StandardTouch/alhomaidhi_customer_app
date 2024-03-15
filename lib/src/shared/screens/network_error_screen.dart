@@ -2,6 +2,7 @@ import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -30,8 +31,9 @@ class _NetworkErrorScreenState extends ConsumerState<NetworkErrorScreen> {
             ),
           ),
           const Gap(10),
-          const Text(
-            "There seems to be an issue with your Connection. Please try refreshing",
+          Text(
+            TranslationHelper.translation(context)!
+                .thereSeemsToBeSomethingWrongWithYourConnection,
             textAlign: TextAlign.center,
           ),
           const Gap(10),
@@ -67,7 +69,7 @@ class _NetworkErrorScreenState extends ConsumerState<NetworkErrorScreen> {
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : const Text("Refresh"),
+                : Text(TranslationHelper.translation(context)!.refresh),
           )
         ],
       ),

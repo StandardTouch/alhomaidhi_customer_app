@@ -2,6 +2,7 @@ import 'package:Alhomaidhi/src/features/login/providers/login_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/form_input.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:Alhomaidhi/src/utils/theme/theme.dart';
 import 'package:Alhomaidhi/src/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         child: Column(
                           children: [
                             Text(
-                              "Login",
+                              TranslationHelper.translation(context)!.login,
                               style: Theme.of(context).textTheme.headlineMedium,
                             ),
                             const Gap(20),
@@ -74,11 +75,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               value: loginRef.getPhoneNumber,
                               // todo - change max length to 9 before production
                               maxLength: 9,
-                              label: "Phone Number",
+                              label: TranslationHelper.translation(context)!
+                                  .phoneNumber,
                               type: TextInputType.number,
                               prefix: "+966",
                               validator: (value) {
-                                return mobileNumberValidator(value);
+                                return mobileNumberValidator(context, value);
                               },
                               onSaved: (value) {
                                 loginNotifier.updatephoneNumber(value);
@@ -124,9 +126,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 label: loginRef.isButtonLoading
                                     ? const CircularProgressIndicator()
                                     : (loginRef.isOTPVisible == true)
-                                        ? const Text("Login")
-                                        : const Text(
-                                            "Send OTP",
+                                        ? Text(TranslationHelper.translation(
+                                                context)!
+                                            .login)
+                                        : Text(
+                                            TranslationHelper.translation(
+                                                    context)!
+                                                .sendOtp,
                                           ),
                               ),
                             if (loginRef.isOTPVisible == true) const Gap(10),
@@ -142,7 +148,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     ? const CircularProgressIndicator()
                                     : (loginRef.timerDuration != 0)
                                         ? Text(
-                                            "Resend in ${loginRef.timerDuration}",
+                                            "${TranslationHelper.translation(context)!.resendIn} ${loginRef.timerDuration}",
                                             style: TextStyle(
                                               color: Theme.of(context)
                                                   .colorScheme
@@ -156,7 +162,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                             ),
                                           )
                                         : Text(
-                                            "Resend OTP",
+                                            TranslationHelper.translation(
+                                                    context)!
+                                                .resendOtp,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.normal,
                                                 color: Theme.of(context)
@@ -171,9 +179,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                           ),
                               ),
                             const Gap(50),
-                            const Text(
-                              "Don't have an account?",
-                              style: TextStyle(
+                            Text(
+                              TranslationHelper.translation(context)!
+                                  .dontHaveAnAccount,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.normal,
                               ),
                             ),
@@ -183,7 +192,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 context.push("/signup");
                               },
                               child: Text(
-                                "Sign Up",
+                                TranslationHelper.translation(context)!.signUp,
                                 style: TextStyle(
                                     color: Theme.of(context).colorScheme.error,
                                     fontWeight: FontWeight.normal,
@@ -198,7 +207,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 context.go("/home");
                               },
                               child: Text(
-                                "Continue as a guest",
+                                TranslationHelper.translation(context)!
+                                    .continueAsGuest,
                                 style: TextStyle(
                                     color: Colors.grey[800],
                                     fontWeight: FontWeight.normal,
@@ -221,15 +231,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               width: DeviceInfo.getDeviceWidth(context),
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor.withOpacity(0.5)),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(10),
                     child: LinearProgressIndicator(),
                   ),
-                  Text("Logging in"),
+                  Text(TranslationHelper.translation(context)!.loggingIn),
                 ],
               ),
             )

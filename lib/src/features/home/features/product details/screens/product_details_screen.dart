@@ -11,6 +11,7 @@ import 'package:Alhomaidhi/src/shared/widgets/homaidhi_appbar.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -80,10 +81,10 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
             return Center(
               child: (err is HomaidhiException)
                   ? Text(
-                      "An error Occurred: ${err.message}",
+                      "${TranslationHelper.translation(context)!.errorOccurred}: ${err.message}",
                     )
-                  : const Text(
-                      "An Error Occurred. Please contact the developer for more information",
+                  : Text(
+                      TranslationHelper.translation(context)!.contactDev,
                     ),
             );
           },
@@ -107,13 +108,13 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
           icon: const Icon(Icons.add_shopping_cart),
           label: Text(isLoggedIn
               ? ((cart.isLoading)
-                  ? "Adding Item"
+                  ? TranslationHelper.translation(context)!.addingItem
                   : (!isStockReady)
-                      ? "Calculating Stock"
+                      ? TranslationHelper.translation(context)!.calculatingStock
                       : (stock < 1)
-                          ? "No Stock Left"
-                          : "Add to cart")
-              : "Login for cart"),
+                          ? TranslationHelper.translation(context)!.noStockLeft
+                          : TranslationHelper.translation(context)!.addToCart)
+              : TranslationHelper.translation(context)!.loginForCart),
           style: ElevatedButton.styleFrom(
             shape: const BeveledRectangleBorder(),
             backgroundColor: Theme.of(context).colorScheme.onSecondary,

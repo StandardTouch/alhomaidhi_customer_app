@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:Alhomaidhi/src/features/cart/providers/my_cart_provider.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -40,7 +41,7 @@ class PriceWidget extends ConsumerWidget {
                 ? ImageFilter.blur(sigmaX: 2, sigmaY: 2)
                 : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
             child: Text(
-              "SAR $value",
+              "${TranslationHelper.translation(context)!.sar} $value",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontWeight: (isTotal) ? FontWeight.bold : FontWeight.normal,
                     color: isDiscount ? Colors.green[800] : null,

@@ -3,6 +3,7 @@ import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/provider
 import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/language_provider.dart';
 import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -76,15 +77,16 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
                             builder: (context, snapshot) {
                               return FittedBox(
                                 child: Text(
-                                  "Welcome, ${snapshot.data}",
+                                  "${TranslationHelper.translation(context)!.welcome} ${snapshot.data}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
                                       .copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimary,
-                                          fontSize: 22),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                        fontSize: 22,
+                                      ),
                                 ),
                               );
                             },
@@ -99,7 +101,7 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
                     context.push("/address");
                   },
                   icon: Icons.location_city,
-                  title: "My Address",
+                  title: TranslationHelper.translation(context)!.myAddress,
                 ),
                 const MyDivider(),
                 DrawerList(
@@ -109,7 +111,7 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
                     context.push("/my_orders");
                   },
                   icon: Icons.list,
-                  title: "My Orders",
+                  title: TranslationHelper.translation(context)!.myOrders,
                 ),
                 const MyDivider(),
                 DrawerList(
@@ -118,7 +120,7 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
                     context.push("/my_invoices");
                   },
                   icon: Icons.receipt_outlined,
-                  title: "My Invoices",
+                  title: TranslationHelper.translation(context)!.myInvoices,
                 ),
                 const MyDivider(),
                 DrawerList(
@@ -127,7 +129,7 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
                     context.push("/delete_profile");
                   },
                   icon: Icons.delete_forever,
-                  title: "Delete Account",
+                  title: TranslationHelper.translation(context)!.deleteProfile,
                 ),
                 const MyDivider(),
               ],
@@ -161,7 +163,9 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
                           : () {
                               context.push("/login");
                             },
-                      label: Text(isLoggedIn ? "Logout" : "Sign In"),
+                      label: Text(isLoggedIn
+                          ? TranslationHelper.translation(context)!.logout
+                          : TranslationHelper.translation(context)!.signIn),
                     ),
                   ),
                 ],
