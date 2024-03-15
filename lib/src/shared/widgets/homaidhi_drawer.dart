@@ -139,7 +139,7 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
               child: Column(
                 children: [
                   ListTile(
-                    title: Text(isArabic ? 'Arabic' : 'English'),
+                    title: Text(isArabic ? 'عربي' : 'English'),
                     trailing: Switch(
                         value: isArabic,
                         onChanged: (newVal) {

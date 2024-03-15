@@ -3,6 +3,7 @@ import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/b
 import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -40,7 +41,7 @@ class _AllBrandScreenState extends ConsumerState<AllBrandScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Brands"),
+        title: Text(TranslationHelper.translation(context)!.brands),
         forceMaterialTransparency: true,
       ),
       body: brands.when(data: (data) {
