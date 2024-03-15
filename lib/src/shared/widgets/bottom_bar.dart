@@ -2,6 +2,7 @@ import 'package:Alhomaidhi/main.dart';
 import 'package:Alhomaidhi/src/features/cart/providers/my_cart_provider.dart';
 import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/loading_provider.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,10 +44,16 @@ class _HomaidhiBottomBarState extends ConsumerState<HomaidhiBottomBar> {
       child: BottomBarFloating(
         iconSize: 18,
         borderRadius: BorderRadius.circular(10),
-        items: const [
-          TabItem(icon: FontAwesomeIcons.house, title: "Home"),
-          TabItem(icon: FontAwesomeIcons.magnifyingGlass, title: "Search"),
-          TabItem(icon: FontAwesomeIcons.cartShopping, title: "Cart"),
+        items: [
+          TabItem(
+              icon: FontAwesomeIcons.house,
+              title: TranslationHelper.translation(context)!.home),
+          TabItem(
+              icon: FontAwesomeIcons.magnifyingGlass,
+              title: TranslationHelper.translation(context)!.search),
+          TabItem(
+              icon: FontAwesomeIcons.cartShopping,
+              title: TranslationHelper.translation(context)!.cart),
           // TabItem(icon: FontAwesomeIcons.circleUser, title: "Profile"),
         ],
         backgroundColor: Theme.of(context).primaryColor,
