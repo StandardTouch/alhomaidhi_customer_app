@@ -241,12 +241,16 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   const Gap(30),
                                   FormInput(
                                     value: data.message!.address1,
-                                    label: "House No. Building Name",
+                                    label:
+                                        TranslationHelper.translation(context)!
+                                            .houseNumberBuildingName,
                                     isRequired: true,
                                     type: TextInputType.text,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return "Please enter the valid address";
+                                        return TranslationHelper.translation(
+                                                context)!
+                                            .pleaseEnterValidAddress;
                                       }
                                       return null;
                                     },
@@ -260,7 +264,9 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   FormInput(
                                     isObscure: true,
                                     value: data.message!.password,
-                                    label: "Password",
+                                    label:
+                                        TranslationHelper.translation(context)!
+                                            .password,
                                     isRequired: true,
                                     type: TextInputType.text,
                                     validator: (value) {
@@ -268,7 +274,9 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                           value.isEmpty ||
                                           value.length < 7 ||
                                           value.trim().isEmpty) {
-                                        return "Please add a valid password";
+                                        return TranslationHelper.translation(
+                                                context)!
+                                            .pleaseAddValidPassword;
                                       }
                                       return null;
                                     },
@@ -281,12 +289,16 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   const Gap(30),
                                   FormInput(
                                     value: data.message!.address2,
-                                    label: "Road Name, Area, Colony",
+                                    label:
+                                        TranslationHelper.translation(context)!
+                                            .roadNameAreaColony,
                                     isRequired: true,
                                     type: TextInputType.text,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return "Please enter the valid address";
+                                        return TranslationHelper.translation(
+                                                context)!
+                                            .pleaseEnterValidAddress;
                                       }
                                       return null;
                                     },
@@ -299,7 +311,9 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   const Gap(30),
                                   FormInput(
                                     value: data.message!.nationalId,
-                                    label: "National ID",
+                                    label:
+                                        TranslationHelper.translation(context)!
+                                            .nationalId,
                                     type: TextInputType.text,
                                     validator: (value) {
                                       return null;
@@ -313,7 +327,9 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   const Gap(30),
                                   FormInput(
                                     value: data.message!.crNumber,
-                                    label: "CR Number",
+                                    label:
+                                        TranslationHelper.translation(context)!
+                                            .crNumber,
                                     type: TextInputType.text,
                                     validator: (value) {
                                       return null;
@@ -327,7 +343,9 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   const Gap(30),
                                   FormInput(
                                     value: data.message!.vatNumber,
-                                    label: "VAT Number",
+                                    label:
+                                        TranslationHelper.translation(context)!
+                                            .vatNumber,
                                     type: TextInputType.text,
                                     validator: (value) {
                                       return null;
@@ -341,12 +359,16 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   const Gap(30),
                                   FormInput(
                                     value: data.message!.whatsappNumber,
-                                    label: "WhatsApp Number",
+                                    label:
+                                        TranslationHelper.translation(context)!
+                                            .whatsappNumber,
                                     type: TextInputType.number,
                                     validator: (value) {
                                       if (value!.isNotEmpty &&
                                           value.trim().length == 9) {
-                                        return 'Mobile number should be 9 digits long';
+                                        return TranslationHelper.translation(
+                                                context)!
+                                            .mobileNumberShouldBe9Digits;
                                       }
                                       return null;
                                     },
