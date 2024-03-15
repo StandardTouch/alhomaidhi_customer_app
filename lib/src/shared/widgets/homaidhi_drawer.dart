@@ -1,10 +1,13 @@
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
+import 'package:Alhomaidhi/src/shared/providers/language_provider.dart';
 import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 class HomaidhiDrawer extends ConsumerStatefulWidget {
@@ -36,6 +39,8 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final languageOperations = ref.read(languageProvider.notifier);
+    final isArabic = ref.watch(languageProvider);
     final isLoggedIn = ref.watch(authProvider);
     return Drawer(
       child: Container(
@@ -131,19 +136,35 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
               bottom: 0,
               left: 0,
               right: 0,
-              child: ElevatedButton.icon(
-                icon: Icon(isLoggedIn ? Icons.logout : Icons.login),
-                style: ElevatedButton.styleFrom(
-                  shape: const RoundedRectangleBorder(),
-                  backgroundColor: Theme.of(context).colorScheme.onSecondary,
-                  foregroundColor: Colors.black,
-                ),
-                onPressed: isLoggedIn
-                    ? logoutUser
-                    : () {
-                        context.push("/login");
-                      },
-                label: Text(isLoggedIn ? "Logout" : "Sign In"),
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(isArabic ? 'Arabic' : 'English'),
+                    trailing: Switch(
+                        value: isArabic,
+                        onChanged: (newVal) {
+                          languageOperations.toggleLanguage(newVal);
+                        }),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      icon: Icon(isLoggedIn ? Icons.logout : Icons.login),
+                      style: ElevatedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onSecondary,
+                        foregroundColor: Colors.black,
+                      ),
+                      onPressed: isLoggedIn
+                          ? logoutUser
+                          : () {
+                              context.push("/login");
+                            },
+                      label: Text(isLoggedIn ? "Logout" : "Sign In"),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

@@ -179,7 +179,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
                     child: Icon(Icons.check_circle, color: statusColors[1]),
                   ),
                   const Gap(8),
-                  Text('Order Confirmation',
+                  Text('Order Confirmed',
                       style: TextStyle(color: statusColors[1]))
                 ],
               ),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:Alhomaidhi/firebase_options.dart';
 import 'package:Alhomaidhi/src/features/notification/service/background_notifications.dart';
+import 'package:Alhomaidhi/src/shared/providers/language_provider.dart';
 import 'package:Alhomaidhi/src/utils/theme/theme.dart';
 import 'package:Alhomaidhi/src/utils/config/router/routes.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
@@ -11,9 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -81,13 +84,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: 'Alhomaidhi',
-      theme: lightThemeData,
-      darkTheme: darkThemeData,
-      themeMode: EasyDynamicTheme.of(context).themeMode,
-      routerConfig: router,
+    return ProviderScope(
+      child: Consumer(
+        builder: (context, ref, child) {
+          final isArabic = ref.watch(languageProvider);
+          final locale = isArabic ? const Locale('ar') : const Locale('en');
+
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'Alhomaidhi',
+            theme: lightThemeData,
+            darkTheme: darkThemeData,
+            themeMode: EasyDynamicTheme.of(context).themeMode,
+            routerConfig: router,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: locale,
+          );
+        },
+      ),
     );
   }
 }
