@@ -63,10 +63,12 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
               } else {
                 modifiedUrl += "?iswebView=true";
               }
-              // HYPERPAY FAILURE URL
-              // https://alhomdelivery.standardtouch.com/checkout/order-pay/1829/?key=wc_order_cVFgG6qogXMWU&callback=true&transaction-key=15054021&id=CAD59C3188A2532C9B997295744AE27A.prod01-vm-tx07&resourcePath=%2Fv1%2Fcheckouts%2FCAD59C3188A2532C9B997295744AE27A.prod01-vm-tx07%2Fpayment
-              // hyperpay processing url
-              // https://alhomaidhigroup.com/checkout/order-pay/6859/?key=wc_order_oddcNYvyYoCIl
+              // clickpay failure url
+              // https: //alhomaidhigroup.com/checkout/order-received/7226/?key=wc_order_oNY22ca5InjOI&pt_msg=Cancelled
+              if (modifiedUrl.contains("pt_msg=Cancelled")) {
+                context.go("/failure");
+                return NavigationDecision.prevent;
+              }
               if (modifiedUrl.contains("/order-received")) {
                 context.go("/success");
                 return NavigationDecision.prevent;
