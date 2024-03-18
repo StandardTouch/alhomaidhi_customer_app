@@ -263,7 +263,7 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                   const Gap(30),
                                   FormInput(
                                     isObscure: true,
-                                    value: data.message!.password,
+                                    value: data.message!.checkoutKey,
                                     label:
                                         TranslationHelper.translation(context)!
                                             .password,

@@ -131,5 +131,6 @@
     "accountDeletedSuccessfully": "تم حذف الحساب بنجاح",
     "accountSuccessFullyCreated": "تم إنشاء الحساب بنجاح",
     "orderPending": "الطلب معلق",
-    "youAreNotSignedIn": "أنت لم تقم بتسجيل الدخول"
+    "youAreNotSignedIn": "أنت لم تقم بتسجيل الدخول",
+    "noInvoicesFound": "لا توجد فواتير"
 }
