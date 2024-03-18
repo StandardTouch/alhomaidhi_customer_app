@@ -17,7 +17,6 @@ class BrandsWidget extends ConsumerStatefulWidget {
 }
 
 class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
-  late ScrollController brandScrollController;
   late Timer _timer;
 
   @override
@@ -31,7 +30,6 @@ class _BrandsWidgetState extends ConsumerState<BrandsWidget> {
   @override
   void dispose() {
     _timer.cancel();
-    brandScrollController.dispose();
     super.dispose();
   }
 

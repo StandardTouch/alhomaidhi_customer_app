@@ -2,6 +2,7 @@ class Assets {
   static const logoLight = "assets/images/alhomaidhi.png";
   static const sort = "assets/images/sort_icon.png";
   static const brandsButton = "assets/images/brands_button.png";
+  static const brandsButtonAr = "assets/images/brands_button_ar.png";
   static const placeHolderImage = "assets/images/placeholder_image.png";
   static const invoice = "assets/images/Cheque.png";
   static const protectIcon = "assets/images/Protect.png";

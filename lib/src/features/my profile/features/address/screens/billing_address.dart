@@ -364,8 +364,8 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                             .whatsappNumber,
                                     type: TextInputType.number,
                                     validator: (value) {
-                                      if (value!.isNotEmpty &&
-                                          value.trim().length == 9) {
+                                      if (value!.isEmpty ||
+                                          value.trim().length != 9) {
                                         return TranslationHelper.translation(
                                                 context)!
                                             .mobileNumberShouldBe9Digits;
