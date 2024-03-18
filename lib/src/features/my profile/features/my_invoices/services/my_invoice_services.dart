@@ -7,7 +7,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<MyInvoicesModel> getMyInvoices() async {
   final authDetails = await AuthHelper.getAuthDetails();
+
   try {
+    if (authDetails.masterCustomerId == null) {
+      throw HomaidhiException(status: "APP303", message: "No invoices found");
+    }
     final jsonResponse = await dioClientErp.get(
       APIEndpoints.getMyInvoice,
       queryParameters: {

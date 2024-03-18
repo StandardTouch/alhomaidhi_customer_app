@@ -19,7 +19,7 @@ class AddressWidget extends ConsumerStatefulWidget {
 class _AddressWidgetState extends ConsumerState<AddressWidget> {
   void setPasswordPresentToTrue(WidgetRef ref) async {
     final address = await ref.read(addressProvider.future);
-    if (address.message?.password != "") {
+    if (address.message?.checkoutKey != "") {
       ref.read(cartDetailsProvider.notifier).setPasswordPresentToTrue();
     }
   }

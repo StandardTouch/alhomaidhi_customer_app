@@ -108,6 +108,9 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
             return;
           }
           ref.invalidate(addressProvider);
+          final getProfileResponse = await ref.refresh(addressProvider.future);
+          final masterCustomerId = getProfileResponse.message!.masterCustomerId;
+          storage.write(key: "masterCustomerId", value: masterCustomerId);
           storage.write(
               key: "full_name", value: "${state.firstName} ${state.lastName}");
 

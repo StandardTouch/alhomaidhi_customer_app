@@ -132,7 +132,8 @@
     "accountDeletedSuccessfully":"Account Deleted Successfully",
     "accountSuccessFullyCreated":"Account successfully created",
     "orderPending": "Order Pending",
-    "youAreNotSignedIn": "You are not Signed in"
+    "youAreNotSignedIn": "You are not Signed in",
+    "noInvoicesFound": "No invoices found"
 
 
 

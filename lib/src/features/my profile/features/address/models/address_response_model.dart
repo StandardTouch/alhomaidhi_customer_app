@@ -41,25 +41,28 @@ class Message {
   String? nationalId;
   String? crNumber;
   String? vatNumber;
+  String? fireBaseToken;
   String? whatsappNumber;
-  String? password;
+  String? checkoutKey;
+  String? masterCustomerId;
 
-  Message({
-    this.firstName,
-    this.lastName,
-    this.country,
-    this.city,
-    this.postcode,
-    this.address1,
-    this.address2,
-    this.phone,
-    this.email,
-    this.nationalId,
-    this.crNumber,
-    this.vatNumber,
-    this.whatsappNumber,
-    this.password,
-  });
+  Message(
+      {this.firstName,
+      this.lastName,
+      this.country,
+      this.city,
+      this.postcode,
+      this.address1,
+      this.address2,
+      this.phone,
+      this.email,
+      this.nationalId,
+      this.crNumber,
+      this.vatNumber,
+      this.fireBaseToken,
+      this.whatsappNumber,
+      this.checkoutKey,
+      this.masterCustomerId});
 
   Message.fromJson(Map<String, dynamic> json) {
     if (json["first_name"] is String) {
@@ -80,7 +83,6 @@ class Message {
     if (json["address_1"] is String) {
       address1 = json["address_1"];
     }
-
     if (json["address_2"] is String) {
       address2 = json["address_2"];
     }
@@ -99,31 +101,38 @@ class Message {
     if (json["vat_number"] is String) {
       vatNumber = json["vat_number"];
     }
+    if (json["fire_base_token"] is String) {
+      fireBaseToken = json["fire_base_token"];
+    }
     if (json["whatsapp_number"] is String) {
       whatsappNumber = json["whatsapp_number"];
     }
     if (json["checkout_key"] is String) {
-      password = json["checkout_key"];
+      checkoutKey = json["checkout_key"];
+    }
+    if (json["master_customer_id"] is String) {
+      masterCustomerId = json["master_customer_id"];
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data["first_name"] = firstName;
-    data["last_name"] = lastName;
-    data["country"] = country;
-    data["city"] = city;
-    data["postcode"] = postcode;
-    data["address_1"] = address1;
-    data["address_2"] = address2;
-    data["phone"] = phone;
-    data["email"] = email;
-    data["national_id"] = nationalId;
-    data["cr_number"] = crNumber;
-    data["vat_number"] = vatNumber;
-    data["whatsapp_number"] = whatsappNumber;
-    data["checkout_key"] = password;
-
-    return data;
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["first_name"] = firstName;
+    _data["last_name"] = lastName;
+    _data["country"] = country;
+    _data["city"] = city;
+    _data["postcode"] = postcode;
+    _data["address_1"] = address1;
+    _data["address_2"] = address2;
+    _data["phone"] = phone;
+    _data["email"] = email;
+    _data["national_id"] = nationalId;
+    _data["cr_number"] = crNumber;
+    _data["vat_number"] = vatNumber;
+    _data["fire_base_token"] = fireBaseToken;
+    _data["whatsapp_number"] = whatsappNumber;
+    _data["checkout_key"] = checkoutKey;
+    _data["master_customer_id"] = masterCustomerId;
+    return _data;
   }
 }
