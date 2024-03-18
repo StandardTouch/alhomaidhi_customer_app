@@ -131,7 +131,8 @@
     "addressDetailsSuccessFullyUpdated": "Address Details successfully Updated",
     "accountDeletedSuccessfully":"Account Deleted Successfully",
     "accountSuccessFullyCreated":"Account successfully created",
-    "orderPending": "Order Pending"
+    "orderPending": "Order Pending",
+    "youAreNotSignedIn": "You are not Signed in"
 
 
 
