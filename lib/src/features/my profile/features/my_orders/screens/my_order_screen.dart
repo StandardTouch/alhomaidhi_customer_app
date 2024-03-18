@@ -106,11 +106,14 @@ class MyOrderScreen extends ConsumerWidget {
                           isOrderPending: (orderStatus == 'wc-pending'),
                           imageUrl: item.image,
                           title: (orderStatus == 'wc-completed')
-                              ? "Order Delivered"
+                              ? TranslationHelper.translation(context)!
+                                  .orderDelivered
                               : (orderStatus == 'wc-pending')
-                                  ? "Order Pending"
-                                  : "Order Under Process",
-                          subtitle: item.itemName ?? 'No Title',
+                                  ? TranslationHelper.translation(context)!
+                                      .orderPending
+                                  : TranslationHelper.translation(context)!
+                                      .orderProcessing,
+                          subtitle: item.itemName ?? 'No subtitle',
                           orderStatus:
                               data.message![index].orderDetails!.orderStatus,
                           onPressed: (orderStatus == 'wc-pending')

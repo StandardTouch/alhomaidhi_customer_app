@@ -130,7 +130,8 @@
     "otpIsSent":"OTP is sent",
     "addressDetailsSuccessFullyUpdated": "Address Details successfully Updated",
     "accountDeletedSuccessfully":"Account Deleted Successfully",
-    "accountSuccessFullyCreated":"Account successfully created"
+    "accountSuccessFullyCreated":"Account successfully created",
+    "orderPending": "Order Pending"
 
 
 
