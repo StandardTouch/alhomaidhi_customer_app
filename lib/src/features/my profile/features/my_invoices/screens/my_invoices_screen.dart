@@ -2,6 +2,7 @@ import 'package:Alhomaidhi/src/features/my%20profile/features/my_invoices/provid
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_invoices/widgets/my_invoice.dart';
 import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/login_to_continue_widget.dart';
+import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
@@ -71,9 +72,19 @@ class MyInvoicesScreen extends ConsumerWidget {
               title: Text(TranslationHelper.translation(context)!.myInvoices),
             ),
             body: Center(
-              child: Text(
-                err.message,
-                textAlign: TextAlign.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    (err.status == "APP303")
+                        ? TranslationHelper.translation(context)!
+                            .noInvoicesFound
+                        : err.message,
+                    textAlign: TextAlign.center,
+                  ),
+                  RefreshButton(provider: myInvoicesProvider)
+                ],
               ),
             ),
           );

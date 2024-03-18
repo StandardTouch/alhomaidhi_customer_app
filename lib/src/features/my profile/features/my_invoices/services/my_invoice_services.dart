@@ -9,7 +9,7 @@ Future<MyInvoicesModel> getMyInvoices() async {
   final authDetails = await AuthHelper.getAuthDetails();
 
   try {
-    if (authDetails.masterCustomerId == null) {
+    if (authDetails.masterCustomerId == "") {
       throw HomaidhiException(status: "APP303", message: "No invoices found");
     }
     final jsonResponse = await dioClientErp.get(

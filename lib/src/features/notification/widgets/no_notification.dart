@@ -9,6 +9,7 @@ class NoNotification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       margin: const EdgeInsets.symmetric(vertical: 60, horizontal: 10),
       decoration: BoxDecoration(
         color: Colors.white,
