@@ -130,5 +130,6 @@
     "addressDetailsSuccessFullyUpdated": "تم تحديث تفاصيل العنوان بنجاح",
     "accountDeletedSuccessfully": "تم حذف الحساب بنجاح",
     "accountSuccessFullyCreated": "تم إنشاء الحساب بنجاح",
-    "orderPending": "الطلب معلق"
+    "orderPending": "الطلب معلق",
+    "youAreNotSignedIn": "أنت لم تقم بتسجيل الدخول"
 }

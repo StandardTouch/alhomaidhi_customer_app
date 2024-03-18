@@ -103,7 +103,7 @@ class ProductWidget2 extends ConsumerWidget {
           color: Colors.white,
         ),
         child: Text((err is HomaidhiException)
-            ? err.message
+            ? TranslationHelper.translation(context)!.youAreNotSignedIn
             : TranslationHelper.translation(context)!.errorWhileFetchingData),
       );
     }, loading: () {
