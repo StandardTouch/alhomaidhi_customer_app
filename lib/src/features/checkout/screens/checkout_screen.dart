@@ -82,7 +82,12 @@ Page resource error:
             Uri uri = Uri.parse(request.url);
             Map<String, dynamic> params = uri.queryParameters;
             // Handling specific navigation cases based on URL.
-            if (uri.path.contains("/order-received")) {
+            // clickpay failure url
+            // https: //alhomaidhigroup.com/checkout/order-received/7226/?key=wc_order_oNY22ca5InjOI&pt_msg=Cancelled
+            if (uri.path.contains("pt_msg=Cancelled")) {
+              context.go("/failure");
+              return NavigationDecision.prevent;
+            } else if (uri.path.contains("/order-received")) {
               context.go("/success");
               return NavigationDecision.prevent;
             } else if (uri.path.contains("/cart")) {
