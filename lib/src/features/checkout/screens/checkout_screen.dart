@@ -1,3 +1,4 @@
+import 'package:Alhomaidhi/src/shared/providers/language_provider.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
@@ -46,28 +47,9 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
             debugPrint('WebView is loading (progress : $progress%)');
           },
           // error is here - while checking isWebview
-          onPageStarted: (String url) {
-            // Uri uri = Uri.parse(url);
-            // Map<String, dynamic> params = uri.queryParameters;
-
-            // // Logging the initial request URL for debugging.
-            // print("Request URL: ${uri.toString()}");
-            // debugPrint('Page started loading: $url');
-            // if (!params.containsKey('iswebView')) {
-            //   // 'iswebView' not present, add it to the URL
-            //   Uri modifiedUri = uri
-            //       .replace(queryParameters: {...params, 'iswebView': 'true'});
-            //   String modifiedUrl = modifiedUri.toString();
-            //   print("Modified URL to include iswebView: $modifiedUrl");
-            //   controller.loadRequest(modifiedUri);
-            //   // Prevent default loading and use modified URL
-            // }
-          },
+          onPageStarted: (String url) {},
           onPageFinished: (String url) {
             controller.clearCache();
-            // controller.runJavaScript(addIsWebViewScript);
-
-            // controller.runJavaScript(addIsWebViewScript);
           },
           onWebResourceError: (WebResourceError error) {
             debugPrint('''
@@ -128,9 +110,11 @@ Page resource error:
     controller = WebViewController.fromPlatformCreationParams(params);
 
     final String encodedToken = Uri.encodeComponent(widget.token);
+    final isArabic = ref.read(languageProvider);
 
-    final String initialUrl =
-        "https://alhomaidhigroup.com/custom-checkout?mo_jwt_token=$encodedToken&iswebView=true";
+    final String initialUrl = isArabic
+        ? "https://alhomaidhigroup.com/ar/custom-checkout-ar?mo_jwt_token=$encodedToken&iswebView=true"
+        : "https://alhomaidhigroup.com/custom-checkout?mo_jwt_token=$encodedToken&iswebView=true";
     initializeController(initialUrl: initialUrl);
   }
 
