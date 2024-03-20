@@ -133,7 +133,8 @@
     "accountSuccessFullyCreated":"Account successfully created",
     "orderPending": "Order Pending",
     "youAreNotSignedIn": "You are not Signed in",
-    "noInvoicesFound": "No invoices found"
+    "noInvoicesFound": "No invoices found",
+    "countryCode": "+966"
 
 
 

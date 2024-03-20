@@ -110,7 +110,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               signUpNotifer.updatephoneNumber(value);
                             },
                             readOnly: false,
-                            prefix: "+966",
+                            prefix: TranslationHelper.translation(context)!
+                                .countryCode,
                             maxLength: 9,
                           ),
                           const Gap(20),

@@ -124,7 +124,9 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                         TranslationHelper.translation(context)!
                                             .mobileNumber,
                                     type: TextInputType.number,
-                                    prefix: "+966 ",
+                                    prefix:
+                                        TranslationHelper.translation(context)!
+                                            .countryCode,
                                     validator: (value) {
                                       return null;
                                     },
@@ -378,7 +380,9 @@ class _BillingAddress extends ConsumerState<BillingAddress> {
                                               value.toString());
                                     },
                                     readOnly: false,
-                                    prefix: "+966 ",
+                                    prefix:
+                                        TranslationHelper.translation(context)!
+                                            .countryCode,
                                   ),
                                   const Gap(30),
                                   SizedBox(

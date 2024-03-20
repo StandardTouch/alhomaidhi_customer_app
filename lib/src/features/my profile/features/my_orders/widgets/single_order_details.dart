@@ -102,7 +102,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
             margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
             height: DeviceInfo.getDeviceHeight(context) * 0.13,
             width: DeviceInfo.getDeviceHeight(context) * 0.5,
-            padding: const EdgeInsets.only(left: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             decoration: BoxDecoration(
                 borderRadius: borderRadius,
                 border: Border.all(color: Colors.grey)),
@@ -213,7 +213,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
         ),
         Gap(DeviceInfo.getDeviceHeight(context) * 0.01),
         Padding(
-          padding: const EdgeInsets.only(left: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 14),
           child:
               Text(TranslationHelper.translation(context)!.shippingInformation),
         ),

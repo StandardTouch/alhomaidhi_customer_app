@@ -1,3 +1,4 @@
+import 'package:Alhomaidhi/src/features/login/providers/login_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
@@ -36,6 +37,20 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
     if (!context.mounted) return;
     context.pop();
     context.go("/login");
+  }
+
+  void checkAuth() async {
+    final isLoggedIn = await AuthHelper.checkUserAuth();
+    if (!isLoggedIn) {
+      final storage = FlutterSecureStorage();
+      storage.delete(key: "username");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkAuth();
   }
 
   @override
