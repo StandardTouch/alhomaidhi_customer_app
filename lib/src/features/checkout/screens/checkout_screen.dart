@@ -1,5 +1,6 @@
 import 'package:Alhomaidhi/src/shared/providers/language_provider.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
+import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +38,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
     final isArabic = ref.watch(languageProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Checkout"),
+        title: Text(TranslationHelper.translation(context)!.checkout),
       ),
       body: Stack(
         children: [
