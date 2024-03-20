@@ -21,7 +21,11 @@ class HomaidhiDrawer extends ConsumerStatefulWidget {
 
 class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
   Future<String> getUserName() async {
+    final isLoggedIn = await AuthHelper.checkUserAuth();
     const storage = FlutterSecureStorage();
+    if (!isLoggedIn) {
+      storage.delete(key: "full_name");
+    }
     final String userName = await storage.read(key: "full_name") ?? "User";
     return userName;
   }
@@ -37,20 +41,6 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
     if (!context.mounted) return;
     context.pop();
     context.go("/login");
-  }
-
-  void checkAuth() async {
-    final isLoggedIn = await AuthHelper.checkUserAuth();
-    if (!isLoggedIn) {
-      final storage = FlutterSecureStorage();
-      storage.delete(key: "username");
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    checkAuth();
   }
 
   @override
@@ -91,18 +81,21 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
                             future: getUserName(),
                             builder: (context, snapshot) {
                               return FittedBox(
-                                child: Text(
-                                  "${TranslationHelper.translation(context)!.welcome} ${snapshot.data}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimary,
-                                        fontSize: 22,
+                                child: (snapshot.connectionState ==
+                                        ConnectionState.waiting)
+                                    ? LinearProgressIndicator()
+                                    : Text(
+                                        "${TranslationHelper.translation(context)!.welcome} ${snapshot.data}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimary,
+                                              fontSize: 22,
+                                            ),
                                       ),
-                                ),
                               );
                             },
                           ),
