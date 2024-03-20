@@ -1,7 +1,9 @@
 import 'package:Alhomaidhi/src/features/home/features/all%20products/providers/products_provider.dart';
 import 'package:Alhomaidhi/src/features/home/features/all%20products/widgets/product_card.dart';
+import 'package:Alhomaidhi/src/shared/providers/language_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/refresh_button.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/helpers/conversion.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
 import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class BrandProducts extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isArabic = ref.watch(languageProvider);
     final products = ref.watch(allProductsProvider);
     return PopScope(
       onPopInvoked: (pop) {
@@ -24,7 +27,11 @@ class BrandProducts extends ConsumerWidget {
       canPop: false,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(brandName),
+          title: Text(
+            isArabic
+                ? ConversionHelper.getArabicPart(brandName)
+                : ConversionHelper.getEnglishPart(brandName),
+          ),
           forceMaterialTransparency: true,
           leading: IconButton(
             icon: const Icon(
