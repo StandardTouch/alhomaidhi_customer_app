@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:Alhomaidhi/src/features/my profile/features/address/services/address_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
 
 final addressProvider = FutureProvider<AddressResponseModel>((ref) async {
   AddressResponseModel response = await getProfileDetails();
@@ -104,9 +105,6 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
         AddressRequestResponseModel response = await updateProfileDetails(data);
         logger.e(response);
         if (response.status == "APP00") {
-          if (!context.mounted) {
-            return;
-          }
           ref.invalidate(addressProvider);
           final getProfileResponse = await ref.refresh(addressProvider.future);
           final masterCustomerId = getProfileResponse.message!.masterCustomerId;
@@ -116,6 +114,10 @@ class AddressNotifier extends StateNotifier<AddressRequestModel> {
 
           cartDetails.setAddressToTrue();
           cartDetails.setPasswordPresentToTrue();
+          if (!context.mounted) {
+            return;
+          }
+          context.canPop() ? context.pop() : context.go("/home");
 
           getSnackBar(
             context: context,

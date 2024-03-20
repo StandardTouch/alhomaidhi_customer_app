@@ -92,7 +92,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               label: TranslationHelper.translation(context)!
                                   .phoneNumber,
                               type: TextInputType.number,
-                              prefix: "+966",
+                              prefix: TranslationHelper.translation(context)!
+                                  .countryCode,
                               validator: (value) {
                                 return mobileNumberValidator(context, value);
                               },

@@ -1,3 +1,4 @@
+import 'package:Alhomaidhi/src/features/login/providers/login_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
@@ -20,7 +21,11 @@ class HomaidhiDrawer extends ConsumerStatefulWidget {
 
 class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
   Future<String> getUserName() async {
+    final isLoggedIn = await AuthHelper.checkUserAuth();
     const storage = FlutterSecureStorage();
+    if (!isLoggedIn) {
+      storage.delete(key: "full_name");
+    }
     final String userName = await storage.read(key: "full_name") ?? "User";
     return userName;
   }
@@ -76,18 +81,21 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
                             future: getUserName(),
                             builder: (context, snapshot) {
                               return FittedBox(
-                                child: Text(
-                                  "${TranslationHelper.translation(context)!.welcome} ${snapshot.data}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimary,
-                                        fontSize: 22,
+                                child: (snapshot.connectionState ==
+                                        ConnectionState.waiting)
+                                    ? LinearProgressIndicator()
+                                    : Text(
+                                        "${TranslationHelper.translation(context)!.welcome} ${snapshot.data}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimary,
+                                              fontSize: 22,
+                                            ),
                                       ),
-                                ),
                               );
                             },
                           ),
