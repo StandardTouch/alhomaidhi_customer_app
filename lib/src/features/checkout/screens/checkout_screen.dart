@@ -1,3 +1,4 @@
+import 'package:Alhomaidhi/src/shared/providers/language_provider.dart';
 import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,6 +34,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
   bool isLoading = true;
   @override
   Widget build(BuildContext context) {
+    final isArabic = ref.watch(languageProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Checkout"),
@@ -92,8 +94,9 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
               // return NavigationDecision.navigate;
             },
             javascriptMode: JavascriptMode.unrestricted,
-            initialUrl:
-                "https://alhomaidhigroup.com/custom-checkout?mo_jwt_token=${widget.token}",
+            initialUrl: isArabic
+                ? "https://alhomaidhigroup.com/ar/custom-checkout-ar?mo_jwt_token=${widget.token}&iswebView=true"
+                : "https://alhomaidhigroup.com/custom-checkout?mo_jwt_token=${widget.token}&iswebView=true",
           ),
           if (isLoading)
             Container(
