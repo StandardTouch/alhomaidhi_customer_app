@@ -52,6 +52,8 @@ class CartDetailsNotifier extends StateNotifier<CartDetailsModel> {
       isLoading: false,
     );
     final snackbar = SnackBar(
+      showCloseIcon: true,
+      duration: const Duration(seconds: 10),
       content: Text(TranslationHelper.translation(context)!.itemPlacedInCart),
       action: SnackBarAction(
         label: TranslationHelper.translation(context)!.gotoCart,
