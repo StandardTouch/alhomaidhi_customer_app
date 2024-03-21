@@ -87,3 +87,27 @@ Future<Map<String, dynamic>> getCredentials() async {
     throw DioException(requestOptions: err.requestOptions);
   }
 }
+
+Future<bool> resetCart() async {
+  try {
+    final authDetails = await AuthHelper.getAuthDetails();
+
+    final response = await dioClient.post(
+      options: Options(
+        headers: {
+          "Authorization": authDetails.token,
+          "user_id": authDetails.userId,
+        },
+      ),
+      APIEndpoints.resetCart,
+    );
+    if (response.data["status"] == "APP000") {
+      return true;
+    } else {
+      return false;
+    }
+  } on DioException catch (err) {
+    logger.e("Error from auth_service.dart: $err");
+    throw DioException(requestOptions: err.requestOptions);
+  }
+}

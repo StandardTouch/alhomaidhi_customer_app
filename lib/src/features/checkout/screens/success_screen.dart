@@ -1,12 +1,32 @@
+import 'package:Alhomaidhi/src/shared/services/auth_service.dart';
 import 'package:Alhomaidhi/src/utils/constants/assets.dart';
+import 'package:Alhomaidhi/src/utils/constants/endpoints.dart';
 import 'package:Alhomaidhi/src/utils/helpers/device_info.dart';
 import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-class SuccessPaymentScreen extends StatelessWidget {
+class SuccessPaymentScreen extends StatefulWidget {
   const SuccessPaymentScreen({super.key});
+
+  @override
+  State<SuccessPaymentScreen> createState() => _SuccessPaymentScreenState();
+}
+
+class _SuccessPaymentScreenState extends State<SuccessPaymentScreen> {
+  void resetcart() async {
+    final cartIsReset = await resetCart();
+    logger.i("cartIsReset: $cartIsReset");
+  }
+
+  @override
+  void initState() {
+    FlutterNativeSplash.remove();
+    resetCart();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

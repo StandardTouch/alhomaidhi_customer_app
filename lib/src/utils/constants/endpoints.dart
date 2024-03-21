@@ -21,6 +21,7 @@ class APIEndpoints {
   static const getPreCheckoutToken = "/wp-json/api/v1/mo-jwt";
   static const getCredentials = "/wp-json/alhomaidhiapp/v2/get_checkout_key";
   static const sendFcmToken = "/wp-json/alhomaidhiapp/v2/notification_token";
+  static const resetCart = "/wp-json/alhomaidhiapp/v2/reset_cart_items";
 }
 
 // logger is used for logging errors
