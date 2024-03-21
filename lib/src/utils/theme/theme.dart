@@ -92,8 +92,8 @@ const FloatingActionButtonThemeData floatingButtonTheme =
 );
 
 var lightThemeData = ThemeData(
-  colorScheme:
-      const ColorScheme.light(error: Colors.red, onSecondary: COLOR_SECONDARY),
+  colorScheme: const ColorScheme.light(
+      error: Colors.red, onSecondary: COLOR_SECONDARY, primary: COLOR_PRIMARY),
   primaryColor: COLOR_PRIMARY,
   brightness: Brightness.light,
   highlightColor: Colors.white,

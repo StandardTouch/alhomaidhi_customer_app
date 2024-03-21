@@ -16,6 +16,7 @@ import 'package:Alhomaidhi/src/features/my%20profile/features/profile/screens/my
 import 'package:Alhomaidhi/src/features/notification/screens/notifications.dart';
 import 'package:Alhomaidhi/src/features/search/screens/search_screen.dart';
 import 'package:Alhomaidhi/src/features/signup/screens/signup_screen.dart';
+import 'package:Alhomaidhi/src/shared/screens/first_time_language_screen.dart';
 import 'package:Alhomaidhi/src/shared/screens/network_error_screen.dart';
 import 'package:Alhomaidhi/src/shared/widgets/bottom_bar.dart';
 import 'package:Alhomaidhi/src/shared/widgets/homaidhi_drawer.dart';
@@ -56,40 +57,57 @@ CustomTransitionPage buildPageWithDefaultTransition(
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: "/home",
+  initialLocation: "/",
   routes: [
     GoRoute(
       path: "/",
       redirect: (context, state) async {
         try {
-          String authStatus = await AuthHelper.isUserLoggedIn();
-          logger.d(authStatus);
-          if (authStatus == "DELAPP00") {
-            return "/home";
-            // FlutterNativeSplash.remove();
-            // return "/failure";
-          } else if (authStatus == "DELAPP99") {
-            FlutterNativeSplash.remove();
-            return "/address?from=/";
+          bool isFirstTime = await AuthHelper.isFirstTime();
+
+          if (isFirstTime) {
+            return "/first-time";
           } else {
-            FlutterNativeSplash.remove();
-            return "/login";
+            return "/home";
           }
         } on HomaidhiException catch (_) {
           FlutterNativeSplash.remove();
           return "/network_error";
         }
       },
-      pageBuilder: (ctx, state) => buildPageWithDefaultTransition(
-        context: ctx,
-        state: state,
-        child: Scaffold(
-          body: Center(
-            child: Text(TranslationHelper.translation(ctx)!.navigating),
-          ),
-        ),
-      ),
     ),
+    // GoRoute(
+    //   path: "/",
+    //   redirect: (context, state) async {
+    //     try {
+    //       String authStatus = await AuthHelper.isUserLoggedIn();
+    //       logger.d(authStatus);
+    //       if (authStatus == "DELAPP00") {
+    //         return "/home";
+    //         // FlutterNativeSplash.remove();
+    //         // return "/failure";
+    //       } else if (authStatus == "DELAPP99") {
+    //         FlutterNativeSplash.remove();
+    //         return "/address?from=/";
+    //       } else {
+    //         FlutterNativeSplash.remove();
+    //         return "/login";
+    //       }
+    //     } on HomaidhiException catch (_) {
+    //       FlutterNativeSplash.remove();
+    //       return "/network_error";
+    //     }
+    //   },
+    //   pageBuilder: (ctx, state) => buildPageWithDefaultTransition(
+    //     context: ctx,
+    //     state: state,
+    //     child: Scaffold(
+    //       body: Center(
+    //         child: Text(TranslationHelper.translation(ctx)!.navigating),
+    //       ),
+    //     ),
+    //   ),
+    // ),
     GoRoute(
       path: "/login",
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
@@ -220,6 +238,15 @@ final router = GoRouter(
       ),
       parentNavigatorKey: _rootNavigatorKey,
     ),
+    GoRoute(
+      path: "/first-time",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: FirstTimeLanguageScreen(),
+      ),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
 
     // for main routes
     ShellRoute(
@@ -247,8 +274,10 @@ final router = GoRouter(
       routes: [
         GoRoute(
           path: "/home",
-          pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const HomeScreen()),
+          pageBuilder: (context, state) {
+            return buildPageWithDefaultTransition(
+                context: context, state: state, child: const HomeScreen());
+          },
           parentNavigatorKey: _shellNavigatorKey,
         ),
         GoRoute(

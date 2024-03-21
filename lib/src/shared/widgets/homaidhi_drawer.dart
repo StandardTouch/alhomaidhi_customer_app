@@ -26,7 +26,8 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
     if (!isLoggedIn) {
       storage.delete(key: "full_name");
     }
-    final String userName = await storage.read(key: "full_name") ?? "User";
+    final String userName = await storage.read(key: "full_name") ??
+        TranslationHelper.translation(context)!.user;
     return userName;
   }
 

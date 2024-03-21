@@ -134,7 +134,14 @@
     "orderPending": "Order Pending",
     "youAreNotSignedIn": "You are not Signed in",
     "noInvoicesFound": "No invoices found",
-    "countryCode": "+966"
+    "countryCode": "+966",
+    "english": "english",
+    "arabic": "عربي",
+    "welcomeToAlhomaidhi": "Welcome to Alhomaidhi",
+    "pleaseSelectYourPreferredLanguage": "Please select your preferred language",
+"done": "Done",
+"user": "User"
+
 
 
 
