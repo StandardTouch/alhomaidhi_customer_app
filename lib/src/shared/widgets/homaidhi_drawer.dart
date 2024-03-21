@@ -81,22 +81,23 @@ class _HomaidhiDrawerState extends ConsumerState<HomaidhiDrawer> {
                           child: FutureBuilder(
                             future: getUserName(),
                             builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const LinearProgressIndicator();
+                              }
                               return FittedBox(
-                                child: (snapshot.connectionState ==
-                                        ConnectionState.waiting)
-                                    ? LinearProgressIndicator()
-                                    : Text(
-                                        "${TranslationHelper.translation(context)!.welcome} ${snapshot.data}",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onPrimary,
-                                              fontSize: 22,
-                                            ),
+                                child: Text(
+                                  "${TranslationHelper.translation(context)!.welcome} ${snapshot.data}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                        fontSize: 22,
                                       ),
+                                ),
                               );
                             },
                           ),
