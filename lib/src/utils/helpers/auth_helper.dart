@@ -2,6 +2,7 @@ import 'package:Alhomaidhi/src/shared/models/auth_model.dart';
 import 'package:Alhomaidhi/src/shared/services/auth_service.dart';
 import 'package:Alhomaidhi/src/utils/exceptions/homaidhi_exception.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthDetails {
   final String? token;
@@ -64,5 +65,17 @@ class AuthHelper {
       userName: username,
     );
     return authDetails;
+  }
+
+  static Future<bool> isFirstTime() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool isFirstTime = prefs.getBool('first_time') ?? true;
+
+    if (isFirstTime) {
+      // Set the flag to false for future app launches
+      await prefs.setBool('first_time', false);
+    }
+
+    return isFirstTime;
   }
 }

@@ -133,6 +133,12 @@
     "orderPending": "الطلب معلق",
     "youAreNotSignedIn": "أنت لم تقم بتسجيل الدخول",
     "noInvoicesFound": "لا توجد فواتير",
-    "countryCode": "٩٦٦"
+    "countryCode": "٩٦٦",
+    "english": "english",
+    "arabic": "عربي",
+     "welcomeToAlhomaidhi": "أهلاً بك في الحميضي",
+  "pleaseSelectYourPreferredLanguage": "الرجاء اختيار لغتك المفضلة",
+  "done": "تم",
+  "user": "مستخدم"
 
 }
