@@ -102,7 +102,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
             margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
             height: DeviceInfo.getDeviceHeight(context) * 0.13,
             width: DeviceInfo.getDeviceHeight(context) * 0.5,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
                 borderRadius: borderRadius,
                 border: Border.all(color: Colors.grey)),
@@ -146,7 +146,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
           height: DeviceInfo.getDeviceHeight(context) * 0.2,
           width: DeviceInfo.getDeviceHeight(context) * 0.5,
-          padding: const EdgeInsets.only(left: 8),
+          padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
               borderRadius: borderRadius,
               border: Border.all(color: Colors.grey)),
@@ -222,7 +222,7 @@ class _SingleOrderDetailsState extends State<SingleOrderDetails>
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
           height: DeviceInfo.getDeviceHeight(context) * 0.24,
           width: DeviceInfo.getDeviceHeight(context) * 0.5,
-          padding: const EdgeInsets.only(left: 8),
+          padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
               borderRadius: borderRadius,
               border: Border.all(color: Colors.grey)),
