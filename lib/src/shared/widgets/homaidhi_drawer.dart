@@ -1,4 +1,3 @@
-import 'package:Alhomaidhi/src/features/login/providers/login_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:Alhomaidhi/src/features/my%20profile/features/my_orders/providers/orders_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
@@ -6,10 +5,8 @@ import 'package:Alhomaidhi/src/shared/providers/language_provider.dart';
 import 'package:Alhomaidhi/src/utils/helpers/auth_helper.dart';
 import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 class HomaidhiDrawer extends ConsumerStatefulWidget {
