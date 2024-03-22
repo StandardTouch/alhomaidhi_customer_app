@@ -135,12 +135,13 @@
     "youAreNotSignedIn": "You are not Signed in",
     "noInvoicesFound": "No invoices found",
     "countryCode": "+966",
-    "english": "english",
+    "english": "English",
     "arabic": "عربي",
     "welcomeToAlhomaidhi": "Welcome to Alhomaidhi",
     "pleaseSelectYourPreferredLanguage": "Please select your preferred language",
 "done": "Done",
-"user": "User"
+"user": "User",
+"personalizingYourInterface": "Personalizing your interface, one moment..."
 
 
 
