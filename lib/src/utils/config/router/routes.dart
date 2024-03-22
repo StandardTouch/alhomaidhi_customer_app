@@ -57,7 +57,7 @@ CustomTransitionPage buildPageWithDefaultTransition(
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: "/",
+  initialLocation: "/first-time",
   routes: [
     GoRoute(
       path: "/",

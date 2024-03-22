@@ -134,11 +134,12 @@
     "youAreNotSignedIn": "أنت لم تقم بتسجيل الدخول",
     "noInvoicesFound": "لا توجد فواتير",
     "countryCode": "٩٦٦",
-    "english": "english",
+    "english": "English",
     "arabic": "عربي",
      "welcomeToAlhomaidhi": "أهلاً بك في الحميضي",
   "pleaseSelectYourPreferredLanguage": "الرجاء اختيار لغتك المفضلة",
   "done": "تم",
-  "user": "مستخدم"
+  "user": "مستخدم",
+  "personalizingYourInterface": "نحن نقوم بتخصيص واجهتك، لحظة من فضلك..."
 
 }

@@ -28,94 +28,127 @@ class _FirstTimeLanguageScreenState
     final isArabic = ref.watch(languageProvider);
 
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset("assets/images/alhomaidhi.png"),
-              const Gap(20),
-              Text(
-                TranslationHelper.translation(context)!.welcomeToAlhomaidhi,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              const Gap(10),
-              Text(
-                TranslationHelper.translation(context)!
-                    .pleaseSelectYourPreferredLanguage,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const Gap(30),
-              SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: isArabic
-                        ? Colors.blueGrey
-                        : Theme.of(context).colorScheme.onSecondary,
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset("assets/images/alhomaidhi.png"),
+                  const Gap(20),
+                  Text(
+                    TranslationHelper.translation(context)!.welcomeToAlhomaidhi,
+                    style: Theme.of(context).textTheme.headlineLarge,
                   ),
-                  onPressed: () {
-                    ref.read(languageProvider.notifier).toggleLanguage(false);
-                  },
-                  child: Text(TranslationHelper.translation(context)!.english),
-                ),
-              ),
-              const Gap(10),
-              SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: isArabic
-                        ? Theme.of(context).colorScheme.onSecondary
-                        : Colors.blueGrey,
+                  const Gap(10),
+                  Text(
+                    TranslationHelper.translation(context)!
+                        .pleaseSelectYourPreferredLanguage,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  onPressed: () {
-                    ref.read(languageProvider.notifier).toggleLanguage(true);
-                  },
-                  child: Text(TranslationHelper.translation(context)!.arabic),
-                ),
+                  const Gap(30),
+                  SizedBox(
+                    width: 200,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: isArabic
+                            ? Colors.blueGrey
+                            : Theme.of(context).colorScheme.onSecondary,
+                      ),
+                      onPressed: isLoading
+                          ? null
+                          : () async {
+                              ref
+                                  .read(languageProvider.notifier)
+                                  .toggleLanguage(false);
+                              try {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                await ref.watch(allProductsProvider.future);
+                                await ref.watch(brandsProvider.future);
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                context.go("/home");
+                              } catch (_) {
+                              } finally {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }
+                            },
+                      child:
+                          Text(TranslationHelper.translation(context)!.english),
+                    ),
+                  ),
+                  const Gap(10),
+                  SizedBox(
+                    width: 200,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: isArabic
+                            ? Theme.of(context).colorScheme.onSecondary
+                            : Colors.blueGrey,
+                      ),
+                      onPressed: isLoading
+                          ? null
+                          : () async {
+                              ref
+                                  .read(languageProvider.notifier)
+                                  .toggleLanguage(true);
+                              try {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                await ref.watch(allProductsProvider.future);
+                                await ref.watch(brandsProvider.future);
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                context.go("/home");
+                              } catch (_) {
+                              } finally {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }
+                            },
+                      child:
+                          Text(TranslationHelper.translation(context)!.arabic),
+                    ),
+                  ),
+                  const Gap(50),
+                ],
               ),
-              const Gap(50),
-            ],
+            ),
           ),
-        ),
-      ),
-      bottomNavigationBar: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Colors.white,
-        ),
-        onPressed: () async {
-          try {
-            setState(() {
-              isLoading = true;
-            });
-            await ref.watch(allProductsProvider.future);
-            await ref.watch(brandsProvider.future);
-            if (!context.mounted) {
-              return;
-            }
-            context.go("/home");
-          } catch (_) {
-          } finally {
-            setState(() {
-              isLoading = false;
-            });
-          }
-        },
-        child: isLoading
-            ? const CircularProgressIndicator(
-                color: Colors.white,
-              )
-            : Text(
-                TranslationHelper.translation(context)!.done,
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+          if (isLoading)
+            Container(
+              color: Colors.black.withOpacity(0.8),
+              height: double.infinity,
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const LinearProgressIndicator(),
+                  const Gap(10),
+                  Text(
+                    TranslationHelper.translation(context)!
+                        .personalizingYourInterface,
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
+                  )
+                ],
               ),
+            )
+        ],
       ),
     );
   }
