@@ -39,6 +39,11 @@
 			<key>NSAllowsArbitraryLoadsInWebContent</key>
 			<true/>
 		</dict>
+		<key>NSPrivacyAccessedAPITypes</key>
+		<array>
+			<string>User defaults are used to store user preferences and settings.</string>
+		</array>
+
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
