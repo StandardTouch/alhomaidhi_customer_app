@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:Alhomaidhi/src/features/login/models/login_model.dart';
 import 'package:Alhomaidhi/src/features/login/models/login_response.dart';
 import 'package:Alhomaidhi/src/features/login/services/login_services.dart';
+import 'package:Alhomaidhi/src/features/my%20profile/features/address/provider/address_provider.dart';
 import 'package:Alhomaidhi/src/shared/providers/auth_provider.dart';
 import 'package:Alhomaidhi/src/shared/widgets/top_snackbar.dart';
 import 'package:Alhomaidhi/src/utils/helpers/translation_helper.dart';
@@ -80,6 +81,8 @@ class LoginNotifier extends StateNotifier<LoginModel> {
         storage.write(key: "username", value: response.message!.username);
         storage.write(key: "full_name", value: response.message!.fullName);
         ref.read(authProvider.notifier).logIn();
+        // ignore: unused_result
+        await ref.refresh(addressProvider.future);
 
         if (!context.mounted) {
           return;
